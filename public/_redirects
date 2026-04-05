@@ -1,0 +1,18 @@
+# Cloudflare Pages _redirects
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# ⚠️  UPDATE THIS: replace the Framer URL with your actual Framer project URL.
+# Find it in Framer → Publish → your *.framer.app subdomain.
+#
+# Blog posts stay on Framer during transition — proxied transparently
+/blog/* https://riverrecords-ai.framer.app/blog/:splat 200
+/blog   https://riverrecords-ai.framer.app/blog        200
+
+# About, contact pages still on Framer during transition
+/about   https://riverrecords-ai.framer.app/about   200
+/contact https://riverrecords-ai.framer.app/contact  200
+
+# BAA + legal pages — keep on Framer until we build them
+/baa              https://riverrecords-ai.framer.app/baa              200
+/privacy-policy   https://riverrecords-ai.framer.app/privacy-policy   200
+/terms-of-service https://riverrecords-ai.framer.app/terms-of-service 200

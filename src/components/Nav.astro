@@ -1,0 +1,48 @@
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-main">Stream <span>·</span> River Records</span>
+      <span class="nav-logo-sub">AI Clinical Documentation</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/comparison/freedai">vs. Freed</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://stream.riverrecords.ai/login" class="nav-login">Log In</a>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#how-it-works" class="mobile-menu-link">How It Works</a>
+  <a href="/#features" class="mobile-menu-link">Features</a>
+  <a href="/#pricing" class="mobile-menu-link">Pricing</a>
+  <a href="/#faq" class="mobile-menu-link">FAQ</a>
+  <a href="/comparison/freedai" class="mobile-menu-link">Stream vs. Freed</a>
+  <a href="https://stream.riverrecords.ai/login" class="mobile-menu-link">Log In</a>
+  <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="mobile-menu-link highlight">Start Free Trial →</a>
+</div>
+
+<script>
+  document.getElementById('nav-hamburger')?.addEventListener('click', () => {
+    document.getElementById('mobileMenu')?.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-menu-link').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('mobileMenu')?.classList.remove('open');
+    });
+  });
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === path) {
+      link.classList.add('active');
+    }
+  });
+</script>

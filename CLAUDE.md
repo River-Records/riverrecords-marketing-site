@@ -1,9 +1,28 @@
 # River Records — Website
 
+## Build system
+This site uses Astro (static output mode).
+- Source files: src/pages/, src/components/, src/layouts/
+- Static assets: public/ (CSS, JS, images)
+- Build command: npm run build
+- Output: dist/
+- Dev server: npm run dev (runs on localhost:4321)
+
+## Adding a new page
+1. Create src/pages/your-page/index.astro
+2. Use the Page layout at the top
+3. Add page-specific styles in a <style> block
+4. Add page-specific scripts in a <script> block at the bottom
+5. Never edit Nav, Footer, or OfferBanner directly in a page file
+
+## Changing nav/footer/offer banner
+Edit the component file in src/components/
+Change once — updates every page automatically.
+
 ## Project overview
-Static HTML site for riverrecords.ai / Stream by River Records.
+Static site for riverrecords.ai / Stream by River Records.
 Deployed via Cloudflare Pages from this GitHub repo.
-No build step, no npm, no framework — plain HTML + CSS + vanilla JS.
+Built with Astro (static output) — CSS + vanilla JS, no frontend framework.
 
 ## File structure
 ```

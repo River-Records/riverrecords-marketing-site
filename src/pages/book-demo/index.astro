@@ -1,0 +1,101 @@
+---
+import Page from '../../layouts/Page.astro';
+---
+<Page
+  title="Book a Demo — Stream by River Records"
+  description="See Stream in action. A 20-minute walkthrough with a clinician who uses Stream daily. No sales pitch — just the product.">
+
+<Fragment slot="head">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</Fragment>
+
+<style>
+.demo-section {
+  padding: 88px 0 72px;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.demo-copy {
+  padding-top: 24px;
+}
+.demo-copy .section-label {
+  margin-bottom: 16px;
+}
+.demo-copy h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.8rem;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.demo-copy .demo-subhead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  margin-bottom: 40px;
+}
+.demo-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.demo-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.demo-embed {
+  min-width: 0;
+}
+.demo-embed .calendly-inline-widget {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .demo-copy h1 {
+    font-size: 2.2rem;
+  }
+}
+</style>
+
+<section class="demo-section">
+  <div class="container">
+    <div class="demo-grid">
+      <div class="demo-copy">
+        <span class="section-label">Book a Demo</span>
+        <h1>See Stream in action.</h1>
+        <p class="demo-subhead">A 20-minute walkthrough with a clinician who uses Stream daily. No sales pitch — just the product.</p>
+        <ul class="demo-bullets">
+          <li><div class="proof-check"></div>Built and demoed by a practicing physician</li>
+          <li><div class="proof-check"></div>See the problem-oriented chart live</li>
+          <li><div class="proof-check"></div>Bring your questions</li>
+          <li><div class="proof-check"></div>No commitment required</li>
+        </ul>
+      </div>
+      <div class="demo-embed">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/jacob-riverrecords/meeting"
+          style="min-width:320px;height:700px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</Page>

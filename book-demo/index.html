@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Demo — Stream by River Records</title>
+<meta name="description" content="See Stream in action. A 20-minute walkthrough with a clinician who uses Stream daily. No sales pitch — just the product.">
+<link rel="stylesheet" href="/brand-extract.css">
+<link rel="stylesheet" href="/shared.css">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+/* ── PAGE-SPECIFIC STYLES ───────────────────────────── */
+.demo-section {
+  padding: 88px 0 72px;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.demo-copy {
+  padding-top: 24px;
+}
+.demo-copy .section-label {
+  margin-bottom: 16px;
+}
+.demo-copy h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.8rem;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.demo-copy .demo-subhead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  margin-bottom: 40px;
+}
+.demo-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.demo-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.demo-embed {
+  min-width: 0;
+}
+.demo-embed .calendly-inline-widget {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .demo-copy h1 {
+    font-size: 2.2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- OFFER BANNER -->
+<div class="offer-banner">
+  <strong>Limited time:</strong> Lock in $59/month for your first year — then $149/month. No price increases for existing subscribers.
+  <a href="https://stream.riverrecords.ai/onboard/stream-pro">Start free trial →</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-main">Stream <span>·</span> River Records</span>
+      <span class="nav-logo-sub">AI Clinical Documentation</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/comparison/freedai">vs. Freed</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://stream.riverrecords.ai/login" class="nav-login">Log In</a>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary">Start Free Trial</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#how-it-works" onclick="toggleMenu()">How It Works</a>
+  <a href="/#features" onclick="toggleMenu()">Features</a>
+  <a href="/#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="/#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="/comparison/freedai" onclick="toggleMenu()">Stream vs. Freed</a>
+  <a href="https://stream.riverrecords.ai/login" onclick="toggleMenu()">Log In</a>
+  <a href="https://stream.riverrecords.ai/onboard/stream-pro" onclick="toggleMenu()" class="highlight">Start Free Trial →</a>
+</div>
+
+<!-- DEMO SECTION -->
+<section class="demo-section">
+  <div class="container">
+    <div class="demo-grid">
+      <div class="demo-copy">
+        <span class="section-label">Book a Demo</span>
+        <h1>See Stream in action.</h1>
+        <p class="demo-subhead">A 20-minute walkthrough with a clinician who uses Stream daily. No sales pitch — just the product.</p>
+        <ul class="demo-bullets">
+          <li><div class="proof-check"></div>Built and demoed by a practicing physician</li>
+          <li><div class="proof-check"></div>See the problem-oriented chart live</li>
+          <li><div class="proof-check"></div>Bring your questions</li>
+          <li><div class="proof-check"></div>No commitment required</li>
+        </ul>
+      </div>
+      <div class="demo-embed">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/jacob-riverrecords/meeting"
+          style="min-width:320px;height:700px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="/" class="footer-logo">Stream <span>by River Records</span></a>
+        <p class="footer-tagline">AI clinical documentation organized by medical problem — built for primary care by primary care physicians.</p>
+        <div class="footer-social"><a href="https://linkedin.com/company/riverrecordshq/" title="LinkedIn">in</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <ul>
+          <li><a href="/#how-it-works">How It Works</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/comparison/freedai">vs. Freed AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <ul>
+          <li><a href="https://www.riverrecords.ai/about">About</a></li>
+          <li><a href="https://www.riverrecords.ai/blog">Blog</a></li>
+          <li><a href="https://www.riverrecords.ai/contact">Contact</a></li>
+          <li><a href="/book-demo">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <ul>
+          <li><a href="https://www.riverrecords.ai/terms-of-service">Terms of Service</a></li>
+          <li><a href="https://www.riverrecords.ai/privacy-policy">Privacy Policy</a></li>
+          <li><a href="https://www.riverrecords.ai/baa">BAA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 River Records, Inc. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="https://www.riverrecords.ai/privacy-policy">Privacy</a>
+        <a href="https://www.riverrecords.ai/terms-of-service">Terms</a>
+        <a href="https://www.riverrecords.ai/baa">BAA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+</script>
+</body>
+</html>
