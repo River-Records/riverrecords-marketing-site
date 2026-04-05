@@ -24,7 +24,7 @@
     baseInjected = true;
     var s = document.createElement("style");
     s.textContent = [
-      ".sw-widget { font-family: var(--brand-font-family, Inter, -apple-system, BlinkMacSystemFont, sans-serif); color: var(--brand-ink, #333); box-sizing: border-box; }",
+      ".sw-widget { font-family: var(--brand-font-family, Inter, -apple-system, BlinkMacSystemFont, sans-serif); color: var(--brand-ink, #333); box-sizing: border-box; text-align: left; }",
       ".sw-widget *, .sw-widget *::before, .sw-widget *::after { box-sizing: border-box; margin: 0; padding: 0; }",
       ".sw-badge { display: inline-block; padding: 2px 8px; border-radius: var(--brand-radius-full, 9999px); font-size: var(--brand-p4-size, 12px); line-height: var(--brand-p4-line, 16px); font-weight: var(--brand-font-weight-medium, 450); }",
     ].join("\n");
@@ -101,10 +101,10 @@
       icd: ["E11.65", "E11.9"],
       updated: "Mar 28, 2026",
       status: "Active",
-      subjective: "DM2 f/u. BG 140-180 fasting. Compliant w/ metformin 500 BID. Reports increased fatigue x2 wks. No polyuria, polydipsia, or vision changes. Diet adherence fair — skipping meals on busy days.",
-      objective: "Vitals: BP 128/82, HR 74, Wt 198 lbs (prev 201)\nLabs: HbA1c 7.8% (prev 8.2%), fasting glucose 162, Cr 0.9",
-      assessment: "Improving but uncontrolled DM2. HbA1c trending down. Fatigue may be related to glycemic variability.",
-      plan: ["Increase metformin to 1000mg BID", "Recheck HbA1c in 3 months", "Nutrition referral for meal planning", "F/u 3 months"],
+      subjective: "DM2 f/u. BG 140–180 fasting. Compliant w/ metformin 500 BID. Reports increased fatigue x2 wks. No polyuria, polydipsia, or vision changes. Diet adherence fair — skipping meals on busy days.",
+      objective: "Vitals: BP 128/82, HR 74, Wt 198 lbs (prev 201)\nLabs: HbA1c 7.8% (prev 8.2%), fasting glucose 162, Cr 0.9, eGFR 92",
+      assessment: "Improving but not yet at goal. HbA1c trending down from 8.2% to 7.8%. Fatigue likely related to glycemic variability and meal skipping.",
+      plan: ["Increase metformin to 1000 mg BID", "Recheck HbA1c in 3 months", "Nutrition referral for meal planning", "F/u 3 months"],
     };
 
     var statusColors = {

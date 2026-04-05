@@ -1007,32 +1007,84 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 document.addEventListener('DOMContentLoaded', function() {
 
   // Hero — problem list + note card side by side
+  var heroNotes = {
+    "Type 2 Diabetes Mellitus": {
+      title: "Type 2 Diabetes Mellitus",
+      icd: ["E11.65"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "DM2 f/u. BG 140–180 fasting. Compliant w/ metformin 500 BID. Reports increased fatigue x2 wks. No polyuria, polydipsia, or vision changes. Diet adherence fair — skipping meals on busy days.",
+      objective: "Vitals: BP 128/82, HR 74, Wt 198 lbs (prev 201)\nLabs: HbA1c 7.8% (prev 8.2%), fasting glucose 162, Cr 0.9, eGFR 92",
+      assessment: "Improving but not yet at goal. HbA1c trending down from 8.2% to 7.8%. Fatigue likely related to glycemic variability and meal skipping.",
+      plan: ["Increase metformin to 1000 mg BID", "Recheck HbA1c in 3 months", "Nutrition referral for meal planning", "F/u 3 months"]
+    },
+    "Essential Hypertension": {
+      icd: ["I10"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "HTN f/u. No headaches, chest pain, or visual changes. Reports good medication adherence. Home BP readings 135–142/84–88. Low-sodium diet inconsistent.",
+      objective: "Vitals: BP 138/86 (seated, left arm), HR 72, Wt 198 lbs\nFundoscopic exam: no AV nicking or hemorrhages\nLabs: BMP within normal limits, Cr 0.9",
+      assessment: "Hypertension not at goal (target <130/80 per ACC/AHA). Current regimen of lisinopril 20 mg daily insufficient.",
+      plan: ["Add amlodipine 5 mg daily", "Continue lisinopril 20 mg daily", "Home BP log — recheck in 4 weeks", "Reinforce dietary sodium restriction"]
+    },
+    "Hyperlipidemia": {
+      icd: ["E78.5"],
+      updated: "Mar 14, 2026",
+      status: "Stable",
+      subjective: "Lipid f/u. No muscle aches or weakness on current statin. Tolerating atorvastatin well. Exercising 3x/week.",
+      objective: "Labs: TC 185, LDL 98 (prev 134), HDL 52, TG 148\nLFTs: AST 24, ALT 28 — within normal limits",
+      assessment: "Hyperlipidemia well controlled on atorvastatin 20 mg. LDL at goal (<100). 10-yr ASCVD risk 12%.",
+      plan: ["Continue atorvastatin 20 mg daily", "Repeat lipid panel in 6 months", "Continue lifestyle modifications"]
+    },
+    "Microalbuminuria": {
+      icd: ["R80.9"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "Diabetic nephropathy screening f/u. No dysuria, hematuria, or flank pain. No peripheral edema.",
+      objective: "Labs: Urine albumin/creatinine ratio 68 mg/g (prev 45 mg/g, normal <30)\nCr 0.9, eGFR 92, BMP otherwise unremarkable",
+      assessment: "Persistent microalbuminuria (A2 category), likely early diabetic nephropathy. Worsening from prior value despite ACE inhibitor.",
+      plan: ["Increase lisinopril to 40 mg daily (renal protection)", "Optimize glycemic control (see DM2 problem)", "Recheck urine albumin/creatinine ratio in 3 months", "Avoid NSAIDs"]
+    },
+    "GERD": {
+      icd: ["K21.0"],
+      updated: "Feb 10, 2026",
+      status: "Stable",
+      subjective: "GERD f/u. Symptoms well controlled on current PPI. Rare breakthrough heartburn with large meals. No dysphagia, odynophagia, or weight loss.",
+      objective: "Abdomen: soft, non-tender, non-distended. No epigastric tenderness. No hepatosplenomegaly.",
+      assessment: "GERD stable on omeprazole 20 mg daily. No alarm symptoms. On PPI > 1 year — consider step-down.",
+      plan: ["Trial step-down to omeprazole 20 mg every other day", "Elevate head of bed, avoid eating within 3 hrs of bedtime", "If symptoms recur, resume daily dosing and reassess", "F/u 3 months"]
+    }
+  };
+
   StreamWidgets.ProblemListWidget('#hero-problem-list', {
     problems: [
       { name: "Type 2 Diabetes Mellitus", status: "Active",   encounters: 14, icd: "E11.65" },
       { name: "Essential Hypertension",   status: "Active",   encounters: 11, icd: "I10"    },
       { name: "Hyperlipidemia",           status: "Stable",   encounters: 8,  icd: "E78.5"  },
-      { name: "Microalbuminuria",         status: "Active",   encounters: 3,  icd: "N39.0"  },
+      { name: "Microalbuminuria",         status: "Active",   encounters: 3,  icd: "R80.9"  },
       { name: "GERD",                     status: "Stable",   encounters: 5,  icd: "K21.0"  },
     ],
     onSelect: function(problem) {
+      var note = heroNotes[problem.name];
       StreamWidgets.EncounterNoteWidget('#hero-note-card', {
         data: {
           title: problem.name,
-          icd: [problem.icd],
-          updated: "Today",
-          status: problem.status,
-          subjective: "Patient presents for follow-up. Reports compliance with current regimen. No acute concerns.",
-          objective: "Vitals stable. Labs reviewed.",
-          assessment: problem.name + " — " + (problem.status === "Active" ? "ongoing management, adjustments discussed" : "stable, continue current plan"),
-          plan: ["Continue current medications", "Follow-up in 3 months", "Labs at next visit"],
+          icd: note.icd,
+          updated: note.updated,
+          status: note.status,
+          subjective: note.subjective,
+          objective: note.objective,
+          assessment: note.assessment,
+          plan: note.plan,
         }
       });
     }
   });
 
   // Hero — default note card (T2DM)
-  StreamWidgets.EncounterNoteWidget('#hero-note-card');
+  StreamWidgets.EncounterNoteWidget('#hero-note-card', {
+    data: heroNotes["Type 2 Diabetes Mellitus"]
+  });
 
   // Step 1 — Waveform
   StreamWidgets.WaveformWidget('#step-waveform', { autoStart: true });
