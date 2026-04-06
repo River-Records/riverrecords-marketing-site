@@ -182,7 +182,7 @@
         var checkMark = t.done ? "&#10003;" : "";
         html += '<div data-task="' + i + '" style="padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--brand-neutral-10,#F3F5F7);cursor:pointer;transition:background .15s;" onmouseenter="this.style.background=\'var(--brand-neutral-10,#F3F5F7)\'" onmouseleave="this.style.background=\'transparent\'">';
         html += '<div style="width:18px;height:18px;border-radius:var(--brand-radius-sm,4px);border:2px solid ' + checkColor + ';background:' + checkBg + ';display:flex;align-items:center;justify-content:center;font-size:12px;color:' + checkColor + ';flex-shrink:0;transition:all .2s;">' + checkMark + '</div>';
-        html += '<div style="flex:1;min-width:0;font-size:var(--brand-p3-size,14px);' + textStyle + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + t.text + '</div>';
+        html += '<div style="flex:1;min-width:0;font-size:var(--brand-p3-size,14px);' + textStyle + '">' + t.text + '</div>';
         html += '<span style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);flex-shrink:0;margin-right:6px;">' + t.due + '</span>';
         html += '<span class="sw-badge" style="background:' + tc.bg + ';color:' + tc.text + ';flex-shrink:0;">' + t.tag + '</span>';
         html += '</div>';

@@ -146,7 +146,7 @@ a   { color: inherit; }
 .nav-logo-main span { color: var(--accent-light); }
 .nav-logo-sub { display: block; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 2px; }
 .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
-.nav-links a { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; padding: 7px 12px; border-radius: var(--r-sm); transition: color 0.12s, background 0.12s; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; padding: 7px 12px; border-radius: var(--r-sm); transition: color 0.12s, background 0.12s; white-space: nowrap; }
 .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .nav-links a.active { color: var(--accent-light); }
 .nav-dropdown { position: relative; }
@@ -246,9 +246,11 @@ a   { color: inherit; }
   .phil-block, .cta-dark { padding: 44px 36px; }
   .phil-block::after { font-size: 10rem; }
 }
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .nav-links, .nav-login { display: none; }
   .nav-hamburger { display: flex; }
+}
+@media (max-width: 640px) {
   .footer-top { grid-template-columns: 1fr; }
   .cta-dark, .phil-block { padding: 36px 24px; }
   .cta-dark-actions { flex-direction: column; width: 100%; }
