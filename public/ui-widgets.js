@@ -57,7 +57,8 @@
 
     function render() {
       var html = '<div class="sw-widget" style="width:100%;background:var(--brand-surface,#fff);border-radius:var(--brand-radius-lg,12px);box-shadow:var(--brand-shadow-note, 0 2px 8px 4px rgba(0,0,0,.115));overflow:hidden;">';
-      html += '<div style="padding:16px 16px 12px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);"><span style="font-size:var(--brand-h6-size,14px);font-weight:var(--brand-font-weight-semibold,500);color:var(--brand-ink,#333);">Problem List</span><span style="float:right;font-size:var(--brand-p4-size,12px);color:var(--brand-ink-medium,#666);">' + problems.length + ' problems</span></div>';
+      html += '<div style="padding:20px 20px 12px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);"><span style="font-size:var(--brand-h6-size,14px);font-weight:var(--brand-font-weight-semibold,500);color:var(--brand-ink,#333);">Problem List</span><span style="float:right;font-size:var(--brand-p4-size,12px);color:var(--brand-ink-medium,#666);">' + problems.length + ' problems</span></div>';
+      html += '<div style="padding:4px 0 0;">';
       for (var i = 0; i < problems.length; i++) {
         var p = problems[i];
         var sc = statusColors[p.status] || statusColors.Active;
@@ -65,15 +66,15 @@
         var bg = isSelected ? "var(--brand-functional-10, #DCF3F5)" : "transparent";
         var leftBorder = isSelected ? "3px solid var(--brand-functional-60, #27959C)" : "3px solid transparent";
         var opacity = p.status === "Resolved" ? "0.7" : "1";
-        html += '<div data-idx="' + i + '" style="padding:10px 16px;border-left:' + leftBorder + ';background:' + bg + ';cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;opacity:' + opacity + ';">';
-        html += '<div style="flex:1;min-width:0;">';
+        html += '<div data-idx="' + i + '" style="padding:12px 20px 12px 20px;border-left:' + leftBorder + ';background:' + bg + ';cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;opacity:' + opacity + ';">';
+        html += '<div style="flex:1;min-width:0;overflow:hidden;">';
         html += '<div style="font-size:var(--brand-p3-size,14px);font-weight:var(--brand-font-weight-medium,450);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + p.name + '</div>';
-        html += '<div style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);margin-top:2px;">' + p.icd + ' &middot; ' + p.encounters + ' encounters</div>';
+        html += '<div style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);margin-top:4px;">' + p.icd + ' &middot; ' + p.encounters + ' encounters</div>';
         html += '</div>';
-        html += '<span class="sw-badge" style="background:' + sc.bg + ';color:' + sc.text + ';margin-left:8px;flex-shrink:0;">' + p.status + '</span>';
+        html += '<span class="sw-badge" style="background:' + sc.bg + ';color:' + sc.text + ';margin-left:8px;flex-shrink:0;white-space:nowrap;">' + p.status + '</span>';
         html += '</div>';
       }
-      html += '</div>';
+      html += '</div></div>';
       root.innerHTML = html;
 
       var rows = root.querySelectorAll("[data-idx]");
@@ -141,9 +142,9 @@
 
     root.innerHTML =
       '<div class="sw-widget" style="width:100%;background:var(--brand-surface,#fff);border-radius:var(--brand-radius-md,6px);box-shadow:var(--brand-shadow-note, 0 2px 8px 4px rgba(0,0,0,.115));overflow:hidden;">' +
-      '<div style="padding:12px 16px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);display:flex;align-items:center;justify-content:space-between;">' +
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:0;">' +
       '<div><div style="font-size:var(--brand-h6-size,14px);font-weight:var(--brand-font-weight-semibold,500);">' + data.title + '</div><div style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);margin-top:2px;">Last updated ' + data.updated + "</div></div>" +
-      '<span class="sw-badge" style="background:' + sc.bg + ";color:" + sc.text + ';">' + data.status + "</span>" +
+      '<span class="sw-badge" style="background:' + sc.bg + ";color:" + sc.text + ';margin-top:2px;flex-shrink:0;">' + data.status + "</span>" +
       "</div>" +
       '<div style="padding:8px 16px 4px;">' + icdHtml + "</div>" +
       '<div style="padding:8px 16px 16px;">' + sectionsHtml + "</div>" +
@@ -161,7 +162,7 @@
       { text: "Recheck HbA1c in 3 months", due: "Jun 28", tag: "Routine", done: false },
       { text: "Refer to nutrition for meal planning", due: "Apr 10", tag: "Routine", done: false },
       { text: "Review abnormal LFTs — hepatology consult?", due: "Apr 5", tag: "Urgent", done: false },
-      { text: "Refill lisinopril 20mg — 90-day supply", due: "Apr 12", tag: "Routine", done: true },
+      { text: "Refill lisinopril 20 mg — 90-day supply", due: "Apr 12", tag: "Routine", done: true },
     ];
 
     var tagColors = {
@@ -209,7 +210,7 @@
     var root = el(selector);
     if (!root) return;
     options = options || {};
-    var barCount = options.bars || 24;
+    var barCount = options.bars || 48;
     var running = !!options.autoStart;
     var frameId = null;
 
@@ -264,7 +265,12 @@
       title: "Type 2 Diabetes Mellitus",
       status: "Active",
       icd: "E11.65",
-      summary: "HbA1c trending down from 8.2% to 7.8% over past 3 months. Metformin increased to 1000mg BID last visit. Patient reports improved adherence but continued fasting hyperglycemia. Nutrition referral pending.",
+      summary: "HbA1c trending down from 8.2% to 7.8% over past 3 months. Metformin increased to 1000 mg BID last visit. Patient reports improved adherence but continued fasting hyperglycemia. Nutrition referral pending.",
+      medications: [
+        { name: "Metformin 1000 mg BID", status: "Active" },
+        { name: "Glipizide 5 mg daily", status: "Active" },
+        { name: "Metformin 500 mg BID", status: "D/C" },
+      ],
       lastUpdated: "3 days ago",
     };
 
@@ -275,19 +281,44 @@
     };
     var sc = statusColors[data.status] || statusColors.Active;
 
+    var medStatusColors = {
+      Active: { bg: "var(--brand-success-10, #EEFDF0)", text: "var(--brand-success-50, #037D54)" },
+      "D/C":  { bg: "var(--brand-neutral-20, #E7EBEE)",  text: "var(--brand-neutral-60, #5F7180)" },
+      Hold:   { bg: "var(--brand-warning-10, #FFF7CD)",   text: "var(--brand-warning-90, #A04D00)" },
+      New:    { bg: "var(--brand-primary-10, #E6F1FF)",    text: "var(--brand-primary-60, #275B9C)" },
+    };
+
+    var medsHtml = "";
+    if (data.medications && data.medications.length) {
+      medsHtml += '<div style="padding:0 16px 12px;">';
+      medsHtml += '<div style="font-size:var(--brand-p4-size,12px);color:var(--brand-ink-medium,#666);font-weight:var(--brand-font-weight-medium,450);margin-bottom:8px;">Medications</div>';
+      medsHtml += '<div style="display:flex;flex-direction:column;gap:6px;">';
+      for (var m = 0; m < data.medications.length; m++) {
+        var med = data.medications[m];
+        var mc = medStatusColors[med.status] || medStatusColors.Active;
+        var textStyle = med.status === "D/C" ? "text-decoration:line-through;color:var(--brand-ink-disabled,#C6C6C6);" : "color:var(--brand-ink,#333);";
+        medsHtml += '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--brand-neutral-05,#FAFAFA);border-radius:var(--brand-radius-sm,4px);">';
+        medsHtml += '<span style="font-size:var(--brand-p3-size,14px);' + textStyle + '">' + med.name + '</span>';
+        medsHtml += '<span style="font-size:var(--brand-p5-size,10px);padding:2px 8px;border-radius:var(--brand-radius-full,9999px);background:' + mc.bg + ';color:' + mc.text + ';font-weight:var(--brand-font-weight-medium,450);white-space:nowrap;">' + med.status + '</span>';
+        medsHtml += '</div>';
+      }
+      medsHtml += '</div></div>';
+    }
+
     root.innerHTML =
       '<div class="sw-widget" style="width:100%;background:var(--brand-surface,#fff);border-radius:var(--brand-radius-md,6px);box-shadow:var(--brand-shadow-note, 0 2px 8px 4px rgba(0,0,0,.115));overflow:hidden;">' +
-      '<div style="padding:12px 16px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);display:flex;align-items:center;justify-content:space-between;">' +
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--brand-neutral-20,#E7EBEE);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">' +
       '<div style="display:flex;align-items:center;gap:8px;">' +
       '<span style="font-size:var(--brand-h6-size,14px);font-weight:var(--brand-font-weight-semibold,500);">' + data.title + '</span>' +
       '<span style="font-size:var(--brand-p5-size,10px);padding:1px 6px;border-radius:var(--brand-radius-sm,4px);background:var(--brand-functional-10,#DCF3F5);color:var(--brand-functional-80,#12787E);">' + data.icd + '</span>' +
       '</div>' +
-      '<span class="sw-badge" style="background:' + sc.bg + ";color:" + sc.text + ';">' + data.status + "</span>" +
+      '<span class="sw-badge" style="background:' + sc.bg + ";color:" + sc.text + ';flex-shrink:0;">' + data.status + "</span>" +
       "</div>" +
       '<div style="padding:12px 16px;font-size:var(--brand-p3-size,14px);line-height:var(--brand-p3-line,20px);color:var(--brand-ink,#333);">' + data.summary + "</div>" +
-      '<div style="padding:8px 16px 12px;display:flex;align-items:center;justify-content:space-between;font-size:var(--brand-p4-size,12px);color:var(--brand-ink-medium,#666);">' +
+      medsHtml +
+      '<div style="padding:8px 16px 12px;border-top:1px solid var(--brand-neutral-20,#E7EBEE);display:flex;align-items:center;justify-content:space-between;font-size:var(--brand-p4-size,12px);color:var(--brand-ink-medium,#666);">' +
       '<span>Updated ' + data.lastUpdated + "</span>" +
-      '<a href="#" onclick="return false;" style="color:var(--brand-primary-60,#275B9C);text-decoration:none;font-weight:var(--brand-font-weight-medium,450);">View history &rarr;</a>' +
+      '<span style="color:var(--brand-primary-60,#275B9C);font-weight:var(--brand-font-weight-medium,450);">Deep Dive &rarr;</span>' +
       "</div></div>";
   }
 

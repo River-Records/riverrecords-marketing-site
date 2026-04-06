@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.06)" />
+    </pattern>
+    <radialGradient id="glow" cx="80%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="rgba(39,149,156,0.12)" />
+      <stop offset="100%" stop-color="rgba(39,149,156,0)" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#022A5B"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="750" y="120" width="360" height="95" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <rect x="750" y="120" width="3" height="95" fill="#27959C"/>
+  <text x="772" y="158" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#FFFFFF">Type 2 Diabetes Mellitus</text>
+  <text x="772" y="178" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">E11.65 · 14 encounters · Updated today</text>
+  <rect x="1042" y="138" width="58" height="20" rx="10" fill="rgba(39,149,156,0.2)"/>
+  <text x="1071" y="152" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="#27959C" text-anchor="middle">Active</text>
+  <rect x="750" y="229" width="360" height="95" rx="8" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <rect x="750" y="229" width="3" height="95" fill="rgba(255,255,255,0.2)"/>
+  <text x="772" y="267" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.8)">Essential Hypertension</text>
+  <text x="772" y="287" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="rgba(255,255,255,0.38)">I10 · 11 encounters · Updated today</text>
+  <rect x="1042" y="247" width="58" height="20" rx="10" fill="rgba(39,149,156,0.18)"/>
+  <text x="1071" y="261" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="#27959C" text-anchor="middle">Active</text>
+  <rect x="750" y="338" width="360" height="95" rx="8" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <rect x="750" y="338" width="3" height="95" fill="rgba(255,255,255,0.12)"/>
+  <text x="772" y="376" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.55)">Hyperlipidemia</text>
+  <text x="772" y="396" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="rgba(255,255,255,0.28)">E78.5 · 8 encounters · Mar 14, 2026</text>
+  <rect x="1042" y="356" width="58" height="20" rx="10" fill="rgba(3,125,84,0.18)"/>
+  <text x="1071" y="370" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="#037D54" text-anchor="middle">Stable</text>
+  <rect x="750" y="447" width="360" height="70" rx="8" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <rect x="750" y="447" width="3" height="70" fill="rgba(255,255,255,0.06)"/>
+  <text x="772" y="486" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.25)">Microalbuminuria</text>
+  <text x="772" y="504" font-family="Inter, -apple-system, sans-serif" font-size="11" fill="rgba(255,255,255,0.14)">R80.9 · 3 encounters · Mar 28, 2026</text>
+  <text x="80" y="220" font-family="Inter, -apple-system, sans-serif" font-size="18" fill="#27959C" letter-spacing="4">AI CLINICAL DOCUMENTATION</text>
+  <text x="80" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#FFFFFF">Reimagine</text>
+  <text x="80" y="400" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="rgba(255,255,255,0.82)">Medical Documentation.</text>
+  <text x="80" y="460" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.45)">Problem-oriented. Longitudinal. Built by physicians.</text>
+  <line x1="80" y1="502" x2="300" y2="502" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="80" y="530" font-family="Georgia, 'Times New Roman', serif" font-size="19" fill="rgba(255,255,255,0.32)">Stream · River Records</text>
+</svg>

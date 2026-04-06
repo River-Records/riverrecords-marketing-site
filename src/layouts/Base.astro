@@ -1,5 +1,13 @@
 ---
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = "/og-default.png",
+  canonicalUrl = Astro.url.href
+} = Astro.props;
+
+const siteName = "Stream by River Records";
+const twitterHandle = "@riverrecordshq";
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +16,28 @@ const { title, description } = Astro.props;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
+
+  <!-- Canonical -->
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph (Facebook, LinkedIn, iMessage previews) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={twitterHandle} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Indexing -->
+  <meta name="robots" content="index, follow" />
+
   <link rel="stylesheet" href="/brand-extract.css">
   <link rel="stylesheet" href="/shared.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
