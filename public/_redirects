@@ -8,10 +8,3 @@
 /blog/* https://riverrecords-ai.framer.app/blog/:splat 200
 /blog   https://riverrecords-ai.framer.app/blog        200
 
-# Contact page still on Framer during transition
-/contact https://riverrecords-ai.framer.app/contact  200
-
-# BAA + legal pages — keep on Framer until we build them
-/baa              https://riverrecords-ai.framer.app/baa              200
-/privacy-policy   https://riverrecords-ai.framer.app/privacy-policy   200
-/terms-of-service https://riverrecords-ai.framer.app/terms-of-service 200

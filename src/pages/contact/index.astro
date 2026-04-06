@@ -1,0 +1,72 @@
+---
+import Page from '../../layouts/Page.astro';
+---
+<Page
+  title="Contact — Stream by River Records"
+  description="Have a question or need help? Reach out to the River Records team.">
+
+<style>
+.contact-section {
+  padding: 88px 0 72px;
+  text-align: center;
+}
+.contact-section h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.contact-sub {
+  font-size: 1.1rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 40px;
+}
+.contact-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  padding: 40px;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-email {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.contact-email:hover { text-decoration: underline; }
+.contact-response {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  margin-bottom: 28px;
+}
+.contact-or {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  margin: 20px 0;
+}
+</style>
+
+<section class="contact-section">
+  <div class="container">
+    <span class="section-label">Contact</span>
+    <h1>We'd love to hear from you.</h1>
+    <p class="contact-sub">Have a question about Stream, need help with your account, or want to discuss pricing for your practice? Reach out — we respond same day.</p>
+
+    <div class="contact-card">
+      <a href="mailto:hello@riverrecords.ai" class="contact-email">hello@riverrecords.ai</a>
+      <p class="contact-response">We respond within one business day.</p>
+      <a href="mailto:hello@riverrecords.ai" class="btn btn-primary-lg" style="width:100%;max-width:320px;display:block;margin:0 auto;text-align:center;">Send Us an Email</a>
+      <div class="contact-or">or</div>
+      <a href="/book-demo" class="btn btn-outline" style="width:100%;max-width:320px;display:block;margin:0 auto;text-align:center;">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+</Page>
