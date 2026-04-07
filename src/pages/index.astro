@@ -15,6 +15,59 @@ import CtaDark from '../components/CtaDark.astro';
 <style>
 /* ── PAGE-SPECIFIC STYLES ───────────────────────────── */
 
+/* Research stat block */
+.stat-block {
+  padding: 72px 0;
+  background: var(--dark);
+  color: var(--white);
+}
+.stat-block-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.stat-block h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+.stat-pullquote {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.72;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.stat-pullquote em {
+  font-style: normal;
+  color: rgba(255,255,255,0.9);
+}
+.stat-citation {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+}
+.stat-citation a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  transition: color 0.12s, border-color 0.12s;
+}
+.stat-citation a:hover {
+  color: var(--accent-light);
+  border-color: var(--accent-light);
+}
+.stat-citation em {
+  font-style: italic;
+}
+.stat-closer {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
 /* Hero — index-specific additions */
 .hero::after {
   content: '';
@@ -503,7 +556,7 @@ import CtaDark from '../components/CtaDark.astro';
   eyebrow='AI built by clinicians, for clinicians · <a href="/about#research" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">5 peer-reviewed publications</a>'
   sub="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. Faster notes today. A smarter chart tomorrow."
   secondaryHref="/book-demo"
-  secondaryLabel="Book a Demo"
+  secondaryLabel="Talk to a clinician first"
   trustItems={["No credit card required", "30-day free trial", "$149/month after trial", "HIPAA Compliant", "Founded by practicing physicians"]}
   animatedDot
 >
@@ -528,6 +581,18 @@ import CtaDark from '../components/CtaDark.astro';
 
 <!-- PROOF STRIP -->
 <ProofStrip items={["Trusted by internists, pediatricians, and SNF clinicians", "Works alongside any EHR", "30-day free trial", "HIPAA Compliant", "Built by primary care physicians"]} />
+
+<!-- RESEARCH STAT BLOCK -->
+<section class="stat-block reveal">
+  <div class="container">
+    <div class="stat-block-inner">
+      <h2>Half of everything in your patient's chart is copy-pasted noise.</h2>
+      <p class="stat-pullquote">The average patient chart contains roughly half the words of <em>Hamlet</em> — and research shows half of that text is duplicated word-for-word from prior notes. That fraction grows every year.</p>
+      <p class="stat-citation"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">Steinkamp, Kantrowitz et al. — <em>JAMA Network Open</em>, 2022</a></p>
+      <p class="stat-closer">We didn't build a better scribe. We rebuilt the paradigm.</p>
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how-it-works">
