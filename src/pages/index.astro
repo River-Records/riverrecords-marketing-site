@@ -482,11 +482,11 @@ import CtaDark from '../components/CtaDark.astro';
 
 <!-- HERO -->
 <HeroSection
-  eyebrow="AI built by clinicians, for clinicians · 5 peer-reviewed publications"
+  eyebrow='AI built by clinicians, for clinicians · <a href="/about#research" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">5 peer-reviewed publications</a>'
   sub="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. Faster notes today. A smarter chart tomorrow."
   secondaryHref="/book-demo"
   secondaryLabel="Book a Demo"
-  trustItems={["No credit card required", "30-day free trial", "$59/month for your first year", "HIPAA Compliant", "Founded by practicing physicians"]}
+  trustItems={["No credit card required", "30-day free trial", "$149/month after trial", "HIPAA Compliant", "Founded by practicing physicians"]}
   animatedDot
 >
   Reimagine<br><em>Medical Documentation.</em>
@@ -509,7 +509,7 @@ import CtaDark from '../components/CtaDark.astro';
 </HeroSection>
 
 <!-- PROOF STRIP -->
-<ProofStrip items={["Clinicians across North America", "Works with any EHR", "30-day free trial", "HIPAA Compliant", "Built by primary care physicians"]} />
+<ProofStrip items={["Trusted by internists, pediatricians, and SNF clinicians", "Works with any EHR", "30-day free trial", "HIPAA Compliant", "Built by primary care physicians"]} />
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how-it-works">
@@ -660,15 +660,12 @@ import CtaDark from '../components/CtaDark.astro';
     </div>
     <div class="pricing-cards">
       <div class="pcard pcard-featured reveal">
-        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;margin-bottom:16px;">
-          <div class="pcard-offer">⏳ Limited time offer</div>
-          <div class="pcard-badge">Most Popular</div>
-        </div>
+        <div class="pcard-badge">Most Popular</div>
         <div class="pcard-name">Individual Plan</div>
         <div class="pcard-desc">For independent clinicians and small practices.</div>
-        <div class="pcard-amount"><span class="pcard-amount-sub">$</span><span id="price-amt">59</span></div>
+        <div class="pcard-amount"><span class="pcard-amount-sub">$</span><span id="price-amt">149</span></div>
         <div class="pcard-period" id="price-period">per user / month · billed monthly</div>
-        <div class="pcard-normal">First year only — then <s>$149/month</s>. Lock in this rate forever.</div>
+        <div class="pcard-normal">30-day free trial. No credit card required.</div>
         <div class="pcard-divider"></div>
         <ul class="pcard-features">
           <li><span class="pf-check"></span>Unlimited visits & recordings</li>
@@ -740,8 +737,8 @@ import CtaDark from '../components/CtaDark.astro';
         <div class="faq-a">Stream was built by a team of practicing physicians with peer-reviewed research on exactly this problem — why the note-based paradigm fails, and what to do about it. Most AI scribes generate a note and stop there. Stream builds a problem-oriented chart over time — organizing every encounter, task, and imported record by medical problem. At 6 months, your Stream chart is a living clinical record.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What happens after my first year at $59/month?<span class="faq-icon">+</span></button>
-        <div class="faq-a">After your first year, pricing moves to our standard rate of $149/month. We'll give you advance notice before any price change. Our goal is to earn your continued subscription by delivering value well before that transition.</div>
+        <button class="faq-q">What does Stream cost?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Stream is $149/month per user, billed monthly. Annual billing is available at $99/month ($1,188/year). Every plan starts with a 30-day free trial — no credit card required. Cancel anytime.</div>
       </div>
     </div>
   </div>
@@ -752,7 +749,7 @@ import CtaDark from '../components/CtaDark.astro';
   <div class="container">
     <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first" trust="Questions? hello@riverrecords.ai · We respond same day.">
       Your chart should get smarter<br><em>with every visit.</em>
-      <Fragment slot="body">Start your 30-day free trial. No credit card. $59/month for your first year. Works with the EHR you already have.</Fragment>
+      <Fragment slot="body">Start your 30-day free trial. No credit card. $149/month after trial. Works with the EHR you already have.</Fragment>
     </CtaDark>
   </div>
 </section>
@@ -770,8 +767,8 @@ function toggleFaq(item){
   }
 }
 function setPrice(mode){
-  const m = { amt:'59',  period:'per user / month · billed monthly' };
-  const y = { amt:'39',  period:'per user / month · billed annually ($468/yr)' };
+  const m = { amt:'149', period:'per user / month · billed monthly' };
+  const y = { amt:'99',  period:'per user / month · billed annually ($1,188/yr)' };
   const d = mode==='yearly' ? y : m;
   document.getElementById('price-amt').textContent    = d.amt;
   document.getElementById('price-period').textContent = d.period;

@@ -15,7 +15,7 @@ const {
     <div class="hero-content">
       <div class="hero-eyebrow">
         {animatedDot ? <span class="hero-eyebrow-dot"></span> : null}
-        {eyebrow}
+        <Fragment set:html={eyebrow} />
       </div>
       <h1><slot /></h1>
       <p class="hero-sub">{sub}</p>

@@ -89,17 +89,12 @@ Every page must:
 4. Include the shared footer
 5. End with the shared JS block
 
-## Offer banner (current — update when promotion ends)
-```html
-<div class="offer-banner">
-  <strong>Limited time:</strong> Lock in $59/month for your first year — normally $149.
-  <a href="https://stream.riverrecords.ai/onboard/stream-pro">Start free trial →</a>
-</div>
-```
+## Offer banner
+The offer banner is a shared component at src/components/OfferBanner.astro.
 
 ## Pricing (as of April 2026)
-- Ad campaign price: $59/month for first year, then $149/month
-- Normal price: $149/month
+- Monthly: $149/month
+- Annual: $99/month ($1,188/year)
 - Trial: 30 days free, no credit card required
 - Freed comparison price: $99/month (Freed's listed price)
 
