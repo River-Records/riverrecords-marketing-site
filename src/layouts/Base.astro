@@ -12,6 +12,14 @@ const twitterHandle = "@riverrecordshq";
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-N767QFHJ');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
@@ -40,26 +48,34 @@ const twitterHandle = "@riverrecordshq";
   <!-- Indexing -->
   <meta name="robots" content="index, follow" />
 
+  <!-- Ahrefs Web Analytics -->
+  <script is:inline src="https://analytics.ahrefs.com/analytics.js" data-key="F7/Aj1fzD4F4SgdhtZjN8A" async></script>
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "River Records",
+    "url": "https://www.riverrecords.ai",
+    "description": "Stream is an AI medical scribe with memory that generates problem-based clinical notes.",
+    "foundingDate": "2024",
+    "sameAs": ["https://linkedin.com/company/riverrecordshq/"]
+  }
+  </script>
+
   <link rel="stylesheet" href="/brand-extract.css">
   <link rel="stylesheet" href="/shared.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <slot name="head" />
-
-  <!-- Hotjar Tracking -->
-  <script is:inline>
-    (function(h,o,t,j,a,r){
-      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-      h._hjSettings={hjid:5225892,hjsv:6};
-      a=o.getElementsByTagName('head')[0];
-      r=o.createElement('script');r.async=1;
-      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  </script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N767QFHJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <slot />
   <script is:inline src="/ui-widgets.js"></script>
   <slot name="scripts" />

@@ -1,0 +1,49 @@
+---
+import Page from '../../layouts/Page.astro';
+---
+<Page
+  title="Thank You — Stream by River Records"
+  description="Thanks for reaching out. We'll get back to you within one business day.">
+
+<style>
+.thankyou {
+  padding: 120px 0;
+  text-align: center;
+}
+.thankyou h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.thankyou p {
+  font-size: 1.05rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+.thankyou-check {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--success-light);
+  border: 2px solid var(--success);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 1.5rem;
+  color: var(--success);
+}
+</style>
+
+<section class="thankyou">
+  <div class="container">
+    <div class="thankyou-check">✓</div>
+    <h1>Thanks for reaching out.</h1>
+    <p>We've received your message and will get back to you within one business day. In the meantime, feel free to explore Stream.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/" class="btn btn-primary-lg">Back to Home</a>
+      <a href="/book-demo" class="btn btn-outline">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+</Page>

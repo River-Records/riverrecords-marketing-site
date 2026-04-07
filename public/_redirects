@@ -1,10 +1,26 @@
 # Cloudflare Pages _redirects
 # Docs: https://developers.cloudflare.com/pages/configuration/redirects/
-#
-# ⚠️  UPDATE THIS: replace the Framer URL with your actual Framer project URL.
-# Find it in Framer → Publish → your *.framer.app subdomain.
-#
-# Blog posts stay on Framer during transition — proxied transparently
-/blog/* https://riverrecords-ai.framer.app/blog/:splat 200
-/blog   https://riverrecords-ai.framer.app/blog        200
 
+# Blog — catch-all redirect to homepage until blog is rebuilt
+/blog/* / 301
+/blog   / 301
+
+# Old core page redirects (301 for SEO equity)
+/compare/freed-alternative  /comparison/freedai  301
+/compare/heidi-alternative  /  301
+/compare/open-evidence-alternative  /  301
+/features  /  301
+/how-it-works  /  301
+/clinical-specialties  /  301
+/pricing  /#pricing  301
+/faq  /  301
+
+# Old team page redirects
+/team/jake-kantrowitz  /about  301
+/team/jackson-steinkamp  /about  301
+/team/abhinav-sharma  /about  301
+/team/alex-butler  /about  301
+/team/derrick-chu  /about  301
+/team/fyodor-wolf  /about  301
+/team/peter-smyrniotis  /about  301
+/team/*  /about  301

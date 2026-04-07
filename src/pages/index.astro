@@ -480,6 +480,24 @@ import CtaDark from '../components/CtaDark.astro';
 }
 </style>
 
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stream by River Records",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "AI medical scribe with memory. Problem-based clinical notes for primary care, SNF, and long-term care.",
+    "offers": {
+      "@type": "Offer",
+      "price": "149",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</Fragment>
+
 <!-- HERO -->
 <HeroSection
   eyebrow='AI built by clinicians, for clinicians · <a href="/about#research" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">5 peer-reviewed publications</a>'
