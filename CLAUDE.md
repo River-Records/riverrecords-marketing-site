@@ -120,8 +120,8 @@ Reusable components are Astro files in `src/components/`.
 Shared styles (buttons, nav, footer, proof strip, testimonials, CTA, philosophy) in `public/shared.css`.
 
 ## Pricing (as of April 2026)
-- Monthly: $149/month
-- Annual: $99/month ($1,188/year)
+- Introductory: $59/month for first 12 months (guaranteed)
+- Standard (after year one): $149/month
 - Trial: 30 days free, no credit card required
 - Freed comparison: $99/month (Freed's listed price)
 
