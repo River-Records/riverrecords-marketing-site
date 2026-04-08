@@ -7,6 +7,7 @@ import FeatureCell from '../components/FeatureCell.astro';
 import PhilBlock from '../components/PhilBlock.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaDark from '../components/CtaDark.astro';
+import { pricing } from '../config/pricing';
 ---
 <Page
   title="Stream — AI Medical Scribe with Memory | Problem-Based Notes"
@@ -531,7 +532,7 @@ import CtaDark from '../components/CtaDark.astro';
   sub="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. Faster notes today. A smarter chart tomorrow."
   secondaryHref="/book-demo"
   secondaryLabel="Talk to a clinician first"
-  trustItems={["No credit card required", "30-day free trial", "$59/month for your first year", "HIPAA Compliant", "Founded by practicing physicians"]}
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa, "Founded by practicing physicians"]}
   animatedDot
 >
   Reimagine<br><em>Medical Documentation.</em>
@@ -699,7 +700,11 @@ import CtaDark from '../components/CtaDark.astro';
 </section>
 
 <!-- PRICING -->
-<section class="pricing" id="pricing">
+<section class="pricing" id="pricing"
+  data-monthly-amt={String(pricing.toggleMonthly.amt)}
+  data-monthly-period={pricing.toggleMonthly.period}
+  data-annual-amt={String(pricing.toggleAnnual.amt)}
+  data-annual-period={pricing.toggleAnnual.period}>
   <div class="container">
     <div class="pricing-header reveal">
       <span class="section-label">Pricing</span>
@@ -720,9 +725,9 @@ import CtaDark from '../components/CtaDark.astro';
         <div class="pcard-badge">Most Popular</div>
         <div class="pcard-name">Individual Plan</div>
         <div class="pcard-desc">For independent clinicians and small practices.</div>
-        <div class="pcard-amount"><span class="pcard-amount-sub">$</span><span id="price-amt">59</span></div>
-        <div class="pcard-period" id="price-period">per user / month for your first year</div>
-        <div class="pcard-normal">Then $149/month. 30-day free trial. No credit card required.</div>
+        <div class="pcard-amount"><span class="pcard-amount-sub">$</span><span id="price-amt">{pricing.cardAmount}</span></div>
+        <div class="pcard-period" id="price-period">{pricing.cardPeriod}</div>
+        <div class="pcard-normal">{pricing.cardNormal}</div>
         <div class="pcard-divider"></div>
         <ul class="pcard-features">
           <li><span class="pf-check"></span>Unlimited visits & recordings</li>
@@ -794,8 +799,8 @@ import CtaDark from '../components/CtaDark.astro';
         <div class="faq-a">Stream was built by a team of practicing physicians with peer-reviewed research on exactly this problem — why the note-based paradigm fails, and what to do about it. Most AI scribes generate a note and stop there. Stream builds a problem-oriented chart over time — organizing every encounter, task, and imported record by medical problem. At 6 months, your Stream chart is a living clinical record.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What does Stream cost?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Stream is $59/month per user for your first 12 months — guaranteed. After your first year, pricing moves to the standard rate of $149/month. Every plan starts with a 30-day free trial — no credit card required. Cancel anytime.</div>
+        <button class="faq-q">{pricing.faqQuestion}<span class="faq-icon">+</span></button>
+        <div class="faq-a">{pricing.faqAnswer}</div>
       </div>
     </div>
   </div>
@@ -806,7 +811,7 @@ import CtaDark from '../components/CtaDark.astro';
   <div class="container">
     <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first" trust="Questions? hello@riverrecords.ai · We respond same day.">
       Your chart should get smarter<br><em>with every visit.</em>
-      <Fragment slot="body">Start your 30-day free trial. No credit card. $59/month for your first year. Works alongside any EHR.</Fragment>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
     </CtaDark>
   </div>
 </section>
@@ -824,8 +829,9 @@ function toggleFaq(item){
   }
 }
 function setPrice(mode){
-  const m = { amt:'59',  period:'per user / month for your first year' };
-  const y = { amt:'39',  period:'per user / month · billed annually ($468/yr) for your first year' };
+  const sec = document.getElementById('pricing');
+  const m = { amt: sec.dataset.monthlyAmt, period: sec.dataset.monthlyPeriod };
+  const y = { amt: sec.dataset.annualAmt, period: sec.dataset.annualPeriod };
   const d = mode==='yearly' ? y : m;
   document.getElementById('price-amt').textContent    = d.amt;
   document.getElementById('price-period').textContent = d.period;

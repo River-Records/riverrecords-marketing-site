@@ -125,6 +125,12 @@ Shared styles (buttons, nav, footer, proof strip, testimonials, CTA, philosophy)
 - Trial: 30 days free, no credit card required
 - Freed comparison: $99/month (Freed's listed price)
 
+### Changing pricing
+All pricing is centralized in `src/config/pricing.ts`. Edit the values there and push — every page updates automatically. The only exceptions are:
+- JSON-LD schema in index.astro (hardcoded in `is:inline` script)
+- Freed comparison table amounts (hardcoded HTML in comparison/freedai page)
+These must be updated manually when pricing changes.
+
 ## CTAs
 Primary CTA:  https://stream.riverrecords.ai/onboard/stream-pro
 Demo:         /book-demo

@@ -1,6 +1,9 @@
 # Cloudflare Pages _redirects
 # Docs: https://developers.cloudflare.com/pages/configuration/redirects/
 
+# Sitemap alias
+/sitemap.xml  /sitemap-index.xml  301
+
 # Old core page redirects (301 for SEO equity)
 /compare/freed-alternative  /comparison/freedai  301
 /compare/heidi-alternative  /  301

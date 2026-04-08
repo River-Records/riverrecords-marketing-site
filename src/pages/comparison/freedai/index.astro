@@ -6,6 +6,7 @@ import PainCard from '../../../components/PainCard.astro';
 import PhilBlock from '../../../components/PhilBlock.astro';
 import TestimonialCard from '../../../components/TestimonialCard.astro';
 import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
 ---
 <Page
   title="Stream vs Freed AI — Problem-Based Notes vs Visit Snapshots"
@@ -388,7 +389,7 @@ tbody td:first-child { font-weight: 500; color: var(--ink); }
   <div class="container">
     <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first" trust="Questions? hello@riverrecords.ai · We respond same day.">
       Your chart should get smarter<br><em>with every visit.</em>
-      <Fragment slot="body">30-day free trial. No credit card. $59/month for your first year. Works alongside any EHR.</Fragment>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
     </CtaDark>
   </div>
 </section>

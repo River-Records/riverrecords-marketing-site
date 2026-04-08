@@ -8,6 +8,7 @@ import StepMock from '../../../components/StepMock.astro';
 import FeatureCell from '../../../components/FeatureCell.astro';
 import TestimonialCard from '../../../components/TestimonialCard.astro';
 import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
 ---
 <Page
   title="AI Scribe for SNF & Long-Term Care — Stream"
@@ -126,7 +127,7 @@ import CtaDark from '../../../components/CtaDark.astro';
   primaryLabel="Talk to a clinician first"
   secondaryHref="https://stream.riverrecords.ai/onboard/stream-pro"
   secondaryLabel="Start Free Trial"
-  trustItems={["No credit card required", "30-day free trial", "$59/month for your first year", "HIPAA Compliant"]}
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
 >
   Your new admission just arrived<br>with a 40-page discharge summary.<br><em>Stream reads it so you don't have to.</em>
 </HeroSection>
@@ -250,10 +251,10 @@ import CtaDark from '../../../components/CtaDark.astro';
 <section class="pricing-callout">
   <div class="container">
     <div class="pricing-card reveal">
-      <h2>$59/month for your first year.</h2>
-      <p>Unlimited visits. Works alongside any EHR. 30-day free trial, no credit card required.</p>
+      <h2>{pricing.calloutHeadline}</h2>
+      <p>{pricing.calloutBody}</p>
       <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Start Free Trial →</a>
-      <div class="pricing-small">Then $149/month. Cancel anytime.</div>
+      <div class="pricing-small">{pricing.calloutSmall}</div>
     </div>
   </div>
 </section>
