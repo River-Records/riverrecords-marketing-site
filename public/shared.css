@@ -278,5 +278,5 @@ a   { color: inherit; }
   .cta-dark-actions .btn-outline-white { width: 100%; justify-content: center; }
   .proof-strip-inner { gap: 16px; padding: 0 16px; }
   .proof-item { white-space: normal; max-width: 180px; text-align: center; justify-content: center; }
-  .container, .container-sm, section { max-width: 100vw; overflow-x: hidden; }
+  .container, .container-sm { max-width: 100vw; }
 }

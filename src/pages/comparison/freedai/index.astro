@@ -12,8 +12,37 @@ import { pricing } from '../../../config/pricing';
   title="Stream vs Freed AI — Problem-Based Notes vs Visit Snapshots"
   description="Freed generates a note per visit. Stream builds a problem-oriented chart that gets smarter every visit. Compare features, pricing, and trial length.">
 
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stream by River Records",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "AI medical scribe with memory. Problem-based clinical notes that build a longitudinal chart — not just a note per visit.",
+    "offers": {
+      "@type": "Offer",
+      "price": "59",
+      "priceCurrency": "USD",
+      "description": "$59/month for your first year, then $149/month"
+    }
+  }
+  </script>
+</Fragment>
+
 <style>
 /* ── PAGE-SPECIFIC STYLES ───────────────────────────── */
+
+/* Video */
+.video-section { padding: 48px 0 48px; }
+.video-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
 
 /* Pain section */
 .pain { padding: 72px 0 60px; }
@@ -229,6 +258,17 @@ tbody td:first-child { font-weight: 500; color: var(--ink); }
 >
   Freed remembers your visit.<br><em>Stream remembers your patient.</em>
 </HeroSection>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="container">
+    <div class="video-wrap">
+      <div style="position:relative;padding-bottom:56.25%;height:0;">
+        <iframe src="https://www.loom.com/embed/2454cf105d804ddd9632ad83539929b8?hide_title=true&hide_owner=true&hide_share=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--r-lg);"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- PROOF STRIP -->
 <ProofStrip items={["Trusted by internists, pediatricians, and SNF clinicians", "30-day free trial — 4× longer than Freed", "40% less than Freed in year one", "Works alongside any EHR"]} />
