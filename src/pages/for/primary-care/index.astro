@@ -14,6 +14,25 @@ import { pricing } from '../../../config/pricing';
   title="AI Scribe for Primary Care & Family Medicine — Stream"
   description="Stream is the AI medical scribe built for primary care. Faster notes, organized by problem, with automatic task tracking so nothing falls through the cracks. 30-day free trial.">
 
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "AI Scribe for Primary Care & Family Medicine",
+    "description": "Stream is the AI medical scribe built for primary care. Faster notes, organized by problem, with automatic task tracking.",
+    "medicalAudience": {
+      "@type": "MedicalAudience",
+      "audienceType": "Clinician",
+      "healthCondition": {
+        "@type": "MedicalCondition",
+        "name": "Primary Care Documentation"
+      }
+    }
+  }
+  </script>
+</Fragment>
+
 <style>
 /* Pain section */
 .pain { padding: 72px 0 60px; }

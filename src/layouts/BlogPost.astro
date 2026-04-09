@@ -14,6 +14,21 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
 });
 ---
 <Base title={`${title} — Stream by River Records`} description={description}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": frontmatter.title,
+    "description": description,
+    "author": {
+      "@type": "Person",
+      "name": frontmatter.author
+    },
+    "datePublished": frontmatter.publishDate.toISOString().split('T')[0],
+    "publisher": {
+      "@type": "Organization",
+      "name": "River Records"
+    }
+  })}></script>
   <OfferBanner />
   <Nav />
   <main>

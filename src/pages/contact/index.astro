@@ -5,6 +5,31 @@ import Page from '../../layouts/Page.astro';
   title="Contact — Stream by River Records"
   description="Have a question or need help? Reach out to the River Records team.">
 
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact River Records",
+    "description": "Have a question or need help? Reach out to the River Records team.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "River Records",
+      "email": "hello@riverrecords.ai",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "16192 Coastal Highway",
+        "addressLocality": "Lewes",
+        "addressRegion": "DE",
+        "postalCode": "19958",
+        "addressCountry": "US"
+      },
+      "telephone": "+1-508-906-7179"
+    }
+  }
+  </script>
+</Fragment>
+
 <style>
 .contact-section {
   padding: 88px 0 72px;

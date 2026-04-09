@@ -473,6 +473,54 @@ import { pricing } from '../config/pricing';
     }
   }
   </script>
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does Stream work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream listens to your encounter (or you can dictate), transcribes it in real time, and generates a structured clinical note. Each note also updates the patient's problem-oriented chart — so context, tasks, and history are always organized by medical problem, not buried by date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Stream with my existing EHR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Stream works alongside any EHR — Athena, Epic, Elation, DrChrono, and others. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Stream HIPAA compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Stream is fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber. All data is encrypted at rest and in transit. We never train our models on your patient data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Stream different from other AI scribes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream was built by a team of practicing physicians with peer-reviewed research on exactly this problem. Most AI scribes generate a note and stop there. Stream builds a problem-oriented chart over time — organizing every encounter, task, and imported record by medical problem."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Stream cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream is $59/month per user for your first 12 months — guaranteed. After your first year, pricing moves to the standard rate of $149/month. Every plan starts with a 30-day free trial — no credit card required. Cancel anytime."
+        }
+      }
+    ]
+  }
+  </script>
 </Fragment>
 
 <!-- HERO -->

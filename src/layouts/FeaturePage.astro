@@ -11,6 +11,20 @@ const title = frontmatter.seoTitle || `${frontmatter.name} — Stream by River R
 const description = frontmatter.seoDescription || frontmatter.description;
 ---
 <Base title={title} description={description}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": `Stream — ${frontmatter.name}`,
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": description,
+    "featureList": frontmatter.bullets?.join(', ') || '',
+    "offers": {
+      "@type": "Offer",
+      "price": "59",
+      "priceCurrency": "USD"
+    }
+  })}></script>
   <OfferBanner />
   <Nav />
   <main>
