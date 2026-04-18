@@ -400,19 +400,40 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
 /* Full-width demo cards — horizontal split */
 .freed-tour-card--wide {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 .freed-tour-card--wide .freed-tour-card-visual {
   border-bottom: none;
   border-right: 1px solid var(--rule);
   padding: 16px;
-  min-height: 280px;
   display: flex;
   align-items: center;
 }
 .freed-tour-card--wide .freed-tour-card-body {
-  padding: 36px;
+  padding: 40px;
+  align-self: center;
+}
+/* Tour callouts */
+.freed-tour-callouts {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.freed-tour-callout {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--stream);
+  letter-spacing: 0.02em;
+}
+.freed-tour-callout::before {
+  content: '→ ';
+  color: var(--accent);
+}
+/* Row 1 visual height match */
+.freed-tour-pair .freed-tour-card-visual {
+  min-height: 170px;
 }
 .freed-tour-card-label {
   font-family: 'JetBrains Mono', monospace;
@@ -1087,6 +1108,11 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
           <div class="freed-tour-card-label">03 · NOTE</div>
           <h3>A/P split per problem, every visit.</h3>
           <p>Stream's scribe doesn't generate one SOAP blob — it generates Subjective, Objective, and separate Assessment &amp; Plan sections for each medical problem discussed. Toggle between Classic SOAP and Problem-Based to see both shapes of the same visit. One architectural choice; everything else on this page is downstream of it.</p>
+          <div class="freed-tour-callouts">
+            <span class="freed-tour-callout">Try the toggle</span>
+            <span class="freed-tour-callout">Same visit, three views</span>
+            <span class="freed-tour-callout">Paste-ready in any format</span>
+          </div>
         </div>
       </div>
 
@@ -1101,6 +1127,11 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
           <div class="freed-tour-card-label">04 · TIMELINE + RECAP</div>
           <h3>Open any problem. See it across time.</h3>
           <p>Pick a problem from Huddle. Timeline shows every A&amp;P entry you've written for that problem across every visit — real chart data, not AI output. Hit Recap when you need the AI-generated narrative, medication trajectory with outcome badges, and key metrics. You see both layers; you trust both for different reasons.</p>
+          <div class="freed-tour-callouts">
+            <span class="freed-tour-callout">Real chart data, not AI</span>
+            <span class="freed-tour-callout">Meds + metrics on demand</span>
+            <span class="freed-tour-callout">One click from any problem</span>
+          </div>
         </div>
       </div>
     </div>
