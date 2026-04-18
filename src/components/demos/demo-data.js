@@ -100,7 +100,7 @@ export const HUDDLE_DATA = {
       hasOverdue: false,
       resolved: false,
       tasks: [
-        { id: 1, description: "Schedule colonoscopy", type: "order", status: "active", priority: "medium", reminder_date: "2026-01-15" },
+        { id: 1, description: "Obtain UACR — annual diabetic nephropathy screen", type: "order", status: "active", priority: "medium", reminder_date: "2026-01-15" },
       ],
       lastAP: {
         date: "4/15/2026",
