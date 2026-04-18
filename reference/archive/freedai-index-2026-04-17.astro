@@ -1,0 +1,466 @@
+---
+import Page from '../../../layouts/Page.astro';
+import HeroSection from '../../../components/HeroSection.astro';
+import ProofStrip from '../../../components/ProofStrip.astro';
+import PainCard from '../../../components/PainCard.astro';
+import PhilBlock from '../../../components/PhilBlock.astro';
+import TestimonialCard from '../../../components/TestimonialCard.astro';
+import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
+---
+<Page
+  title="Stream vs Freed AI — Problem-Based Notes vs Visit Snapshots"
+  description="Freed generates a note per visit. Stream builds a problem-oriented chart that gets smarter every visit. Compare features, pricing, and trial length.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stream by River Records",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "AI medical scribe with memory. Problem-based clinical notes that build a longitudinal chart — not just a note per visit.",
+    "offers": {
+      "@type": "Offer",
+      "price": "59",
+      "priceCurrency": "USD",
+      "description": "$59/month for your first year, then $149/month"
+    }
+  }
+  </script>
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Stream vs Freed AI — Product Walkthrough",
+    "description": "See how Stream's problem-oriented chart compares to Freed's visit-by-visit approach.",
+    "embedUrl": "https://www.loom.com/embed/2454cf105d804ddd9632ad83539929b8",
+    "uploadDate": "2026-04-01"
+  }
+  </script>
+</Fragment>
+
+<style>
+/* ── PAGE-SPECIFIC STYLES ───────────────────────────── */
+
+/* Video */
+.video-section { padding: 48px 0 48px; }
+.video-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Pain section */
+.pain { padding: 72px 0 60px; }
+.pain h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 580px; line-height: 1.65; margin-bottom: 36px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* Comparison table */
+.comparison { padding: 64px 0 52px; }
+.comparison h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.comparison-sub { font-size: 1rem; color: var(--ink-muted); margin-bottom: 32px; }
+.table-wrap {
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--white);
+}
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--surface-warm); border-bottom: 2px solid var(--border); }
+thead th {
+  padding: 16px 22px;
+  text-align: left;
+  font-size: 0.77rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-family: var(--font-sans);
+}
+thead th:first-child { width: 34%; }
+.col-hdr { display: flex; align-items: center; gap: 7px; }
+.col-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.col-stream { color: var(--primary) !important; }
+.col-freed  { color: var(--freed-red) !important; opacity: 0.75; }
+.col-dot-stream { background: var(--primary); }
+.col-dot-freed  { background: var(--freed-red); opacity: 0.6; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface); }
+tbody td { padding: 15px 22px; font-size: 0.875rem; vertical-align: top; font-family: var(--font-sans); }
+tbody td:first-child { font-weight: 500; color: var(--ink); }
+.cell-stream { color: var(--primary); font-weight: 500; }
+.cell-freed  { color: var(--ink-muted); }
+.check-icon { display: inline; vertical-align: -1px; margin-right: 4px; }
+.price-big { font-family: var(--font-serif); font-size: 1.4rem; letter-spacing: -0.02em; }
+.winner-badge {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary-border);
+  border-radius: 4px;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  margin-left: 7px;
+  vertical-align: middle;
+}
+.table-cta {
+  background: var(--surface-warm);
+  border-top: 2px solid var(--border);
+  padding: 22px;
+  text-align: center;
+}
+.table-cta p { font-size: 0.84rem; color: var(--ink-muted); margin-bottom: 12px; }
+
+/* Pricing comparison */
+.pricing-compare { padding: 64px 0 56px; }
+.pricing-compare h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.pricing-compare-sub { font-size: 1rem; color: var(--ink-muted); margin-bottom: 32px; }
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--primary);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  max-width: 460px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.price-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+}
+.price-offer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef9ec;
+  color: var(--gold);
+  border: 1px solid rgba(201,149,74,0.3);
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+}
+.price-vs { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 22px; }
+.price-col { flex: 1; }
+.price-col-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+.plabel-stream { color: var(--primary); }
+.plabel-freed  { color: var(--ink-faint); }
+.price-amount {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1;
+}
+.price-amount-freed {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  letter-spacing: -0.03em;
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--freed-red);
+  line-height: 1;
+}
+.price-divider { width: 1px; background: var(--border); align-self: stretch; }
+.price-period { font-size: 0.78rem; color: var(--ink-faint); margin-top: 4px; }
+.price-savings {
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  margin-bottom: 22px;
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+.price-savings strong { font-weight: 700; }
+.price-features { list-style: none; margin-bottom: 26px; display: flex; flex-direction: column; gap: 9px; }
+.price-features li {
+  font-size: 0.865rem;
+  color: var(--ink-muted);
+  display: flex; align-items: flex-start; gap: 9px;
+}
+.pf-check {
+  flex-shrink: 0;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.pf-check::after {
+  content: '';
+  width: 7px; height: 5px;
+  border-left: 1.5px solid var(--primary);
+  border-bottom: 1.5px solid var(--primary);
+  transform: rotate(-45deg) translate(1px,-1px);
+  margin-top: 1px;
+}
+.trial-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-size: 0.76rem; color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+.trial-meta span { color: var(--ink-muted); font-weight: 500; }
+
+/* Testimonials */
+.testimonials { padding: 64px 0 52px; }
+.testimonials h2 {
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.testimonials-sub { font-size: 0.95rem; color: var(--ink-muted); margin-bottom: 32px; }
+.tgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 14px; }
+.tgrid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; max-width: 680px; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .pain-cards { grid-template-columns: 1fr; }
+  .price-vs { flex-direction: column; gap: 16px; }
+  .price-divider { display: none; }
+  .tgrid { grid-template-columns: repeat(2,1fr); }
+  .tgrid-2 { grid-template-columns: 1fr; max-width: 420px; }
+  table { font-size: 0.82rem; }
+  thead th, tbody td { padding: 12px 14px; }
+}
+@media (max-width: 640px) {
+  .tgrid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow="Stream vs. Freed AI"
+  sub="Most AI scribes generate a note and move on. Stream builds a problem-oriented chart that gets smarter every visit — so you spend less time re-reading your own records."
+  primaryLabel="Try it on your next visit"
+  secondaryHref="/book-demo"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={["No credit card required", "30-day free trial", "HIPAA Compliant", "Works alongside any EHR"]}
+>
+  Freed remembers your visit.<br><em>Stream remembers your patient.</em>
+</HeroSection>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="container">
+    <div class="video-wrap">
+      <div style="position:relative;padding-bottom:56.25%;height:0;">
+        <iframe src="https://www.loom.com/embed/2454cf105d804ddd9632ad83539929b8?hide_title=true&hide_owner=true&hide_share=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--r-lg);"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Trusted by internists, pediatricians, and SNF clinicians", "30-day free trial — 4× longer than Freed", "40% less than Freed in year one", "Works alongside any EHR"]} />
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <span class="section-label reveal">The problem with visit-based scribes</span>
+    <h2 class="reveal">Freed is great for today's note.<br>What about the chart you've built over five years?</h2>
+    <p class="pain-lead reveal">Freed creates one polished document per encounter. That's useful on day one. By month six, you're back to hunting through a stack of separate notes every time a patient presents with something chronic.</p>
+    <div class="pain-cards reveal">
+      <PainCard icon="↩" title="Re-reading your own chart every visit" body="When every encounter lives in its own silo, context doesn't carry forward. You end up redoing work you've already done." />
+      <PainCard icon="🔍" title="Buried tasks and open loops" body="Follow-ups, pending labs, and care plan updates disappear into the body of past notes. Nothing surfaces unless you go looking." />
+      <PainCard icon="📄" title="Imported records reconstructed manually" body="When outside records arrive, you're back to summarizing by hand. The scribe doesn't know what it doesn't know." />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 56px 0;">
+  <div class="container">
+    <PhilBlock label="The Stream difference" name="Jake Kantrowitz, MD" title="Co-Founder & CEO · Assistant Professor, Tufts University School of Medicine">
+      "Every visit generates a note. But a good chart is organized by <em>problem</em> — not by date."
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- JAMA STAT BLOCK -->
+<section class="stat-block reveal">
+  <div class="container">
+    <div class="stat-block-inner">
+      <h2>The note paradigm isn't just inconvenient. It's been proven broken.</h2>
+      <p class="stat-pullquote">A peer-reviewed study of 104 million clinical notes found that half of all text in the average EHR is duplicated word-for-word from prior documentation — and that fraction grows every year. The average patient chart contains roughly half the words of <em>Hamlet</em>. Half of it is noise.</p>
+      <p class="stat-citation"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">Steinkamp, Kantrowitz et al. — <em>JAMA Network Open</em>, 2022</a></p>
+      <p class="stat-closer">Freed generates a cleaner note inside a broken paradigm. Stream is built around a different one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <div class="container">
+    <span class="section-label reveal">Side-by-side</span>
+    <h2 class="reveal">Two documentation philosophies</h2>
+    <p class="comparison-sub reveal">Every row below is a decision that compounds over time. The longer you practice, the more it matters.</p>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th><div class="col-hdr"><span class="col-dot col-dot-stream"></span><span class="col-stream">Stream</span></div></th>
+            <th><div class="col-hdr"><span class="col-dot col-dot-freed"></span><span class="col-freed">Freed AI</span></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Documentation model</td>
+            <td class="cell-stream">✓ Problem-oriented, longitudinal</td>
+            <td class="cell-freed">Visit-by-visit snapshots</td>
+          </tr>
+          <tr>
+            <td>Chart after 6 months</td>
+            <td class="cell-stream">✓ Organized, searchable record</td>
+            <td class="cell-freed">Stack of separate notes</td>
+          </tr>
+          <tr>
+            <td>Chart review before a visit</td>
+            <td class="cell-stream">✓ Instant per-problem history</td>
+            <td class="cell-freed">Re-read every prior note</td>
+          </tr>
+          <tr>
+            <td>External records</td>
+            <td class="cell-stream">✓ Imported, summarized, linked</td>
+            <td class="cell-freed">Manual reconstruction</td>
+          </tr>
+          <tr>
+            <td>Follow-up tasks</td>
+            <td class="cell-stream">✓ Auto-generated, tracked</td>
+            <td class="cell-freed">Buried in note text</td>
+          </tr>
+          <tr>
+            <td>Coding support</td>
+            <td class="cell-stream">✓ ICD & CPT auto-suggestions</td>
+            <td class="cell-freed">—</td>
+          </tr>
+          <tr>
+            <td>Free trial</td>
+            <td class="cell-stream">✓ <strong>30 days</strong> <span class="winner-badge">4× longer</span></td>
+            <td class="cell-freed">7 days</td>
+          </tr>
+          <tr>
+            <td>Price (year one)</td>
+            <td class="cell-stream"><span class="price-big">$59</span>/mo <span class="winner-badge">40% less</span></td>
+            <td class="cell-freed"><span class="price-big">$99</span>/mo</td>
+          </tr>
+          <tr>
+            <td>Price (standard)</td>
+            <td class="cell-stream"><span class="price-big">$149</span>/mo</td>
+            <td class="cell-freed"><span class="price-big">$99</span>/mo</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-cta">
+        <p>Start your 30-day trial — no credit card, no commitment.</p>
+        <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary">Try it on your next visit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-compare">
+  <div class="container">
+    <span class="section-label reveal">Pricing</span>
+    <h2 class="reveal">$59/month for your first year. 40% less than Freed.</h2>
+    <p class="pricing-compare-sub reveal">One flat rate, unlimited visits, no usage caps. 30-day free trial.</p>
+    <div class="price-card reveal">
+      <div class="price-vs">
+        <div class="price-col">
+          <div class="price-col-label plabel-stream">Stream (year 1)</div>
+          <div class="price-amount">$59</div>
+          <div class="price-period">per user / month</div>
+        </div>
+        <div class="price-divider"></div>
+        <div class="price-col">
+          <div class="price-col-label plabel-freed">Freed AI</div>
+          <div class="price-amount-freed">$99</div>
+          <div class="price-period">per user / month</div>
+        </div>
+      </div>
+      <div class="price-savings">You save <strong>$480 in year one</strong> compared to Freed — with a problem-oriented chart, task tracking, and record ingestion that Freed doesn't offer. Standard rate after year one: $149/month. By month six, your Stream chart is a living, problem-organized clinical record. Freed's is a stack of 150 separate notes.</div>
+      <ul class="price-features">
+        <li><span class="pf-check"></span>Unlimited visits & recordings</li>
+        <li><span class="pf-check"></span>Problem-oriented, longitudinal documentation</li>
+        <li><span class="pf-check"></span>ICD & CPT coding suggestions</li>
+        <li><span class="pf-check"></span>External record import & summarization</li>
+        <li><span class="pf-check"></span>Automatic task generation</li>
+        <li><span class="pf-check"></span>Customizable note templates</li>
+      </ul>
+      <div class="trial-meta">
+        <span>No credit card required</span>
+        <span>Cancel anytime</span>
+        <span>HIPAA Compliant</span>
+      </div>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg" style="width:100%;justify-content:center;">Try it on your next visit</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <span class="section-label reveal">What clinicians say</span>
+    <h2 class="reveal">Words from the people who use it</h2>
+    <p class="testimonials-sub reveal">Real feedback from practicing clinicians across primary care, pediatrics, and DPC.</p>
+    <div class="tgrid reveal">
+      <TestimonialCard initials="AB" name="Anatoli Berezovsky, MD" title="Owner & CEO, Mila Family Health" quote="Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters." />
+      <TestimonialCard initials="DK" name="Donna Kirchoff, MD, FAAP" title="Integrative Developmental & Behavioral Pediatrics" quote="I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time." />
+      <TestimonialCard initials="SD" name="Spencer Dorn, MD" title="Vice Chair & Professor of Medicine, UNC" quote="River Records' approach to clinical documentation matches how we think clinically. I love the concept." />
+    </div>
+    <div class="tgrid-2 reveal reveal-delay-1" style="margin-top:14px;">
+      <TestimonialCard initials="YJ" name="Yvonne Joy" title="Owner & CEO, Freedom Primary Care" quote="River Records is a lifesaver. It slashes my documentation burden and boosts productivity in primary care." />
+      <TestimonialCard initials="AC" name="Allen Coffman, MD" title="Highland Pediatrics" quote="I've gone from writing in the dirt to writing Rolls Royce quality." />
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding: 72px 0 88px;">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first" trust="Questions? hello@riverrecords.ai · We respond same day.">
+      Your chart should get smarter<br><em>with every visit.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</Page>
