@@ -1,0 +1,961 @@
+---
+import Page from '../layouts/Page.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import StepMock from '../components/StepMock.astro';
+import FeatureCell from '../components/FeatureCell.astro';
+import PhilBlock from '../components/PhilBlock.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import CtaDark from '../components/CtaDark.astro';
+import { pricing } from '../config/pricing';
+---
+<Page
+  title="Stream — AI Medical Scribe with Memory | Problem-Based Notes"
+  description="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. Faster notes today. A smarter chart tomorrow. 30-day free trial.">
+
+<style>
+/* ── PAGE-SPECIFIC STYLES ───────────────────────────── */
+
+/* Stat block — styles in shared.css */
+
+/* Hero — index-specific additions */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(36,89,158,0.13) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 55% 50% at 50% 50%, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 55% 50% at 50% 50%, black 0%, transparent 80%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.hero h1 { font-size: clamp(2.6rem, 5.5vw, 4rem); }
+
+/* Real widget container */
+.hero-ui {
+  margin-top: 60px;
+  position: relative; z-index: 1;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.hero-widgets-wrap {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hw-chrome {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hw-chrome-label {
+  font-size: 0.7rem; font-weight: 500;
+  color: var(--ink-faint); flex: 1; text-align: center; letter-spacing: 0.02em;
+}
+.ui-dots { display: flex; gap: 6px; }
+.ui-dot  { width: 11px; height: 11px; border-radius: 50%; }
+.ui-dot-r { background: #ff6057; }
+.ui-dot-y { background: #ffbd2e; }
+.ui-dot-g { background: #28c940; }
+.hw-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 380px;
+  align-items: stretch;
+}
+.hw-col-left  { border-right: 1px solid var(--border); padding: 16px 16px 0 16px; }
+.hw-col-right { padding: 16px; }
+
+/* How It Works */
+.how { padding: 88px 0 72px; }
+.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header h2 {
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.how-header h2 em { font-style: italic; color: var(--primary); }
+.how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+
+.how-steps { display: flex; flex-direction: column; }
+.how-step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 60px 0;
+  border-top: 1px solid var(--border);
+}
+.how-step:last-child { border-bottom: 1px solid var(--border); }
+.how-step.reverse .how-step-visual { order: -1; }
+.how-step-num {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.how-step h3 {
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
+.how-step-aside {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  font-style: italic;
+  padding-left: 14px;
+  border-left: 2px solid var(--border-strong);
+  line-height: 1.55;
+}
+
+/* Waveform */
+.waveform {
+  display: flex; align-items: center; gap: 3px; height: 44px; margin-bottom: 14px;
+}
+.waveform-bar {
+  width: 4px; border-radius: 2px;
+  background: var(--accent); opacity: 0.65;
+  animation: wave 1.2s ease-in-out infinite;
+}
+@keyframes wave {
+  0%,100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.35); }
+}
+.waveform-bar:nth-child(1)  { height:20%; animation-delay:0s }
+.waveform-bar:nth-child(2)  { height:55%; animation-delay:.1s }
+.waveform-bar:nth-child(3)  { height:82%; animation-delay:.2s }
+.waveform-bar:nth-child(4)  { height:38%; animation-delay:.3s }
+.waveform-bar:nth-child(5)  { height:95%; animation-delay:.15s }
+.waveform-bar:nth-child(6)  { height:62%; animation-delay:.25s }
+.waveform-bar:nth-child(7)  { height:28%; animation-delay:.35s }
+.waveform-bar:nth-child(8)  { height:78%; animation-delay:.05s }
+.waveform-bar:nth-child(9)  { height:48%; animation-delay:.4s }
+.waveform-bar:nth-child(10) { height:68%; animation-delay:.2s }
+.waveform-bar:nth-child(11) { height:32%; animation-delay:.3s }
+.waveform-bar:nth-child(12) { height:58%; animation-delay:.1s }
+.waveform-bar:nth-child(13) { height:42%; animation-delay:.45s }
+.waveform-bar:nth-child(14) { height:72%; animation-delay:.15s }
+.waveform-bar:nth-child(15) { height:24%; animation-delay:.35s }
+.waveform-bar:nth-child(16) { height:53%; animation-delay:0s }
+
+.transcript-lines { display: flex; flex-direction: column; gap: 6px; }
+.tl { height: 8px; border-radius: 4px; background: var(--surface-mid); }
+.tl.accent { background: rgba(36,89,158,0.2); }
+.tl.w-full { width:100% }
+.tl.w-4-5  { width:80%  }
+.tl.w-3-5  { width:62%  }
+.tl.w-2-5  { width:46%  }
+.transcript-label {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+}
+.generating {
+  margin-top: 14px;
+  font-size: 0.76rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Problem list mock */
+.prob-list { display: flex; flex-direction: column; gap: 7px; }
+.prob-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 11px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.prob-row.active-row { background: var(--primary-light); border-color: var(--primary-border); }
+.prob-row-left { display: flex; align-items: center; gap: 9px; }
+.prob-icon {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: var(--surface-mid);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem;
+}
+.active-row .prob-icon { background: rgba(36,89,158,0.15); }
+.prob-name  { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.prob-visits{ font-size: 0.67rem; color: var(--ink-faint); }
+.prob-pill  {
+  font-size: 0.62rem; font-weight: 700;
+  padding: 3px 7px; border-radius: var(--r-pill);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.pill-active   { background: var(--primary-light); color: var(--primary); }
+.pill-stable   { background: var(--surface-mid); color: var(--ink-faint); }
+.pill-monitor  { background: #fef9ec; color: var(--gold); }
+
+/* Task mock */
+.task-list { display: flex; flex-direction: column; gap: 7px; }
+.task-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 9px 11px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.task-cb {
+  width: 17px; height: 17px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border-strong);
+  flex-shrink: 0; margin-top: 1px;
+}
+.task-cb.checked {
+  background: var(--primary); border-color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.task-cb.checked::after {
+  content: '';
+  width: 8px; height: 5px;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg) translate(1px,-1px);
+}
+.task-text { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.42; }
+.task-text strong { color: var(--ink); font-weight: 600; font-size: 0.8rem; }
+.task-tag {
+  margin-left: auto;
+  font-size: 0.62rem; font-weight: 600;
+  padding: 2px 7px; border-radius: 4px;
+  white-space: nowrap; align-self: flex-start;
+}
+.tag-urgent  { background: #fef2f2; color: var(--freed-red); border: 1px solid rgba(201,64,64,0.2); }
+.tag-routine { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+
+/* Features grid — styles in shared.css */
+/* Testimonials */
+.testimonials { padding: 80px 0 72px; }
+.testimonials-header { margin-bottom: 40px; }
+.testimonials-header h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.testimonials-header p { font-size: 1rem; color: var(--ink-muted); }
+.tgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 14px; }
+.tgrid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; max-width: 700px; }
+.tgrid-all {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+.tgrid-all :global(.tcard:nth-child(1)) { grid-column: 1 / 3; }
+.tgrid-all :global(.tcard:nth-child(2)) { grid-column: 3 / 5; }
+.tgrid-all :global(.tcard:nth-child(3)) { grid-column: 5 / 7; }
+.tgrid-all :global(.tcard:nth-child(4)) { grid-column: 1 / 4; }
+.tgrid-all :global(.tcard:nth-child(5)) { grid-column: 4 / 7; }
+
+/* Pricing */
+.pricing {
+  padding: 80px 0 72px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+.pricing-header { text-align: center; margin-bottom: 44px; }
+.pricing-header h2 {
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.pricing-header p { font-size: 1rem; color: var(--ink-muted); margin-bottom: 20px; }
+
+.pricing-toggle {
+  display: inline-flex;
+  background: var(--surface-mid);
+  border-radius: var(--r-pill);
+  padding: 4px; gap: 2px;
+}
+.toggle-btn {
+  font-size: 0.8rem; font-weight: 600;
+  padding: 7px 18px; border-radius: var(--r-pill);
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+  color: var(--ink-faint); border: none; background: none;
+  font-family: var(--font-sans);
+}
+.toggle-btn.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow-xs); }
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 840px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.pcard {
+  background: var(--white);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  padding: 38px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+.pcard-featured {
+  background: var(--white);
+  border: 1.5px solid rgba(36,89,158,0.4);
+  box-shadow: var(--shadow-md);
+}
+.pcard-featured::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+}
+.pcard-offer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef9ec;
+  color: var(--gold);
+  border: 1px solid rgba(201,149,74,0.3);
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.pcard-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+.pcard-name { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+.pcard-desc { font-size: 0.86rem; color: var(--ink-muted); margin-bottom: 24px; line-height: 1.5; }
+.pcard-amount {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  line-height: 1;
+}
+.pcard-amount-sub { font-size: 1rem; color: var(--ink-muted); vertical-align: super; font-family: var(--font-sans); font-weight: 400; }
+.pcard-period { font-size: 0.8rem; color: var(--ink-faint); margin-top: 4px; margin-bottom: 6px; }
+.pcard-normal { font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 24px; }
+.pcard-normal s { color: var(--freed-red); }
+.pcard-divider { height: 1px; background: var(--border); margin-bottom: 22px; }
+.pcard-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; flex-grow: 1; }
+.pcard-features li {
+  font-size: 0.865rem;
+  color: var(--ink-muted);
+  display: flex; align-items: flex-start; gap: 9px;
+}
+.pf-check {
+  flex-shrink: 0;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.pf-check::after {
+  content: '';
+  width: 7px; height: 5px;
+  border-left: 1.5px solid var(--primary);
+  border-bottom: 1.5px solid var(--primary);
+  transform: rotate(-45deg) translate(1px,-1px);
+  margin-top: 1px;
+}
+.pcard .btn-primary-lg { width: 100%; max-width: 360px; display: block; margin: 0 auto; text-align: center; justify-content: center; }
+.pcard .btn-outline { width: 100%; max-width: 360px; display: block; margin: 0 auto; text-align: center; justify-content: center; border: 1.5px solid var(--border-strong); color: var(--ink); font-weight: 600; background: var(--white); }
+.pcard .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+.pcard-footnote { font-size: 0.73rem; color: var(--ink-faint); text-align: center; margin-top: 10px; }
+
+/* FAQ */
+.faq { padding: 80px 0 72px; }
+.faq-header { max-width: 540px; margin-bottom: 40px; }
+.faq-header h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: var(--ink); margin-bottom: 8px; }
+.faq-header p  { font-size: 1rem; color: var(--ink-muted); }
+.faq-grid { display: grid; grid-template-columns: 1fr; gap: 10px; max-width: 760px; }
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+.faq-item.open {
+  border-left: 3px solid var(--primary);
+}
+.faq-q {
+  width: 100%; text-align: left;
+  padding: 18px 22px;
+  font-size: 0.915rem; font-weight: 600; color: var(--ink);
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  font-family: var(--font-sans); line-height: 1.4;
+}
+.faq-q:hover { background: var(--surface); }
+.faq-icon {
+  width: 21px; height: 21px; border-radius: 50%;
+  background: var(--surface-mid);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 1rem; color: var(--ink-muted);
+  transition: background 0.15s, transform 0.2s;
+}
+.faq-item.open .faq-icon { background: var(--primary-light); color: var(--primary); }
+.faq-a {
+  display: none; padding: 0 22px 18px;
+  font-size: 0.875rem; color: var(--ink-muted); line-height: 1.68;
+  border-top: 1px solid var(--border); padding-top: 14px;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* Final CTA & sections */
+.final-cta { padding: 80px 0 88px; }
+.philosophy-section { padding: 72px 0; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hw-body { grid-template-columns: 1fr; }
+  .hw-col-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .ui-body { grid-template-columns: 1fr; }
+  .ui-sidebar { display: none; }
+  .how-step { grid-template-columns: 1fr; gap: 28px; }
+  .how-step.reverse .how-step-visual { order: 0; }
+  .tgrid { grid-template-columns: repeat(2,1fr); }
+  .tgrid-2 { grid-template-columns: 1fr; max-width: 420px; }
+  .tgrid-all { grid-template-columns: repeat(2, 1fr); }
+  .tgrid-all :global(.tcard:nth-child(1)),
+  .tgrid-all :global(.tcard:nth-child(2)),
+  .tgrid-all :global(.tcard:nth-child(3)),
+  .tgrid-all :global(.tcard:nth-child(4)),
+  .tgrid-all :global(.tcard:nth-child(5)) { grid-column: span 1; }
+  .tgrid-all :global(.tcard:nth-child(5)) { grid-column: 1 / -1; max-width: 50%; }
+  .pricing-cards { grid-template-columns: 1fr; max-width: 460px; }
+}
+@media (max-width: 640px) {
+  .tgrid { grid-template-columns: 1fr; }
+  .tgrid-all { grid-template-columns: 1fr; }
+  .tgrid-all :global(.tcard:nth-child(5)) { max-width: 100%; }
+  .hero-ui { width: 100%; }
+  .hero-widgets-wrap { width: 100%; box-shadow: var(--shadow-lg); }
+  .hero h1 { font-size: 2.2rem; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn-primary-lg,
+  .hero-actions .btn-outline { width: 100%; justify-content: center; }
+}
+</style>
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stream by River Records",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "AI medical scribe with memory. Problem-based clinical notes for primary care, SNF, and long-term care.",
+    "offers": {
+      "@type": "Offer",
+      "price": "59",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does Stream work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream listens to your encounter (or you can dictate), transcribes it in real time, and generates a structured clinical note. Each note also updates the patient's problem-oriented chart — so context, tasks, and history are always organized by medical problem, not buried by date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Stream with my existing EHR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Stream works alongside any EHR — Athena, Epic, Elation, DrChrono, and others. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Stream HIPAA compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Stream is fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber. All data is encrypted at rest and in transit. We never train our models on your patient data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Stream different from other AI scribes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream was built by a team of practicing physicians with peer-reviewed research on exactly this problem. Most AI scribes generate a note and stop there. Stream builds a problem-oriented chart over time — organizing every encounter, task, and imported record by medical problem."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Stream cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stream is $59/month per user for your first 12 months — guaranteed. After your first year, pricing moves to the standard rate of $149/month. Every plan starts with a 30-day free trial — no credit card required. Cancel anytime."
+        }
+      }
+    ]
+  }
+  </script>
+</Fragment>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow='Built by practicing physicians. Published in <a href="/about#research" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">JAMA Network Open</a>.'
+  sub="Stream is the AI scribe that doesn't stop at the note. It builds a problem-oriented chart that remembers every visit — so you stop re-reading six past notes to find when the metformin dose changed."
+  primaryLabel="Try it on your next visit"
+  secondaryHref="/book-demo"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa, "Founded by practicing physicians"]}
+  animatedDot
+>
+  Close your charts<br><em>before you leave the clinic.</em>
+  <div class="hero-ui" slot="below">
+    <div class="hero-widgets-wrap">
+      <div class="hw-chrome">
+        <div class="ui-dots">
+          <div class="ui-dot ui-dot-r"></div>
+          <div class="ui-dot ui-dot-y"></div>
+          <div class="ui-dot ui-dot-g"></div>
+        </div>
+        <div class="hw-chrome-label">Stream — Margaret T., 58F · Problem-Oriented Chart</div>
+      </div>
+      <div class="hw-body">
+        <div class="hw-col-left" id="hero-problem-list"></div>
+        <div class="hw-col-right" id="hero-note-card"></div>
+      </div>
+    </div>
+  </div>
+</HeroSection>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Trusted by internists, pediatricians & SNF clinicians", "Works alongside any EHR", "30-day free trial", "HIPAA Compliant", "Built by primary care physicians"]} />
+
+<!-- RESEARCH STAT BLOCK -->
+<section class="stat-block reveal">
+  <div class="container">
+    <div class="stat-block-inner">
+      <h2>Half of everything in your patient's chart is copy-pasted noise.</h2>
+      <p class="stat-pullquote">The average patient chart contains roughly half the words of <em>Hamlet</em> — and research shows half of that text is duplicated word-for-word from prior notes. That fraction grows every year.</p>
+      <p class="stat-citation"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">Steinkamp, Kantrowitz et al. — <em>JAMA Network Open</em>, 2022</a></p>
+      <p class="stat-closer">We didn't build a better scribe. We rebuilt the paradigm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how-it-works">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Every feature designed to save <em>minutes now and hours later.</em></h2>
+      <p>Stream combines a real-time AI scribe with a problem-oriented chart that builds longitudinal context across every encounter.</p>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 01</div>
+          <h3>Speak naturally. Stream generates the note.</h3>
+          <p>Record your encounter or dictate a quick update — Stream transcribes, structures, and writes a complete note in real time. Your voice sets the context; Stream does the rest.</p>
+          <p class="how-step-aside">Supports 22 languages. Works ambient or with direct dictation. Customizable templates for your specialty.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Recording in progress">
+            <div id="step-waveform"></div>
+            <div class="transcript-label" style="margin-top:16px;">Live Transcript</div>
+            <div class="transcript-lines">
+              <div class="tl w-full accent"></div>
+              <div class="tl w-4-5 accent"></div>
+              <div class="tl w-full"></div>
+              <div class="tl w-3-5"></div>
+              <div class="tl w-full accent"></div>
+              <div class="tl w-2-5"></div>
+            </div>
+            <div class="generating">↓ Generating SOAP note…</div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 02</div>
+          <h3>Every visit organized by medical problem — not by date.</h3>
+          <p>Stream doesn't just create a note. It updates your patient's problem list with each encounter, connecting history, assessments, and plans per condition.</p>
+          <p class="how-step-aside">No more re-reading six past notes to find when the metformin dose changed. It's right there, under the problem.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem List" flush>
+            <div id="step-problem-list"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 03</div>
+          <h3>Tasks, coding, and admin handled automatically.</h3>
+          <p>Follow-up tasks are generated from every note. ICD and CPT codes are suggested at point of care. External records are imported, summarized, and linked to the relevant problem.</p>
+          <p class="how-step-aside">From referral letters to prior auth — Stream reduces the busywork so you can focus on what matters.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Auto-Generated Tasks" flush>
+            <div id="step-task-list"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 04</div>
+          <h3>Instant summaries — no more re-reading old notes.</h3>
+          <p>Need to prep for a visit or hand off a patient? Stream generates a per-problem summary from the full encounter history. One tap, complete context.</p>
+          <p class="how-step-aside">Perfect for pre-visit prep, specialist referrals, and care transitions.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem Summary" flush>
+            <div id="step-problem-summary"></div>
+          </StepMock>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">Everything included</span>
+      <h2>All the tools to run a modern clinical practice.</h2>
+      <p>One subscription. No usage caps. Every feature built around the way primary care actually works.</p>
+    </div>
+    <div class="features-grid reveal">
+      <FeatureCell icon="🎙️" title="Real-Time AI Scribe" body="Ambient recording or direct dictation. Transcribes and structures notes as you speak — in 22 languages." href="/features/transcribe-dictate-instruct" />
+      <FeatureCell icon="🗂️" title="Problem-Oriented Organization" body="Every encounter updates a living, problem-organized chart. Context persists across visits." href="/features/problem-based-organization" />
+      <FeatureCell icon="📋" title="Patient & Problem Summaries" body="One-tap summaries for any problem or patient — perfect for chart review, handoffs, and pre-visit prep." href="/features/patient-problem-summaries" />
+      <FeatureCell icon="📁" title="External Record Ingestion" body="Import outside records — fax, PDF, or upload. Stream summarizes and links them to the relevant problem." href="/features/record-ingestion" />
+      <FeatureCell icon="✅" title="Automatic Task Generation" body="Follow-up tasks are extracted from each note automatically. Nothing falls through the cracks." href="/features/task-management" />
+      <FeatureCell icon="💻" title="ICD & CPT Coding Support" body="Diagnosis and procedure codes suggested at point of care. Accurate codes without slowing down." href="/features/administrative-automation" />
+      <FeatureCell icon="📝" title="Customizable Templates" body="Build note templates to match your workflow, specialty, and documentation style." href="/features/templates" />
+      <FeatureCell icon="⚡" title="Quick Encounter Mode" body="Streamlined capture for brief check-ins, refills, and follow-ups. Speed when you need it." href="/features/quick-encounter" />
+      <FeatureCell icon="🔒" title="Security & Privacy" body="HIPAA compliant. Built-in BAA. Encrypted at rest and in transit. We never train on patient data." href="/features/security-privacy" />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="container">
+    <PhilBlock label="Why we built Stream" name="Jake Kantrowitz, MD" title="Co-Founder & CEO · Assistant Professor, Tufts University School of Medicine">
+      "Primary care is a project management specialty. Every patient is a longitudinal project — with an evolving problem list, open tasks, and a plan that changes over time. <em>We built the tool to manage it.</em>"
+      <a slot="after" href="/about" style="font-size:0.78rem;color:var(--accent-light);text-decoration:none;opacity:0.7;margin-top:12px;display:inline-block;">Meet the team →</a>
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">What clinicians say</span>
+      <h2>Built by physicians. Trusted by clinicians.</h2>
+      <p>From family practice to behavioral pediatrics, DPC to academic medicine.</p>
+    </div>
+    <div class="tgrid-all reveal">
+      <TestimonialCard initials="AB" name="Anatoli Berezovsky, MD" title="Owner & CEO, Mila Family Health" quote="Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters." />
+      <TestimonialCard initials="DK" name="Donna Kirchoff, MD, FAAP" title="Integrative Developmental & Behavioral Pediatrics" quote="I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time." />
+      <TestimonialCard initials="SD" name="Spencer Dorn, MD" title="Vice Chair & Professor of Medicine, UNC" quote="River Records' approach to clinical documentation matches how we think clinically. I love the concept." />
+      <TestimonialCard initials="SW" name="Stephen P. Wood, DMSc, ACNP" title="Northeastern University" quote="A game-changer for voice-to-text and documentation. Zero errors so far, and polished notes in minutes." />
+      <TestimonialCard initials="AC" name="Allen Coffman, MD" title="Highland Pediatrics" quote="I've gone from writing in the dirt to writing Rolls Royce quality." />
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing"
+  data-monthly-amt={String(pricing.toggleMonthly.amt)}
+  data-monthly-period={pricing.toggleMonthly.period}
+  data-annual-amt={String(pricing.toggleAnnual.amt)}
+  data-annual-period={pricing.toggleAnnual.period}>
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Pricing</span>
+      <h2>Simple, transparent pricing.</h2>
+      <p>One flat rate. Unlimited visits. No usage caps. Cancel any time.</p>
+      <p style="font-size:0.82rem;color:var(--ink-faint);margin-top:-8px;margin-bottom:20px;">
+        Founded by physicians. Validated by research. Published in
+        <em>JAMA Network Open</em>, <em>JMIR</em>, and <em>Applied Clinical Informatics</em>.
+        <a href="/about#research" style="color:var(--primary);text-decoration:none;font-weight:500;">Read our research →</a>
+      </p>
+      <div class="pricing-toggle">
+        <button class="toggle-btn active" id="tMonthly" data-mode="monthly">Monthly</button>
+        <button class="toggle-btn" id="tYearly" data-mode="yearly">Yearly <span style="color:var(--primary);font-size:0.72rem;margin-left:3px;">Save 33%</span></button>
+      </div>
+    </div>
+    <div class="pricing-cards">
+      <div class="pcard pcard-featured reveal">
+        <div class="pcard-badge">Most Popular</div>
+        <div class="pcard-name">Individual Plan</div>
+        <div class="pcard-desc">For independent clinicians and small practices.</div>
+        <div class="pcard-amount"><span class="pcard-amount-sub">$</span><span id="price-amt">{pricing.cardAmount}</span></div>
+        <div class="pcard-period" id="price-period">{pricing.cardPeriod}</div>
+        <div class="pcard-normal">{pricing.cardNormal}</div>
+        <div class="pcard-divider"></div>
+        <ul class="pcard-features">
+          <li><span class="pf-check"></span>Unlimited visits & recordings</li>
+          <li><span class="pf-check"></span>Problem-oriented longitudinal documentation</li>
+          <li><span class="pf-check"></span>ICD & CPT coding suggestions</li>
+          <li><span class="pf-check"></span>External record import & summarization</li>
+          <li><span class="pf-check"></span>Automatic task generation</li>
+          <li><span class="pf-check"></span>Customizable note templates</li>
+          <li><span class="pf-check"></span>Works alongside any EHR</li>
+        </ul>
+        <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Try it on your next visit</a>
+        <div class="pcard-footnote">No credit card required · Cancel anytime</div>
+      </div>
+      <div class="pcard reveal reveal-delay-1">
+        <div class="pcard-name">Clinic Plan</div>
+        <div class="pcard-desc">For multi-provider practices needing team collaboration and admin controls.</div>
+        <div class="pcard-amount" style="font-size:2.2rem;">Custom</div>
+        <div class="pcard-period">Reach out to discuss your clinic</div>
+        <p style="font-size:0.82rem;color:var(--ink-muted);line-height:1.55;margin-top:12px;">
+          Best for group practices, FQHCs, DPC clinics, and multi-provider independent practices.
+        </p>
+        <p style="font-size:0.82rem;color:var(--ink-muted);line-height:1.55;margin-top:6px;margin-bottom:0;">
+          Per-seat pricing with volume discounts available for larger teams.
+        </p>
+        <div style="height:1px;background:var(--border);margin-top:20px;margin-bottom:22px;"></div>
+        <ul class="pcard-features">
+          <li><span class="pf-check"></span>Everything in Individual Plan</li>
+          <li><span class="pf-check"></span>Team-based collaboration & shared templates</li>
+          <li><span class="pf-check"></span>Role-based permissions & admin controls</li>
+          <li><span class="pf-check"></span>Bulk patient panel upload</li>
+          <li><span class="pf-check"></span>Periodic workflow optimization reviews</li>
+          <li><span class="pf-check"></span>Custom onboarding & dedicated support</li>
+          <li><span class="pf-check"></span>Support roles for admin / ancillary staff</li>
+        </ul>
+        <a href="/book-demo" class="btn btn-outline">Contact Sales</a>
+        <div class="pcard-footnote">We'll respond within one business day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="section-label">Common questions</span>
+      <h2>Everything you need to know.</h2>
+      <p>Still have questions? <a href="/contact" style="color:var(--primary);text-decoration:none;font-weight:500;">Reach out →</a></p>
+    </div>
+    <div class="faq-grid reveal" id="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q">How does Stream work?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Stream listens to your encounter (or you can dictate), transcribes it in real time, and generates a structured clinical note. Each note also updates the patient's problem-oriented chart — so context, tasks, and history are always organized by medical problem, not buried by date.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I use Stream with my existing EHR?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. Stream works alongside any EHR — Athena, Epic, Elation, DrChrono, and others. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I customize how my notes look?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Absolutely. Stream supports fully customizable note templates. Configure structure, sections, and formatting to match your specialty, your EHR's requirements, or your personal style.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is Stream HIPAA compliant?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. Stream is fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber. All data is encrypted at rest and in transit. We never train our models on your patient data.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How is Stream different from other AI scribes?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Stream was built by a team of practicing physicians with peer-reviewed research on exactly this problem — why the note-based paradigm fails, and what to do about it. Most AI scribes generate a note and stop there. Stream builds a problem-oriented chart over time — organizing every encounter, task, and imported record by medical problem. At 6 months, your Stream chart is a living clinical record.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">{pricing.faqQuestion}<span class="faq-icon">+</span></button>
+        <div class="faq-a">{pricing.faqAnswer}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first" trust="Questions? hello@riverrecords.ai · We respond same day.">
+      Your chart should get smarter<br><em>with every visit.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+function toggleFaq(item){
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-icon').textContent = '+';
+  });
+  if(!open) {
+    item.classList.add('open');
+    item.querySelector('.faq-icon').textContent = '\u2212';
+  }
+}
+function setPrice(mode){
+  const sec = document.getElementById('pricing');
+  const m = { amt: sec.dataset.monthlyAmt, period: sec.dataset.monthlyPeriod };
+  const y = { amt: sec.dataset.annualAmt, period: sec.dataset.annualPeriod };
+  const d = mode==='yearly' ? y : m;
+  document.getElementById('price-amt').textContent    = d.amt;
+  document.getElementById('price-period').textContent = d.period;
+  document.getElementById('tMonthly').classList.toggle('active', mode==='monthly');
+  document.getElementById('tYearly').classList.toggle('active',  mode==='yearly');
+}
+
+// FAQ click handlers
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => toggleFaq(item));
+});
+
+// Pricing toggle click handlers
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => setPrice(btn.dataset.mode));
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Mount real product widgets
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Hero — problem list + note card side by side
+  var heroNotes = {
+    "Type 2 Diabetes Mellitus": {
+      title: "Type 2 Diabetes Mellitus",
+      icd: ["E11.65"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "DM2 f/u. BG 140–180 fasting. Compliant w/ metformin 500 BID. Reports increased fatigue x2 wks. No polyuria, polydipsia, or vision changes. Diet adherence fair — skipping meals on busy days.",
+      objective: "Vitals: BP 128/82, HR 74, Wt 198 lbs (prev 201)\nLabs: HbA1c 7.8% (prev 8.2%), fasting glucose 162, Cr 0.9, eGFR 92",
+      assessment: "Improving but not yet at goal. HbA1c trending down from 8.2% to 7.8%. Fatigue likely related to glycemic variability and meal skipping.",
+      plan: ["Increase metformin to 1000 mg BID", "Recheck HbA1c in 3 months", "Nutrition referral for meal planning", "F/u 3 months"]
+    },
+    "Essential Hypertension": {
+      icd: ["I10"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "HTN f/u. No headaches, chest pain, or visual changes. Reports good medication adherence. Home BP readings 135–142/84–88. Low-sodium diet inconsistent.",
+      objective: "Vitals: BP 138/86 (seated, left arm), HR 72, Wt 198 lbs\nFundoscopic exam: no AV nicking or hemorrhages\nLabs: BMP within normal limits, Cr 0.9",
+      assessment: "Hypertension not at goal (target <130/80 per ACC/AHA). Current regimen of lisinopril 20 mg daily insufficient.",
+      plan: ["Add amlodipine 5 mg daily", "Continue lisinopril 20 mg daily", "Home BP log — recheck in 4 weeks", "Reinforce dietary sodium restriction"]
+    },
+    "Hyperlipidemia": {
+      icd: ["E78.5"],
+      updated: "Mar 14, 2026",
+      status: "Stable",
+      subjective: "Lipid f/u. No muscle aches or weakness on current statin. Tolerating atorvastatin well. Exercising 3x/week.",
+      objective: "Labs: TC 185, LDL 98 (prev 134), HDL 52, TG 148\nLFTs: AST 24, ALT 28 — within normal limits",
+      assessment: "Hyperlipidemia well controlled on atorvastatin 20 mg. LDL at goal (<100). 10-yr ASCVD risk 12%.",
+      plan: ["Continue atorvastatin 20 mg daily", "Repeat lipid panel in 6 months", "Continue lifestyle modifications"]
+    },
+    "Microalbuminuria": {
+      icd: ["R80.9"],
+      updated: "Mar 28, 2026",
+      status: "Active",
+      subjective: "Diabetic nephropathy screening f/u. No dysuria, hematuria, or flank pain. No peripheral edema.",
+      objective: "Labs: Urine albumin/creatinine ratio 68 mg/g (prev 45 mg/g, normal <30)\nCr 0.9, eGFR 92, BMP otherwise unremarkable",
+      assessment: "Persistent microalbuminuria (A2 category), likely early diabetic nephropathy. Worsening from prior value despite ACE inhibitor.",
+      plan: ["Increase lisinopril to 40 mg daily (renal protection)", "Optimize glycemic control (see DM2 problem)", "Recheck urine albumin/creatinine ratio in 3 months", "Avoid NSAIDs"]
+    },
+    "GERD": {
+      icd: ["K21.0"],
+      updated: "Feb 10, 2026",
+      status: "Stable",
+      subjective: "GERD f/u. Symptoms well controlled on current PPI. Rare breakthrough heartburn with large meals. No dysphagia, odynophagia, or weight loss.",
+      objective: "Abdomen: soft, non-tender, non-distended. No epigastric tenderness. No hepatosplenomegaly.",
+      assessment: "GERD stable on omeprazole 20 mg daily. No alarm symptoms. On PPI > 1 year — consider step-down.",
+      plan: ["Trial step-down to omeprazole 20 mg every other day", "Elevate head of bed, avoid eating within 3 hrs of bedtime", "If symptoms recur, resume daily dosing and reassess", "F/u 3 months"]
+    }
+  };
+
+  StreamWidgets.ProblemListWidget('#hero-problem-list', {
+    problems: [
+      { name: "Type 2 Diabetes Mellitus", status: "Active",   encounters: 14, icd: "E11.65" },
+      { name: "Essential Hypertension",   status: "Active",   encounters: 11, icd: "I10"    },
+      { name: "Hyperlipidemia",           status: "Stable",   encounters: 8,  icd: "E78.5"  },
+      { name: "Microalbuminuria",         status: "Active",   encounters: 3,  icd: "R80.9"  },
+      { name: "GERD",                     status: "Stable",   encounters: 5,  icd: "K21.0"  },
+    ],
+    onSelect: function(problem) {
+      var note = heroNotes[problem.name];
+      StreamWidgets.EncounterNoteWidget('#hero-note-card', {
+        data: {
+          title: problem.name,
+          icd: note.icd,
+          updated: note.updated,
+          status: note.status,
+          subjective: note.subjective,
+          objective: note.objective,
+          assessment: note.assessment,
+          plan: note.plan,
+        }
+      });
+    }
+  });
+
+  // Hero — default note card (T2DM)
+  StreamWidgets.EncounterNoteWidget('#hero-note-card', {
+    data: heroNotes["Type 2 Diabetes Mellitus"]
+  });
+
+  // Step 1 — Waveform
+  StreamWidgets.WaveformWidget('#step-waveform', { autoStart: true });
+
+  // Step 2 — Problem list (same data, interactive)
+  StreamWidgets.ProblemListWidget('#step-problem-list', {
+    problems: [
+      { name: "Type 2 Diabetes Mellitus", status: "Active",   encounters: 14, icd: "E11.65" },
+      { name: "Essential Hypertension",   status: "Active",   encounters: 11, icd: "I10"    },
+      { name: "Hyperlipidemia",           status: "Stable",   encounters: 8,  icd: "E78.5"  },
+      { name: "Seasonal Allergic Rhinitis",status:"Resolved", encounters: 2,  icd: "J30.2"  },
+    ]
+  });
+
+  // Step 3 — Task list (interactive checkboxes)
+  StreamWidgets.TaskListWidget('#step-task-list');
+
+  // Step 4 — Problem summary card
+  StreamWidgets.ProblemSummaryCard('#step-problem-summary');
+
+});
+</script>
+
+</Page>
