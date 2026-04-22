@@ -94,7 +94,22 @@ const allFeatures = (await getCollection('features', ({ data }) => !data.draft))
 
 <section class="features-section">
   <div class="container">
-    <div class="features-grid">
+    <!-- Pinned feature -->
+    <a href="/features/huddle" class="feature-card feature-card--pinned" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:36px;">
+      <div>
+        <div class="feature-card-tags"><span class="feature-card-tag" style="background:var(--accent);color:var(--white);">New</span><span class="feature-card-tag">pre-visit</span></div>
+        <div class="feature-card-name" style="font-size:1.3rem;">Huddle</div>
+        <div class="feature-card-desc">Pre-visit review surface. See what's active, what's falling off, and what HCCs need capture — with your own A&P, not an AI summary.</div>
+        <span class="feature-card-link">Explore Huddle →</span>
+      </div>
+      <div style="font-size:0.85rem;color:var(--ink-faint);line-height:1.6;">
+        <div style="margin-bottom:8px;"><strong style="color:var(--ink);">Active</strong> — problems from your last 3 visits</div>
+        <div style="margin-bottom:8px;"><strong style="color:var(--ink);">Falling Off</strong> — untouched 10+ months</div>
+        <div><strong style="color:var(--ink);">HCC</strong> — uncaptured this calendar year</div>
+      </div>
+    </a>
+
+    <div class="features-grid" style="margin-top:20px;">
       {allFeatures.map((feature) => {
         const hasLink = feature.data.hasPage;
         const Tag = hasLink ? 'a' : 'div';

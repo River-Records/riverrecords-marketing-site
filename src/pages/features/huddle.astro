@@ -1,0 +1,365 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import HuddleDemo from '../../components/demos/HuddleDemo.vue';
+import { pricing } from '../../config/pricing';
+
+const utmBase = '?utm_source=huddle-page&utm_medium=landing&utm_campaign=huddle-launch';
+const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
+---
+<Base
+  title="Huddle — Pre-visit review for primary care | Stream"
+  description="Huddle is Stream's pre-visit review surface. See what's active, what's falling off, and what HCCs need capture — with your own A&P, not an AI summary.">
+
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Huddle by Stream",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web",
+      "description": "Pre-visit review surface for primary care. See what's active, what's falling off, and what HCCs need capture.",
+      "offers": { "@type": "Offer", "price": "59", "priceCurrency": "USD" }
+    }
+    </script>
+  </Fragment>
+
+<style>
+.huddle-page {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--white);
+}
+.huddle-page h1, .huddle-page h2, .huddle-page h3 { font-family: var(--font-serif); }
+.hc { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.hl { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 16px; }
+
+/* Buttons */
+.hb-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-dark); color: var(--white); padding: 12px 24px; border-radius: 100px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.15s; font-family: var(--font-sans); }
+.hb-primary:hover { background: var(--primary); }
+.hb-secondary { display: inline-flex; align-items: center; gap: 6px; background: none; color: var(--ink-muted); padding: 12px 24px; border-radius: 100px; border: 1.5px solid var(--border-strong); font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: border-color 0.15s, color 0.15s; font-family: var(--font-sans); }
+.hb-secondary:hover { border-color: var(--primary); color: var(--primary); }
+.hb-accent { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--white); padding: 12px 24px; border-radius: 100px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.15s; font-family: var(--font-sans); }
+.hb-accent:hover { background: var(--accent-light); }
+
+/* Demo frame */
+.demo-frame { position: relative; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 8px; box-shadow: 0 8px 24px rgba(15,26,20,0.10), 0 24px 60px rgba(15,26,20,0.08); font-family: 'Inter', system-ui, sans-serif; }
+.demo-frame__label { position: absolute; top: -12px; left: 20px; background: var(--accent); color: var(--white); font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; padding: 4px 10px; border-radius: 100px; font-weight: 600; z-index: 2; }
+
+/* Reveal */
+.hr { opacity: 0; transform: translateY(24px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
+.hr.visible { opacity: 1; transform: translateY(0); }
+
+/* Announce */
+.huddle-announce { background: var(--primary-dark); color: var(--white); text-align: center; padding: 10px 24px; font-size: 0.82rem; font-weight: 500; }
+.huddle-announce strong { color: var(--accent-light); }
+
+/* Hero */
+.huddle-hero { padding: 72px 0 56px; }
+.huddle-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+.huddle-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-light); color: var(--primary); border-radius: 100px; padding: 6px 16px; font-size: 0.78rem; font-weight: 600; margin-bottom: 24px; }
+.huddle-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.huddle-hero h1 { font-size: clamp(2.2rem, 4vw, 2.8rem); line-height: 1.15; color: var(--ink); margin-bottom: 18px; max-width: 480px; }
+.huddle-hero h1 em { font-style: italic; color: var(--primary); }
+.huddle-hero-sub { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 28px; max-width: 520px; }
+.huddle-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.huddle-trust { font-size: 0.77rem; color: var(--ink-faint); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.huddle-trust span { display: flex; align-items: center; gap: 4px; }
+.huddle-trust span::before { content: '✓'; color: var(--primary); font-weight: 700; }
+
+/* Trust bar */
+.huddle-trustbar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); padding: 18px 0; }
+.huddle-trustbar-inner { display: flex; align-items: center; gap: 8px; justify-content: center; flex-wrap: wrap; font-size: 1rem; }
+.huddle-trustbar-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-right: 8px; }
+.huddle-trustbar-inner span { font-family: var(--font-serif); color: var(--ink-muted); }
+.huddle-trustbar-dot { color: var(--ink-faint); font-size: 0.5rem; }
+
+/* Thesis */
+.huddle-thesis { padding: 80px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.huddle-thesis h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 14px; text-align: center; max-width: 760px; margin-left: auto; margin-right: auto; }
+.huddle-thesis h2 em { font-style: italic; color: var(--primary); }
+.huddle-thesis-lede { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.65; max-width: 680px; margin: 0 auto 20px; text-align: center; }
+.huddle-thesis-link { font-size: 0.88rem; color: var(--primary); text-decoration: none; font-style: italic; display: block; text-align: center; }
+.huddle-thesis-link:hover { text-decoration: underline; }
+
+/* Three tabs */
+.huddle-tabs-section { padding: 80px 0; }
+.huddle-tabs-section h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 40px; }
+.huddle-tabs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.huddle-tab-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+.huddle-tab-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.huddle-tab-card h3 { font-size: 1.1rem; color: var(--ink); margin-bottom: 10px; }
+.huddle-tab-card p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; }
+
+/* What you're looking at */
+.huddle-what { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.huddle-what-inner { max-width: 760px; margin: 0 auto; }
+.huddle-what h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--ink); margin-bottom: 16px; }
+.huddle-what h2 em { font-style: italic; color: var(--primary); }
+.huddle-what-body { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.72; margin-bottom: 28px; }
+/* Inline note shape visual */
+.huddle-note-shape { display: flex; gap: 6px; align-items: flex-start; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.huddle-note-sections { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.huddle-note-section { padding: 8px 12px; background: var(--surface); border-radius: 6px; }
+.huddle-note-section-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-faint); }
+.huddle-note-ap { padding: 8px 12px; background: var(--primary-light); border-left: 3px solid var(--primary); border-radius: 6px; position: relative; }
+.huddle-note-ap-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--primary); font-weight: 600; }
+.huddle-note-arrow { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); writing-mode: vertical-lr; text-orientation: mixed; padding: 8px 4px; white-space: nowrap; align-self: center; }
+
+/* Tasks */
+.huddle-tasks { padding: 80px 0; }
+.huddle-tasks-inner { max-width: 760px; margin: 0 auto; }
+.huddle-tasks h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--ink); margin-bottom: 16px; }
+.huddle-tasks-body { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.72; margin-bottom: 28px; }
+/* Task mock */
+.huddle-task-mock { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.huddle-task-problem { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--primary); font-weight: 600; margin-bottom: 10px; text-transform: uppercase; }
+.huddle-task-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.huddle-task-row:last-child { border-bottom: none; }
+.huddle-task-check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border-strong); flex-shrink: 0; }
+.huddle-task-check--done { background: var(--primary); border-color: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.65rem; }
+.huddle-task-text { color: var(--ink-muted); }
+.huddle-task-text--done { text-decoration: line-through; color: var(--ink-faint); }
+.huddle-task-badge { font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 8px; border-radius: 100px; margin-left: auto; }
+.huddle-task-badge--snoozed { background: var(--surface-warm); color: var(--ink-faint); }
+.huddle-task-badge--today { background: var(--primary-light); color: var(--primary); }
+
+/* Foundation */
+.huddle-foundation { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.huddle-foundation-inner { max-width: 760px; margin: 0 auto; }
+.huddle-foundation h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--ink); margin-bottom: 16px; }
+.huddle-foundation-body { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.72; margin-bottom: 20px; }
+.huddle-foundation-body strong { color: var(--ink); }
+.huddle-foundation-link { font-size: 0.88rem; color: var(--primary); text-decoration: none; font-style: italic; }
+.huddle-foundation-link:hover { text-decoration: underline; }
+
+/* Social proof */
+.huddle-proof { padding: 64px 0; }
+.huddle-proof-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 36px; max-width: 700px; margin: 0 auto; text-align: center; position: relative; }
+.huddle-proof-card .qm { font-family: var(--font-serif); font-size: 4rem; color: var(--primary-light); line-height: 1; position: absolute; top: 16px; left: 28px; }
+.huddle-proof-card blockquote { font-family: var(--font-serif); font-size: 1.2rem; color: var(--ink); line-height: 1.5; margin: 16px 0 20px; font-style: italic; }
+.huddle-proof-attr { font-size: 0.82rem; color: var(--ink-faint); }
+
+/* Final CTA */
+.huddle-cta { padding: 80px 0; background: var(--white); border-top: 1px solid var(--border); text-align: center; }
+.huddle-cta h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--ink); margin-bottom: 16px; }
+.huddle-cta h2 em { font-style: italic; color: var(--primary); }
+.huddle-cta-body { font-size: 1.05rem; color: var(--ink-muted); margin-bottom: 28px; }
+.huddle-cta-trust { font-size: 0.77rem; color: var(--ink-faint); margin-top: 18px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .huddle-hero-grid { grid-template-columns: 1fr; }
+  .huddle-tabs-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .huddle-hero h1 { font-size: 2rem; }
+  .huddle-cta-row { flex-direction: column; }
+  .huddle-cta-row a { width: 100%; justify-content: center; text-align: center; }
+  .huddle-trust { flex-direction: column; gap: 6px; }
+}
+</style>
+
+<div class="huddle-page">
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="huddle-announce">
+  <strong>Limited pricing:</strong> {pricing.bannerText} {pricing.trialLine}
+</div>
+
+<!-- NAV -->
+<Nav />
+
+<!-- HERO -->
+<section class="huddle-hero">
+  <div class="hc">
+    <div class="huddle-hero-grid">
+      <div>
+        <div class="huddle-eyebrow">New · Shipping this week</div>
+        <h1>Before the visit, a <em>clear view of what matters.</em></h1>
+        <p class="huddle-hero-sub">Huddle is Stream's pre-visit review surface. Open a patient five minutes before their visit and see what you've addressed in the last three visits, what's falling off your attention past ten months, and which HCCs you haven't captured this year — each with your own Assessment &amp; Plan, confirmed, ready to read.</p>
+        <div class="huddle-cta-row">
+          <a href={`${onboardUrl}&utm_content=hero`} class="hb-primary">Start free for 30 days →</a>
+          <a href="#thesis" class="hb-secondary">Read the thesis</a>
+        </div>
+        <div class="huddle-trust">
+          <span>No credit card</span>
+          <span>30-day free trial</span>
+          <span>Works alongside any EHR</span>
+          <span>HIPAA compliant</span>
+        </div>
+      </div>
+      <div>
+        <div class="demo-frame">
+          <div class="demo-frame__label">LIVE DEMO · fake patient data</div>
+          <HuddleDemo client:load />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="huddle-trustbar">
+  <div class="hc">
+    <div class="huddle-trustbar-inner">
+      <span class="huddle-trustbar-label">Built by clinicians from</span>
+      <span>Tufts University School of Medicine</span>
+      <span class="huddle-trustbar-dot">·</span>
+      <span>Published in JAMA Network Open</span>
+      <span class="huddle-trustbar-dot">·</span>
+      <span>Primary care · Peds · DPC · SNF</span>
+    </div>
+  </div>
+</div>
+
+<!-- THESIS -->
+<section class="huddle-thesis hr" id="thesis">
+  <div class="hc">
+    <div class="hl" style="text-align:center;">THE PHILOSOPHY</div>
+    <h2>Summarization is a tool. <em>Not a default.</em></h2>
+    <p class="huddle-thesis-lede">Most AI products applied to clinical charts just summarize everything. It's the obvious move — and the wrong one. What a clinician actually needs before a visit isn't a compressed version of the last eighteen months. It's a clear view of what's active, what's falling off, and what's outstanding. Huddle is what that view looks like.</p>
+    <a href="/blog/summarization-is-a-tool" class="huddle-thesis-link">Read Jake's full argument →</a>
+  </div>
+</section>
+
+<!-- THREE TABS -->
+<section class="huddle-tabs-section hr">
+  <div class="hc">
+    <div class="hl">THE THREE TABS</div>
+    <h2>Three lenses on one patient.</h2>
+    <div class="huddle-tabs-grid">
+      <div class="huddle-tab-card">
+        <div class="huddle-tab-num">01 · ACTIVE</div>
+        <h3>What you've been working on.</h3>
+        <p>Problems you've addressed in the last three visits. For each, Huddle shows the most recent Assessment &amp; Plan — your words, as you wrote and signed them. If a problem appeared in all three recent visits, the first is visible by default; the others are a click away. You see the trajectory without re-reading three full notes.</p>
+      </div>
+      <div class="huddle-tab-card">
+        <div class="huddle-tab-num">02 · FALLING OFF</div>
+        <h3>What's quietly dropped off.</h3>
+        <p>Problems you haven't addressed in ten months or more. Huddle surfaces them so they don't stay forgotten. Each one comes with its last A&amp;P — so you know exactly what state you left it in, and you can decide whether today's visit is the moment to pick it back up.</p>
+      </div>
+      <div class="huddle-tab-card">
+        <div class="huddle-tab-num">03 · HCC</div>
+        <h3>Revenue integrity, done right.</h3>
+        <p>HCC-relevant problems you haven't captured this calendar year. Huddle flags them so nothing clinically legitimate slips past documentation. Capture happens as a byproduct of doing the visit — not as a separate admin chore.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'RE LOOKING AT -->
+<section class="huddle-what hr">
+  <div class="hc">
+    <div class="huddle-what-inner">
+      <div class="hl">WHAT YOU'RE READING</div>
+      <h2>Your own words. <em>Not an AI paraphrase.</em></h2>
+      <p class="huddle-what-body">Everything you see in Huddle is text you wrote and signed — or text a colleague on Stream wrote and signed, if you share patients. Nothing has been re-summarized. Nothing has been re-rendered through an LLM after the fact. When the chart tells you "last time, you adjusted her metformin because her A1c was 8.4," it's telling you exactly what you said, in the way you said it. This matters. It's the difference between reading a record and reading an interpretation of a record.</p>
+      <div class="huddle-note-shape">
+        <div class="huddle-note-sections">
+          <div class="huddle-note-section">
+            <div class="huddle-note-section-label">S · SUBJECTIVE</div>
+          </div>
+          <div class="huddle-note-section">
+            <div class="huddle-note-section-label">O · OBJECTIVE</div>
+          </div>
+          <div class="huddle-note-ap">
+            <div class="huddle-note-ap-label">A · P PER PROBLEM</div>
+            <div style="margin-top:6px;font-size:0.72rem;color:var(--primary);">Diabetes T2 · Hypertension · Anxiety</div>
+          </div>
+        </div>
+        <div class="huddle-note-arrow">← this is what Huddle shows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TASKS -->
+<section class="huddle-tasks hr">
+  <div class="hc">
+    <div class="huddle-tasks-inner">
+      <div class="hl">TASKS</div>
+      <h2>Tasks live where the thinking lives.</h2>
+      <p class="huddle-tasks-body">Tasks in Huddle aren't a separate list. They're attached to the medical problems they belong to, showing up under the relevant problem in every view. Complete them, snooze them, or bring them into today's visit — all from the Huddle screen. Stream auto-generates task recommendations from each visit and dedupes against existing tasks, so nothing gets added twice and nothing gets forgotten.</p>
+      <div class="huddle-task-mock">
+        <div class="huddle-task-problem">Type 2 Diabetes · Tasks</div>
+        <div class="huddle-task-row">
+          <div class="huddle-task-check"></div>
+          <span class="huddle-task-text">Recheck A1c in 3 months</span>
+          <span class="huddle-task-badge huddle-task-badge--today">today</span>
+        </div>
+        <div class="huddle-task-row">
+          <div class="huddle-task-check"></div>
+          <span class="huddle-task-text">Obtain UACR — annual screen</span>
+        </div>
+        <div class="huddle-task-row">
+          <div class="huddle-task-check huddle-task-check--done">✓</div>
+          <span class="huddle-task-text huddle-task-text--done">Nutrition referral for meal planning</span>
+        </div>
+        <div class="huddle-task-row">
+          <div class="huddle-task-check"></div>
+          <span class="huddle-task-text">Retinal exam — overdue 6 months</span>
+          <span class="huddle-task-badge huddle-task-badge--snoozed">snoozed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDATION -->
+<section class="huddle-foundation hr">
+  <div class="hc">
+    <div class="huddle-foundation-inner">
+      <div class="hl">THE FOUNDATION</div>
+      <h2>This only works because of the note.</h2>
+      <p class="huddle-foundation-body">Huddle is possible because Stream's scribe produces a structured note from every visit — Subjective, Objective, and Assessment &amp; Plan <strong>split out per medical problem</strong>. That structure is what lets Huddle surface the right A&amp;P for the right problem at the right time, without re-running an LLM summarization layer over the whole chart. It's one architectural choice, and every downstream feature Stream builds depends on it.</p>
+      <a href="/#note" class="huddle-foundation-link">See how the structured note works →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="huddle-proof hr">
+  <div class="hc">
+    <div class="huddle-proof-card">
+      <div class="qm">"</div>
+      <blockquote>Stream focuses on the entire patient — which is exactly what DPC needs. Progress over time matters more than any single encounter, and Stream is the only tool I've found that actually works that way.</blockquote>
+      <div class="huddle-proof-attr">— Anatoli Berezovsky, MD · Owner &amp; CEO, Mila Family Health</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING / CTA -->
+<section class="huddle-cta hr" id="cta">
+  <div class="hc">
+    <h2>Huddle comes with every Stream subscription. <em>No upsell, no extra tier.</em></h2>
+    <p class="huddle-cta-body">{pricing.introPrice} for your first year. {pricing.standardPrice} after. 30-day free trial. No credit card. Takes under three minutes to start.</p>
+    <div class="huddle-cta-row" style="justify-content:center;">
+      <a href={`${onboardUrl}&utm_content=final`} class="hb-primary">Start free for 30 days →</a>
+      <a href="/book-demo" class="hb-secondary">Talk to a clinician first</a>
+    </div>
+    <div class="huddle-cta-trust">
+      <span>No credit card</span>
+      <span>Cancel anytime</span>
+      <span>HIPAA compliant</span>
+      <span>BAA included</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<Footer />
+
+</div>
+
+<script is:inline>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.hr').forEach(el => obs.observe(el));
+</script>
+
+</Base>
