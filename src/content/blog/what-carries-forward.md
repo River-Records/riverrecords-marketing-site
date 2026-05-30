@@ -34,7 +34,7 @@ Stream has always been organized by medical problem — not by encounter date. B
 
 This is the central design challenge: how do you build a structure that honors both the visit and the patient?
 
-The visit needs its own space. When a patient presents with an acute issue — a fall, a respiratory illness, a concern that surfaced mid-appointment — that context matters for the record of that encounter. It doesn't need to dominate the chart forever.
+The visit needs its own space. The purpose of the visit, who was present in the room, which orders were placed that day, a brief visit summary — that context matters for the record of the encounter. It doesn't need to follow the patient indefinitely.
 
 The patient's problems need a different kind of space. They need to accumulate intelligently. The hypertension documentation from today's visit should connect to the hypertension documentation from three months ago. The updated medication plan should flow from the previous one. The problem's documentation should be a thread, not a pile.
 
@@ -44,7 +44,7 @@ And both of these need to coexist in the same visit — because that's what actu
 
 In Stream, we're building toward a structure where every visit has a defined shape — a skeleton of documentation slots that can be arranged in any order that makes sense for the type of encounter.
 
-Some of those slots are *custom sections*: visit-specific documentation that lives in the note but doesn't get carried forward. A procedure note. An intake description. A contextual detail that's relevant today and not tomorrow.
+Some of those slots are *custom sections*: visit-specific documentation that lives in the note but doesn't get carried forward. A purpose-of-visit field. A procedure note. Orders placed that day. Family members present. A visit summary. The kind of contextual detail that belongs to the encounter and not to the patient's ongoing record.
 
 Other slots are *default cards*: problem-based documentation organized by medical topic. These do carry forward. They're the continuing threads of care. When you document hypertension today, that documentation becomes the foundation for the hypertension section at the next visit.
 
