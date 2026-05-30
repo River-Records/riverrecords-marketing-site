@@ -87,6 +87,14 @@ draft: false
 3. Write content in markdown below the frontmatter
 4. Push — it builds and deploys automatically
 
+### When opening a blog PR (e.g. via the @claude Action)
+Always include the Cloudflare preview link at the TOP of the PR description so it
+can be reviewed on mobile without logging into the Cloudflare dashboard. Build it
+from the branch name (replace every `/` with `-`) and the post slug:
+`https://<branch-with-slashes-as-dashes>.riverrecords-marketing-site.pages.dev/blog/<slug>/`
+Example: branch `claude/issue-7-...`, slug `my-post` →
+`https://claude-issue-7-....riverrecords-marketing-site.pages.dev/blog/my-post/`
+
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:
 Hero → Pain cards → Philosophy → How it works (with widgets) → Features → Testimonials → Pricing callout → CTA.
