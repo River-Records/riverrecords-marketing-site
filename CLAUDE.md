@@ -52,7 +52,7 @@ src/
     404.astro           ← 404 with page search
   content/
     blog/               ← Markdown files (Astro content collection)
-    content.config.ts   ← Collection schema
+  content.config.ts     ← Collection schema (at src/ root, not in content/)
 public/
   brand-extract.css     ← Design tokens from product
   shared.css            ← All component styles + CSS variables
