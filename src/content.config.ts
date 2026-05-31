@@ -16,6 +16,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     readTime: z.string().optional(),
     draft: z.boolean().default(false),
+    // LinkedIn-native caption for auto-syndication (surfaced in /rss.xml).
+    linkedinCaption: z.string().optional(),
   }),
 });
 

@@ -95,6 +95,15 @@ from the branch name (replace every `/` with `-`) and the post slug:
 Example: branch `claude/issue-7-...`, slug `my-post` →
 `https://claude-issue-7-....riverrecords-marketing-site.pages.dev/blog/my-post/`
 
+## RSS feed & syndication
+The blog feed is generated at `/rss.xml` by `src/pages/rss.xml.js` from the
+published (non-draft) posts. It powers readers and the blog→LinkedIn automation.
+Each item includes a `<linkedinCaption>` element: it uses the optional
+`linkedinCaption` frontmatter field when present, otherwise falls back to
+`description`. To make auto-posted LinkedIn updates read natively, set a
+`linkedinCaption` in the post's frontmatter (a hook written for LinkedIn, not the
+SEO description).
+
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:
 Hero → Pain cards → Philosophy → How it works (with widgets) → Features → Testimonials → Pricing callout → CTA.
