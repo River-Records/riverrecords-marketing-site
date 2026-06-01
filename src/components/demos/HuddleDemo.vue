@@ -44,6 +44,13 @@
           &#9888; {{ prob.reassessMonths }}mo since last documented
         </p>
 
+        <!-- Open loops — work ordered but not yet resolved -->
+        <div v-for="loop in (prob.openLoops || [])" :key="loop.id" class="open-loop-row">
+          <span class="open-loop-icon">&#9888;</span>
+          <span class="open-loop-text">{{ loop.label }}</span>
+          <span class="badge badge-danger">{{ loop.days }}d no reply</span>
+        </div>
+
         <!-- Tasks -->
         <div v-for="task in (prob.tasks || [])" :key="task.id" class="task-row">
           <span class="task-icon">{{ taskIcon(task.type) }}</span>
@@ -151,6 +158,10 @@ export default {
 
 .reassess-signal { font-size: 12px; font-weight: 500; color: #d32f2f; margin: 0 0 4px 2px; }
 .meta-text { font-size: 13px; color: #888; margin: 0 0 2px 0; }
+
+.open-loop-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 4px; background: #fde8e8; border-left: 3px solid #d32f2f; margin: 4px 0 6px; }
+.open-loop-icon { font-size: 13px; color: #d32f2f; flex-shrink: 0; }
+.open-loop-text { font-size: 12.5px; font-weight: 500; color: #7a2222; flex-grow: 1; line-height: 1.35; }
 
 .task-row { display: flex; align-items: center; gap: 8px; padding: 4px; border-radius: 4px; }
 .task-row:hover { background: #f5f5f5; }
