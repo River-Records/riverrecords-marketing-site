@@ -295,9 +295,34 @@ const obs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 document.addEventListener('DOMContentLoaded', function() {
-  StreamWidgets.ProblemSummaryCard('#snf-problem-summary');
+  // SNF / post-acute datasets — override the widgets' adult primary-care defaults.
+  StreamWidgets.ProblemSummaryCard('#snf-problem-summary', {
+    data: {
+      title: "Heart Failure (HFrEF), Post-Acute",
+      status: "Active",
+      icd: "I50.22",
+      summary: "Admitted for post-acute rehab after a heart-failure hospitalization. Daily weight up 2 kg over 4 days with increasing lower-extremity edema. Tolerating PT. Diuretic uptitrated; monitoring renal function and potassium closely to keep the patient out of the hospital.",
+      medications: [
+        { name: "Furosemide 40 mg BID", status: "Active" },
+        { name: "Metoprolol succinate 50 mg daily", status: "Active" },
+        { name: "Sacubitril/valsartan 49-51 mg BID", status: "New" },
+        { name: "Lisinopril 10 mg daily", status: "D/C" },
+      ],
+      lastUpdated: "2 days ago",
+    },
+  });
+
   StreamWidgets.WaveformWidget('#snf-waveform', { autoStart: true });
-  StreamWidgets.TaskListWidget('#snf-task-list');
+
+  StreamWidgets.TaskListWidget('#snf-task-list', {
+    tasks: [
+      { text: "Daily weights — flag if up >2 kg in 3 days", due: "Ongoing", tag: "Routine", done: false },
+      { text: "Recheck BMP — K+ and renal function on furosemide", due: "Apr 6", tag: "Urgent", done: false },
+      { text: "PT/OT progress review for rehab goals", due: "Apr 5", tag: "Routine", done: false },
+      { text: "Complete MDS assessment", due: "Apr 8", tag: "Routine", done: false },
+      { text: "Reconcile meds against hospital discharge summary", due: "Apr 3", tag: "Urgent", done: true },
+    ],
+  });
 });
 </script>
 
