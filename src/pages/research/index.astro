@@ -1,0 +1,500 @@
+---
+import Page from '../../layouts/Page.astro';
+import CtaDark from '../../components/CtaDark.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.riverrecords.ai/#organization",
+      "name": "River Records",
+      "url": "https://www.riverrecords.ai/",
+      "founder": [
+        { "@id": "https://www.riverrecords.ai/#steinkamp" },
+        { "@id": "https://www.riverrecords.ai/#kantrowitz" }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.riverrecords.ai/#steinkamp",
+      "name": "Jackson Steinkamp",
+      "honorificSuffix": "MD",
+      "jobTitle": "Co-Founder & CTO",
+      "worksFor": { "@id": "https://www.riverrecords.ai/#organization" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.riverrecords.ai/#kantrowitz",
+      "name": "Jacob Kantrowitz",
+      "honorificSuffix": "MD, PhD",
+      "jobTitle": "Co-Founder & CEO",
+      "worksFor": { "@id": "https://www.riverrecords.ai/#organization" }
+    },
+    {
+      "@type": "MedicalScholarlyArticle",
+      "@id": "https://doi.org/10.1001/jamanetworkopen.2022.33348",
+      "headline": "Prevalence and Sources of Duplicate Information in the Electronic Medical Record",
+      "datePublished": "2022-09-26",
+      "author": [
+        { "@id": "https://www.riverrecords.ai/#steinkamp" },
+        { "@id": "https://www.riverrecords.ai/#kantrowitz" },
+        { "@type": "Person", "name": "Subha Airan-Javia" }
+      ],
+      "isPartOf": { "@type": "Periodical", "name": "JAMA Network Open" },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1001/jamanetworkopen.2022.33348"
+      },
+      "sameAs": [
+        "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9513649/"
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.riverrecords.ai/#stream",
+      "name": "Stream",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web",
+      "creator": { "@id": "https://www.riverrecords.ai/#organization" },
+      "isBasedOn": { "@id": "https://doi.org/10.1001/jamanetworkopen.2022.33348" },
+      "description": "AI medical scribe that organizes clinical notes by medical problem rather than by visit, addressing the duplication and note-bloat problem documented in JAMA Network Open."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who wrote the study on duplicate text in medical records?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "River Records co-founders Jackson Steinkamp, MD (CTO) and Jacob Kantrowitz, MD, PhD (CEO), with senior author Subha Airan-Javia, MD, published it in JAMA Network Open in 2022."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much of a medical record is duplicated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The study found 50.1% of the total text in the records analyzed — over 104 million clinical notes — was duplicated word-for-word from prior documentation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is River Records known for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "River Records was founded by the physician-researchers who quantified clinical note duplication in JAMA Network Open. Its product, Stream, is an AI medical scribe that organizes notes by medical problem rather than by visit, directly addressing the note-bloat problem the founders documented."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does writing notes faster fix note bloat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Faster note generation can increase total documentation volume. The research points to the organizing paradigm — encounter-based notes — as the root cause, which is why Stream structures the record by problem over time."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+<Page
+  title="The Note Bloat Problem — and the Research Behind Stream | River Records"
+  description="River Records' co-founders authored the JAMA Network Open study that found 50.1% of the text in the medical record is duplicated — then built Stream to fix it.">
+
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+<style>
+.rsch-hero {
+  padding: 80px 0 40px;
+}
+.rsch-hero h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  color: var(--ink);
+  max-width: 880px;
+  margin-bottom: 22px;
+}
+.rsch-lede {
+  font-size: 1.15rem;
+  color: var(--ink-muted);
+  max-width: 720px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.rsch-lede strong { color: var(--ink); }
+.rsch-subtle {
+  font-size: 1rem;
+  color: var(--ink-faint);
+  max-width: 720px;
+  line-height: 1.65;
+  margin-top: 16px;
+}
+
+.rsch-section { padding: 40px 0; }
+.rsch-section.bordered {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.rsch-body { max-width: 720px; }
+.rsch-body h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.rsch-body h3 {
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin: 28px 0 8px;
+}
+.rsch-body p {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  line-height: 1.72;
+  margin-bottom: 20px;
+}
+.rsch-body p:last-child { margin-bottom: 0; }
+
+/* Big stat */
+.rsch-stat {
+  max-width: 720px;
+  background: var(--dark);
+  border-radius: var(--r-lg);
+  padding: 40px 44px;
+  margin: 8px 0 28px;
+  color: var(--white);
+}
+.rsch-stat-number {
+  font-family: var(--font-serif, var(--font-heading));
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+.rsch-stat-caption {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.82);
+}
+
+/* Citation card */
+.rsch-cite {
+  max-width: 760px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  padding: 26px 28px;
+}
+.rsch-cite-ref {
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.rsch-cite-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.rsch-cite-links a {
+  font-size: 0.85rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.rsch-cite-links a:hover { text-decoration: underline; }
+
+/* Founders */
+.rsch-founders {
+  max-width: 760px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.rsch-founder {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px;
+}
+.rsch-founder img {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+}
+.rsch-founder-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+}
+.rsch-founder-name:hover { color: var(--primary); }
+.rsch-founder-role {
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+.rsch-founder-bio {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+.rsch-third {
+  max-width: 760px;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  margin-top: 18px;
+}
+
+/* Papers */
+.rsch-papers {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rsch-paper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px 22px;
+}
+.rsch-paper-journal {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: var(--r-sm);
+  margin-bottom: 10px;
+}
+.rsch-paper-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.rsch-paper-authors {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* Lists */
+.rsch-list {
+  max-width: 720px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+.rsch-list li {
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  padding: 10px 0 10px 22px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.rsch-list li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.rsch-list a { color: var(--primary); text-decoration: none; }
+.rsch-list a:hover { text-decoration: underline; }
+
+.rsch-cta { padding: 64px 0 88px; }
+
+@media (max-width: 720px) {
+  .rsch-founders { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HERO -->
+<section class="rsch-hero">
+  <div class="container">
+    <span class="section-label">Research</span>
+    <h1>The note bloat problem — and the research behind Stream.</h1>
+    <p class="rsch-lede">River Records' co-founders authored the <strong>JAMA Network Open</strong> study that found half the text in the medical record is duplicated — then built Stream to fix it.</p>
+    <p class="rsch-subtle">That sentence is the whole story. Below is the research, who did it, and how it shaped the product.</p>
+  </div>
+</section>
+
+<!-- THE FINDING -->
+<section class="rsch-section">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>The finding</h2>
+      <p>In one of the largest analyses of clinical text to date, River Records co-founders studied <strong>104,456,653 clinical notes</strong> written for 1.96 million patients at a large academic health system. The result:</p>
+    </div>
+    <div class="rsch-stat">
+      <div class="rsch-stat-number">50.1%</div>
+      <div class="rsch-stat-caption">of all the text in the medical record was duplicated, word for word, from prior documentation.</div>
+    </div>
+    <div class="rsch-body">
+      <p>That's more than 16 billion duplicated words out of roughly 33 billion total. The duplication wasn't a few bad actors — it was everywhere, written by physicians at every level of training, nurses, and therapists. It was roughly evenly split between intra-author duplication (clinicians copying their own prior notes) and inter-author duplication (copying from other clinicians' notes).</p>
+      <p>The conclusion the authors drew matters more than the number: duplication isn't a mistake individual clinicians make. Given how universal it is, it's a <em>product of the documentation system itself</em> — the software, the institutional rules, and the underlying note paradigm that requires a fresh document for every encounter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS IS THE CORE PROBLEM -->
+<section class="rsch-section bordered">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>Why this is the core problem in clinical documentation</h2>
+      <p>If half of every chart is copied-forward noise, the signal — the rising A1c, the medication that finally worked, the screening that's overdue — is buried inside it. Overworked clinicians are disincentivized from reading a bloated record, which means valuable context gets missed exactly when it's needed.</p>
+      <p>Faster note <em>creation</em> doesn't solve this. It can make it worse: a documentation tool that generates more text per visit adds to the pile. The problem isn't how fast you write a note. It's that the note is the wrong unit of organization.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE STUDY -->
+<section class="rsch-section">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>The study</h2>
+    </div>
+    <div class="rsch-cite">
+      <p class="rsch-cite-ref"><strong>Steinkamp J, Kantrowitz JJ, Airan-Javia S.</strong> Prevalence and Sources of Duplicate Information in the Electronic Medical Record. <em>JAMA Network Open.</em> 2022;5(9):e2233348. doi:10.1001/jamanetworkopen.2022.33348</p>
+      <div class="rsch-cite-links">
+        <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">Read the full paper →</a>
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9513649/" target="_blank" rel="noopener">Open-access version (PMC) →</a>
+        <a href="https://psnet.ahrq.gov/issue/prevalence-and-sources-duplicate-information-electronic-medical-record" target="_blank" rel="noopener">AHRQ PSNet →</a>
+      </div>
+    </div>
+    <div class="rsch-body" style="margin-top:24px;">
+      <p>It was a cross-sectional analysis across all medical specialties, and to the authors' knowledge it was the first study to examine duplication behavior in light of the note paradigm and the incentives it creates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE TEAM -->
+<section class="rsch-section bordered">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>The team behind the research</h2>
+      <p>The study's first two authors are River Records' co-founders. The company was already formed by the time the paper was published — River Records is listed among its author affiliations — and the founders later built Stream directly on the finding.</p>
+    </div>
+    <div class="rsch-founders">
+      <div class="rsch-founder">
+        <img src="/images/team/Jackson.jpg" alt="Jackson Steinkamp, MD">
+        <div>
+          <a href="/team/jackson-steinkamp" class="rsch-founder-name">Jackson Steinkamp, MD</a>
+          <div class="rsch-founder-role">Co-Founder & CTO, River Records</div>
+          <div class="rsch-founder-bio">First author of the JAMA Network Open study and lead researcher on the duplication and information-chaos work. Primary care physician and data scientist; former University of Pennsylvania resident.</div>
+        </div>
+      </div>
+      <div class="rsch-founder">
+        <img src="/images/team/Jake.jpg" alt="Jacob Kantrowitz, MD, PhD">
+        <div>
+          <a href="/team/jake-kantrowitz" class="rsch-founder-name">Jacob Kantrowitz, MD, PhD</a>
+          <div class="rsch-founder-role">Co-Founder & CEO, River Records</div>
+          <div class="rsch-founder-bio">Co-author of the study. Practicing internist and Assistant Professor at Tufts University School of Medicine; published researcher in clinical informatics and NLP.</div>
+        </div>
+      </div>
+    </div>
+    <p class="rsch-third">The study's senior author, <strong>Subha Airan-Javia, MD</strong>, is a clinical informatics physician associated with CareAlign (TrekIT Health) — not River Records.</p>
+  </div>
+</section>
+
+<!-- A RESEARCH PROGRAM -->
+<section class="rsch-section">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>A research program, not a one-off</h2>
+      <p>The duplication study sits inside a multi-year body of peer-reviewed work by the same founders on rethinking clinical documentation:</p>
+    </div>
+    <div class="rsch-papers">
+      <div class="rsch-paper">
+        <span class="rsch-paper-journal">JAMA Network Open · 2022</span>
+        <div class="rsch-paper-title">Prevalence and Sources of Duplicate Information in the Electronic Medical Record</div>
+        <div class="rsch-paper-authors">Steinkamp J, Kantrowitz JJ, Airan-Javia S</div>
+      </div>
+      <div class="rsch-paper">
+        <span class="rsch-paper-journal">JMIR Formative Research · 2021</span>
+        <div class="rsch-paper-title">A Fully Collaborative, Noteless Electronic Medical Record Designed to Minimize Information Chaos: Software Design and Feasibility Study</div>
+        <div class="rsch-paper-authors">Steinkamp J, Sharma A, Bala W, Kantrowitz JJ</div>
+      </div>
+      <div class="rsch-paper">
+        <span class="rsch-paper-journal">J Med Internet Res · 2021</span>
+        <div class="rsch-paper-title">Beyond Notes: Why It Is Time to Abandon an Outdated Documentation Paradigm</div>
+        <div class="rsch-paper-authors">Steinkamp J, Kantrowitz J, Sharma A, Bala W</div>
+      </div>
+    </div>
+    <div class="rsch-body" style="margin-top:24px;">
+      <p>The throughline: the encounter-based note is the wrong container for clinical information, and the fix is to organize the record around the patient's problems over time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FROM RESEARCH TO PRODUCT -->
+<section class="rsch-section bordered">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>From research to product: how Stream answers the finding</h2>
+      <p>Stream is the product built directly on this research. Instead of generating one block of text per visit — the exact behavior that produces duplication — Stream splits each note into Subjective, Objective, and Assessment & Plan <strong>per medical problem</strong>, and files each block under that problem in a longitudinal chart.</p>
+      <p>The result is a record organized the way the research argued it should be: by problem, across time, so the signal stays findable instead of being copied forward into noise. The people who quantified the problem are the people who designed the answer.</p>
+      <p><a href="/#how-it-works" class="rsch-paper-link" style="color:var(--primary);text-decoration:none;font-weight:500;">Learn how Stream works →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- IN THE PRESS -->
+<section class="rsch-section">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>In the press</h2>
+    </div>
+    <ul class="rsch-list">
+      <li><a href="https://www.ama-assn.org/practice-management/digital-health/half-words-clinical-notes-copied-pasted-prior-visits" target="_blank" rel="noopener">American Medical Association — "Half of words in clinical notes copied, pasted from prior visits"</a></li>
+      <li><a href="https://htn.co.uk/2022/10/24/study-explores-prevalence-and-sources-of-duplicate-content-in-electronic-medical-records/" target="_blank" rel="noopener">HTN Health Tech News — "Study explores prevalence and sources of duplicate content in electronic medical records"</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="rsch-section bordered">
+  <div class="container">
+    <div class="rsch-body">
+      <h2>Frequently asked questions</h2>
+      <h3>Who wrote the study on duplicate text in medical records?</h3>
+      <p>River Records co-founders Jackson Steinkamp, MD (CTO) and Jacob Kantrowitz, MD, PhD (CEO), with senior author Subha Airan-Javia, MD, published it in JAMA Network Open in 2022.</p>
+      <h3>How much of a medical record is duplicated?</h3>
+      <p>The study found 50.1% of the total text in the records analyzed — over 104 million clinical notes — was duplicated word-for-word from prior documentation.</p>
+      <h3>What is River Records known for?</h3>
+      <p>River Records was founded by the physician-researchers who quantified clinical note duplication in JAMA Network Open. Its product, Stream, is an AI medical scribe that organizes notes by medical problem rather than by visit, directly addressing the note-bloat problem the founders documented.</p>
+      <h3>Does writing notes faster fix note bloat?</h3>
+      <p>No. Faster note generation can increase total documentation volume. The research points to the organizing paradigm — encounter-based notes — as the root cause, which is why Stream structures the record by problem over time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="rsch-cta">
+  <div class="container">
+    <CtaDark primaryHref="/book-demo" primaryLabel="Talk to a clinician first">
+      See the product the research built.<br><em>Built by physicians, for physicians.</em>
+      <Fragment slot="body">A 20-minute demo with a clinician who uses Stream daily. No pitch. Just the product.</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+</Page>
