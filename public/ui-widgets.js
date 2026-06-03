@@ -39,6 +39,7 @@
     if (!root) return;
     options = options || {};
     var onSelect = options.onSelect || function () {};
+    var unitLabel = options.unitLabel || "encounters";
     var problems = options.problems || [
       { name: "Type 2 Diabetes Mellitus", status: "Active", encounters: 12, icd: "E11.9" },
       { name: "Essential Hypertension", status: "Active", encounters: 10, icd: "I10" },
@@ -69,7 +70,7 @@
         html += '<div data-idx="' + i + '" style="padding:12px 20px 12px 20px;border-left:' + leftBorder + ';background:' + bg + ';cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;opacity:' + opacity + ';">';
         html += '<div style="flex:1;min-width:0;overflow:hidden;">';
         html += '<div style="font-size:var(--brand-p3-size,14px);font-weight:var(--brand-font-weight-medium,450);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + p.name + '</div>';
-        html += '<div style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);margin-top:4px;">' + p.icd + ' &middot; ' + p.encounters + ' encounters</div>';
+        html += '<div style="font-size:var(--brand-p5-size,10px);color:var(--brand-ink-medium,#666);margin-top:4px;">' + p.icd + ' &middot; ' + p.encounters + ' ' + unitLabel + '</div>';
         html += '</div>';
         html += '<span class="sw-badge" style="background:' + sc.bg + ';color:' + sc.text + ';margin-left:8px;flex-shrink:0;white-space:nowrap;">' + p.status + '</span>';
         html += '</div>';
