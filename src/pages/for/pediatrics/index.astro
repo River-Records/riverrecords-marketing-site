@@ -1,0 +1,315 @@
+---
+import Page from '../../../layouts/Page.astro';
+import HeroSection from '../../../components/HeroSection.astro';
+import ProofStrip from '../../../components/ProofStrip.astro';
+import PainCard from '../../../components/PainCard.astro';
+import PhilBlock from '../../../components/PhilBlock.astro';
+import StepMock from '../../../components/StepMock.astro';
+import FeatureCell from '../../../components/FeatureCell.astro';
+import TestimonialCard from '../../../components/TestimonialCard.astro';
+import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "name": "AI Medical Scribe for Pediatrics",
+      "description": "Stream is the AI medical scribe built for pediatrics — a problem-oriented, longitudinal chart that keeps development, chronic conditions, and history connected across years of well-child and follow-up visits.",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Clinician",
+        "healthCondition": { "@type": "MedicalCondition", "name": "Pediatric Documentation" }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Stream suitable for well-child and developmental visits?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Because Stream organizes the chart by problem over time, developmental milestones, chronic conditions, and recurring concerns stay connected across every visit rather than scattered across separate notes." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Stream handle complex or behavioral pediatric visits?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream structures each problem discussed into its own Assessment & Plan and lets you reuse relevant prior-visit information, which helps with multi-problem and developmental-behavioral encounters." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Stream work with my pediatric EHR?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream pastes into any EHR and can also be used as a standalone documentation layer. Native integrations are rolling out, starting with Elation and then Athena." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is patient data used to train AI models?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data." }
+        }
+      ]
+    }
+  ]
+};
+---
+<Page
+  title="AI Medical Scribe for Pediatrics — Stream"
+  description="Stream is the AI scribe built for pediatrics. It organizes notes by medical problem into a chart that grows with the patient, so development, chronic conditions, and history stay connected across years. 30-day free trial.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</Fragment>
+
+<style>
+/* Pain section */
+.pain { padding: 72px 0 60px; }
+.pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 600px; line-height: 1.65; margin-bottom: 36px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* How it works */
+.how { padding: 88px 0 72px; }
+.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
+.how-header h2 em { font-style: italic; color: var(--primary); }
+.how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+.how-steps { display: flex; flex-direction: column; }
+.how-step { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 60px 0; border-top: 1px solid var(--border); }
+.how-step:last-child { border-bottom: 1px solid var(--border); }
+.how-step.reverse .how-step-visual { order: -1; }
+.how-step-num { font-family: var(--font-serif); font-size: 0.82rem; color: var(--primary); margin-bottom: 12px; letter-spacing: 0.02em; }
+.how-step h3 { font-size: clamp(1.45rem, 2.4vw, 1.85rem); color: var(--ink); margin-bottom: 12px; }
+.how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
+.how-step-aside { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; padding-left: 14px; border-left: 2px solid var(--border-strong); line-height: 1.55; }
+
+/* Testimonials (2-up) */
+.testimonials { padding: 64px 0 52px; }
+.testimonials-header { margin-bottom: 40px; }
+.testimonials-header h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 8px; }
+.testimonials-header p { font-size: 1rem; color: var(--ink-muted); }
+.tgrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; max-width: 760px; }
+
+/* Pricing callout */
+.pricing-callout { padding: 64px 0; }
+.pricing-card { background: var(--white); border: 1.5px solid rgba(15,26,20,0.2); border-radius: var(--r-xl); padding: 40px; max-width: 480px; margin: 0 auto; box-shadow: var(--shadow-md); text-align: center; position: relative; overflow: hidden; }
+.pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+.pricing-card h2 { font-size: 2rem; color: var(--ink); margin-bottom: 10px; }
+.pricing-card p { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 24px; }
+.pricing-card .btn-primary-lg { max-width: 360px; width: 100%; display: block; margin: 0 auto; text-align: center; }
+.pricing-small { font-size: 0.78rem; color: var(--ink-faint); margin-top: 12px; }
+.pricing-clinic { font-size: 0.85rem; color: var(--ink-muted); text-align: center; max-width: 480px; margin: 18px auto 0; line-height: 1.6; }
+
+/* FAQ */
+.peds-faq { padding: 64px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.peds-faq-inner { max-width: 720px; }
+.peds-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
+.peds-faq h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; }
+.peds-faq p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.68; }
+
+/* Research line */
+.peds-research { padding: 48px 0 8px; text-align: center; }
+.peds-research p { font-size: 0.92rem; color: var(--ink-faint); }
+.peds-research a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.peds-research a:hover { text-decoration: underline; }
+
+/* Final CTA */
+.final-cta { padding: 56px 0 88px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pain-cards { grid-template-columns: 1fr; }
+  .how-step { grid-template-columns: 1fr; gap: 28px; }
+  .how-step.reverse .how-step-visual { order: 0; }
+}
+@media (max-width: 640px) {
+  .tgrid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow="Built for Pediatrics"
+  sub="Pediatrics is longitudinal by nature — every well-child visit builds on the last. Stream organizes notes by medical problem into a chart that grows with the patient, so development, chronic conditions, and history stay connected across years instead of buried in a stack of dated notes."
+  primaryLabel="Start free for 30 days"
+  secondaryHref="/book-demo"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
+>
+  The AI scribe built for<br><em>a chart that grows with the patient.</em>
+</HeroSection>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Built by practicing physicians", "Works alongside any EHR", "Published in JAMA Network Open", "HIPAA Compliant"]} />
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <span class="section-label reveal">Why pediatrics needs a longitudinal scribe</span>
+    <h2 class="reveal">A child isn't a series of<br>unrelated visits.</h2>
+    <p class="pain-lead reveal">Growth, development, immunization status, behavioral concerns, and chronic conditions all unfold over time — and each well-child or follow-up visit only makes sense in the context of the ones before it. A scribe that writes one isolated note per visit captures the encounter but loses the thread.</p>
+    <div class="pain-cards reveal">
+      <PainCard icon="👶" title="The visits only make sense together" body="Growth curves, milestones, immunizations, and chronic conditions unfold over years. Each well-child or follow-up visit is downstream of every visit before it." />
+      <PainCard icon="🧵" title="One isolated note loses the thread" body="A scribe that writes a clean note and moves on captures today's encounter but not the trajectory — the developmental and clinical story gets buried in a stack of dated notes." />
+      <PainCard icon="📈" title="The trajectory is the point" body="Whether it's growth, a developmental milestone, asthma, or ADHD, what matters is how it has changed across visits — not just what happened today." />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 56px 0;">
+  <div class="container">
+    <PhilBlock label="Why pediatrics needs something different" name="Jake Kantrowitz, MD" title="Co-Founder, River Records">
+      "A child isn't a series of unrelated visits — growth, development, and chronic conditions only make sense in the context of everything that came before. The chart should hold that thread across years. Stream is built to."
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Designed around the way <em>pediatrics</em> actually works.</h2>
+      <p>Longitudinal from infancy forward.</p>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 01 — Before the visit</div>
+          <h3>Walk in knowing what's drifting.</h3>
+          <p>Before a visit, Huddle surfaces active problems, what's been falling off your attention, and outstanding items — drawn from the patient's whole history. Useful for catching overdue screenings, vaccines, or developmental follow-ups before the family is in the room.</p>
+          <p class="how-step-aside">Catch the overdue screening or vaccine before the visit, not after.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Pre-Visit Huddle" flush>
+            <div id="peds-huddle"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 02 — Across childhood</div>
+          <h3>A chart that grows with the patient.</h3>
+          <p>Each problem — a feeding concern, a developmental milestone question, asthma, ADHD — gets its own block that updates every visit, so you can see the whole trajectory at a glance. Pull forward and build on relevant history from previous visits instead of starting from scratch, producing a more complete note every time.</p>
+          <p class="how-step-aside">Pastes into any EHR today. Native integrations are rolling out — Elation first, then Athena.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem List" flush>
+            <div id="peds-problems"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 03 — After the visit</div>
+          <h3>Nothing falls through between visits.</h3>
+          <p>Referrals, catch-up immunizations, and pending labs are extracted from each visit automatically and tied to the relevant problem. Outside records — specialist consults, ER visits, and school or therapy reports — get summarized and filed under the right problem.</p>
+          <p class="how-step-aside">Document visits in 22 languages, with translation to English.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Auto-Generated Tasks" flush>
+            <div id="peds-tasks"></div>
+          </StepMock>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">How Stream fits the pediatric workflow</span>
+      <h2>Every feature earns its place in a pediatric day.</h2>
+    </div>
+    <div class="features-grid reveal">
+      <FeatureCell icon="📈" title="Tracks Development Over Time" body="Each problem — a feeding concern, a milestone question, asthma, ADHD — gets its own block that updates every visit, so you can see the whole trajectory at a glance." />
+      <FeatureCell icon="♻️" title="Reuse Prior Documentation" body="Pull forward and build on relevant history from previous visits instead of starting from scratch — producing a more complete note every time." />
+      <FeatureCell icon="🔭" title="Pre-Visit Huddle" body="See active problems, what's been falling off your attention, and outstanding items before a visit — useful for catching overdue screenings, vaccines, or developmental follow-ups." />
+      <FeatureCell icon="📁" title="External Record Ingestion" body="Specialist consults, ER visits, and school or therapy reports get summarized and filed under the right problem — not left as separate attachments." />
+      <FeatureCell icon="✅" title="Automatic Task Tracking" body="Referrals, catch-up immunizations, and pending labs are extracted from each visit and tied to the relevant problem so nothing slips between visits." />
+      <FeatureCell icon="🌐" title="22 Languages" body="Document visits with families who speak different languages, with translation to English — without losing fidelity." />
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">What pediatricians say</span>
+      <h2>Built by physicians. Trusted by pediatricians.</h2>
+      <p>Real feedback from practicing pediatric clinicians.</p>
+    </div>
+    <div class="tgrid reveal">
+      <TestimonialCard initials="DK" name="Donna Kirchoff, MD, FAAP" title="Integrative Developmental & Behavioral Pediatrics" quote="I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time." />
+      <TestimonialCard initials="AC" name="Allen Coffman, MD" title="Highland Pediatrics" quote="I've gone from writing in the dirt to writing Rolls Royce quality." />
+    </div>
+  </div>
+</section>
+
+<!-- PRICING CALLOUT -->
+<section class="pricing-callout">
+  <div class="container">
+    <div class="pricing-card reveal">
+      <h2>{pricing.calloutHeadline}</h2>
+      <p>{pricing.calloutBody}</p>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Start free for 30 days</a>
+      <div class="pricing-small">{pricing.calloutSmall}</div>
+    </div>
+    <p class="pricing-clinic reveal">Multi-provider pediatric groups can ask about per-seat Clinic pricing.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="peds-faq">
+  <div class="container">
+    <div class="peds-faq-inner reveal">
+      <h2>Frequently asked questions</h2>
+      <h3>Is Stream suitable for well-child and developmental visits?</h3>
+      <p>Yes. Because Stream organizes the chart by problem over time, developmental milestones, chronic conditions, and recurring concerns stay connected across every visit rather than scattered across separate notes.</p>
+      <h3>Can Stream handle complex or behavioral pediatric visits?</h3>
+      <p>Stream structures each problem discussed into its own Assessment &amp; Plan and lets you reuse relevant prior-visit information, which helps with multi-problem and developmental-behavioral encounters.</p>
+      <h3>Does Stream work with my pediatric EHR?</h3>
+      <p>Stream pastes into any EHR and can also be used as a standalone documentation layer. Native integrations are rolling out, starting with Elation and then Athena.</p>
+      <h3>Is patient data used to train AI models?</h3>
+      <p>No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH LINE -->
+<section class="peds-research">
+  <div class="container">
+    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research">Read the research →</a></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first">
+      Built for the way pediatrics actually works.<br><em>A chart that grows with the patient.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+document.addEventListener('DOMContentLoaded', function() {
+  StreamWidgets.ProblemSummaryCard('#peds-huddle');
+  StreamWidgets.ProblemListWidget('#peds-problems');
+  StreamWidgets.TaskListWidget('#peds-tasks');
+});
+</script>
+
+</Page>
