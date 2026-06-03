@@ -5,10 +5,9 @@ seoTitle: "Best AI Medical Scribe for Independent Primary Care (2026)"
 seoDescription: "Compare the best AI medical scribes for independent primary care in 2026 — Stream, Freed, Heidi, Twofold, PatientNotes, Abridge — by price, structure, and EHR handoff."
 author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-06-03"
-tags: ["ai-medical-scribe", "ai-scribe", "longitudinal-care"]
+tags: ["comparisons", "ai-medical-scribe", "ai-scribe", "longitudinal-care"]
 readTime: "10"
 draft: false
-linkedinCaption: "Independent primary care doesn't have an Epic integration team, an enterprise procurement cycle, or a budget that absorbs $1,000-per-provider contracts. So which AI scribe actually fits a solo, DPC, peds, or post-acute practice? We compared the realistic options — Stream, Freed, Heidi, Twofold, PatientNotes, and the enterprise incumbents — including where a competitor is the better fit. Honest disclosure: we make Stream. Here's the breakdown:"
 ---
 
 Independent primary care has different needs than a large hospital system. You don't have an Epic integration team, an enterprise procurement cycle, or a budget that absorbs $1,000-per-provider monthly contracts. What you have is a high volume of multi-problem visits, patients you follow for years, and almost no time to clean up a bloated note after clinic.
