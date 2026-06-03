@@ -1,0 +1,317 @@
+---
+import Page from '../../../layouts/Page.astro';
+import HeroSection from '../../../components/HeroSection.astro';
+import ProofStrip from '../../../components/ProofStrip.astro';
+import PainCard from '../../../components/PainCard.astro';
+import PhilBlock from '../../../components/PhilBlock.astro';
+import StepMock from '../../../components/StepMock.astro';
+import FeatureCell from '../../../components/FeatureCell.astro';
+import TestimonialCard from '../../../components/TestimonialCard.astro';
+import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "name": "AI Medical Scribe for Direct Primary Care (DPC)",
+      "description": "Stream is the AI medical scribe built for direct primary care — a problem-oriented, longitudinal chart that keeps each patient's progress visible across years of membership visits.",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Clinician",
+        "healthCondition": { "@type": "MedicalCondition", "name": "Direct Primary Care Documentation" }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Stream a good fit for a membership / DPC practice?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. DPC is built on long-term continuity, which is exactly what Stream's problem-oriented, longitudinal chart is designed for. It keeps each patient's evolving problem list, history, and open tasks organized across years of visits." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Stream work with DPC-friendly EHRs?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream pastes into any EHR and can also work as a standalone documentation layer. Native integrations are in development, starting with Elation and then Athena." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Stream handle coding for DPC practices that bill insurance?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. ICD, CPT, and HCC capture opportunities are suggested at the point of care, so the practices that need coding have it, and those that don't can ignore it." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my patient data used to train AI models?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data." }
+        }
+      ]
+    }
+  ]
+};
+---
+<Page
+  title="AI Medical Scribe for Direct Primary Care (DPC) — Stream"
+  description="Stream is the AI scribe built for direct primary care. It organizes every visit by medical problem into one longitudinal chart, so a patient's progress stays visible across years — not scattered across disconnected notes. 30-day free trial.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</Fragment>
+
+<style>
+/* Pain section */
+.pain { padding: 72px 0 60px; }
+.pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 600px; line-height: 1.65; margin-bottom: 36px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* How it works */
+.how { padding: 88px 0 72px; }
+.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
+.how-header h2 em { font-style: italic; color: var(--primary); }
+.how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+.how-steps { display: flex; flex-direction: column; }
+.how-step { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 60px 0; border-top: 1px solid var(--border); }
+.how-step:last-child { border-bottom: 1px solid var(--border); }
+.how-step.reverse .how-step-visual { order: -1; }
+.how-step-num { font-family: var(--font-serif); font-size: 0.82rem; color: var(--primary); margin-bottom: 12px; letter-spacing: 0.02em; }
+.how-step h3 { font-size: clamp(1.45rem, 2.4vw, 1.85rem); color: var(--ink); margin-bottom: 12px; }
+.how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
+.how-step-aside { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; padding-left: 14px; border-left: 2px solid var(--border-strong); line-height: 1.55; }
+
+/* Testimonials */
+.testimonials { padding: 64px 0 52px; }
+.testimonials-header { margin-bottom: 40px; }
+.testimonials-header h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 8px; }
+.testimonials-header p { font-size: 1rem; color: var(--ink-muted); }
+.tgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* Pricing callout */
+.pricing-callout { padding: 64px 0; }
+.pricing-card { background: var(--white); border: 1.5px solid rgba(15,26,20,0.2); border-radius: var(--r-xl); padding: 40px; max-width: 480px; margin: 0 auto; box-shadow: var(--shadow-md); text-align: center; position: relative; overflow: hidden; }
+.pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+.pricing-card h2 { font-size: 2rem; color: var(--ink); margin-bottom: 10px; }
+.pricing-card p { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 24px; }
+.pricing-card .btn-primary-lg { max-width: 360px; width: 100%; display: block; margin: 0 auto; text-align: center; }
+.pricing-small { font-size: 0.78rem; color: var(--ink-faint); margin-top: 12px; }
+.pricing-clinic { font-size: 0.85rem; color: var(--ink-muted); text-align: center; max-width: 480px; margin: 18px auto 0; line-height: 1.6; }
+
+/* FAQ */
+.dpc-faq { padding: 64px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.dpc-faq-inner { max-width: 720px; }
+.dpc-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
+.dpc-faq h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; }
+.dpc-faq p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.68; }
+
+/* Research line */
+.dpc-research { padding: 48px 0 8px; text-align: center; }
+.dpc-research p { font-size: 0.92rem; color: var(--ink-faint); }
+.dpc-research a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.dpc-research a:hover { text-decoration: underline; }
+
+/* Final CTA */
+.final-cta { padding: 56px 0 88px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pain-cards { grid-template-columns: 1fr; }
+  .how-step { grid-template-columns: 1fr; gap: 28px; }
+  .how-step.reverse .how-step-visual { order: 0; }
+  .tgrid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 640px) {
+  .tgrid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow="Built for Direct Primary Care (DPC)"
+  sub="In DPC, you're not billing encounters — you're managing relationships over years. Stream organizes every visit by medical problem into one longitudinal chart, so a patient's progress stays visible across time instead of scattered across a stack of disconnected notes."
+  primaryLabel="Start free for 30 days"
+  secondaryHref="/book-demo"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
+>
+  The AI scribe built for<br><em>continuity, not encounters.</em>
+</HeroSection>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Built by practicing physicians", "Works alongside any EHR", "Published in JAMA Network Open", "HIPAA Compliant"]} />
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <span class="section-label reveal">Why DPC needs a different kind of scribe</span>
+    <h2 class="reveal">Most AI scribes are built for<br>the fee-for-service encounter.</h2>
+    <p class="pain-lead reveal">Record a visit, generate a note, move on. But direct primary care runs on continuity — you see the same patients for years, and your value is measured in progress over time. The chart, not the individual note, is the asset.</p>
+    <div class="pain-cards reveal">
+      <PainCard icon="🧾" title="A per-visit note ignores the relationship" body="The typical scribe records an encounter and spits out a clean note. DPC doesn't bill encounters — it runs on continuity. A note per visit helps the visit and leaves the relationship unmanaged." />
+      <PainCard icon="🧩" title="Progress lives across years, not one note" body="The A1c trend you've been chasing, the taper that finally worked, the goal you've moved toward over many visits. In a stack of disconnected documents, that thread disappears exactly when it matters." />
+      <PainCard icon="🗂️" title="You end up managing the project by hand" body="Every patient is a longitudinal project — an evolving problem list, open tasks, a plan that changes. A scribe that only writes notes leaves you to track all of it yourself." />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 56px 0;">
+  <div class="container">
+    <PhilBlock label="The idea behind Stream" name="Jake Kantrowitz, MD" title="Practicing Internist · Co-Founder, River Records">
+      "Primary care is a project management specialty. Every patient is a longitudinal project — an evolving problem list, open tasks, and a plan that changes over time. A scribe that just hands you a clean note per visit still leaves you to manage the project by hand. Stream is built to manage the project."
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Designed around the way <em>DPC</em> actually works.</h2>
+      <p>Continuity first — because that's where the value is.</p>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 01 — Before the visit</div>
+          <h3>Walk into every visit prepared.</h3>
+          <p>Five minutes before a visit, Huddle surfaces what's active, what's been falling off your radar, and what needs attention — drawn from the patient's whole history, not just the last note. Ideal for the deeper, less-rushed visits DPC is built around.</p>
+          <p class="how-step-aside">Built for the longer, relationship-driven visits that define direct primary care.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Pre-Visit Huddle" flush>
+            <div id="dpc-huddle"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 02 — Across the relationship</div>
+          <h3>See one problem across the whole relationship.</h3>
+          <p>Open any problem and view every Assessment &amp; Plan you've written for it over time, plus an on-demand recap of how it's evolved. After a year of memberships you have a living problem list — not 400 disconnected documents. This is the longitudinal view DPC clinicians actually practice in.</p>
+          <p class="how-step-aside">Pastes into any EHR today. Native integrations are rolling out — Elation first, then Athena.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem List" flush>
+            <div id="dpc-problems"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 03 — After the visit</div>
+          <h3>Nothing slips between visits.</h3>
+          <p>Follow-ups, pending labs, and overdue screenings are extracted from every visit automatically and tied to the problem they belong to. Outside records — a consult PDF, free text, or a fax — get summarized and filed under the right problem: two lines instead of twenty pages.</p>
+          <p class="how-step-aside">Coding when you want it: ICD, CPT, and HCC capture suggestions at the point of care.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Auto-Generated Tasks" flush>
+            <div id="dpc-tasks"></div>
+          </StepMock>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">How Stream fits the DPC workflow</span>
+      <h2>Every feature earns its place in a continuity practice.</h2>
+    </div>
+    <div class="features-grid reveal">
+      <FeatureCell icon="🗂️" title="Problem-Oriented Chart" body="Every visit's Assessment & Plan is filed under the relevant medical problem, so after a year of memberships you have a living problem list — not 400 disconnected documents." />
+      <FeatureCell icon="🔭" title="Pre-Visit Huddle" body="Five minutes before a visit, Huddle surfaces what's active, what's been falling off your radar, and what needs attention — perfect for the deeper visits DPC is built around." />
+      <FeatureCell icon="📈" title="Timeline + Recap" body="Open any problem and see every A&P you've written for it over time, plus an on-demand recap of how it's evolved. The longitudinal view DPC clinicians actually practice in." />
+      <FeatureCell icon="📁" title="External Record Ingestion" body="Upload a consult PDF, paste free text, or take in a fax. Stream summarizes it and files the relevant pieces under the right problem — two lines instead of twenty pages." />
+      <FeatureCell icon="✅" title="Automatic Task Tracking" body="Follow-ups, pending labs, and overdue screenings are extracted from every visit and tied to the problem they belong to — so nothing falls through between visits." />
+      <FeatureCell icon="💻" title="Coding When You Want It" body="ICD, CPT, and HCC capture suggestions at the point of care — useful if your DPC practice still bills insurance for some services or wraps in value-based arrangements." />
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">What clinicians say</span>
+      <h2>Built by physicians. Trusted by DPC clinicians.</h2>
+      <p>Real feedback from practicing clinicians.</p>
+    </div>
+    <div class="tgrid reveal">
+      <TestimonialCard initials="AB" name="Anatoli Berezovsky, MD" title="Owner & CEO, Mila Family Health" quote="Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters." />
+      <TestimonialCard initials="YJ" name="Yvonne Joy" title="Owner & CEO, Freedom Primary Care" quote="River Records is a lifesaver. It slashes my documentation burden and boosts productivity in primary care." />
+      <TestimonialCard initials="SD" name="Spencer Dorn, MD" title="Vice Chair & Professor of Medicine, UNC" quote="River Records' approach to clinical documentation matches how we think clinically. I love the concept." />
+    </div>
+  </div>
+</section>
+
+<!-- PRICING CALLOUT -->
+<section class="pricing-callout">
+  <div class="container">
+    <div class="pricing-card reveal">
+      <h2>{pricing.calloutHeadline}</h2>
+      <p>{pricing.calloutBody}</p>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Start free for 30 days</a>
+      <div class="pricing-small">{pricing.calloutSmall}</div>
+    </div>
+    <p class="pricing-clinic reveal">Multi-provider DPC clinics can ask about per-seat Clinic pricing with volume discounts.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="dpc-faq">
+  <div class="container">
+    <div class="dpc-faq-inner reveal">
+      <h2>Frequently asked questions</h2>
+      <h3>Is Stream a good fit for a membership / DPC practice?</h3>
+      <p>Yes. DPC is built on long-term continuity, which is exactly what Stream's problem-oriented, longitudinal chart is designed for. It keeps each patient's evolving problem list, history, and open tasks organized across years of visits.</p>
+      <h3>Does Stream work with DPC-friendly EHRs?</h3>
+      <p>Stream pastes into any EHR and can also work as a standalone documentation layer. Native integrations are in development, starting with Elation and then Athena.</p>
+      <h3>Does Stream handle coding for DPC practices that bill insurance?</h3>
+      <p>Yes. ICD, CPT, and HCC capture opportunities are suggested at the point of care, so the practices that need coding have it, and those that don't can ignore it.</p>
+      <h3>Is my patient data used to train AI models?</h3>
+      <p>No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH LINE -->
+<section class="dpc-research">
+  <div class="container">
+    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research">Read the research →</a></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first">
+      Built for the way DPC actually works.<br><em>Over years, not visits.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+document.addEventListener('DOMContentLoaded', function() {
+  StreamWidgets.ProblemSummaryCard('#dpc-huddle');
+  StreamWidgets.ProblemListWidget('#dpc-problems');
+  StreamWidgets.TaskListWidget('#dpc-tasks');
+});
+</script>
+
+</Page>
