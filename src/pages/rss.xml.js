@@ -6,7 +6,11 @@ import { getCollection } from 'astro:content';
 // automation tool (Make/Zapier/etc.) can post a LinkedIn-native caption
 // rather than the SEO description.
 export async function GET(context) {
-  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  // Exclude posts tagged "comparisons" — these are SEO buying-guide/comparison
+  // pages that live in the blog collection (and stay fully web-indexable) but
+  // should NOT auto-syndicate to LinkedIn via this feed.
+  const posts = (await getCollection('blog', ({ data }) =>
+    !data.draft && !data.tags.includes('comparisons')))
     .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
   return rss({
