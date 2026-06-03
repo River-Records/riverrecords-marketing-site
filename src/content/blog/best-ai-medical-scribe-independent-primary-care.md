@@ -30,7 +30,7 @@ There is no single "best" AI scribe. The right pick depends on whether you want 
 |Tool                           |Best for                                  |Approx. price/mo*        |EHR handoff           |Note structure                                                               |
 |-------------------------------|------------------------------------------|-------------------------|----------------------|-----------------------------------------------------------------------------|
 |**Stream (River Records)**     |Longitudinal primary care, DPC, peds, SNF |~$149 (30-day free trial)|Pastes into any EHR   |Subjective/Objective/A&P split **per problem**, filed to a longitudinal chart|
-|**Freed**                      |Simple fast ambient notes, solo clinicians|~$99                     |Pastes into any EHR   |Single ambient note per visit                                                |
+|**Freed**                      |Simple fast ambient notes, solo clinicians|From ~$39 (tiered)       |Pastes into any EHR   |Single ambient note per visit                                                |
 |**Heidi Health**               |Flexibility + free tier                   |Free tier; ~$50–100      |Pastes into any EHR   |Template-driven, customizable                                                |
 |**Twofold Health**             |Budget self-serve                         |~$49                     |Copy/paste (clipboard)|Customizable templates, broad note types                                     |
 |**PatientNotes**               |Many specialty templates on a budget      |~$50–70                  |Clipboard / any EHR   |30+ specialty templates                                                      |
@@ -69,8 +69,8 @@ It's worth knowing the provenance: Stream's founders authored a peer-reviewed JA
 Freed is the doctor-built, set-up-in-minutes pick. It does one thing well: ambient listening that produces a clean note you paste into your EHR. For a solo clinician who wants speed and minimal setup, it's one of the most recommended options for primary care.
 
 - **Best for:** Solo clinicians who want fast notes with no learning curve.
-- **Pricing:** ~$99/mo.
-- **Watch-outs:** Simpler by design — lighter on structured multi-problem output and longitudinal chart-building.
+- **Pricing:** Tiered — Starter ~$39/mo (capped at ~40 notes), Core ~$79/mo (unlimited notes), Premier ~$119/mo (adds EHR push and ICD-10 coding); 7-day free trial.
+- **Watch-outs:** Simpler by design — lighter on structured multi-problem output and longitudinal chart-building. The cheapest Starter tier caps notes at ~40/mo, so a high-volume clinician needs Core or above.
 
 ### Heidi Health — best free tier and flexibility
 
@@ -122,7 +122,7 @@ Don't choose on marketing. Run a structured trial:
 ## Frequently asked questions
 
 **What is the best AI medical scribe for a solo primary care doctor?**
-It depends on what you optimize for. Choose Freed for the simplest, fastest ambient notes; Stream for a chart that organizes notes by problem and builds longitudinal memory; Twofold for the lowest price.
+It depends on what you optimize for. Choose Freed for the simplest, fastest ambient notes; Stream for a chart that organizes notes by problem and builds longitudinal memory; Twofold (or Freed's entry Starter tier) for the lowest price.
 
 **What is the best AI scribe for direct primary care (DPC)?**
 DPC rewards continuity and progress over time rather than per-encounter billing, which favors a problem-oriented, longitudinal tool like Stream. Confirm it fits your specific workflow during a free trial.
@@ -131,7 +131,7 @@ DPC rewards continuity and progress over time rather than per-encounter billing,
 Most independent-focused scribes (Stream, Freed, Heidi, Twofold, PatientNotes) produce a note you paste or copy into your EHR, so they work alongside essentially any system. Deep bidirectional write-back is usually an enterprise feature tied to specific EHRs.
 
 **How much does an AI medical scribe cost?**
-For independent practices, roughly $49–$150 per provider per month as of mid-2026. Enterprise tools for health systems range from about $200 to $1,200+ per provider per month.
+For independent practices, roughly $39–$150 per provider per month as of mid-2026. Enterprise tools for health systems range from about $200 to $1,200+ per provider per month.
 
 **Are AI medical scribes HIPAA compliant?**
 Reputable vendors are HIPAA compliant and will sign a Business Associate Agreement. Before signing, verify whether recordings are deleted after note generation, whether your data is used to train the vendor's models, and whether the vendor is SOC 2 Type II certified.
