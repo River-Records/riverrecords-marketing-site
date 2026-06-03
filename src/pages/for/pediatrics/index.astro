@@ -306,9 +306,42 @@ const obs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 document.addEventListener('DOMContentLoaded', function() {
-  StreamWidgets.ProblemSummaryCard('#peds-huddle');
-  StreamWidgets.ProblemListWidget('#peds-problems');
-  StreamWidgets.TaskListWidget('#peds-tasks');
+  // Pediatric datasets — override the widgets' adult defaults.
+  StreamWidgets.ProblemSummaryCard('#peds-huddle', {
+    data: {
+      title: "Persistent Asthma",
+      status: "Active",
+      icd: "J45.40",
+      summary: "Two albuterol refills and one prednisone course since the last visit. Up most nights with cough during the recent URI. Controller adherence slipped over the summer. Spirometry due; influenza vaccine still outstanding this season.",
+      medications: [
+        { name: "Fluticasone 110 mcg BID", status: "Active" },
+        { name: "Albuterol HFA PRN", status: "Active" },
+        { name: "Montelukast 5 mg nightly", status: "New" },
+      ],
+      lastUpdated: "4 days ago",
+    },
+  });
+
+  StreamWidgets.ProblemListWidget('#peds-problems', {
+    unitLabel: "visits",
+    problems: [
+      { name: "Persistent Asthma", status: "Active", encounters: 9, icd: "J45.40" },
+      { name: "ADHD, Combined Type", status: "Active", encounters: 6, icd: "F90.2" },
+      { name: "Atopic Dermatitis (Eczema)", status: "Stable", encounters: 5, icd: "L20.9" },
+      { name: "Speech & Language Delay", status: "Active", encounters: 4, icd: "F80.9" },
+      { name: "Recurrent Otitis Media", status: "Resolved", encounters: 3, icd: "H66.90" },
+    ],
+  });
+
+  StreamWidgets.TaskListWidget('#peds-tasks', {
+    tasks: [
+      { text: "Catch-up MMR #2 at next visit", due: "May 2", tag: "Routine", done: false },
+      { text: "Refer to speech-language pathology", due: "Apr 18", tag: "Routine", done: false },
+      { text: "Asthma action plan to school nurse", due: "Apr 9", tag: "Urgent", done: false },
+      { text: "M-CHAT-R screening at 18-month visit", due: "May 20", tag: "Routine", done: false },
+      { text: "Refill fluticasone inhaler", due: "Apr 12", tag: "Routine", done: true },
+    ],
+  });
 });
 </script>
 

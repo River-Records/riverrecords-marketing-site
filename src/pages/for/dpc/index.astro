@@ -309,7 +309,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 document.addEventListener('DOMContentLoaded', function() {
   StreamWidgets.ProblemSummaryCard('#dpc-huddle');
-  StreamWidgets.ProblemListWidget('#dpc-problems');
+  StreamWidgets.ProblemListWidget('#dpc-problems', { unitLabel: "visits" });
   StreamWidgets.TaskListWidget('#dpc-tasks');
 });
 </script>
