@@ -36,6 +36,9 @@ export const HUDDLE_DATA = {
       hasOverdue: false,
       resolved: false,
       tasks: [],
+      openLoops: [
+        { id: "ol-1", label: "Cardiology referral placed 4/15 — no consult note received", days: 47 },
+      ],
       lastAP: {
         date: "3/24/2026",
         provider: "Dr. J. Kantrowitz",
