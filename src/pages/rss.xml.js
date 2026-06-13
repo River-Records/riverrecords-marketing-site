@@ -1,10 +1,13 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
-// Blog feed at /rss.xml — used by readers and by blog→LinkedIn automation.
-// Each item exposes <linkedinCaption> (when set in frontmatter) so an
-// automation tool (Make/Zapier/etc.) can post a LinkedIn-native caption
-// rather than the SEO description.
+// Blog feed at /rss.xml — used by readers and by the blog→LinkedIn automation.
+// Each item's <description> carries the LinkedIn-native caption when the post
+// sets `linkedinCaption` in frontmatter, otherwise it falls back to the SEO
+// description. Routing the caption through the standard <description> field lets
+// no-code RSS posters (e.g. Buffer) publish the bespoke caption without needing
+// to read a custom XML element. (The site itself reads `description` straight
+// from the content collection, so this does not affect on-page copy or SEO.)
 export async function GET(context) {
   // Exclude posts tagged "comparisons" — these are SEO buying-guide/comparison
   // pages that live in the blog collection (and stay fully web-indexable) but
@@ -20,15 +23,11 @@ export async function GET(context) {
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
-      description: post.data.description,
+      // LinkedIn-native caption when present; SEO description otherwise.
+      description: post.data.linkedinCaption ?? post.data.description,
       pubDate: new Date(post.data.publishDate),
       link: `/blog/${post.id}/`,
       categories: post.data.tags,
-      // Custom element consumed by the LinkedIn automation; falls back to the
-      // description when no bespoke caption is provided.
-      customData: `<linkedinCaption><![CDATA[${
-        post.data.linkedinCaption ?? post.data.description
-      }]]></linkedinCaption>`,
     })),
     customData: '<language>en-us</language>',
   });
