@@ -98,11 +98,16 @@ Example: branch `claude/issue-7-...`, slug `my-post` →
 ## RSS feed & syndication
 The blog feed is generated at `/rss.xml` by `src/pages/rss.xml.js` from the
 published (non-draft) posts. It powers readers and the blog→LinkedIn automation.
-Each item includes a `<linkedinCaption>` element: it uses the optional
-`linkedinCaption` frontmatter field when present, otherwise falls back to
-`description`. To make auto-posted LinkedIn updates read natively, set a
-`linkedinCaption` in the post's frontmatter (a hook written for LinkedIn, not the
-SEO description).
+Each item's `<description>` carries the optional `linkedinCaption` frontmatter
+field when present, otherwise it falls back to the SEO `description`. The caption
+is routed through the standard `<description>` field on purpose, so no-code RSS
+posters (e.g. Buffer) publish the bespoke caption without needing to read a
+custom XML element. This only affects the feed — the site reads `description`
+straight from the content collection, so on-page copy and SEO are unaffected.
+To make auto-posted LinkedIn updates read natively, set a `linkedinCaption` in
+the post's frontmatter (a hook written for LinkedIn, not the SEO description).
+Comparison/SEO posts tagged `comparisons` are excluded from the feed entirely,
+so they never auto-post to LinkedIn.
 
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:
