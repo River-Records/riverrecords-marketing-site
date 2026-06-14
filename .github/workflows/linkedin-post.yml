@@ -1,0 +1,47 @@
+name: Post new blog posts to LinkedIn
+
+# Auto-shares newly published blog posts to a LinkedIn personal profile.
+# See scripts/README-linkedin.md for one-time setup (LinkedIn app + secrets).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**'
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Blog slug to post (filename without .md). Leave blank for normal push detection.'
+        required: false
+      dry_run:
+        description: 'Dry run — log the payload without posting'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Avoid double-posting if pushes land close together.
+concurrency:
+  group: linkedin-post
+  cancel-in-progress: false
+
+jobs:
+  linkedin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so the script can diff the push range
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/post-to-linkedin.mjs
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          SITE_URL: https://riverrecords.ai
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          POST_SLUG: ${{ github.event.inputs.slug }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
