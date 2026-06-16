@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import StepMock from '../../components/StepMock.astro';
 
 // Primary CTA → Calendly with UTM tracking so this page's traffic is attributable
 // to subsequent conversations. Calendly captures utm_* params on the booking record.
@@ -113,6 +114,12 @@ const contactEmail = 'jacob@riverrecords.ai';
 .np-flow-arrow { color: var(--accent-light); font-size: 1.1rem; }
 .np-momentum { text-align: center; margin-top: 28px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); }
 
+/* See it — widget showcase */
+.np-demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 24px; align-items: start; }
+.np-demo-cap { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.55; margin-top: 12px; }
+.np-demo-cap strong { color: var(--ink); font-weight: 600; }
+.np-demo-note { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-top: 24px; }
+
 /* Built for the practice */
 .np-built-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .np-built { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px; }
@@ -122,8 +129,10 @@ const contactEmail = 'jacob@riverrecords.ai';
 
 /* NNPEN */
 .np-nnpen { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
-.np-nnpen-logo { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); line-height: 0; flex-shrink: 0; }
+.np-nnpen-logo { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); line-height: 0; flex-shrink: 0; display: block; }
 .np-nnpen-logo img { width: 320px; max-width: 100%; height: auto; display: block; }
+.np-nnpen-link { display: inline-block; margin-top: 16px; color: var(--primary); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+.np-nnpen-link:hover { text-decoration: underline; }
 .np-nnpen h2 { font-size: 1.6rem; margin-bottom: 12px; }
 .np-nnpen p { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.65; }
 
@@ -172,6 +181,7 @@ const contactEmail = 'jacob@riverrecords.ai';
   .np-twofront { grid-template-columns: 1fr; }
   .np-built-grid { grid-template-columns: 1fr; }
   .np-cap-grid { grid-template-columns: 1fr; }
+  .np-demo-grid { grid-template-columns: 1fr; gap: 24px; }
   .np-nnpen { grid-template-columns: 1fr; gap: 22px; text-align: center; }
   .np-nnpen-logo { justify-self: center; }
   .np-offer-list { grid-template-columns: 1fr; }
@@ -329,6 +339,42 @@ const contactEmail = 'jacob@riverrecords.ai';
     </div>
   </section>
 
+  <!-- SEE IT -->
+  <section class="np-section np-section--surface np-r">
+    <div class="np-c">
+      <div class="np-label">See it in your day</div>
+      <h2>One visit, start to finish.</h2>
+      <p class="np-section-lede">From the moment you start recording to the tasks waiting when you're done. Here's Stream working a primary care visit.</p>
+      <div class="np-demo-grid">
+        <div class="np-demo">
+          <StepMock header="Recording the visit">
+            <div id="np-waveform"></div>
+          </StepMock>
+          <p class="np-demo-cap"><strong>Record or dictate.</strong> Stream transcribes as you talk and structures the note for you.</p>
+        </div>
+        <div class="np-demo">
+          <StepMock header="Pre-visit huddle" flush>
+            <div id="np-summary"></div>
+          </StepMock>
+          <p class="np-demo-cap"><strong>Walk in oriented.</strong> Active problems, current medications, and what's gone stale — at a glance.</p>
+        </div>
+        <div class="np-demo">
+          <StepMock header="Problem-structured note" flush>
+            <div id="np-note"></div>
+          </StepMock>
+          <p class="np-demo-cap"><strong>An assessment and plan per problem</strong> — not one undifferentiated paragraph to untangle later.</p>
+        </div>
+        <div class="np-demo">
+          <StepMock header="Tasks, captured" flush>
+            <div id="np-tasks"></div>
+          </StepMock>
+          <p class="np-demo-cap"><strong>Nothing slips.</strong> Follow-ups are pulled from the note and tracked to completion. Tap one to check it off.</p>
+        </div>
+      </div>
+      <p class="np-demo-note">Sample data — not a real patient.</p>
+    </div>
+  </section>
+
   <!-- BUILT FOR THE PRACTICE -->
   <section class="np-section np-r">
     <div class="np-c">
@@ -361,12 +407,13 @@ const contactEmail = 'jacob@riverrecords.ai';
   <section class="np-section np-section--surface np-r">
     <div class="np-c">
       <div class="np-nnpen">
-        <div class="np-nnpen-logo">
+        <a class="np-nnpen-logo" href="https://www.nnpen.org" target="_blank" rel="noopener" aria-label="Visit NNPEN — National Nurse Practitioners Entrepreneurial Network">
           <img src="/images/nnpen-logo.png" alt="NNPEN — National Nurse Practitioners Entrepreneurial Network" width="1832" height="604" />
-        </div>
+        </a>
         <div>
           <h2>A partner of NNPEN.</h2>
           <p>Stream is a partner of the National Nurse Practitioners Entrepreneurial Network — a community of NPs building and running their own practices. We didn't design Stream for NP-led primary care from the outside. We built it in conversation with NP practice owners who live the documentation and operational load every day.</p>
+          <a class="np-nnpen-link" href="https://www.nnpen.org" target="_blank" rel="noopener">Learn about NNPEN at nnpen.org →</a>
         </div>
       </div>
     </div>
@@ -448,6 +495,15 @@ const contactEmail = 'jacob@riverrecords.ai';
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.np-r').forEach(el => obs.observe(el));
+
+  // Product widgets (sample data, defined in /ui-widgets.js loaded by Base)
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.StreamWidgets) return;
+    StreamWidgets.WaveformWidget('#np-waveform', { autoStart: true });
+    StreamWidgets.ProblemSummaryCard('#np-summary');
+    StreamWidgets.EncounterNoteWidget('#np-note');
+    StreamWidgets.TaskListWidget('#np-tasks');
+  });
 </script>
 
 </Base>
