@@ -14,5 +14,8 @@
 /pricing  /#pricing  301
 /faq  /  301
 
+# NP / AANP conference landing page
+/aanp  /np  301
+
 # Old team page redirects (only for members no longer on team)
 /team/alex-butler  /about  301
