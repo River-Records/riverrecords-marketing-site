@@ -1,0 +1,468 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Primary CTA → Calendly with UTM tracking so this page's traffic is attributable
+// to subsequent conversations. Calendly captures utm_* params on the booking record.
+const calendly = 'https://calendly.com/jacob-riverrecords/meeting';
+const utm = 'utm_source=np-landing&utm_medium=referral&utm_campaign=aanp-frank-2026';
+const bookUrl = (content: string) => `${calendly}?${utm}&utm_content=${content}`;
+
+const contactEmail = 'jacob@riverrecords.ai';
+---
+<Base
+  title="Stream for Nurse Practitioners — Documentation & Care Operations for NP-Led Practices"
+  description="Stream is the AI-native platform built for independent primary care, including NP-led practices. The note is just the start — we close the loop on tasks, referrals, faxes, and follow-up.">
+
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Stream for Nurse Practitioners",
+      "description": "Documentation and care operations for independent, NP-led primary care practices.",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Nurse"
+      }
+    }
+    </script>
+  </Fragment>
+
+<style>
+/* ── /np — NP-LED PRACTICE LANDING ───────────────── */
+.np { background: var(--white); color: var(--ink); }
+.np-c { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+.np h1, .np h2, .np h3 { font-family: var(--font-serif); }
+.np em { font-style: italic; color: var(--primary); }
+.np-label {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px;
+}
+
+/* Slim header */
+.np-nav { position: sticky; top: 0; z-index: 200; background: var(--dark); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.np-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 24px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.np-logo { display: flex; flex-direction: column; line-height: 1.1; text-decoration: none; }
+.np-logo-main { font-family: var(--font-serif); font-size: 1.05rem; color: var(--white); letter-spacing: -0.01em; }
+.np-logo-main span { color: var(--accent-light); margin: 0 2px; }
+.np-logo-sub { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+/* Buttons */
+.np-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-weight: 600; text-decoration: none; border-radius: var(--r-pill); transition: background 0.15s, transform 0.12s, box-shadow 0.15s, border-color 0.15s, color 0.15s; white-space: nowrap; }
+.np-btn:hover { transform: translateY(-1px); }
+.np-btn-primary { background: var(--primary); color: var(--white); padding: 13px 26px; font-size: 0.95rem; box-shadow: 0 2px 10px rgba(15,26,20,0.2); }
+.np-btn-primary:hover { background: var(--primary-dark); box-shadow: 0 6px 22px rgba(15,26,20,0.25); }
+.np-btn-sm { padding: 9px 18px; font-size: 0.85rem; }
+.np-btn-light { background: var(--white); color: var(--primary-dark); }
+.np-btn-light:hover { background: #fff; }
+
+/* Announce bar */
+.np-announce { background: var(--primary-dark); color: var(--white); text-align: center; padding: 9px 20px; font-size: 0.8rem; font-weight: 500; }
+.np-announce strong { color: var(--accent-light); }
+
+/* Hero */
+.np-hero { padding: 72px 0 56px; position: relative; overflow: hidden; }
+.np-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% -10%, rgba(30,90,62,0.07) 0%, transparent 65%); pointer-events: none; }
+.np-hero-inner { position: relative; z-index: 1; max-width: 720px; }
+.np-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-light); color: var(--primary); border-radius: var(--r-pill); padding: 6px 16px; font-size: 0.76rem; font-weight: 600; margin-bottom: 24px; }
+.np-hero h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.12; color: var(--ink); margin-bottom: 20px; }
+.np-hero-sub { font-size: 1.12rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 30px; max-width: 600px; }
+.np-hero-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.np-hero-note { font-size: 0.9rem; color: var(--ink-faint); line-height: 1.6; max-width: 520px; }
+.np-hero-note strong { color: var(--ink-muted); font-weight: 600; }
+
+/* Trust strip */
+.np-trust { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); padding: 16px 0; }
+.np-trust-inner { display: flex; align-items: center; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.np-trust-inner span { font-family: var(--font-serif); font-size: 0.95rem; color: var(--ink-muted); }
+.np-trust-dot { color: var(--ink-faint); font-size: 0.5rem; }
+
+/* Intro */
+.np-intro { padding: 64px 0; }
+.np-intro p { font-size: 1.2rem; color: var(--ink-muted); line-height: 1.7; max-width: 760px; }
+.np-intro p strong { color: var(--ink); font-weight: 600; }
+
+/* Two-front problem */
+.np-section { padding: 72px 0; }
+.np-section--surface { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.np-section--dark { background: var(--dark); }
+.np-section h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); color: var(--ink); margin-bottom: 14px; max-width: 700px; }
+.np-section-lede { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.65; max-width: 640px; margin-bottom: 40px; }
+
+.np-twofront { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.np-front { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 32px; }
+.np-front-tag { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 12px; }
+.np-front h3 { font-size: 1.3rem; color: var(--ink); margin-bottom: 14px; }
+.np-front > p { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 18px; }
+.np-front ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.np-front li { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5; padding-left: 22px; position: relative; }
+.np-front li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* Closed loop */
+.np-loop h2 em, .np-section--dark h2 { color: var(--white); }
+.np-section--dark .np-label { color: rgba(255,255,255,0.45); }
+.np-section--dark h2 { color: var(--white); }
+.np-section--dark h2 em { color: var(--accent-light); }
+.np-section--dark .np-section-lede { color: rgba(255,255,255,0.7); }
+.np-loop-flow { display: flex; flex-direction: column; gap: 14px; }
+.np-stage { background: var(--dark-mid); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r-xl); padding: 24px 26px; display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center; }
+.np-stage-head { display: flex; flex-direction: column; gap: 4px; }
+.np-stage-num { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--accent-light); }
+.np-stage-head h3 { font-size: 1.15rem; color: var(--white); }
+.np-stage-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.np-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--r-pill); padding: 6px 13px 6px 11px; }
+.np-status { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); white-space: nowrap; }
+.np-status--shipped { background: rgba(30,90,62,0.35); color: #9fd9b6; }
+.np-status--soon { background: rgba(212,164,74,0.22); color: #e6c483; }
+.np-status--roadmap { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); }
+.np-loop-foot { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 24px; line-height: 1.6; }
+.np-loop-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+.np-loop-legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+/* Built for the practice */
+.np-built-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.np-built { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px; }
+.np-built h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: 8px; font-family: var(--font-sans); font-weight: 600; }
+.np-built p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; }
+.np-built-foot { margin-top: 32px; font-family: var(--font-serif); font-size: 1.25rem; font-style: italic; color: var(--ink); line-height: 1.5; max-width: 700px; }
+
+/* NNPEN */
+.np-nnpen { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+.np-nnpen-mark { font-family: var(--font-serif); font-size: 1.6rem; color: var(--primary-dark); border: 2px solid var(--primary); border-radius: var(--r-lg); padding: 18px 22px; text-align: center; line-height: 1.1; white-space: nowrap; }
+.np-nnpen-mark small { display: block; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--ink-faint); margin-top: 6px; }
+.np-nnpen h2 { font-size: 1.6rem; margin-bottom: 12px; }
+.np-nnpen p { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.65; }
+
+/* Offer */
+.np-offer-card { background: var(--dark); border-radius: var(--r-xl); padding: 48px; color: var(--white); position: relative; overflow: hidden; }
+.np-offer-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
+.np-offer-card .np-label { color: var(--accent-light); }
+.np-offer-card h2 { color: var(--white); font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin-bottom: 16px; }
+.np-offer-lede { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 28px; max-width: 600px; }
+.np-offer-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; margin-bottom: 32px; }
+.np-offer-list li { font-size: 0.94rem; color: rgba(255,255,255,0.85); line-height: 1.5; padding-left: 26px; position: relative; }
+.np-offer-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-light); font-weight: 700; }
+.np-offer-fine { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 18px; line-height: 1.6; }
+
+/* Final CTA */
+.np-final { padding: 80px 0; text-align: center; }
+.np-final h2 { font-size: clamp(1.9rem, 3.8vw, 2.6rem); color: var(--ink); margin-bottom: 16px; }
+.np-final p { font-size: 1.05rem; color: var(--ink-muted); margin-bottom: 30px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+.np-final-email { font-size: 0.95rem; color: var(--ink-faint); margin-top: 22px; }
+.np-final-email a { color: var(--primary); font-weight: 600; text-decoration: none; }
+.np-final-email a:hover { text-decoration: underline; }
+
+/* Footer */
+.np-footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); padding: 48px 24px 36px; }
+.np-footer-inner { max-width: 1040px; margin: 0 auto; }
+.np-footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 44px; }
+.np-footer-logo { font-family: var(--font-serif); font-size: 1.15rem; color: var(--white); text-decoration: none; display: block; margin-bottom: 10px; }
+.np-footer-logo span { color: var(--accent-light); }
+.np-footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; }
+.np-footer-col-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 12px; }
+.np-footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.np-footer-col ul a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.12s; }
+.np-footer-col ul a:hover { color: var(--white); }
+.np-footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.np-footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+.np-footer-legal { display: flex; gap: 18px; }
+.np-footer-legal a { font-size: 0.78rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+.np-footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+/* Reveal */
+.np-r { opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
+.np-r.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .np-twofront { grid-template-columns: 1fr; }
+  .np-built-grid { grid-template-columns: 1fr; }
+  .np-stage { grid-template-columns: 1fr; gap: 14px; }
+  .np-nnpen { grid-template-columns: 1fr; gap: 22px; text-align: center; }
+  .np-nnpen-mark { justify-self: center; }
+  .np-offer-list { grid-template-columns: 1fr; }
+  .np-footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 560px) {
+  .np-hero { padding: 48px 0 44px; }
+  .np-btn-primary { width: 100%; justify-content: center; }
+  .np-hero-cta { align-self: stretch; }
+  .np-offer-card { padding: 32px 24px; }
+  .np-nnpen { padding: 28px 22px; }
+  .np-footer-top { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="np">
+
+  <!-- ANNOUNCE -->
+  <div class="np-announce">
+    <strong>AANP 2026 · Las Vegas</strong> — built for independent, NP-led primary care
+  </div>
+
+  <!-- HEADER -->
+  <nav class="np-nav">
+    <div class="np-nav-inner">
+      <a href="/" class="np-logo">
+        <span class="np-logo-main">Stream <span>·</span> River Records</span>
+        <span class="np-logo-sub">AI Clinical Documentation</span>
+      </a>
+      <a href={bookUrl('nav')} class="np-btn np-btn-primary np-btn-sm">Book a conversation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="np-hero">
+    <div class="np-c np-hero-inner">
+      <div class="np-eyebrow">For nurse practitioners in independent primary care</div>
+      <h1>Documentation and care operations <em>for the practice you actually run.</em></h1>
+      <p class="np-hero-sub">Stream is the AI-native platform built for independent primary care — including NP-led practices. The note is just the start. We close the loop on tasks, referrals, faxes, and follow-up.</p>
+      <div class="np-hero-cta">
+        <a href={bookUrl('hero')} class="np-btn np-btn-primary">Book a 15-minute conversation →</a>
+        <p class="np-hero-note"><strong>Met us through Frank or AANP?</strong> Mention it when you book — you'll get a 60-day no-cost pilot if Stream fits your practice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <div class="np-trust">
+    <div class="np-c np-trust-inner">
+      <span>Built by practicing physicians</span>
+      <span class="np-trust-dot">●</span>
+      <span>Published in JAMA Network Open</span>
+      <span class="np-trust-dot">●</span>
+      <span>Built with NP practice owners</span>
+      <span class="np-trust-dot">●</span>
+      <span>Works alongside any EHR</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="np-intro np-r">
+    <div class="np-c">
+      <p>Running an independent practice means carrying all of it at once — the clinical care, the documentation, the operations, the billing — often without the staff support physician-led groups take for granted. <strong>Stream is built to take some of that off your plate</strong>, so the work that keeps a practice running doesn't keep landing on you and the people you can barely afford to pay.</p>
+    </div>
+  </section>
+
+  <!-- TWO-FRONT PROBLEM -->
+  <section class="np-section np-section--surface np-r">
+    <div class="np-c">
+      <div class="np-label">The two-front problem</div>
+      <h2>An independent practice is fighting on two fronts at once.</h2>
+      <p class="np-section-lede">Revenue and operations. Both bleed time and money, and in a lean practice they bleed straight onto you. Stream was built to relieve both.</p>
+      <div class="np-twofront">
+        <div class="np-front">
+          <div class="np-front-tag">Front one · Revenue</div>
+          <h3>The chart doesn't fully reflect the care you delivered.</h3>
+          <p>You manage complexity every visit. The documentation — and the codes that follow from it — often don't keep up.</p>
+          <ul>
+            <li>Notes that don't capture the full complexity of the care delivered</li>
+            <li>Denials that trace back to specificity, not clinical judgment</li>
+            <li>Undercoding because it's safer to be cautious than to defend a code later</li>
+            <li>Missed risk capture in Medicare Advantage and value-based contracts</li>
+          </ul>
+        </div>
+        <div class="np-front">
+          <div class="np-front-tag">Front two · Operations</div>
+          <h3>The work that nobody bills for, and nobody else sees.</h3>
+          <p>The operational load behind every visit is real work — and in a lean practice it bleeds into evenings, weekends, and staff you can barely afford.</p>
+          <ul>
+            <li>Inbound fax triage that someone has to read, sort, and route</li>
+            <li>Chart prep before every visit, done by hand</li>
+            <li>Referral letters written one at a time</li>
+            <li>Follow-up and task tracking held together by memory and sticky notes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT STREAM IS / CLOSED LOOP -->
+  <section class="np-section np-section--dark np-loop np-r">
+    <div class="np-c">
+      <div class="np-label">What Stream is</div>
+      <h2>Most scribes stop at the note. <em>Stream closes the loop.</em></h2>
+      <p class="np-section-lede">Information comes in, becomes a structured chart, surfaces the tasks and referrals hiding inside it, sends the actions out, and tracks them until they're closed. Here's where each piece actually stands today — no vaporware.</p>
+
+      <div class="np-loop-flow">
+        <div class="np-stage">
+          <div class="np-stage-head">
+            <span class="np-stage-num">STEP 01</span>
+            <h3>Information in</h3>
+          </div>
+          <div class="np-stage-items">
+            <span class="np-chip">Encounter capture <span class="np-status np-status--shipped">Shipped</span></span>
+            <span class="np-chip">Document upload <span class="np-status np-status--shipped">Shipped</span></span>
+            <span class="np-chip">Fax intake <span class="np-status np-status--soon">In testing</span></span>
+          </div>
+        </div>
+        <div class="np-stage">
+          <div class="np-stage-head">
+            <span class="np-stage-num">STEP 02</span>
+            <h3>Structured chart</h3>
+          </div>
+          <div class="np-stage-items">
+            <span class="np-chip">Problem-oriented chart <span class="np-status np-status--shipped">Shipped</span></span>
+            <span class="np-chip">Problem-keyed document filing <span class="np-status np-status--soon">In development</span></span>
+          </div>
+        </div>
+        <div class="np-stage">
+          <div class="np-stage-head">
+            <span class="np-stage-num">STEP 03</span>
+            <h3>Tasks &amp; referrals surfaced</h3>
+          </div>
+          <div class="np-stage-items">
+            <span class="np-chip">Task extraction <span class="np-status np-status--shipped">Shipped</span></span>
+            <span class="np-chip">Referral generation <span class="np-status np-status--shipped">Shipped</span></span>
+          </div>
+        </div>
+        <div class="np-stage">
+          <div class="np-stage-head">
+            <span class="np-stage-num">STEP 04</span>
+            <h3>Actions sent</h3>
+          </div>
+          <div class="np-stage-items">
+            <span class="np-chip">Branded referral letters &amp; PDFs <span class="np-status np-status--shipped">Shipped</span></span>
+          </div>
+        </div>
+        <div class="np-stage">
+          <div class="np-stage-head">
+            <span class="np-stage-num">STEP 05</span>
+            <h3>Loop closed</h3>
+          </div>
+          <div class="np-stage-items">
+            <span class="np-chip">Follow-up &amp; referral loop tracking <span class="np-status np-status--roadmap">On the roadmap</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="np-loop-legend">
+        <span><span class="np-status np-status--shipped">Shipped</span> available today</span>
+        <span><span class="np-status np-status--soon">In testing / development</span> in active build</span>
+        <span><span class="np-status np-status--roadmap">On the roadmap</span> committed, not yet built</span>
+      </div>
+      <p class="np-loop-foot">The note is structured by medical problem, not by date — so the chart is organized the way clinicians think, and every downstream piece above is built on top of that.</p>
+    </div>
+  </section>
+
+  <!-- BUILT FOR THE PRACTICE -->
+  <section class="np-section np-r">
+    <div class="np-c">
+      <div class="np-label">Built for the practice you actually run</div>
+      <h2>It doesn't assume you have a billing department.</h2>
+      <p class="np-section-lede">NP-led primary care has its own shape. Stream was built for the practice you have, not the one an enterprise vendor imagines.</p>
+      <div class="np-built-grid">
+        <div class="np-built">
+          <h3>Lean teams, many hats</h3>
+          <p>One person is often the clinician, the front desk, and the billing department. Stream is built to absorb the operational load, not add another system for someone to babysit.</p>
+        </div>
+        <div class="np-built">
+          <h3>Full-practice-authority autonomy</h3>
+          <p>You own the clinical decisions and the practice. Stream supports the way you work without assuming a supervising layer that isn't there.</p>
+        </div>
+        <div class="np-built">
+          <h3>Chronic care and prevention</h3>
+          <p>Much of NP-led primary care is longitudinal — chronic disease, prevention, the slow work of keeping people well. A chart organized by problem over time fits that better than a stack of dated notes.</p>
+        </div>
+        <div class="np-built">
+          <h3>Mixed payer reality</h3>
+          <p>Commercial, Medicare, Medicaid, cash, value-based — often all at once. Stream's coding and risk-capture support is built for that mix, not a single tidy payer.</p>
+        </div>
+      </div>
+      <p class="np-built-foot">Stream doesn't assume you have a six-figure billing department or a dedicated chart-prep MA. It works for the practice you actually have.</p>
+    </div>
+  </section>
+
+  <!-- NNPEN -->
+  <section class="np-section np-section--surface np-r">
+    <div class="np-c">
+      <div class="np-nnpen">
+        <div class="np-nnpen-mark">NNPEN<small>Partner</small></div>
+        <div>
+          <h2>A partner of NNPEN.</h2>
+          <p>Stream is a partner of the National Nurse Practitioners Entrepreneurial Network — a community of NPs building and running their own practices. We didn't design Stream for NP-led primary care from the outside. We built it in conversation with NP practice owners who live the documentation and operational load every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER -->
+  <section class="np-section np-r" id="offer">
+    <div class="np-c">
+      <div class="np-offer-card">
+        <div class="np-label">The AANP &amp; Frank offer</div>
+        <h2>A 60-day no-cost pilot for NP-led practices.</h2>
+        <p class="np-offer-lede">Stream normally starts with 30 days free. For NPs we meet through Frank, NNPEN, or the AANP National Conference, we'll double it — and set it up properly.</p>
+        <ul class="np-offer-list">
+          <li>60 days at no cost, for NP-led practices that book a conversation through this page</li>
+          <li>No credit card, no commitment</li>
+          <li>Personal onboarding with a physician — Jake Kantrowitz, MD, PhD</li>
+          <li>We set you up and train your team</li>
+          <li>You decide at the end of 60 days whether Stream fits</li>
+          <li>For NPs we meet through Frank, NNPEN, or AANP</li>
+        </ul>
+        <a href={bookUrl('offer')} class="np-btn np-btn-primary np-btn-light">Book a 15-minute conversation →</a>
+        <p class="np-offer-fine">Mention Frank, NNPEN, or AANP when you book so we know how you found us and can apply the pilot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="np-final np-r">
+    <div class="np-c">
+      <h2>Let's have a quick conversation.</h2>
+      <p>Fifteen minutes, NP to physician. We'll talk about your practice, show you Stream, and figure out together whether it fits — no pitch, no pressure.</p>
+      <a href={bookUrl('final')} class="np-btn np-btn-primary">Book a 15-minute conversation →</a>
+      <p class="np-final-email">Prefer email? Reach out to <a href={`mailto:${contactEmail}?subject=Stream%20for%20my%20NP%20practice`}>{contactEmail}</a> — mention Frank, NNPEN, or AANP and we'll prioritize the response.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER (no pricing link) -->
+  <footer class="np-footer">
+    <div class="np-footer-inner">
+      <div class="np-footer-top">
+        <div>
+          <a href="/" class="np-footer-logo">Stream <span>by River Records</span></a>
+          <p class="np-footer-tagline">AI clinical documentation and care operations organized by medical problem — built for independent primary care, including NP-led practices.</p>
+        </div>
+        <div class="np-footer-col">
+          <div class="np-footer-col-label">Product</div>
+          <ul>
+            <li><a href="/for/primary-care">Primary Care</a></li>
+            <li><a href="/for/snf">SNF &amp; Long-Term Care</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/research">Research</a></li>
+            <li><a href="/blog">Blog</a></li>
+          </ul>
+        </div>
+        <div class="np-footer-col">
+          <div class="np-footer-col-label">Legal</div>
+          <ul>
+            <li><a href="/terms-of-service">Terms of Service</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/baa">BAA</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="np-footer-bottom">
+        <p class="np-footer-copy">&copy; 2026 River Records, Inc. All rights reserved.</p>
+        <div class="np-footer-legal">
+          <a href="/privacy-policy">Privacy</a>
+          <a href="/terms-of-service">Terms</a>
+          <a href="/baa">BAA</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script is:inline>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.np-r').forEach(el => obs.observe(el));
+</script>
+
+</Base>
+</output>
