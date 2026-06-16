@@ -98,26 +98,20 @@ const contactEmail = 'jacob@riverrecords.ai';
 .np-front li { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5; padding-left: 22px; position: relative; }
 .np-front li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
-/* Closed loop */
-.np-loop h2 em, .np-section--dark h2 { color: var(--white); }
+/* What Stream does */
 .np-section--dark .np-label { color: rgba(255,255,255,0.45); }
 .np-section--dark h2 { color: var(--white); }
 .np-section--dark h2 em { color: var(--accent-light); }
 .np-section--dark .np-section-lede { color: rgba(255,255,255,0.7); }
-.np-loop-flow { display: flex; flex-direction: column; gap: 14px; }
-.np-stage { background: var(--dark-mid); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r-xl); padding: 24px 26px; display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center; }
-.np-stage-head { display: flex; flex-direction: column; gap: 4px; }
-.np-stage-num { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--accent-light); }
-.np-stage-head h3 { font-size: 1.15rem; color: var(--white); }
-.np-stage-items { display: flex; flex-wrap: wrap; gap: 8px; }
-.np-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--r-pill); padding: 6px 13px 6px 11px; }
-.np-status { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); white-space: nowrap; }
-.np-status--shipped { background: rgba(30,90,62,0.35); color: #9fd9b6; }
-.np-status--soon { background: rgba(212,164,74,0.22); color: #e6c483; }
-.np-status--roadmap { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); }
-.np-loop-foot { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 24px; line-height: 1.6; }
-.np-loop-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
-.np-loop-legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.np-cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.np-cap { background: var(--dark-mid); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r-lg); padding: 24px; }
+.np-cap-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
+.np-cap h3 { font-size: 1.08rem; color: var(--white); margin-bottom: 10px; }
+.np-cap p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.np-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 44px; }
+.np-flow-step { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: var(--r-pill); padding: 10px 18px; font-size: 0.85rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+.np-flow-arrow { color: var(--accent-light); font-size: 1.1rem; }
+.np-momentum { text-align: center; margin-top: 28px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); }
 
 /* Built for the practice */
 .np-built-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
@@ -177,7 +171,7 @@ const contactEmail = 'jacob@riverrecords.ai';
 @media (max-width: 860px) {
   .np-twofront { grid-template-columns: 1fr; }
   .np-built-grid { grid-template-columns: 1fr; }
-  .np-stage { grid-template-columns: 1fr; gap: 14px; }
+  .np-cap-grid { grid-template-columns: 1fr; }
   .np-nnpen { grid-template-columns: 1fr; gap: 22px; text-align: center; }
   .np-nnpen-logo { justify-self: center; }
   .np-offer-list { grid-template-columns: 1fr; }
@@ -277,71 +271,61 @@ const contactEmail = 'jacob@riverrecords.ai';
     </div>
   </section>
 
-  <!-- WHAT STREAM IS / CLOSED LOOP -->
-  <section class="np-section np-section--dark np-loop np-r">
+  <!-- WHAT STREAM DOES -->
+  <section class="np-section np-section--dark np-r">
     <div class="np-c">
-      <div class="np-label">What Stream is</div>
-      <h2>Most scribes stop at the note. <em>Stream closes the loop.</em></h2>
-      <p class="np-section-lede">Information comes in, becomes a structured chart, surfaces the tasks and referrals hiding inside it, sends the actions out, and tracks them until they're closed. Here's where each piece actually stands today — no vaporware.</p>
+      <div class="np-label">What Stream does</div>
+      <h2>The note is where most scribes stop. <em>Stream keeps going.</em></h2>
+      <p class="np-section-lede">Stream produces your documentation and handles the operational work that surrounds it — the chart, the letters, the tasks, the prep. Here's what it does.</p>
 
-      <div class="np-loop-flow">
-        <div class="np-stage">
-          <div class="np-stage-head">
-            <span class="np-stage-num">STEP 01</span>
-            <h3>Information in</h3>
-          </div>
-          <div class="np-stage-items">
-            <span class="np-chip">Encounter capture <span class="np-status np-status--shipped">Shipped</span></span>
-            <span class="np-chip">Document upload <span class="np-status np-status--shipped">Shipped</span></span>
-            <span class="np-chip">Fax intake <span class="np-status np-status--soon">In testing</span></span>
-          </div>
+      <div class="np-cap-grid">
+        <div class="np-cap">
+          <div class="np-cap-tag">Ambient scribe</div>
+          <h3>Problem-structured notes</h3>
+          <p>Stream listens to your visit and produces a note organized around the problems you addressed — not date-organized paragraphs. Subjective, objective, then an assessment and plan for each problem.</p>
         </div>
-        <div class="np-stage">
-          <div class="np-stage-head">
-            <span class="np-stage-num">STEP 02</span>
-            <h3>Structured chart</h3>
-          </div>
-          <div class="np-stage-items">
-            <span class="np-chip">Problem-oriented chart <span class="np-status np-status--shipped">Shipped</span></span>
-            <span class="np-chip">Problem-keyed document filing <span class="np-status np-status--soon">In development</span></span>
-          </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Longitudinal chart</div>
+          <h3>Built around active problems</h3>
+          <p>Every visit updates a chart organized around the problems you're actively managing. Open a problem and see it across time, instead of scrolling through a stack of dated notes.</p>
         </div>
-        <div class="np-stage">
-          <div class="np-stage-head">
-            <span class="np-stage-num">STEP 03</span>
-            <h3>Tasks &amp; referrals surfaced</h3>
-          </div>
-          <div class="np-stage-items">
-            <span class="np-chip">Task extraction <span class="np-status np-status--shipped">Shipped</span></span>
-            <span class="np-chip">Referral generation <span class="np-status np-status--shipped">Shipped</span></span>
-          </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Document upload</div>
+          <h3>Read, summarized, sorted</h3>
+          <p>Upload an outside document and Stream identifies the patient, summarizes the content, and extracts the tasks inside it for you to review.</p>
         </div>
-        <div class="np-stage">
-          <div class="np-stage-head">
-            <span class="np-stage-num">STEP 04</span>
-            <h3>Actions sent</h3>
-          </div>
-          <div class="np-stage-items">
-            <span class="np-chip">Branded referral letters &amp; PDFs <span class="np-status np-status--shipped">Shipped</span></span>
-          </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Referrals</div>
+          <h3>Branded letters, ready to send</h3>
+          <p>Stream generates referral letters from your chart data — branded for your practice and ready to fax or send.</p>
         </div>
-        <div class="np-stage">
-          <div class="np-stage-head">
-            <span class="np-stage-num">STEP 05</span>
-            <h3>Loop closed</h3>
-          </div>
-          <div class="np-stage-items">
-            <span class="np-chip">Follow-up &amp; referral loop tracking <span class="np-status np-status--roadmap">On the roadmap</span></span>
-          </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Pre-visit huddle</div>
+          <h3>Walk in already oriented</h3>
+          <p>Before each visit, Stream surfaces active problems, recent vitals, current medications, and stale issues that haven't been addressed in a while.</p>
+        </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Task management</div>
+          <h3>Pulled, assigned, tracked</h3>
+          <p>Stream pulls tasks from your notes, your documents, and the clinical context, assigns them to the right person, and tracks them to completion.</p>
+        </div>
+        <div class="np-cap">
+          <div class="np-cap-tag">Coding</div>
+          <h3>Tied to documented complexity</h3>
+          <p>Stream suggests codes tied to the complexity you've actually documented — capture that reflects the care you delivered.</p>
         </div>
       </div>
 
-      <div class="np-loop-legend">
-        <span><span class="np-status np-status--shipped">Shipped</span> available today</span>
-        <span><span class="np-status np-status--soon">In testing / development</span> in active build</span>
-        <span><span class="np-status np-status--roadmap">On the roadmap</span> committed, not yet built</span>
+      <div class="np-flow">
+        <span class="np-flow-step">Information in</span>
+        <span class="np-flow-arrow">→</span>
+        <span class="np-flow-step">Problem-structured chart</span>
+        <span class="np-flow-arrow">→</span>
+        <span class="np-flow-step">Tasks &amp; referrals surfaced</span>
+        <span class="np-flow-arrow">→</span>
+        <span class="np-flow-step">Letters &amp; actions out</span>
       </div>
-      <p class="np-loop-foot">The note is structured by medical problem, not by date — so the chart is organized the way clinicians think, and every downstream piece above is built on top of that.</p>
+      <p class="np-momentum">Built by clinicians, shipping updates every few weeks.</p>
     </div>
   </section>
 
