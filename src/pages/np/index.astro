@@ -4,7 +4,7 @@ import StepMock from '../../components/StepMock.astro';
 
 // Primary CTA → Calendly with UTM tracking so this page's traffic is attributable
 // to subsequent conversations. Calendly captures utm_* params on the booking record.
-const calendly = 'https://calendly.com/jacob-riverrecords/meeting';
+const calendly = 'https://calendly.com/jacob-riverrecords/talk-to-a-clinician-river-records';
 const utm = 'utm_source=np-landing&utm_medium=referral&utm_campaign=aanp-frank-2026';
 const bookUrl = (content: string) => `${calendly}?${utm}&utm_content=${content}`;
 
@@ -211,7 +211,7 @@ const contactEmail = 'jacob@riverrecords.ai';
         <span class="np-logo-main">Stream <span>·</span> River Records</span>
         <span class="np-logo-sub">AI Clinical Documentation</span>
       </a>
-      <a href={bookUrl('nav')} class="np-btn np-btn-primary np-btn-sm">Book a conversation</a>
+      <a href={bookUrl('nav')} class="np-btn np-btn-primary np-btn-sm">Talk to a clinician</a>
     </div>
   </nav>
 
@@ -222,7 +222,7 @@ const contactEmail = 'jacob@riverrecords.ai';
       <h1>Documentation and care operations <em>for the practice you actually run.</em></h1>
       <p class="np-hero-sub">Stream is the AI-native platform built for independent primary care — including NP-led practices. The note is just the start. We close the loop on tasks, referrals, faxes, and follow-up.</p>
       <div class="np-hero-cta">
-        <a href={bookUrl('hero')} class="np-btn np-btn-primary">Book a 15-minute conversation →</a>
+        <a href={bookUrl('hero')} class="np-btn np-btn-primary">Talk to a clinician →</a>
         <p class="np-hero-note"><strong>Met us through Frank or AANP?</strong> Mention it when you book — you'll get a 60-day no-cost pilot if Stream fits your practice.</p>
       </div>
     </div>
@@ -434,7 +434,7 @@ const contactEmail = 'jacob@riverrecords.ai';
           <li>You decide at the end of 60 days whether Stream fits</li>
           <li>For NPs we meet through Frank, NNPEN, or AANP</li>
         </ul>
-        <a href={bookUrl('offer')} class="np-btn np-btn-primary np-btn-light">Book a 15-minute conversation →</a>
+        <a href={bookUrl('offer')} class="np-btn np-btn-primary np-btn-light">Talk to a clinician →</a>
         <p class="np-offer-fine">Mention Frank, NNPEN, or AANP when you book so we know how you found us and can apply the pilot.</p>
       </div>
     </div>
@@ -444,8 +444,8 @@ const contactEmail = 'jacob@riverrecords.ai';
   <section class="np-final np-r">
     <div class="np-c">
       <h2>Let's have a quick conversation.</h2>
-      <p>Fifteen minutes, NP to physician. We'll talk about your practice, show you Stream, and figure out together whether it fits — no pitch, no pressure.</p>
-      <a href={bookUrl('final')} class="np-btn np-btn-primary">Book a 15-minute conversation →</a>
+      <p>A real conversation, NP to physician. We'll talk about your practice, show you Stream, and figure out together whether it fits — no pitch, no pressure.</p>
+      <a href={bookUrl('final')} class="np-btn np-btn-primary">Talk to a clinician →</a>
       <p class="np-final-email">Prefer email? Reach out to <a href={`mailto:${contactEmail}?subject=Stream%20for%20my%20NP%20practice`}>{contactEmail}</a> — mention Frank, NNPEN, or AANP and we'll prioritize the response.</p>
     </div>
   </section>
