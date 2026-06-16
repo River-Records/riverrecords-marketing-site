@@ -128,8 +128,8 @@ const contactEmail = 'jacob@riverrecords.ai';
 
 /* NNPEN */
 .np-nnpen { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
-.np-nnpen-mark { font-family: var(--font-serif); font-size: 1.6rem; color: var(--primary-dark); border: 2px solid var(--primary); border-radius: var(--r-lg); padding: 18px 22px; text-align: center; line-height: 1.1; white-space: nowrap; }
-.np-nnpen-mark small { display: block; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--ink-faint); margin-top: 6px; }
+.np-nnpen-logo { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); line-height: 0; flex-shrink: 0; }
+.np-nnpen-logo img { width: 320px; max-width: 100%; height: auto; display: block; }
 .np-nnpen h2 { font-size: 1.6rem; margin-bottom: 12px; }
 .np-nnpen p { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.65; }
 
@@ -179,7 +179,7 @@ const contactEmail = 'jacob@riverrecords.ai';
   .np-built-grid { grid-template-columns: 1fr; }
   .np-stage { grid-template-columns: 1fr; gap: 14px; }
   .np-nnpen { grid-template-columns: 1fr; gap: 22px; text-align: center; }
-  .np-nnpen-mark { justify-self: center; }
+  .np-nnpen-logo { justify-self: center; }
   .np-offer-list { grid-template-columns: 1fr; }
   .np-footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
 }
@@ -377,7 +377,9 @@ const contactEmail = 'jacob@riverrecords.ai';
   <section class="np-section np-section--surface np-r">
     <div class="np-c">
       <div class="np-nnpen">
-        <div class="np-nnpen-mark">NNPEN<small>Partner</small></div>
+        <div class="np-nnpen-logo">
+          <img src="/images/nnpen-logo.png" alt="NNPEN — National Nurse Practitioners Entrepreneurial Network" width="1832" height="604" />
+        </div>
         <div>
           <h2>A partner of NNPEN.</h2>
           <p>Stream is a partner of the National Nurse Practitioners Entrepreneurial Network — a community of NPs building and running their own practices. We didn't design Stream for NP-led primary care from the outside. We built it in conversation with NP practice owners who live the documentation and operational load every day.</p>
