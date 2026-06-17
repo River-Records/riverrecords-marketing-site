@@ -101,21 +101,31 @@ def build():
 
     # ---- Header ----
     top = PH - M
-    c.drawImage(ImageReader(ICON), M, top - 36, 36, 36, mask="auto")
-    c.setFont("Times-Bold", 19); c.setFillColor(INK)
-    c.drawString(M + 46, top - 18, "Stream")
+    ry = top - 84                       # header rule
+    vcenter = (top + ry) / 2
+    # left: River Records lockup (navy mark reads on white), vertically centered
+    isz = 38
+    c.drawImage(ImageReader(ICON), M, vcenter - isz / 2, isz, isz, mask="auto")
+    c.setFont("Times-Bold", 20); c.setFillColor(INK)
+    c.drawString(M + 48, vcenter + 1, "Stream")
     c.setFont("Helvetica", 7); c.setFillColor(MUTE)
-    c.drawString(M + 46, top - 30, "BY RIVER RECORDS")
-    # NNPEN, right aligned
-    nw = 122; nh = nw * 604 / 1832
+    c.drawString(M + 48, vcenter - 11, "BY RIVER RECORDS")
+    # right: NNPEN logo on a navy chip — its name lines are white, so they need a
+    # dark background to be legible (it would disappear on white).
+    lw = 150; lh = lw * 604 / 1832
+    pad = 9
+    chip_w = lw + 2 * pad; chip_h = lh + 2 * pad
+    chip_x = PW - M - chip_w
+    chip_y = vcenter - chip_h / 2
+    c.setFillColor(DARK)
+    c.roundRect(chip_x, chip_y, chip_w, chip_h, 7, stroke=0, fill=1)
+    c.drawImage(ImageReader(NNPEN), chip_x + pad, chip_y + pad, lw, lh, mask="auto")
     c.setFont("Helvetica", 6.5); c.setFillColor(MUTE)
-    c.drawRightString(PW - M, top - 6, "IN PARTNERSHIP WITH")
-    c.drawImage(ImageReader(NNPEN), PW - M - nw, top - 12 - nh, nw, nh, mask="auto")
+    c.drawRightString(PW - M, chip_y + chip_h + 5, "IN PARTNERSHIP WITH")
     # rule
-    ry = top - 50
     c.setStrokeColor(RULE); c.setLineWidth(1); c.line(M, ry, PW - M, ry)
 
-    y = ry - 30
+    y = ry - 26
     # ---- Eyebrow ----
     tracked(c, "FOR NURSE PRACTITIONERS IN INDEPENDENT PRIMARY CARE",
             M, y, "Helvetica-Bold", 8.5, TEAL, 1.4)
