@@ -11,8 +11,8 @@ const utmBase = '?utm_source=homepage&utm_medium=landing&utm_campaign=home-v2';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
 ---
 <Base
-  title="Stream — AI Medical Scribe with Memory | Problem-Based Notes"
-  description="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. Faster notes today. A smarter chart tomorrow. 30-day free trial.">
+  title="Stream — AI Medical Scribe that Closes the Loop | Problem-Based Notes"
+  description="Stream is your AI scribe and clinical assistant — organized by medical problem, not by date. It writes the note, then keeps going: referrals, prior auth, labs, and inbound faxes tracked by problem so nothing falls through the cracks between visits. 30-day free trial.">
 
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "How does Stream work?", "acceptedAnswer": { "@type": "Answer", "text": "Stream listens to your encounter, transcribes it in real time, and generates a structured clinical note with Assessment and Plan split per medical problem. Each note updates a problem-oriented longitudinal chart." }},
-        { "@type": "Question", "name": "Can I use Stream with my existing EHR?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Stream works alongside any EHR. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena." }},
+        { "@type": "Question", "name": "Is Stream my chart, or a copy of it?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on your practice. If you run DPC or concierge without a heavy EHR, Stream is your chart — the actual longitudinal record, not a copy of one. If you're a fee-for-service practice on Epic or Athena, Stream is the problem-organized layer alongside your EHR: you paste the note in today, and native integrations are in development for Elation first, then Athena." }},
         { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber. Encrypted at rest and in transit. We never train our models on your patient data." }},
         { "@type": "Question", "name": "What does Stream cost?", "acceptedAnswer": { "@type": "Answer", "text": "Stream is $149/month per user, billed monthly. Annual billing is available at $99/month. Every plan starts with a 30-day free trial — no credit card required. Cancel anytime." }}
       ]
@@ -166,6 +166,23 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .scratchpad-arrow { text-align: center; color: var(--ink-mute); font-size: 1.2rem; margin: 8px 0; }
 .scratchpad-result { padding: 12px; background: var(--stream-light); border-radius: 6px; font-size: 0.75rem; color: var(--stream-dark); }
 .scratchpad-result-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; color: var(--stream); margin-bottom: 4px; }
+
+/* Loop-closure mini visual */
+.loop-mini { font-size: 0.72rem; width: 100%; }
+.loop-mini-head { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 10px; }
+.loop-mini-row { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; }
+.loop-mini-row--red { background: #fde8e8; }
+.loop-mini-row--amber { background: #fff3e0; }
+.loop-mini-row--green { background: var(--stream-light); }
+.loop-mini-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.loop-mini-dot--red { background: #d32f2f; }
+.loop-mini-dot--amber { background: #e65100; }
+.loop-mini-dot--green { background: var(--stream); }
+.loop-mini-text { flex: 1; color: var(--ink-soft); font-size: 0.7rem; line-height: 1.35; }
+.loop-mini-text strong { color: var(--ink); }
+.loop-mini-flag { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; font-weight: 600; letter-spacing: 0.04em; color: #d32f2f; background: rgba(211,47,47,0.12); padding: 2px 6px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+.loop-mini-flag--amber { color: #e65100; background: rgba(230,81,0,0.12); }
+.loop-mini-flag--green { color: var(--stream); background: rgba(30,90,62,0.12); }
 
 /* === JAKE QUOTE === */
 .home-quote { padding: 80px 0; background: var(--paper-warm); }
@@ -308,7 +325,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
       <div>
         <div class="home-eyebrow">Built by practicing physicians · Published in JAMA Network Open</div>
         <h1>Your AI scribe stops at the note.<br><em>Stream keeps going.</em></h1>
-        <p class="home-hero-sub">Most AI scribes write a better note. Stream builds a chart — organizing every visit by medical problem, surfacing what's falling off your radar, and keeping the longitudinal record you've spent years building actually usable.</p>
+        <p class="home-hero-sub">Most AI scribes write a better note. Stream builds a chart — organizing every visit by medical problem, surfacing what's falling off your radar, and tracking the work between visits. The referral, the prior auth, the lab, the fax. Ordered today, tracked until it's done.</p>
         <div class="home-cta-row">
           <a href={`${onboardUrl}&utm_content=hero`} class="hb-primary">Start free for 30 days →</a>
           <a href="/book-demo" class="hb-secondary">Talk to a clinician first</a>
@@ -385,7 +402,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
       <div class="home-how-card">
         <div class="home-how-num">STEP 03 — USE</div>
         <h3>The chart <em>does the work.</em></h3>
-        <p>Before the next visit, Huddle surfaces what's active, what's falling off, and what needs attention. During the visit, the Scratchpad keeps your side notes. After the visit, Timeline + Recap give you per-problem history on demand. Tasks are generated automatically. Codes are suggested. Outside records are summarized.</p>
+        <p>Before the next visit, Huddle surfaces what's active, what's falling off, and what's still open — the referral with no consult note back, the lab that never resulted. During the visit, the Scratchpad keeps your side notes. After it, Timeline + Recap give you per-problem history on demand. Referrals, prior auth, and labs become tracked tasks. Codes are suggested. Inbound faxes are read, summarized, and filed.</p>
       </div>
     </div>
   </div>
@@ -395,8 +412,8 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 <section class="home-tour hr" id="features">
   <div class="hc">
     <div class="hl">WHAT'S INSIDE</div>
-    <h2>Four tools your scribe <em>doesn't</em> give you.</h2>
-    <p class="home-tour-lede">Because the note is structured per problem, Stream unlocks capabilities that every other AI scribe is architecturally blocked from building.</p>
+    <h2>Five tools your scribe <em>doesn't</em> give you.</h2>
+    <p class="home-tour-lede">Because the note is structured per problem, Stream unlocks capabilities that every other AI scribe is architecturally blocked from building — including closing the loop on the work that happens after you stop talking.</p>
     <div class="home-tour-flow">
       <!-- Row 1: Huddle + Scratchpad -->
       <div class="home-tour-pair">
@@ -472,6 +489,39 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
           </div>
         </div>
       </div>
+      <!-- Row 4: Loop closure -->
+      <div class="home-tour-card home-tour-card--wide" id="loop">
+        <div class="home-tour-card-vis">
+          <div class="loop-mini">
+            <div class="loop-mini-head">OPEN LOOPS · Maria Rodriguez</div>
+            <div class="loop-mini-row loop-mini-row--red">
+              <span class="loop-mini-dot loop-mini-dot--red"></span>
+              <span class="loop-mini-text">Cardiology referral · placed 4/15 — no consult note back</span>
+              <span class="loop-mini-flag">47d</span>
+            </div>
+            <div class="loop-mini-row loop-mini-row--amber">
+              <span class="loop-mini-dot loop-mini-dot--amber"></span>
+              <span class="loop-mini-text">Prior auth · Jardiance — submitted, awaiting payer</span>
+              <span class="loop-mini-flag loop-mini-flag--amber">pending</span>
+            </div>
+            <div class="loop-mini-row loop-mini-row--green">
+              <span class="loop-mini-dot loop-mini-dot--green"></span>
+              <span class="loop-mini-text">Fax in: cardiology consult → filed under <strong>CAD</strong></span>
+              <span class="loop-mini-flag loop-mini-flag--green">closed ✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="home-tour-card-body">
+          <div class="home-tour-card-label">05 · LOOP</div>
+          <h3>The work between visits, <em>tracked to done.</em></h3>
+          <p>A referral isn't finished when you order it — it's finished when the consult note comes back and files under the right problem. Stream captures referrals, prior auth, lab requisitions, and inbound faxes during the visit, then tracks them by medical problem after it. Open items stay visible in Huddle until they resolve. Enabled by the same structural choice as everything else on this page.<!-- VERIFY: does an inbound fax/consult auto-match and close its open referral loop, or does the clinician link it manually? --></p>
+          <div class="home-tour-callouts">
+            <span class="home-tour-callout">Referrals, prior auth, labs, faxes</span>
+            <span class="home-tour-callout">Tracked by problem, not by date</span>
+            <span class="home-tour-callout">Open until it's actually done</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -512,14 +562,14 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         <p>Every visit updates a living problem list. Each encounter's Assessment &amp; Plan is filed under the relevant problem. After a year of visits, you have a chart organized by what matters — not a stack of dated documents.</p>
       </div>
       <div class="home-feat">
-        <div class="home-feat-label">IN AND OUT</div>
-        <h3>External records, summarized and filed.</h3>
-        <p>Upload a PDF consult (up to 20MB), paste in free text, or send in a fax. Stream summarizes the document and files the relevant pieces under the right problem. Two lines instead of twenty pages.</p>
+        <div class="home-feat-label">INBOUND</div>
+        <h3>Faxes and records, read and filed.</h3>
+        <p>Inbound faxes are a first-class input — not an afterthought. Send in a fax, upload a PDF consult (up to 20MB), or paste free text. Stream reads the document, summarizes it, and files the relevant pieces under the right problem — closing the open loop it answers.<!-- VERIFY: does an inbound fax automatically close the matching open referral/order, or is it surfaced for the clinician to link? --> Two lines instead of twenty pages.</p>
       </div>
       <div class="home-feat">
-        <div class="home-feat-label">AUTOMATIC</div>
-        <h3>Tasks from every visit.</h3>
-        <p>Follow-up tasks, pending labs, overdue screenings — extracted from every note automatically and tied to the problem they belong to. Not buried in the body of a document where nobody finds them.</p>
+        <div class="home-feat-label">TRACKED TO DONE</div>
+        <h3>Referrals, prior auth, labs — nothing dropped.</h3>
+        <p>Referrals, prior-auth data, lab requisitions, follow-ups, and overdue screenings — captured from every visit and tied to the problem they belong to.<!-- VERIFY: how far does each go — does Stream generate the lab requisition document and hold prior-auth data for submission, or track them as tasks? --> They stay visible in Huddle until they resolve, not buried in a document where nobody finds them.</p>
       </div>
       <div class="home-feat">
         <div class="home-feat-label">POINT OF CARE</div>
@@ -555,27 +605,27 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
     <div class="home-proof-grid">
       <div class="home-proof-feature">
         <div class="qm">"</div>
-        <blockquote>River Records' approach to clinical documentation matches how we think clinically. I love the concept.</blockquote>
+        <blockquote>Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters.</blockquote>
         <div class="home-proof-attr">
-          <div class="home-proof-avatar">SD</div>
+          <div class="home-proof-avatar">AB</div>
           <div>
-            <div class="home-proof-name">Spencer Dorn, MD</div>
-            <div class="home-proof-title">Vice Chair &amp; Professor of Medicine, UNC</div>
+            <div class="home-proof-name">Anatoli Berezovsky, MD</div>
+            <div class="home-proof-title">Owner &amp; CEO, Mila Family Health</div>
           </div>
         </div>
       </div>
       <div class="home-proof-stack">
         <div class="home-proof-mini">
-          <blockquote>"Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters."</blockquote>
-          <div class="home-proof-mini-attr">— Anatoli Berezovsky, MD · Owner &amp; CEO, Mila Family Health</div>
+          <blockquote>"I've gone from writing in the dirt to writing Rolls Royce quality."</blockquote>
+          <div class="home-proof-mini-attr">— Allen Coffman, MD · Highland Pediatrics</div>
         </div>
         <div class="home-proof-mini">
           <blockquote>"I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time."</blockquote>
           <div class="home-proof-mini-attr">— Donna Kirchoff, MD, FAAP · Integrative Developmental &amp; Behavioral Peds</div>
         </div>
         <div class="home-proof-mini">
-          <blockquote>"I've gone from writing in the dirt to writing Rolls Royce quality."</blockquote>
-          <div class="home-proof-mini-attr">— Allen Coffman, MD · Highland Pediatrics</div>
+          <blockquote>"River Records' approach to clinical documentation matches how we think clinically. I love the concept."</blockquote>
+          <div class="home-proof-mini-attr">— Spencer Dorn, MD · Vice Chair &amp; Professor of Medicine, UNC</div>
         </div>
       </div>
     </div>
@@ -601,8 +651,8 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
           <li>Per-problem Timeline + Recap</li>
           <li>In-visit Scratchpad</li>
           <li>ICD, CPT, and HCC coding support</li>
-          <li>External record import (PDF 20MB, text paste)</li>
-          <li>Automatic task generation</li>
+          <li>Inbound fax + record intake (PDF 20MB, text paste)</li>
+          <li>Loop tracking — referrals, prior auth, labs by problem</li>
           <li>Customizable note templates</li>
           <li>30-day trial, no credit card</li>
           <li>Pastes into any EHR</li>
@@ -643,8 +693,8 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         <div class="home-faq-a">Stream listens to your encounter (or you can dictate), transcribes it in real time, and generates a structured clinical note with Assessment &amp; Plan split per medical problem. Each note also updates the patient's problem-oriented chart — so context, tasks, and history are always organized by medical problem, not buried by date.</div>
       </div>
       <div class="home-faq-item">
-        <button class="home-faq-q">Can I use Stream with my existing EHR?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Yes. Stream works alongside any EHR — Athena, Epic, Elation, DrChrono, and others. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena.</div>
+        <button class="home-faq-q">Is Stream my chart, or a copy of my EHR?<span class="home-faq-icon">+</span></button>
+        <div class="home-faq-a"><strong>If you run DPC or concierge without a heavy EHR:</strong> Stream is your chart. The actual longitudinal record — problems, plans, tasks, history — not a copy of one kept somewhere else. This is your record. Say goodbye to the legacy EHR.<br><br><strong>If you're fee-for-service on Epic, Athena, or another EHR:</strong> Stream is the problem-organized layer alongside it. You paste the note into your EHR today, and native integrations are in development — Elation first, then Athena. Either way, the chart Stream builds is yours.</div>
       </div>
       <div class="home-faq-item">
         <button class="home-faq-q">Can I customize how my notes look?<span class="home-faq-icon">+</span></button>
