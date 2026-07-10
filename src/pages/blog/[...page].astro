@@ -13,9 +13,29 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 const isFirstPage = page.currentPage === 1;
 
-// Only show featured on first page
+// Build the series showcase (first page only): group posts that share a
+// `series` name and order them by `seriesPart`, independent of publishDate.
+type SeriesGroup = { name: string; posts: any[] };
+let seriesGroups: SeriesGroup[] = [];
+if (isFirstPage) {
+  const byName = new Map<string, any[]>();
+  for (const post of page.data) {
+    if (!post.data.series) continue;
+    const list = byName.get(post.data.series) ?? [];
+    list.push(post);
+    byName.set(post.data.series, list);
+  }
+  seriesGroups = [...byName.entries()].map(([name, posts]) => ({
+    name,
+    posts: posts.sort((a, b) => (a.data.seriesPart ?? 0) - (b.data.seriesPart ?? 0)),
+  }));
+}
+const seriesPostIds = new Set(seriesGroups.flatMap((g) => g.posts.map((p) => p.id)));
+
+// Featured strip: first page only, excluding posts already shown in a series
+// block above so they aren't rendered twice.
 const featured = isFirstPage
-  ? page.data.filter((p: any) => p.data.featured)
+  ? page.data.filter((p: any) => p.data.featured && !seriesPostIds.has(p.id))
   : [];
 ---
 <Page
@@ -117,6 +137,46 @@ const featured = isFirstPage
   color: var(--ink-faint);
   margin-bottom: 20px;
 }
+.blog-series-head {
+  margin-bottom: 22px;
+}
+.blog-series-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.blog-series-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.blog-series-sub {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+.blog-card--series {
+  border-top: 3px solid var(--accent);
+}
+.blog-series-part {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.blog-list--series-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1100px) {
+  .blog-list--series-4 { grid-template-columns: repeat(2, 1fr); }
+}
 .blog-section-divider {
   height: 1px;
   background: var(--border);
@@ -167,6 +227,39 @@ const featured = isFirstPage
 <section class="blog-grid">
   <div class="container">
     <BlogTagBar />
+
+    {isFirstPage && seriesGroups.map((group) => (
+      <>
+        <div class="blog-series">
+          <div class="blog-series-head">
+            <span class="blog-series-eyebrow">Series</span>
+            <h2 class="blog-series-title">{group.name}</h2>
+            <p class="blog-series-sub">A {group.posts.length}-part series. Best read in order.</p>
+          </div>
+          <div class={`blog-list${group.posts.length === 4 ? ' blog-list--series-4' : ''}`}>
+            {group.posts.map((post: any) => (
+              <a href={`/blog/${post.id}`} class="blog-card blog-card--series">
+                <div class="blog-card-body">
+                  <span class="blog-series-part">Part {post.data.seriesPart} of {group.posts.length}</span>
+                  <h2>{post.data.title}</h2>
+                  <p>{post.data.description}</p>
+                  <div class="blog-card-meta">
+                    <span>{post.data.author}</span>
+                    {post.data.readTime && (
+                      <>
+                        <div class="blog-card-meta-dot"></div>
+                        <span>{post.data.readTime} min</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="blog-section-divider"></div>
+      </>
+    ))}
 
     {featured.length > 0 && isFirstPage && (
       <>

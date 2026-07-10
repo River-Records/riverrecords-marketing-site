@@ -4,8 +4,10 @@ description: "Chart review is a re-orientation problem, not a reading problem. W
 seoTitle: "I Don't Read Charts. I Hunt Through Them. — The Case for a Normalized Review Surface"
 seoDescription: "A BMP takes two seconds; an outside consult takes four minutes — not because it's harder, but because you have to find everything first. The case against information scatter and for a normalized chart review surface."
 author: "Jacob Kantrowitz MD, PhD"
-publishDate: "2026-07-10"
-featured: false
+publishDate: "2026-07-08"
+featured: true
+series: "The Work Before the Work"
+seriesPart: 2
 tags: ["information-chaos", "clinical-context"]
 readTime: "7"
 draft: false

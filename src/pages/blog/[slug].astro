@@ -4,15 +4,24 @@ import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  return posts.map((post) => {
+    // Collect sibling posts in the same series, ordered by seriesPart.
+    const seriesPosts = post.data.series
+      ? posts
+          .filter((p) => p.data.series === post.data.series)
+          .sort((a, b) => (a.data.seriesPart ?? 0) - (b.data.seriesPart ?? 0))
+          .map((p) => ({ id: p.id, title: p.data.title, seriesPart: p.data.seriesPart }))
+      : [];
+    return {
+      params: { slug: post.id },
+      props: { post, seriesPosts },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, seriesPosts } = Astro.props;
 const { Content } = await render(post);
 ---
-<BlogPost frontmatter={post.data}>
+<BlogPost frontmatter={post.data} seriesPosts={seriesPosts}>
   <Content />
 </BlogPost>

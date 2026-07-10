@@ -4,8 +4,10 @@ description: "Closing the loop on labs, referrals, and follow-ups is a quiet pat
 seoTitle: "Your Clinical Note Is the Best Task Manager You're Not Using"
 seoDescription: "EHR task managers rarely survive a real clinic day. The note-as-task-manager method — three buckets, written once, read first — for closing the loop on labs, referrals, and follow-ups."
 author: "Jacob Kantrowitz MD, PhD"
-publishDate: "2026-07-10"
-featured: false
+publishDate: "2026-07-07"
+featured: true
+series: "The Work Before the Work"
+seriesPart: 1
 tags: ["care-coordination", "clinical-context"]
 readTime: "5"
 draft: false

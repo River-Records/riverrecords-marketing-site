@@ -5,7 +5,9 @@ seoTitle: "The Work Before the Work — Articulation Work, Extraneous Load, and 
 seoDescription: "None of it is medicine, but all of it is required before medicine can happen. The case that the work before the work — invisible, unbilled, unmeasured — is a tractable source of moral injury."
 author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-07-10"
-featured: false
+featured: true
+series: "The Work Before the Work"
+seriesPart: 4
 tags: ["burnout", "clinical-context"]
 readTime: "9"
 draft: false

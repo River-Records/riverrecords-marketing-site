@@ -4,9 +4,10 @@ import OfferBanner from '../components/OfferBanner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const { frontmatter } = Astro.props;
+const { frontmatter, seriesPosts = [] } = Astro.props;
 const title = frontmatter.seoTitle || frontmatter.title;
 const description = frontmatter.seoDescription || frontmatter.description;
+const inSeries = seriesPosts.length > 1 && frontmatter.series;
 const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -43,6 +44,12 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
               ))}
             </div>
           )}
+          {inSeries && (
+            <div class="blog-series-badge">
+              <span class="blog-series-badge-part">Part {frontmatter.seriesPart} of {seriesPosts.length}</span>
+              <span class="blog-series-badge-name">{frontmatter.series}</span>
+            </div>
+          )}
           <h1>{frontmatter.title}</h1>
           <p class="blog-meta">
             <span>{frontmatter.author}</span>
@@ -59,6 +66,21 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
         <div class="blog-post-body">
           <slot />
         </div>
+        {inSeries && (
+          <div class="blog-series-nav">
+            <span class="blog-series-nav-label">The full series — {frontmatter.series}</span>
+            <ol class="blog-series-nav-list">
+              {seriesPosts.map((p: any) => (
+                <li class={p.title === frontmatter.title ? 'is-current' : ''}>
+                  <span class="blog-series-nav-num">{p.seriesPart}</span>
+                  {p.title === frontmatter.title
+                    ? <span class="blog-series-nav-current">{p.title}</span>
+                    : <a href={`/blog/${p.id}`}>{p.title}</a>}
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         <div class="blog-post-footer">
           <div class="blog-cta-card">
             <h3>Try Stream free for 30 days.</h3>
@@ -196,6 +218,93 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
 .blog-post-body :global(strong) {
   color: var(--ink);
   font-weight: 600;
+}
+.blog-series-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.blog-series-badge-part {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--accent);
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+}
+.blog-series-badge-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.blog-series-nav {
+  max-width: 720px;
+  margin: 56px auto 0;
+  padding: 28px 32px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.blog-series-nav-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+.blog-series-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: none;
+}
+.blog-series-nav-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+.blog-series-nav-list li:first-child {
+  border-top: none;
+}
+.blog-series-nav-num {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+.blog-series-nav-list a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.blog-series-nav-list a:hover {
+  text-decoration: underline;
+}
+.blog-series-nav-current {
+  color: var(--ink);
+  font-weight: 600;
+}
+.blog-series-nav-list li.is-current .blog-series-nav-num {
+  background: var(--accent);
+  color: var(--white);
 }
 .blog-post-footer {
   max-width: 720px;
