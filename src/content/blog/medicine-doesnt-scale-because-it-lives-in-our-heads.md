@@ -88,7 +88,7 @@ There's a reason this feels heavier than a workflow problem.
 
 Being the sole storage medium for your patients' care is not a neutral job description. It means the right thing happening depends on you personally holding it in mind, across weeks, across hundreds of patients, forever. Most days you manage. The days you don't are not forgettable, and they accumulate.
 
-That accumulation has a name — moral injury rather than burnout — and it deserves more than a paragraph. I've written about it separately in *The Work Before the Work*.
+That accumulation has a name — moral injury rather than burnout — and it deserves more than a paragraph. I've written about it separately in [*The Work Before the Work*](/blog/the-work-before-the-work).
 
 For now, one line: you didn't train for a decade to be the storage medium.
 

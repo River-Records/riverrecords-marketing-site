@@ -86,6 +86,6 @@ Elsewhere I've argued that the systems physicians build to organize care live in
 
 And there's a cost to leaving it broken that doesn't show up on any time-and-motion study. Every minute spent hunting is a minute not spent thinking, and physicians know the difference. You feel it. Days spent doing the work *around* the work don't leave you tired so much as unspent — full of capacity you never got to use.
 
-Both of these problems are the same problem, and I've taken it up directly in *The Work Before the Work*.
+Both of these problems are the same problem, and I've taken it up directly in [*The Work Before the Work*](/blog/the-work-before-the-work).
 
 *How much of your chart review time is actually spent reviewing? Watch yourself on the next outside consult and count.*

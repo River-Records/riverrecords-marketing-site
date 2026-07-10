@@ -62,7 +62,7 @@ In that world, the running list at the top of my note wouldn't be something I ma
 
 That would be something, wouldn't it?
 
-This turns out to be one instance of a much larger problem — the enormous, unmeasured labor that stands between a physician and the practice of medicine. I've written about that directly in *The Work Before the Work*.
+This turns out to be one instance of a much larger problem — the enormous, unmeasured labor that stands between a physician and the practice of medicine. I've written about that directly in [*The Work Before the Work*](/blog/the-work-before-the-work).
 
 ## Closing the loop, for real
 
