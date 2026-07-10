@@ -4,7 +4,7 @@ description: "Every good physician builds a private operating system — and it'
 seoTitle: "Medicine Doesn't Scale Because It Lives in Our Heads — Externalizing the Work of Care"
 seoDescription: "The gap between what's in the chart and what's in your head is why care delivery doesn't scale. On articulation work, the private operating system every physician builds, and building infrastructure that holds the work of care."
 author: "Jacob Kantrowitz MD, PhD"
-publishDate: "2026-07-09"
+publishDate: "2026-07-08"
 featured: true
 series: "The Work Before the Work"
 seriesPart: 3

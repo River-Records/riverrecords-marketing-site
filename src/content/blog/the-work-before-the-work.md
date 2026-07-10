@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-07-10"
 featured: true
 series: "The Work Before the Work"
-seriesPart: 4
+seriesPart: 5
 tags: ["burnout", "clinical-context"]
 readTime: "9"
 draft: false
