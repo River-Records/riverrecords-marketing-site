@@ -82,7 +82,7 @@ That's the whole ambition. It's not glamorous.
 
 I want to open a chart and know, without looking, where the things are. I want to spot what changed since I last looked, evaluate it with my full attention, and move on to the next patient without having spent any of myself on navigation. I want the hallway to disappear so I can spend my day in the bright room at the end of it.
 
-Elsewhere I've argued that the systems physicians build to organize care live in their heads and don't scale — see *Medicine Doesn't Scale Because It Lives in Our Heads*. Normalizing the review surface is the other half of that argument. Externalizing the system makes the work *transferable*; normalizing the surface makes it *reviewable*. You need both. A shared system that every clinician has to re-orient to is barely shared at all.
+Elsewhere I've argued that the systems physicians build to organize care live in their heads and don't scale — see [*Medicine Doesn't Scale Because It Lives in Our Heads*](/blog/medicine-doesnt-scale-because-it-lives-in-our-heads). Normalizing the review surface is the other half of that argument. Externalizing the system makes the work *transferable*; normalizing the surface makes it *reviewable*. You need both. A shared system that every clinician has to re-orient to is barely shared at all.
 
 And there's a cost to leaving it broken that doesn't show up on any time-and-motion study. Every minute spent hunting is a minute not spent thinking, and physicians know the difference. You feel it. Days spent doing the work *around* the work don't leave you tired so much as unspent — full of capacity you never got to use.
 
