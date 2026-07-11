@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-02-13"
 image: "https://framerusercontent.com/images/92SSwQM3fZGdw3hYONUmRl6blyQ.webp"
 featured: false
-tags: ["ai-medical-scribe", "medical-dictation-ai"]
+tags: ["practice-operations", "ai-scribe"]
 draft: false
 ---
 

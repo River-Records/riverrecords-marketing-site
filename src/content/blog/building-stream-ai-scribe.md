@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz, MD, PhD"
 publishDate: "2025-09-29"
 image: "https://framerusercontent.com/images/V5WKas2tQDot1iX5foH5YNnwfI.webp"
 featured: false
-tags: []
+tags: ["ai-scribe", "clinical-context"]
 draft: false
 ---
 

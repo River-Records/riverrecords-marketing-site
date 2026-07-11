@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-12-11"
 image: "https://framerusercontent.com/images/XwbqJ4Niyp82KCssRulh4HPJo8Q.webp"
 featured: false
-tags: []
+tags: ["burnout", "practice-operations"]
 draft: false
 ---
 

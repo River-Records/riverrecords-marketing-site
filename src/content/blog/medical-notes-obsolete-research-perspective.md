@@ -7,7 +7,7 @@ author: "Jackson Steinkamp"
 publishDate: "2021-04-21"
 image: "https://framerusercontent.com/images/3BTwxXVQHczZwwwJyDAexfsJDRs.webp"
 featured: false
-tags: []
+tags: ["research", "ehr-design"]
 draft: false
 ---
 

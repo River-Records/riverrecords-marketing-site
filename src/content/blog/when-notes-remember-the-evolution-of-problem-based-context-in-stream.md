@@ -8,7 +8,7 @@ publishDate: "2025-11-05"
 image: "https://framerusercontent.com/images/XOqfxVjVx6DU2Yl3uayEGEC84.png"
 imageAlt: "A clean, modern illustration showing a “Hypertension” Stream card connected by a subtle line to a previous “Hypertension” card from a past visit. "
 featured: true
-tags: []
+tags: ["product-updates", "clinical-context", "longitudinal-care"]
 draft: false
 ---
 

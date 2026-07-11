@@ -27,6 +27,13 @@
 /blog/ehr-information-underload/  /blog/when-the-chart-comes-up-empty/  301
 /blog/ai-scribes-longitudinal-care/  /blog/the-future-of-longitudinal-care-how-ai-scribes-ensure-consistent-patient-records/  301
 
+# Retired blog tags (July 2026 tag consolidation)
+/blog/tag/ai-medical-scribe/*  /blog/tag/ai-scribe/  301
+/blog/tag/medical-dictation-ai/*  /blog/tag/ai-scribe/  301
+/blog/tag/ai-assistant/*  /blog/tag/ai-scribe/  301
+/blog/tag/collaborative-care/*  /blog/tag/care-coordination/  301
+/blog/tag/medical-documentation/*  /blog  301
+
 # Fixed blog slug typos (July 2026 cleanup)
 /blog/ai-symmptom-extraction-research-86-percent-accuracy/  /blog/ai-symptom-extraction-research-86-percent-accuracy/  301
 /blog/the-problem-with-ehr-workflowswhy-its-time-for-a-redesign/  /blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/  301

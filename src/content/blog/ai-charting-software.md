@@ -7,7 +7,7 @@ author: "Rhianonn Mangan"
 publishDate: "2025-02-14"
 image: "https://framerusercontent.com/images/U8Duik0TMh2U7E5IGINJjPeDtY.webp"
 featured: false
-tags: ["burnout", "ai-medical-scribe", "medical-decision-making", "medical-dictation-ai", "note-bloat"]
+tags: ["practice-operations", "ai-scribe", "note-bloat"]
 draft: false
 ---
 

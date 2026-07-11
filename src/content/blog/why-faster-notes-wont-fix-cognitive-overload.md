@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-12"
 image: "https://framerusercontent.com/images/UysT016IVC5BNYnJZcBnvt3qU.webp"
 featured: false
-tags: []
+tags: ["ai-scribe", "clinical-context", "information-chaos"]
 draft: false
 ---
 

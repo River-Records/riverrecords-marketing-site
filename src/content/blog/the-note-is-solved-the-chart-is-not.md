@@ -5,7 +5,7 @@ seoTitle: "The Note Is Solved. The Chart Is Not. — Information Persistence & t
 seoDescription: "Getting the note done faster was never the hard problem. The case for information persistence and what the next generation of the EHR has to be."
 author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-06-13"
-tags: ["clinical-context", "information-chaos"]
+tags: ["ai-scribe", "clinical-context", "information-chaos"]
 readTime: "6"
 draft: false
 linkedinCaption: "For most clinicians, the note is the painful pill — the work product standing between the visit and the bill. So nearly every AI scribe is racing to do the same thing: get the note done faster. Good — that matters. But getting the note done faster was never the hard problem. The hard problem is everything that happens after the note is signed. Here's the case for information persistence — and why the next EHR has to be a record that still makes sense ten clinicians and ten years from now:"

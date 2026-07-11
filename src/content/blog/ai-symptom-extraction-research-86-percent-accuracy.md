@@ -7,7 +7,7 @@ author: "Jackson Steinkamp"
 publishDate: "2019-12-27"
 image: "https://framerusercontent.com/images/AJiHJ7DdaiixEauiO3W58JyTU.webp"
 featured: false
-tags: []
+tags: ["research"]
 draft: false
 ---
 

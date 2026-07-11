@@ -6,7 +6,7 @@ seoDescription: "AI scribes are growing a patient object late, and legacy EHRs c
 author: "Jacob Kantrowitz"
 publishDate: "2026-06-12"
 featured: false
-tags: ["ai-medical-scribe", "longitudinal-care", "clinical-context"]
+tags: ["ai-scribe", "longitudinal-care", "clinical-context"]
 draft: false
 linkedinCaption: "Yesterday a nurse practitioner showed me her new AI scribe, and its design quietly revealed what its makers think documentation is for: generating notes faster, with little regard for how the chart is organized afterward. Notes were first-class citizens on every screen; patients had been bolted on late. Legacy EHRs aren't better — ten to twenty clicks to write a single note. The next generation of clinical software won't come from retrofitting either. It'll come from systems built around the patient — their goals, their problems, their history — not the note. A chart is not a pile of notes. The note was never the point. The patient is."
 ---

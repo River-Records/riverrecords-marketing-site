@@ -7,7 +7,7 @@ author: "Rhianonn Mangan"
 publishDate: "2025-02-18"
 image: "https://framerusercontent.com/images/bkgpU3sYpljLnce7yZUE1t2Fuk.webp"
 featured: false
-tags: ["burnout", "ai-medical-scribe", "ai-scribe"]
+tags: ["burnout", "ai-scribe"]
 draft: false
 ---
 

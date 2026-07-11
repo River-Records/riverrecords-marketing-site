@@ -8,7 +8,7 @@ publishDate: "2026-07-06"
 featured: true
 series: "The Work Before the Work"
 seriesPart: 1
-tags: ["care-coordination", "clinical-context"]
+tags: ["practice-operations", "care-coordination", "clinical-context"]
 readTime: "5"
 draft: false
 linkedinCaption: "Who needs help closing the loop on a lab, a referral, or a task they set for themselves? If you raised your hand, you're not alone — it's one of the quietest, most persistent problems in outpatient medicine. I gave up on my EHR's task manager years ago; it lives in a different module from the note, so every follow-up means breaking my train of thought and entering the same context twice. So I adapted: my note IS my task manager. Three buckets at the top of every chart — things we're working on, things outstanding, things to do. Written once, read first every visit. One source of truth, nothing to sync. It's low-tech and it has saved me from dropping the ball more times than I can count. But closing the loop is a patient-safety issue first and a productivity issue second — and it shouldn't have to be a workaround. What if documenting good care and tracking it were finally the same act?"

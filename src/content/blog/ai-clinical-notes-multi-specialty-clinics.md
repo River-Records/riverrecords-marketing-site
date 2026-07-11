@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-02-28"
 image: "https://framerusercontent.com/images/irrNkJduOhXhWkHGoeurPfyLdzI.webp"
 featured: false
-tags: ["care-coordination", "ai-medical-scribe", "ai-scribe", "longitudinal-care"]
+tags: ["practice-operations", "care-coordination", "ai-scribe"]
 draft: false
 ---
 
@@ -73,6 +73,6 @@ AI in healthcare is continuously evolving, with future developments focusing on 
 
 If your multi-specialty clinic is looking to **optimize documentation, improve efficiency, and enhance patient care**, AI-driven clinical note-taking is the solution. By adopting these cutting-edge technologies, your practice can stay ahead in the ever-evolving healthcare landscape.
 
-### Learn More with Record Rivers
+### Learn More with River Records
 
-At **Record Rivers**, we specialize in **AI-powered healthcare solutions** that streamline documentation workflows, ensuring **seamless integration across specialties**. Contact us today to discover how AI can transform your clinic’s efficiency and patient care.
+At **River Records**, we specialize in **AI-powered healthcare solutions** that streamline documentation workflows, ensuring **seamless integration across specialties**. Contact us today to discover how AI can transform your clinic’s efficiency and patient care.

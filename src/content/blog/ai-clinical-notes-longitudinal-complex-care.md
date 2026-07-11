@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-11-20"
 image: "https://framerusercontent.com/images/opAMCJ6kMI3FNxYtKWt1eg6stbU.webp"
 featured: false
-tags: ["ai-medical-scribe", "medical-decision-making", "collaborative-care", "longitudinal-care"]
+tags: ["longitudinal-care", "care-coordination", "ai-scribe"]
 draft: false
 ---
 

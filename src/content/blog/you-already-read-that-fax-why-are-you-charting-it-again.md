@@ -6,7 +6,7 @@ seoDescription: "Reading a fax or report, then charting it separately wastes tim
 author: "Jacob Kantrowitz"
 publishDate: "2025-05-16"
 featured: false
-tags: []
+tags: ["practice-operations", "information-chaos"]
 draft: false
 ---
 

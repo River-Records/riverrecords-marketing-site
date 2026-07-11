@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2025-10-30"
 image: "https://framerusercontent.com/images/r84qBWwscskUIpeTM676EUablU.png"
 featured: false
-tags: ["ai-assistant", "ai-scribe"]
+tags: ["ai-scribe"]
 draft: false
 ---
 

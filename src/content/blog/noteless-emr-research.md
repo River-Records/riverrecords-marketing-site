@@ -7,7 +7,7 @@ author: "Jackson Steinkamp"
 publishDate: "2021-09-11"
 image: "https://framerusercontent.com/images/nyw3Kl8Fficfk7BIBbii9XL0eBU.webp"
 featured: false
-tags: []
+tags: ["research", "information-chaos"]
 draft: false
 ---
 

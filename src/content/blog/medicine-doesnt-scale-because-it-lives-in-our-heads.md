@@ -8,7 +8,7 @@ publishDate: "2026-07-08"
 featured: true
 series: "The Work Before the Work"
 seriesPart: 3
-tags: ["care-coordination", "longitudinal-care"]
+tags: ["burnout", "care-coordination", "longitudinal-care"]
 readTime: "8"
 draft: false
 linkedinCaption: "Imagine you had to hand your entire panel to someone else tomorrow morning — permanently. What would actually transfer? The charts, obviously. And yet every one of us knows, with total certainty, that something enormous would be lost. Somewhere in your third or fourth year of practice, you stopped following the system and started building your own: a shorthand, a place in the note where you always put the thing you're worried about, the knowledge that Mrs. R's daughter is the one who actually fills the pillbox. None of that is in a field. It lives in your head. That private operating system is a mark of expertise — and it's also a fragile, unbacked-up, single-instance piece of infrastructure we've somehow made load-bearing for the entire health system. Brains don't scale. Systems do. The goal isn't a system that thinks for you. It's a system that remembers with you."

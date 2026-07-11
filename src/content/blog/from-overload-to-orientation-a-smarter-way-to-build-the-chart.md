@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-04"
 image: "https://framerusercontent.com/images/M6fUe9QVWrd6IkWHFrwR8eXvRA.webp"
 featured: false
-tags: []
+tags: ["information-chaos", "clinical-context"]
 draft: false
 ---
 

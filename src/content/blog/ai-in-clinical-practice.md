@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-02-12"
 image: "https://framerusercontent.com/images/cDNzaJqFHcSgx8GkVKRqsmxDjpY.png"
 featured: false
-tags: []
+tags: ["burnout", "ai-scribe", "longitudinal-care"]
 draft: false
 ---
 

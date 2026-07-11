@@ -7,7 +7,7 @@ author: "Jackson Steinkamp"
 publishDate: "2022-09-27"
 image: "https://framerusercontent.com/images/Nu9uH4B9TmA7Kjpi8Z07Dnewz34.webp"
 featured: false
-tags: []
+tags: ["research", "note-bloat", "information-chaos"]
 draft: false
 ---
 

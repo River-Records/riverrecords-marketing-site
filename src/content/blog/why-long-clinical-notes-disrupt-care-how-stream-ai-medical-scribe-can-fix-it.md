@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-11-04"
 image: "https://framerusercontent.com/images/T46ieW2qFgy9Co2rEYmgrBDC5Zk.webp"
 featured: false
-tags: []
+tags: ["note-bloat", "longitudinal-care"]
 draft: false
 ---
 

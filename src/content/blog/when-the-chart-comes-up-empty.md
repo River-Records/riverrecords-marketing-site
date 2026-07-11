@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-26"
 image: "https://framerusercontent.com/images/CDd19sQQYwZGHpuKQtC9C1HHBxs.png"
 featured: false
-tags: []
+tags: ["information-chaos", "burnout"]
 draft: false
 ---
 

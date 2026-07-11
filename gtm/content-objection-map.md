@@ -764,5 +764,6 @@ Where the library is thin relative to the objections reps actually hear, ranked 
 
 - **Done (July 2026):** five exact-duplicate posts deleted and 301-redirected to their canonicals; two slug typos fixed with 301s; three stale drafts removed; leftover Squarespace button markup cleaned from seven posts (including four of the five research posts).
 - Still open: the faster-isn't-enough pair (`ambient-ai-needs-context` / `ambient-ai-clinical-documentation-context`) are near-duplicate *arguments* but distinct essays — both kept; prefer `ambient-ai-needs-context` when sending.
-- Still open: 62 posts have empty tags, and 15 posts use the word "narrative" (banned in current copy rules) — both need an editorial decision before a fix pass.
+- **Done (July 2026):** all 82 posts tagged using this map's categories as the taxonomy; synonym tags merged into `ai-scribe` / `care-coordination`; new `practice-operations` and `ehr-design` tags added; retired tag URLs 301-redirected. Tag pages at `/blog/tag/<tag>/` now work as rep-facing category indexes.
+- Decision (July 2026): the 15 posts using the word "narrative" stay as-is — the copy rule applies to new content only.
 - Many category-2 SEO posts are near-interchangeable; reps only need the ⭐ picks and the light/cold options flagged above.

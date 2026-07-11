@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-04-16"
 image: "https://framerusercontent.com/images/el51xqqLKhcKRcCIUlHHXynHqMM.webp"
 featured: false
-tags: []
+tags: ["clinical-context", "longitudinal-care"]
 draft: false
 ---
 

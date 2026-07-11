@@ -7,7 +7,7 @@ author: "Rhianonn Mangan"
 publishDate: "2025-02-19"
 image: "https://framerusercontent.com/images/5OYVBA13eap8FdQiDbxCcThYDk.webp"
 featured: false
-tags: ["ai-scribe", "medical-dictation-ai", "ai-medical-scribe", "medical-documentation"]
+tags: ["practice-operations", "ai-scribe"]
 draft: false
 ---
 

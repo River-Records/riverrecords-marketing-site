@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-12-16"
 image: "https://framerusercontent.com/images/n2jT9ZM3pJq7424kUgUF3imMctk.webp"
 featured: false
-tags: []
+tags: ["burnout", "ai-scribe"]
 draft: false
 ---
 
