@@ -5,7 +5,7 @@ seoTitle: "The Undercoding Tax: What Invisible Complexity Costs an Independent P
 seoDescription: "Undercoding in independent primary care is nearly universal — and rational. Where the undercoding tax comes from, what it costs per provider, and how problem-based documentation makes complexity visible and defensible."
 author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-07-11"
-tags: ["revenue-coding", "medical-documentation", "clinical-context"]
+tags: ["practice-operations", "medical-decision-making"]
 readTime: "7"
 draft: false
 linkedinCaption: "A patient mentions a flared eczema during their annual physical. You examine it, adjust the steroid, finish the wellness exam — and bill only the wellness exam. That visit was two things at once, and the second one quietly evaporated. Do that a few times a day, across every provider, across a year, and you're paying what we call the undercoding tax: invisible, self-imposed, and almost never measured. It isn't a discipline problem — clinicians undercode for rational reasons. The root cause is the structure of the note itself. Here's the argument, and where the line against upcoding sits:"
