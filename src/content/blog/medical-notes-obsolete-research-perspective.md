@@ -19,15 +19,4 @@ draft: false
 
 **Abstract**: Clinicians spend a substantial part of their workday reviewing and writing electronic medical notes. Here we describe how the current, widely accepted paradigm for electronic medical notes represents a poor organizational framework for both the individual clinician and the broader medical team. As described in this viewpoint, the medical chart—including notes, labs, and imaging results—can be reconceptualized as a dynamic, fully collaborative workspace organized by topic rather than time, writer, or data type. This revised framework enables a more accurate and complete assessment of the current state of the patient and easy historical review, saving clinicians substantial time on both data input and retrieval. Collectively, this approach has the potential to improve health care delivery effectiveness and efficiency.
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="small"   
- data-button-type="tertiary"   
- >   
-    href="https://www.jmir.org/2021/4/e24179"   
- class="sqs-block-button-element--small sqs-button-element--tertiary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Read Full Text On JMIR
+**[Read Full Text On JMIR](https://www.jmir.org/2021/4/e24179)**

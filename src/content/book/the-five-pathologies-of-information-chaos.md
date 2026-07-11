@@ -11,7 +11,7 @@ relatedPosts:
     title: "“I Know I’ve Seen This Before”: How Information Scatter Drives Clinician Burnout"
   - slug: "ehr-information-overload"
     title: "Too Much Information, Too Little Time"
-  - slug: "ehr-information-underload"
+  - slug: "when-the-chart-comes-up-empty"
     title: "When the Chart Comes Up Empty"
   - slug: "lost-diagnoses-and-chart-lore"
     title: "Lost Diagnoses and Chart Lore"

@@ -1,5 +1,5 @@
 ---
-title: " AI for Clinical Notes: Transforming Multi-Specialty Clinics with Seamless Documentation"
+title: "AI for Clinical Notes: Transforming Multi-Specialty Clinics with Seamless Documentation"
 description: "AI-driven clinical note-taking streamlines multi-specialty workflows, improves coordination, reduces errors, and helps clinicians focus on delivering better patient care."
 seoTitle: "AI Notes for Multi-Specialty Clinics"
 seoDescription: "AI-driven clinical note-taking streamlines multi-specialty workflows, improves coordination, reduces errors, and helps clinicians focus on delivering better patient care."

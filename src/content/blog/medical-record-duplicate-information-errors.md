@@ -31,15 +31,4 @@ draft: false
 
 **Conclusions and Relevance**  Duplicate text casts doubt on the veracity of all information in the medical record, making it difficult to find and verify information in day-to-day clinical work. The findings of this cross-sectional study suggest that text duplication is a systemic hazard, requiring systemic interventions to fix, and simple solutions such as banning copy-paste may have unintended consequences, such as worsening information scatter. The note paradigm should be further examined as a major cause of duplication and scatter, and alternative paradigms should be evaluated.
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="small"   
- data-button-type="tertiary"   
- >   
-    href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664"   
- class="sqs-block-button-element--small sqs-button-element--tertiary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Read Full Text On JAMA Network Open
+**[Read Full Text On JAMA Network Open](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664)**

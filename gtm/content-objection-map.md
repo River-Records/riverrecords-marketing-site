@@ -2,7 +2,7 @@
 
 **What this is:** every published blog post on riverrecords.ai, mapped to the sales objection it answers, the persona it lands with, the exact call moment to send it, and a paste-ready snippet. Built for follow-up emails and mid-cycle nurture — send the post that matches the objection you just heard, not the newest one.
 
-**Scope:** 87 published posts as of 2026-07-11. Three drafts are excluded (not live, can't be sent). Book chapters are NOT recategorized here — use the existing chapter map (Ch. 9 = burnout, Ch. 8 = coding/copy-paste, Ch. 13 = has-a-scribe) and escalate post → chapter with engaged prospects.
+**Scope:** all 82 published posts as of 2026-07-11 (after the July 2026 dedup — five duplicate posts were consolidated with 301 redirects, so older links still work). Book chapters are NOT recategorized here — use the existing chapter map (Ch. 9 = burnout, Ch. 8 = coding/copy-paste, Ch. 13 = has-a-scribe) and escalate post → chapter with engaged prospects.
 
 **Reading weight:** **light** = under ~5 minutes (<~1,100 words) — safe for cold or low-engagement prospects. **heavy** = a real essay — send only to engaged prospects; for a cold prospect in categories 1–3, send the matching book chapter instead.
 
@@ -40,7 +40,6 @@
 | [Normalization Is What Makes Personalization Possible](https://riverrecords.ai/blog/normalization-makes-personalization-possible/) | 1 — has a scribe | physician owner | heavy |
 | [The Future of Live Documentation](https://riverrecords.ai/blog/ai-scribes-future/) | 1 — has a scribe | scribe-skeptic | heavy |
 | [The Future of Longitudinal Care: How AI Scribes Ensure Consistent Patient Records](https://riverrecords.ai/blog/the-future-of-longitudinal-care-how-ai-scribes-ensure-consistent-patient-records/) | 1 — has a scribe | physician owner | light |
-| [The Future of Longitudinal Care (duplicate)](https://riverrecords.ai/blog/ai-scribes-longitudinal-care/) | 1 — has a scribe | physician owner | light |
 | [Enhancing Longitudinal Care with Stream](https://riverrecords.ai/blog/enhancing-longitudinal-care-with-stream-ai-medical-scribe/) | 1 — has a scribe | physician owner | light |
 | [Breaking Down Clinical Notes: AI Charting Software for Longitudinal Care](https://riverrecords.ai/blog/breaking-down-clinical-notes-ai-charting-software-for-longitudinal-care/) | 1 — has a scribe | physician owner | light |
 | [How AI for Clinical Notes Enhances Longitudinal and Complex Care](https://riverrecords.ai/blog/ai-clinical-notes-longitudinal-complex-care/) | 1 — has a scribe | physician owner | light |
@@ -50,7 +49,6 @@
 | ["I Know I've Seen This Before": How Information Scatter Drives Clinician Burnout](https://riverrecords.ai/blog/what-is-information-scatter/) | 2 — burnout | physician owner | light |
 | [Too Much Information, Too Little Time](https://riverrecords.ai/blog/ehr-information-overload/) | 2 — burnout | physician owner | light |
 | [When the Chart Comes Up Empty](https://riverrecords.ai/blog/when-the-chart-comes-up-empty/) | 2 — burnout | physician owner | light |
-| [When the Chart Comes Up Empty (duplicate)](https://riverrecords.ai/blog/ehr-information-underload/) | 2 — burnout | physician owner | light |
 | [The Challenges of Information Review in Primary Care](https://riverrecords.ai/blog/the-challenges-of-information-review-in-primary-care/) | 2 — burnout | physician owner | light |
 | [If EHRs Were Libraries, You'd Walk Out Frustrated](https://riverrecords.ai/blog/ehr-hidden-data-solution/) | 2 — burnout | physician owner | light |
 | [Lost Diagnoses and Chart Lore](https://riverrecords.ai/blog/lost-diagnoses-and-chart-lore/) | 2 — burnout | physician owner | light |
@@ -58,7 +56,6 @@
 | [Medicine Doesn't Scale Because It Lives in Our Heads](https://riverrecords.ai/blog/medicine-doesnt-scale-because-it-lives-in-our-heads/) | 2 — burnout | physician owner | heavy |
 | [Finding Balance? Trying to Navigate Clinician Wellness](https://riverrecords.ai/blog/documentation-drives-clinician-burnout/) | 2 — burnout | physician owner | light |
 | [Clinical Burnout: AI Medical Scribes as a Catalyst for Improved Time Management](https://riverrecords.ai/blog/ai-medical-scribes-reducing-clinical-burnout/) | 2 — burnout | physician owner | light |
-| [Clinical Burnout (duplicate)](https://riverrecords.ai/blog/ai-scribes-reducing-clinician-burnout/) | 2 — burnout | physician owner | light |
 | [From Overwhelmed to Optimized: Burnout-Free Healthcare Teams](https://riverrecords.ai/blog/ai-clinical-notes-burnout-free-teams/) | 2 — burnout | office manager | light |
 | [Supporting Resilience in Clinics](https://riverrecords.ai/blog/supporting-resilience-in-clinics-how-ai-reduces-burnout-and-builds-stronger-teams/) | 2 — burnout | office manager | light |
 | [Talk to Your Patients, Not the Computer](https://riverrecords.ai/blog/medical-scribes-let-you-talk-to-your-patients/) | 2 — burnout | physician owner | light |
@@ -76,7 +73,6 @@
 | [The Danger of Pre-Templated Information in Medical Records](https://riverrecords.ai/blog/templated-ehr-notes-patient-safety-risks/) | 3 — revenue/quality | CFO-hat owner | light |
 | [The Hidden Danger of Perfect-Looking Notes](https://riverrecords.ai/blog/the-hidden-danger-of-perfect-looking-notes/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Why Long Clinical Notes Disrupt Continuity of Care](https://riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/) | 3 — revenue/quality | CFO-hat owner | light |
-| [Why Long Clinical Notes Disrupt Continuity (duplicate)](https://riverrecords.ai/blog/ai-scribe-reducing-long-clinical-notes/) | 3 — revenue/quality | CFO-hat owner | light |
 | [How Medical AI Scribes Can Support Value-Based Care](https://riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Stream: The Medical AI Scribe for Longitudinal Care & Value-Based Transformation](https://riverrecords.ai/blog/longitudinal/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Automated Clinical Documentation: The Key to Reducing Errors](https://riverrecords.ai/blog/automated-clinical-documentation-ai-healthcare/) | 3 — revenue/quality | CFO-hat owner | light |
@@ -89,14 +85,13 @@
 | [AI-Driven Charting: How Large Healthcare Facilities Are Scaling](https://riverrecords.ai/blog/ai-driven-charting-how-large-healthcare-facilities-are-scaling-efficiently-in-2025/) | 4 — operations | office manager | light |
 | [Managing Complex Care at Scale](https://riverrecords.ai/blog/managing-complex-care-at-scale-how-medical-scribe-ai-transforms-large-facilities/) | 4 — operations | office manager | light |
 | [AI for Clinical Notes: Transforming Multi-Specialty Clinics](https://riverrecords.ai/blog/ai-clinical-notes-multi-specialty-clinics/) | 4 — operations | office manager | light |
-| [Transforming Multi-Specialty Clinics (duplicate)](https://riverrecords.ai/blog/ai-for-clinical-notes-transforming-multi-specialty-clinics-with-seamless-documentation/) | 4 — operations | office manager | light |
 | [Streamlining AI Charting Software](https://riverrecords.ai/blog/ai-charting-software/) | 4 — operations | office manager | light |
 | [Part 2: Siloed Documentation in a Collaborative World](https://riverrecords.ai/blog/part-2-siloed-medical-documentation-problems/) | 4 — operations | physician owner | heavy |
 | [Not All Problems Need AI](https://riverrecords.ai/blog/not-all-problems-need-ai/) ⭐ | 5 — AI skepticism | scribe-skeptic | light |
 | [Summarization Is a Tool, Not a Default](https://riverrecords.ai/blog/summarization-is-a-tool/) | 5 — AI skepticism | scribe-skeptic | heavy |
 | [The Bridge, Not the Destination](https://riverrecords.ai/blog/the-bridge-not-the-destination/) ⭐ | 6 — no new system | physician owner | light |
 | [Why EHRs Actively Constrain Ideal Clinical Workflows](https://riverrecords.ai/blog/the-ehr-straightjacket/) | 6 — no new system | physician owner | light |
-| [The Problem with EHR Workflows](https://riverrecords.ai/blog/the-problem-with-ehr-workflowswhy-its-time-for-a-redesign/) | 6 — no new system | physician owner | light |
+| [The Problem with EHR Workflows](https://riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/) | 6 — no new system | physician owner | light |
 | [Clinical Notes – Not the Revolution We Were Promised](https://riverrecords.ai/blog/clinical-notes-in-need-of-change/) | 6 — no new system | physician owner | light |
 | [The Ontology of Medical Documentation Workflows](https://riverrecords.ai/blog/ontology-medical-documentation-workflow-failures/) | 6 — no new system | physician owner | light |
 | [Why Charting Is Broken — and What Comes Next](https://riverrecords.ai/blog/why-charting-is-broken-and-what-comes-next/) | 6 — no new system | physician owner | light |
@@ -106,7 +101,7 @@
 | [Prevalence and Sources of Duplicate Information in the EMR (JAMA Network Open)](https://riverrecords.ai/blog/medical-record-duplicate-information-errors/) ⭐ | 7 — evidence | physician owner | light |
 | [A Fully Collaborative, Noteless EMR (JMIR Formative Research)](https://riverrecords.ai/blog/noteless-emr-research/) | 7 — evidence | physician owner | light |
 | [Beyond Notes: Time to Abandon an Outdated Paradigm (JMIR)](https://riverrecords.ai/blog/medical-notes-obsolete-research-perspective/) | 7 — evidence | physician owner | light |
-| [Symptom Extraction from Clinical Notes at 86% Accuracy (J Biomed Inform)](https://riverrecords.ai/blog/ai-symmptom-extraction-research-86-percent-accuracy/) | 7 — evidence | scribe-skeptic | light |
+| [Symptom Extraction from Clinical Notes at 86% Accuracy (J Biomed Inform)](https://riverrecords.ai/blog/ai-symptom-extraction-research-86-percent-accuracy/) | 7 — evidence | scribe-skeptic | light |
 | [Adrenal Incidentaloma Tracking with Machine Learning (Appl Clin Inform)](https://riverrecords.ai/blog/ai-adrenal-incidentaloma-tracking-research-application/) | 7 — evidence | physician owner | light |
 | [Our Approach to Clinical Documentation: A Philosophical Shift](https://riverrecords.ai/blog/building-stream-ai-scribe/) | 7 — evidence | physician owner | light |
 
@@ -256,7 +251,7 @@
 - **Persona:** physician owner
 - **Send this when…** a chronic-disease-heavy practice asks how Stream handles patients they'll see for a decade.
 - **Snippet:** "For a panel you'll manage for years, consistency of the record matters more than the speed of any single note — short piece on that: [link]"
-- **Weight:** light. *Duplicate also live at /blog/ai-scribes-longitudinal-care/ — send only one.*
+- **Weight:** light.
 
 ### Enhancing Longitudinal Care with Stream
 - **URL:** https://riverrecords.ai/blog/enhancing-longitudinal-care-with-stream-ai-medical-scribe/
@@ -325,7 +320,7 @@
 - **Persona:** physician owner
 - **Send this when…** they describe the opposite failure — the data exists, but the chart can't produce it when needed.
 - **Snippet:** "Overload gets the headlines, but underload — the chart failing to surface what it already knows — might be worse. Short read: [link]"
-- **Weight:** light. *Duplicate also live at /blog/ehr-information-underload/ — send only one.*
+- **Weight:** light.
 
 ### The Challenges of Information Review in Primary Care
 - **URL:** https://riverrecords.ai/blog/the-challenges-of-information-review-in-primary-care/
@@ -374,7 +369,7 @@
 - **Persona:** physician owner
 - **Send this when…** a cold prospect needs the straightforward "documentation drives burnout, here's the fix" explainer.
 - **Snippet:** "Straightforward read on cutting charting time in half and what that does for burnout: [link]"
-- **Weight:** light. *Duplicate also live at /blog/ai-scribes-reducing-clinician-burnout/ — send only one.*
+- **Weight:** light.
 
 ### From Overwhelmed to Optimized: Burnout-Free Healthcare Teams
 - **URL:** https://riverrecords.ai/blog/ai-clinical-notes-burnout-free-teams/
@@ -499,7 +494,7 @@
 - **Persona:** CFO-hat owner / physician owner
 - **Send this when…** they admit nobody in the practice actually reads each other's notes.
 - **Snippet:** "Nobody reads a 10-page note — which means the work of writing it is partly wasted. On concise documentation that actually gets used: [link]"
-- **Weight:** light. *Duplicate also live at /blog/ai-scribe-reducing-long-clinical-notes/ — send only one.*
+- **Weight:** light.
 
 ### How Medical AI Scribes Can Support Value-Based Care
 - **URL:** https://riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/
@@ -589,7 +584,7 @@
 - **Persona:** office manager (multi-specialty)
 - **Send this when…** coordination between specialties within one group is the pain.
 - **Snippet:** "On documentation that travels across specialties inside one clinic — fewer dropped handoffs between your own providers: [link]"
-- **Weight:** light. *Duplicate also live at /blog/ai-for-clinical-notes-transforming-multi-specialty-clinics-with-seamless-documentation/ — send only one.*
+- **Weight:** light.
 
 ### Streamlining AI Charting Software
 - **URL:** https://riverrecords.ai/blog/ai-charting-software/
@@ -646,7 +641,7 @@
 - **Weight:** light.
 
 ### The Problem with EHR Workflows
-- **URL:** https://riverrecords.ai/blog/the-problem-with-ehr-workflowswhy-its-time-for-a-redesign/
+- **URL:** https://riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/
 - **Persona:** physician owner
 - **Send this when…** they describe click-heavy workflows that fight how they actually work.
 - **Snippet:** "On why EHR workflows fight clinical thinking — and why the fix is a redesign of the documentation layer, not another module: [link]"
@@ -722,7 +717,7 @@
 - **Weight:** light (1-minute read).
 
 ### Symptom Extraction from Clinical Notes at 86% Accuracy (Journal of Biomedical Informatics, 2019)
-- **URL:** https://riverrecords.ai/blog/ai-symmptom-extraction-research-86-percent-accuracy/
+- **URL:** https://riverrecords.ai/blog/ai-symptom-extraction-research-86-percent-accuracy/
 - **Persona:** scribe-skeptic (doubts the AI actually works)
 - **Send this when…** they question whether AI can reliably extract structured clinical information from free text.
 - **Snippet:** "Fair question on whether the extraction actually works — our team published on exactly this, with the datasets released publicly: [link]"
@@ -767,6 +762,7 @@ Where the library is thin relative to the objections reps actually hear, ranked 
 
 ## Housekeeping (for marketing, not reps)
 
-- **Six duplicate pairs are live** (same or near-same content at two URLs): burnout/time-management ×2, multi-specialty ×2, long-notes ×2, chart-comes-up-empty ×2, longitudinal-consistency ×2, faster-isn't-enough ×2 (near-dupe). Reps: send only the canonical one named in each entry. Marketing: consider consolidating with 301s in `public/_redirects`.
-- Three drafts (`ai-charting-longitudinal-care`, `ai-scribes-complex-patient-care`, `automated-clinical-documentation-benefits`) are excluded — do not send; they 404.
+- **Done (July 2026):** five exact-duplicate posts deleted and 301-redirected to their canonicals; two slug typos fixed with 301s; three stale drafts removed; leftover Squarespace button markup cleaned from seven posts (including four of the five research posts).
+- Still open: the faster-isn't-enough pair (`ambient-ai-needs-context` / `ambient-ai-clinical-documentation-context`) are near-duplicate *arguments* but distinct essays — both kept; prefer `ambient-ai-needs-context` when sending.
+- Still open: 62 posts have empty tags, and 15 posts use the word "narrative" (banned in current copy rules) — both need an editorial decision before a fix pass.
 - Many category-2 SEO posts are near-interchangeable; reps only need the ⭐ picks and the light/cold options flagged above.

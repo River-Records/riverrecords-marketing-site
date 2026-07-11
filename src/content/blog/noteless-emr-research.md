@@ -39,15 +39,4 @@ We built a medical documentation system that does not use notes and instead trea
 
 We demonstrated the feasibility of building a non–note-based, fully collaborative EMR system. Our attachment to the note as the only possible atomic unit of unstructured medical data should be reevaluated, and alternative models should be considered.
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="small"   
- data-button-type="tertiary"   
- >   
-    href="https://formative.jmir.org/2021/11/e23789/"   
- class="sqs-block-button-element--small sqs-button-element--tertiary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Read Full Text On JMIR Formative Research
+**[Read Full Text On JMIR Formative Research](https://formative.jmir.org/2021/11/e23789/)**
