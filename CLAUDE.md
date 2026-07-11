@@ -87,6 +87,34 @@ draft: false
 3. Write content in markdown below the frontmatter
 4. Push — it builds and deploys automatically
 
+### Blog tags
+Tags come from a fixed taxonomy — do NOT invent new tags. Use 2 per post (3 max):
+
+`product-updates`, `research`, `information-chaos`, `burnout`, `ai-scribe`,
+`longitudinal-care`, `note-bloat`, `clinical-context`, `care-coordination`,
+`medical-decision-making`, `practice-operations`, `ehr-design`, `comparisons`
+
+- Tag pages generate automatically at `/blog/tag/<tag>/`
+- Display labels live in TWO `tagLabels` maps that must stay in sync:
+  `src/pages/blog/tag/[tag]/[...page].astro` and `src/components/BlogTagBar.astro`
+- `displayTags` in BlogTagBar.astro is the curated subset shown as filter pills
+  on the blog index (not every tag appears there — `comparisons` is deliberately
+  hidden, and posts tagged `comparisons` are also excluded from the RSS feed)
+- Adding a taxonomy tag = add it to both `tagLabels` maps (and `displayTags` if
+  it should be a filter pill), then use it in frontmatter
+
+### Blog series
+Multi-part series are wired via two optional frontmatter fields:
+```yaml
+series: "Revenue & Coding"   # shared name, must match exactly across parts
+seriesPart: 2                # 1-based order within the series
+```
+- BlogPost layout renders a "Part N of X" badge and cross-linked series nav
+  automatically; X counts published (non-draft) parts, so it grows as parts ship
+- The blog index groups series parts and orders them by `seriesPart`,
+  independent of `publishDate`
+- Existing series: "The Work Before the Work" (5 parts), "Revenue & Coding" (3 parts)
+
 ### When opening a blog PR (e.g. via the @claude Action)
 Always include the Cloudflare preview link at the TOP of the PR description so it
 can be reviewed on mobile without logging into the Cloudflare dashboard. Build it
