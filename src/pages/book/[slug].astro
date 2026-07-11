@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import BookChapter from '../../layouts/BookChapter.astro';
+
+export async function getStaticPaths() {
+  const chapters = (await getCollection('book', ({ data }) => !data.draft))
+    .sort((a, b) => a.data.order - b.data.order);
+  return chapters.map((chapter, i) => {
+    const prevEntry = chapters[i - 1];
+    const nextEntry = chapters[i + 1];
+    return {
+      params: { slug: chapter.id },
+      props: {
+        chapter,
+        prev: prevEntry ? { slug: prevEntry.id, title: prevEntry.data.title } : null,
+        next: nextEntry ? { slug: nextEntry.id, title: nextEntry.data.title } : null,
+      },
+    };
+  });
+}
+
+const { chapter, prev, next } = Astro.props;
+const { Content } = await render(chapter);
+---
+<BookChapter frontmatter={chapter.data} slug={chapter.id} prev={prev} next={next}>
+  <Content />
+</BookChapter>

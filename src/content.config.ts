@@ -46,4 +46,25 @@ const features = defineCollection({
   }),
 });
 
-export const collections = { blog, features };
+const book = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/book' }),
+  schema: z.object({
+    title: z.string(),
+    // "Chapter 4", "Interlude", "Afterword" — shown as the eyebrow label.
+    chapterLabel: z.string(),
+    // "Part I — Anatomy of a Relic" etc.; omitted for front/back matter.
+    part: z.string().optional(),
+    // Reading order across the whole book; drives prev/next and the TOC.
+    order: z.number(),
+    description: z.string(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+    draft: z.boolean().default(false),
+    // Blog essays this chapter draws on — rendered as internal links.
+    relatedPosts: z
+      .array(z.object({ slug: z.string(), title: z.string() }))
+      .default([]),
+  }),
+});
+
+export const collections = { blog, features, book };

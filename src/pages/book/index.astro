@@ -1,0 +1,293 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import OfferBanner from '../../components/OfferBanner.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const chapters = (await getCollection('book', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Group into TOC rows, inserting a part header whenever the part changes.
+type Row =
+  | { kind: 'part'; label: string }
+  | { kind: 'chapter'; slug: string; title: string; label: string; description: string };
+const rows: Row[] = [];
+let currentPart: string | undefined;
+for (const ch of chapters) {
+  if (ch.data.part && ch.data.part !== currentPart) {
+    currentPart = ch.data.part;
+    rows.push({ kind: 'part', label: ch.data.part });
+  }
+  rows.push({
+    kind: 'chapter',
+    slug: ch.id,
+    title: ch.data.title,
+    label: ch.data.chapterLabel,
+    description: ch.data.description,
+  });
+}
+
+const title = 'The Note Was Never the Point — a book on fixing clinical documentation';
+const description =
+  'Why clinical documentation is broken, how the paper chart still runs your EHR, and what comes after the note. A free online book from the physicians behind Stream, built on peer-reviewed research into information chaos and note duplication.';
+---
+<Base title={title} description={description} canonicalUrl="https://www.riverrecords.ai/book/">
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "The Note Was Never the Point",
+    "alternativeHeadline": "Why clinical documentation is broken, how the paper chart still runs your EHR, and what comes after the note",
+    "url": "https://www.riverrecords.ai/book/",
+    "bookFormat": "https://schema.org/EBook",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "author": [
+      { "@type": "Person", "name": "Jacob Kantrowitz, MD, PhD" },
+      { "@type": "Person", "name": "Jackson Steinkamp, MD" }
+    ],
+    "contributor": [
+      { "@type": "Person", "name": "Alex Butler, MD, MS" },
+      { "@type": "Person", "name": "Abhinav Sharma, MD" },
+      { "@type": "Person", "name": "Wasif Bala, MD" }
+    ],
+    "publisher": { "@type": "Organization", "name": "River Records" },
+    "hasPart": chapters.map((ch) => ({
+      "@type": "Chapter",
+      "name": ch.data.title,
+      "position": ch.data.order,
+      "url": `https://www.riverrecords.ai/book/${ch.id}/`
+    }))
+  })}></script>
+  <OfferBanner />
+  <Nav />
+  <main>
+    <section class="book-hero">
+      <div class="container">
+        <p class="book-hero-eyebrow">A book in progress · free to read</p>
+        <h1>The Note Was Never the&nbsp;Point</h1>
+        <p class="book-hero-subtitle">
+          Why clinical documentation is broken, how the paper chart still runs
+          your EHR, and what comes after the note.
+        </p>
+        <p class="book-hero-authors">
+          Jacob Kantrowitz, MD, PhD · Jackson Steinkamp, MD
+          <span class="book-hero-contrib">with Alex Butler, MD, MS; Abhinav Sharma, MD; and Wasif Bala, MD</span>
+        </p>
+        <div class="book-hero-actions">
+          <a href={`/book/${chapters[0].id}`} class="btn btn-primary-lg">Start reading</a>
+          <a href="#contents" class="btn btn-outline-white">Contents</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="book-preface">
+      <div class="container">
+        <h2>Why we wrote this</h2>
+        <p>
+          Every clinician understands the pain of documentation in the electronic
+          health record. We spend hours of every day getting data in and getting
+          data out, and the systems we do it with contribute more to chaos than
+          to clarity. For decades we have been promised that digital
+          transformation would reduce the burden. Instead, most of us spend more
+          time with the record than with the people it describes.
+        </p>
+        <p>
+          The easy response is to blame the software — the interfaces, the click
+          counts, the alerts. The harder, more interesting response is to ask
+          what lies beneath the software: the paradigms of information
+          organization that every EHR, good or bad, has inherited without
+          examination. That is what this book is about. Our central claim is that
+          the clinical note itself — the static, single-author, indivisible
+          bundle of text that has anchored medical documentation since the paper
+          era — is at the root of many of the problems that plague the record
+          today, and that alternatives are not only conceivable but demonstrably
+          buildable.
+        </p>
+        <p>
+          We did not arrive at this view by intuition alone. Between 2019 and
+          2022 our group published a series of peer-reviewed studies: a viewpoint
+          in the <em>Journal of Medical Internet Research</em> arguing that the
+          chart should be a dynamic, fully collaborative workspace organized by
+          topic rather than time; a feasibility study in <em>JMIR Formative
+          Research</em> demonstrating a working EMR built without notes; and a
+          cross-sectional analysis in <em>JAMA Network Open</em> of 104 million
+          notes showing that fully half the text in a large academic health
+          system's record was duplicated from earlier text. Alongside the
+          research, we wrote — dozens of essays over several years, working out
+          the argument in public. This book combines that body of writing into a
+          single treatment: the rigorous framework and the lived clinical
+          experience, together.
+        </p>
+        <p>
+          A note on candor: we are building a company on the ideas in this book.
+          We have kept the main text product-agnostic on purpose — the ideas
+          should stand on their own, and we say what we are building only in the
+          afterword. We don't think the reader needs to trust us. We think the
+          reader has lived this.
+        </p>
+        <p class="book-preface-sig">— Jake &amp; Jackson</p>
+      </div>
+    </section>
+
+    <section class="book-toc" id="contents">
+      <div class="container">
+        <h2>Contents</h2>
+        <ol class="book-toc-list">
+          {rows.map((row) =>
+            row.kind === 'part' ? (
+              <li class="book-toc-part">{row.label}</li>
+            ) : (
+              <li class="book-toc-chapter">
+                <a href={`/book/${row.slug}`}>
+                  <span class="book-toc-label">{row.label}</span>
+                  <span class="book-toc-text">
+                    <span class="book-toc-title">{row.title}</span>
+                    <span class="book-toc-desc">{row.description}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          )}
+        </ol>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+.book-hero {
+  padding: 88px 0 64px;
+  background: var(--dark);
+  text-align: center;
+}
+.book-hero-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.book-hero h1 {
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  color: var(--white);
+  line-height: 1.12;
+  max-width: 720px;
+  margin: 0 auto 20px;
+}
+.book-hero-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 620px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+.book-hero-authors {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+}
+.book-hero-contrib {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 6px;
+}
+.book-hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.book-preface {
+  padding: 72px 0 24px;
+}
+.book-preface .container {
+  max-width: 720px;
+}
+.book-preface h2 {
+  font-size: 1.7rem;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.book-preface p {
+  font-size: 1.05rem;
+  line-height: 1.78;
+  color: var(--ink-muted);
+  margin-bottom: 18px;
+}
+.book-preface-sig {
+  font-style: italic;
+  color: var(--ink-faint);
+}
+.book-toc {
+  padding: 48px 0 96px;
+}
+.book-toc .container {
+  max-width: 760px;
+}
+.book-toc h2 {
+  font-size: 1.7rem;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.book-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.book-toc-part {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--ink);
+  margin: 32px 0 12px;
+}
+.book-toc-part:first-child { margin-top: 0; }
+.book-toc-chapter a {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding: 14px 16px;
+  margin: 0 -16px;
+  border-radius: var(--r-lg);
+  text-decoration: none;
+}
+.book-toc-chapter a:hover {
+  background: var(--surface);
+}
+.book-toc-label {
+  flex: none;
+  width: 88px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.book-toc-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.book-toc-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.book-toc-chapter a:hover .book-toc-title {
+  color: var(--primary);
+}
+.book-toc-desc {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+@media (max-width: 560px) {
+  .book-toc-chapter a { flex-direction: column; gap: 6px; }
+  .book-toc-label { width: auto; }
+}
+</style>
