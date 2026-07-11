@@ -1,0 +1,312 @@
+---
+import Base from './Base.astro';
+import OfferBanner from '../components/OfferBanner.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const { frontmatter, slug, prev, next } = Astro.props;
+const seoTitle = frontmatter.seoTitle || frontmatter.title;
+const description = frontmatter.seoDescription || frontmatter.description;
+const canonicalUrl = `https://www.riverrecords.ai/book/${slug}/`;
+---
+<Base
+  title={`${seoTitle} | The Note Was Never the Point`}
+  description={description}
+  canonicalUrl={canonicalUrl}
+>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Chapter",
+    "name": frontmatter.title,
+    "position": frontmatter.order,
+    "url": canonicalUrl,
+    "description": description,
+    "isPartOf": {
+      "@type": "Book",
+      "name": "The Note Was Never the Point",
+      "url": "https://www.riverrecords.ai/book/",
+      "author": [
+        { "@type": "Person", "name": "Jacob Kantrowitz, MD, PhD" },
+        { "@type": "Person", "name": "Jackson Steinkamp, MD" }
+      ]
+    }
+  })}></script>
+  <OfferBanner />
+  <Nav />
+  <main>
+    <article class="book-chapter">
+      <div class="container">
+        <div class="book-chapter-header">
+          <a href="/book" class="book-back">← The Note Was Never the Point</a>
+          <p class="book-chapter-eyebrow">
+            {frontmatter.part && <span class="book-chapter-part">{frontmatter.part}</span>}
+            <span class="book-chapter-label">{frontmatter.chapterLabel}</span>
+          </p>
+          <h1>{frontmatter.title}</h1>
+        </div>
+        <div class="book-chapter-body">
+          <slot />
+        </div>
+        {frontmatter.relatedPosts && frontmatter.relatedPosts.length > 0 && (
+          <aside class="book-related">
+            <span class="book-related-label">This chapter draws on these essays</span>
+            <ul>
+              {frontmatter.relatedPosts.map((p: { slug: string; title: string }) => (
+                <li><a href={`/blog/${p.slug}`}>{p.title}</a></li>
+              ))}
+            </ul>
+          </aside>
+        )}
+        <nav class="book-pager" aria-label="Chapter navigation">
+          {prev ? (
+            <a href={`/book/${prev.slug}`} class="book-pager-link book-pager-prev">
+              <span class="book-pager-dir">← Previous</span>
+              <span class="book-pager-title">{prev.title}</span>
+            </a>
+          ) : (
+            <a href="/book" class="book-pager-link book-pager-prev">
+              <span class="book-pager-dir">← Start</span>
+              <span class="book-pager-title">Cover &amp; contents</span>
+            </a>
+          )}
+          {next && (
+            <a href={`/book/${next.slug}`} class="book-pager-link book-pager-next">
+              <span class="book-pager-dir">Next →</span>
+              <span class="book-pager-title">{next.title}</span>
+            </a>
+          )}
+        </nav>
+        <div class="book-chapter-footer">
+          <div class="book-cta-card">
+            <h3>Reading this at 7:40 on a Tuesday night?</h3>
+            <p>Stream is the AI medical scribe built on the ideas in this book — problem-oriented notes, automatic tasks, and a chart that carries context forward. It works alongside any EHR.</p>
+            <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Try Stream free for 30 days</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+.book-chapter {
+  padding: 48px 0 88px;
+}
+.book-chapter-header {
+  max-width: 720px;
+  margin: 0 auto 40px;
+}
+.book-back {
+  display: inline-block;
+  font-size: 0.84rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.book-back:hover { text-decoration: underline; }
+.book-chapter-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.book-chapter-part { color: var(--ink-faint); }
+.book-chapter-part::after {
+  content: "·";
+  margin-left: 10px;
+  color: var(--border-strong);
+}
+.book-chapter-label { color: var(--accent); }
+.book-chapter-header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--ink);
+  line-height: 1.2;
+}
+.book-chapter-body {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.78;
+  color: var(--ink-muted);
+}
+.book-chapter-body :global(h2) {
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-family: var(--font-serif);
+}
+.book-chapter-body :global(h3) {
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-top: 32px;
+  margin-bottom: 12px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.book-chapter-body :global(p) {
+  margin-bottom: 20px;
+}
+.book-chapter-body :global(ul),
+.book-chapter-body :global(ol) {
+  padding-left: 24px;
+  margin-bottom: 20px;
+}
+.book-chapter-body :global(li) {
+  margin-bottom: 8px;
+}
+.book-chapter-body :global(blockquote) {
+  border-left: 3px solid var(--primary);
+  padding-left: 20px;
+  margin: 24px 0;
+  color: var(--ink);
+}
+.book-chapter-body :global(a) {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.book-chapter-body :global(a:hover) {
+  text-decoration: underline;
+}
+.book-chapter-body :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--r-md);
+  margin: 24px auto 8px;
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 12px;
+}
+.book-chapter-body :global(img + p) {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+.book-chapter-body :global(hr) {
+  border: none;
+  border-top: 1px solid var(--border);
+  width: 40%;
+  margin: 40px auto;
+}
+.book-chapter-body :global(strong) {
+  color: var(--ink);
+  font-weight: 600;
+}
+.book-chapter-body :global(code) {
+  font-size: 0.88em;
+  background: var(--surface);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.book-related {
+  max-width: 720px;
+  margin: 48px auto 0;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.book-related-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+.book-related ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.book-related li {
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.book-related li:first-child { border-top: none; }
+.book-related a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.book-related a:hover { text-decoration: underline; }
+.book-pager {
+  max-width: 720px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.book-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  background: var(--white);
+}
+.book-pager-link:hover { border-color: var(--primary); }
+.book-pager-next {
+  text-align: right;
+  grid-column: 2;
+}
+.book-pager-prev { grid-column: 1; }
+.book-pager-dir {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.book-pager-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+@media (max-width: 640px) {
+  .book-pager { grid-template-columns: 1fr; }
+  .book-pager-next { grid-column: 1; text-align: left; }
+}
+.book-chapter-footer {
+  max-width: 720px;
+  margin: 56px auto 0;
+}
+.book-cta-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  text-align: center;
+}
+.book-cta-card h3 {
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-family: var(--font-sans);
+}
+.book-cta-card p {
+  font-size: 0.925rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.book-cta-card .btn-primary-lg {
+  display: inline-block;
+}
+</style>
