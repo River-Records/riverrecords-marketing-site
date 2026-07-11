@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz, MD, PhD"
 publishDate: "2025-10-25"
 image: "https://framerusercontent.com/images/pAjuicCc483dmXyZKRabH4xA4Y.png"
 featured: false
-tags: []
+tags: ["information-chaos", "ehr-design"]
 draft: false
 ---
 

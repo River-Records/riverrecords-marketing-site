@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-04-20"
 image: "https://framerusercontent.com/images/QwJ41rMBY6hXU82ZYUfsEVH9AkQ.webp"
 featured: false
-tags: []
+tags: ["ehr-design", "ai-scribe"]
 draft: false
 ---
 

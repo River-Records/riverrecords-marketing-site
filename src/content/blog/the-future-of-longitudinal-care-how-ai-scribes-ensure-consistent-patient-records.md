@@ -7,7 +7,7 @@ author: "Rhianonn Mangan"
 publishDate: "2025-02-07"
 image: "https://framerusercontent.com/images/Pnv9aKefWwunD7rHL2un14KCI.webp"
 featured: false
-tags: []
+tags: ["ai-scribe", "longitudinal-care"]
 draft: false
 ---
 

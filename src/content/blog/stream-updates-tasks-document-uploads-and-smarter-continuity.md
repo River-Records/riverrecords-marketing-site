@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2025-11-30"
 image: "https://framerusercontent.com/images/PChs4XEegmbNSkPlUorJz1iJ7Q.png"
 featured: true
-tags: ["product-updates", "clinical-context"]
+tags: ["product-updates", "practice-operations", "clinical-context"]
 readTime: "5"
 draft: false
 ---

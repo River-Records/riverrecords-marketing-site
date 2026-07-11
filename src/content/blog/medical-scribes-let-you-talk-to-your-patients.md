@@ -8,7 +8,7 @@ publishDate: "2024-05-18"
 image: "https://framerusercontent.com/images/W8qgrvsm5DhTucrodSyZHaOXM.webp"
 imageAlt: "Clinicians can talk to their patients when using ambient AI documentation tools"
 featured: false
-tags: []
+tags: ["burnout", "ai-scribe"]
 draft: false
 ---
 

@@ -8,7 +8,7 @@ publishDate: "2024-09-25"
 image: "https://framerusercontent.com/images/TS47wozHw4UpbGIkMRcwCa1FxHc.webp"
 imageAlt: "Documentation should facilitate collaboration and help break down traditional data silos"
 featured: false
-tags: ["information-chaos"]
+tags: ["information-chaos", "care-coordination"]
 draft: false
 ---
 

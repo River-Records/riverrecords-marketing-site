@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-29"
 image: "https://framerusercontent.com/images/jaqbwA3ylrijADcQMhNi1qsCo3s.webp"
 featured: false
-tags: []
+tags: ["note-bloat", "information-chaos", "ehr-design"]
 draft: false
 ---
 

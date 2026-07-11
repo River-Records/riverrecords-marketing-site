@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-04-28"
 image: "https://framerusercontent.com/images/uIvDfLpkbE5ruXHc6UwUMyu4s.webp"
 featured: false
-tags: []
+tags: ["note-bloat", "medical-decision-making"]
 draft: false
 ---
 

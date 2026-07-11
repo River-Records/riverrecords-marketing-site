@@ -6,7 +6,7 @@ author: "Rhianonn Mangan"
 publishDate: "2025-02-24"
 image: "https://framerusercontent.com/images/k05OwIilPNtl0NoNSgt0mQ9hZ0.webp"
 featured: false
-tags: []
+tags: ["ai-scribe", "medical-decision-making"]
 draft: false
 ---
 

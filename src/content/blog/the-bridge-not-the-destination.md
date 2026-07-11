@@ -6,7 +6,7 @@ seoDescription: "The next-generation, problem-organized chart can't fully ship t
 author: "Jacob Kantrowitz"
 publishDate: "2026-06-15"
 featured: false
-tags: ["longitudinal-care", "clinical-context", "information-chaos"]
+tags: ["ehr-design", "clinical-context", "longitudinal-care"]
 draft: false
 linkedinCaption: "Last time I argued the medical record should organize around the patient, not the note. Fair enough — but I owe that argument an honest footnote: in its full form, it can't ship today. Most EHRs won't let outside software write structured data back into the chart, and the few that do make you validate the same fact twice. So we're left waiting on incumbents who aren't especially incentivized to fix it, or on whole new systems that are years away. There's a pragmatic third option: keep pushing unstructured notes into the EHR for the medical-legal and billing record, but maintain a clean, problem-organized copy outside it. It's not free — now there are two places the truth can live, and a real risk of drift. But you get most of the value now: automate the busywork, and finally see what's active, what's quietly falling off, and what needs readdressing before it becomes a problem. A bridge is not the destination. But bridges carry people across while the real road is still being built."
 ---

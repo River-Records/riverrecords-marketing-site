@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-27"
 image: "https://framerusercontent.com/images/FifRu2u4j6zlXl3h2GmCWe4UkuU.webp"
 featured: false
-tags: []
+tags: ["information-chaos", "burnout"]
 draft: false
 ---
 
@@ -16,8 +16,6 @@ draft: false
 *How Overload Breaks Clinical Thinking (and What to Do About It)*
 
 *Information Chaos Series – Part 2: Overload*
-
- 
 
 **Every primary care physician has experienced this moment:**
 
@@ -40,8 +38,6 @@ And a patient waiting to be seen.
 This isn’t a failure of time management.
 
 It’s a failure of the system.
-
- 
 
 ## What is Information Overload?
 
@@ -94,15 +90,4 @@ That’s how we fight overload. That’s how we build systems that help clinicia
 
 **Want to see what documentation feels like without overload?**
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="medium"   
- data-button-type="primary"   
- >   
-    href="https://stream.riverrecords.ai/onboard"   
- class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Try Stream free for 30 days
+**[Try Stream free for 30 days](https://stream.riverrecords.ai/onboard/stream-pro)**

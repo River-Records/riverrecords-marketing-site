@@ -7,13 +7,11 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-05-22"
 image: "https://framerusercontent.com/images/0QcYoHaJxGRKcSVbAf6j0iTx5o.webp"
 featured: false
-tags: []
+tags: ["burnout", "information-chaos"]
 draft: false
 ---
 
 *The first post in our Information Chaos series*
-
- 
 
 As a primary care physician, I often find myself saying, **“I know I’ve seen this before.” **A lab result, a symptom, a family history note. It’s somewhere in the chart—but not where I need it, and not when I need it. That moment of uncertainty, repeated again and again throughout the day, isn’t just a minor inconvenience. It’s a symptom of a deeper, systemic flaw in how we manage medical information. That flaw has a name: **information scatter.**
 
@@ -50,25 +48,10 @@ At River Records, we designed **Stream** to solve this. Stream is a **problem-or
 
 Stream isn’t just faster—it’s **better aligned with how clinicians think, a**nd that makes documentation feel less like a chore, and more like a continuation of clinical reasoning.
 
- 
-
 ## Scatter is optional. Burnout doesn’t have to be inevitable.
 
 This post is the first in our series on **information chaos in medicine**. Each post will explore one dimension of the problem and how it contributes to clinician burnout—and how thoughtful system design can help. Because we believe better documentation isn’t just about speed or billing. It’s about **clarity, continuity, and care**.
 
- 
-
 **Want to see what it’s like to work without scatter?**
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="medium"   
- data-button-type="primary"   
- >   
-    href="https://stream.riverrecords.ai/onboard"   
- class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Try Stream free for 30 days
+**[Try Stream free for 30 days](https://stream.riverrecords.ai/onboard/stream-pro)**

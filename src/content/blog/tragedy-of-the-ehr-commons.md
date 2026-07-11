@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-01-07"
 image: "https://framerusercontent.com/images/8Eo05cuflBzVpAzrHH3QXcQFLw.webp"
 featured: false
-tags: []
+tags: ["burnout", "ehr-design"]
 draft: false
 ---
 

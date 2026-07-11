@@ -7,7 +7,7 @@ author: "Jackson Steinkamp"
 publishDate: "2019-12-27"
 image: "https://framerusercontent.com/images/AJiHJ7DdaiixEauiO3W58JyTU.webp"
 featured: false
-tags: []
+tags: ["research"]
 draft: false
 ---
 
@@ -27,15 +27,4 @@ draft: false
 
 **Conclusion**: To our knowledge, this dataset will be the largest and most comprehensive publicly released, annotated dataset for clinically motivated symptom extraction, as it includes annotations for named entity recognition, coreference, and normalization for more than 1000 clinical documents. Our neural network models extracted symptoms from unstructured clinical free text at near human performance in real time. In this paper, we present a clinically motivated task definition, dataset, and simple supervised natural language processing models to demonstrate the feasibility of building clinically applicable information extraction tools.
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="small"   
- data-button-type="tertiary"   
- >   
-    href="https://www.sciencedirect.com/science/article/pii/S153204641930276X?via%3Dihub"   
- class="sqs-block-button-element--small sqs-button-element--tertiary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- Read Full Text On Science Direct
+**[Read Full Text On Science Direct](https://www.sciencedirect.com/science/article/pii/S153204641930276X?via%3Dihub)**

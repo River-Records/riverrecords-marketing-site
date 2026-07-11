@@ -6,7 +6,7 @@ seoDescription: "Medical documentation workflows weren't designed for how clinic
 author: "Jacob Kantrowitz"
 publishDate: "2024-10-15"
 featured: false
-tags: []
+tags: ["ehr-design", "clinical-context"]
 draft: false
 ---
 

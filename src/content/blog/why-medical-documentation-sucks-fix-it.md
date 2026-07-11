@@ -8,7 +8,7 @@ publishDate: "2024-04-06"
 image: "https://framerusercontent.com/images/IbRq9348Yg9tdERwJYjQSi6kM.webp"
 imageAlt: "Clinicians continue to generate volumes of documentation, beyond our capacity to remember"
 featured: false
-tags: []
+tags: ["burnout", "ehr-design"]
 draft: false
 ---
 

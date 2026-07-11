@@ -7,7 +7,7 @@ author: "Alex Butler, MD, MS"
 publishDate: "2024-05-25"
 image: "https://framerusercontent.com/images/1xPIRAFsIMyVcXWeYWWXBhZ4g.webp"
 featured: false
-tags: []
+tags: ["ai-scribe", "clinical-context"]
 draft: false
 ---
 

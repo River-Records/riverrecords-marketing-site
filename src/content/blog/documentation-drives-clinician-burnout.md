@@ -8,7 +8,7 @@ publishDate: "2024-04-27"
 image: "https://framerusercontent.com/images/lPaPa8nYeMgflhP4r1LNqVbsgI.webp"
 imageAlt: "By freeing clinicians from traditional documentation paradigms, we can decrease burnout"
 featured: false
-tags: []
+tags: ["burnout"]
 draft: false
 ---
 

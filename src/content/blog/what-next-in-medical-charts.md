@@ -6,7 +6,7 @@ seoDescription: "Clinical notes were designed for paper charts, not modern EHRs.
 author: "Alex Butler, MD, MS"
 publishDate: "2024-09-09"
 featured: false
-tags: []
+tags: ["ehr-design", "clinical-context"]
 draft: false
 ---
 

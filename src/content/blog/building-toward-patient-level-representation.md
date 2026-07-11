@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-04-16"
 image: "https://framerusercontent.com/images/el51xqqLKhcKRcCIUlHHXynHqMM.webp"
 featured: false
-tags: []
+tags: ["clinical-context", "longitudinal-care"]
 draft: false
 ---
 
@@ -74,18 +74,6 @@ If documentation is going to evolve, it has to serve the clinician—not just th
 
 Want to see what patient-level representation looks like in practice?
 
- class="sqs-block-button-container sqs-block-button-container--center"   
- data-animation-role="button"   
- data-alignment="center"   
- data-button-size="medium"   
- data-button-type="primary"   
- >   
-    href="https://stream.riverrecords.ai"   
- class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element"   
- data-sqsp-button   
- target="_blank"   
- >   
- 30 Day Free Trial!   
-    
+**[30 Day Free Trial!](https://stream.riverrecords.ai)**
 
 [Check out Stream](https://stream.riverrecords.ai) and try it for yourself.

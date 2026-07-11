@@ -8,7 +8,7 @@ publishDate: "2025-10-24"
 image: "https://framerusercontent.com/images/HlRxsut3J0t92npd260U6xMjsXE.png"
 imageAlt: "A faster printing press won't fix a broken library"
 featured: false
-tags: []
+tags: ["ai-scribe", "clinical-context"]
 draft: false
 ---
 

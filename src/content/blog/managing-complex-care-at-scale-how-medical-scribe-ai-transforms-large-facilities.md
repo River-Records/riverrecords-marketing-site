@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-01-03"
 image: "https://framerusercontent.com/images/yrMWRjIgGIYZiobbBsr9BKqpJF0.webp"
 featured: false
-tags: []
+tags: ["practice-operations", "care-coordination"]
 draft: false
 ---
 

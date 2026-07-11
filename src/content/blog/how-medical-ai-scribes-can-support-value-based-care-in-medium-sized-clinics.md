@@ -6,7 +6,7 @@ seoDescription: "Medium-sized clinics need value-based care solutions that scale
 author: "Jacob Kantrowitz"
 publishDate: "2024-10-17"
 featured: false
-tags: []
+tags: ["practice-operations", "longitudinal-care"]
 draft: false
 ---
 

@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2025-11-04"
 image: "https://framerusercontent.com/images/hlxJOpYwFMe8I7A1tyvZIbdlC8.jpg"
 featured: false
-tags: ["medical-documentation", "burnout", "ai-scribe"]
+tags: ["ai-scribe", "clinical-context", "burnout"]
 draft: false
 ---
 

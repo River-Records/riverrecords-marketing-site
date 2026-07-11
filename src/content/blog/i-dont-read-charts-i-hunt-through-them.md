@@ -8,7 +8,7 @@ publishDate: "2026-07-07"
 featured: true
 series: "The Work Before the Work"
 seriesPart: 2
-tags: ["information-chaos", "clinical-context"]
+tags: ["burnout", "information-chaos", "clinical-context"]
 readTime: "7"
 draft: false
 linkedinCaption: "A basic metabolic panel takes me about two seconds — not because I'm fast, but because I've seen that grid ten thousand times and the numbers arrive pre-sorted. Hand me a three-page consult from a cardiologist on a different EHR and it takes four minutes. Not because the medicine is harder — it's often simpler than the BMP. It takes four minutes because before I can evaluate a single clinical statement, I have to find it. That's not reading. That's hunting. We keep blaming volume, but the thing that exhausts you is scatter: the same information, in a different shape, in a different place, requiring a different approach every time you open a document. Human factors researchers named this 'information chaos' back in 2011. Most health tech has attacked overload — filters, summaries, dashboards. Almost nothing has attacked scatter, and scatter is the one that eats your day. Here's the fix, and it's less exotic than it sounds: normalize the review surface. Same form, every note, every time — so structure becomes invisible and 100% of your attention goes to content. We already have this for labs. We've never had it for notes."

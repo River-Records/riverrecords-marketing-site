@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-04-28"
 image: "https://framerusercontent.com/images/Ar99b3xBnGQZFq1c2eeG9qDHE.webp"
 featured: false
-tags: []
+tags: ["note-bloat", "clinical-context"]
 draft: false
 ---
 

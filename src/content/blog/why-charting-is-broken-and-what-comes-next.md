@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2025-06-18"
 image: "https://framerusercontent.com/images/NKlXbdwNncH7jpZSNO4m3I6u4.webp"
 featured: false
-tags: []
+tags: ["ehr-design", "clinical-context"]
 draft: false
 ---
 

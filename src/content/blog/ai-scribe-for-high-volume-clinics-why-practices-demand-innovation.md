@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-12-21"
 image: "https://framerusercontent.com/images/Fkmxo5THgeUUrp0TBBQWw3epURo.webp"
 featured: false
-tags: []
+tags: ["practice-operations", "ai-scribe"]
 draft: false
 ---
 

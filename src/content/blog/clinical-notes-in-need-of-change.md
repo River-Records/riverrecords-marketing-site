@@ -8,7 +8,7 @@ publishDate: "2024-04-13"
 image: "https://framerusercontent.com/images/edKgjcHvGHkGR4LAmd35SNH4IJ4.webp"
 imageAlt: "We should go back to the drawing board to redefine clinical documentation"
 featured: false
-tags: []
+tags: ["ehr-design"]
 draft: false
 ---
 

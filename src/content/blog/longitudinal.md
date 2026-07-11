@@ -7,7 +7,7 @@ author: "Jacob Kantrowitz"
 publishDate: "2024-10-02"
 image: "https://framerusercontent.com/images/QfJdwxKti5c1QH8X7G9qANjOAdI.webp"
 featured: false
-tags: []
+tags: ["longitudinal-care", "ai-scribe"]
 draft: false
 ---
 
