@@ -98,12 +98,12 @@ export const HUDDLE_DATA = {
     {
       title: "COPD",
       hccCodes: [{ hcc_code: "280", hcc_description: "Chronic obstructive pulmonary disease", raf_weight: 0.319 }],
-      reassessMonths: 14,
+      reassessMonths: 8,
       hasOverdue: false,
       resolved: false,
       tasks: [],
       lastAP: {
-        date: "5/2/2025",
+        date: "11/10/2025",
         provider: "Dr. J. Kantrowitz",
         assessment: "Mild COPD, well controlled. mMRC dyspnea scale 1. Former smoker, quit 2019.",
         plan: ["Continue tiotropium daily", "Spirometry at annual exam", "Vaccinations up to date"],
