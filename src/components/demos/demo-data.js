@@ -20,7 +20,9 @@ export const HUDDLE_DATA = {
       reassessMonths: null,
       hasOverdue: false,
       resolved: false,
-      tasks: [],
+      tasks: [
+        { id: 1, description: "Obtain UACR — annual diabetic nephropathy screen", type: "order", status: "active", priority: "medium", reminder_date: "2026-01-15" },
+      ],
       lastAP: {
         date: "4/15/2026",
         provider: "Dr. J. Kantrowitz",
@@ -94,19 +96,17 @@ export const HUDDLE_DATA = {
   ],
   hccDue: [
     {
-      title: "Type 2 diabetes",
-      hccCodes: [{ hcc_code: "37", hcc_description: "Diabetes with chronic complications", raf_weight: 0.302 }],
-      reassessMonths: null,
+      title: "COPD",
+      hccCodes: [{ hcc_code: "280", hcc_description: "Chronic obstructive pulmonary disease", raf_weight: 0.319 }],
+      reassessMonths: 14,
       hasOverdue: false,
       resolved: false,
-      tasks: [
-        { id: 1, description: "Obtain UACR — annual diabetic nephropathy screen", type: "order", status: "active", priority: "medium", reminder_date: "2026-01-15" },
-      ],
+      tasks: [],
       lastAP: {
-        date: "4/15/2026",
+        date: "5/2/2025",
         provider: "Dr. J. Kantrowitz",
-        assessment: "Rising A1c 8.4 despite current regimen.",
-        plan: ["Increase metformin to 1000mg BID", "A1c recheck in 3 months"],
+        assessment: "Mild COPD, well controlled. mMRC dyspnea scale 1. Former smoker, quit 2019.",
+        plan: ["Continue tiotropium daily", "Spirometry at annual exam", "Vaccinations up to date"],
       },
       priorAPs: [],
     },
