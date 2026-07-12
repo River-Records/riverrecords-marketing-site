@@ -59,6 +59,8 @@ The reconstruction toil doesn't make you know your patients better. It's not the
 
 The picture should be waiting for you. Not built by you, at 7:45 in the morning, one patient at a time.
 
+*Chart prep is the before-the-visit half of the same invisibility problem. The after-the-visit half — what happens to the care you order once it leaves the building — is [Where Referrals Go to Die](/blog/where-referrals-go-to-die).*
+
 ---
 
 *Stream is the AI documentation platform built on the ideas in [our book](https://www.riverrecords.ai/book) — notes organized around medical problems, so the current picture of each patient is already assembled when you open the chart. Built for independent primary care, by primary care physicians. [See how it works](https://www.riverrecords.ai/#how-it-works) or [talk to a clinician](https://www.riverrecords.ai/book-demo).*

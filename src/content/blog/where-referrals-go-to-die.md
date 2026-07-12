@@ -53,6 +53,8 @@ The reason referrals die isn't that anyone stops caring about them. It's that th
 
 The specialist visit that never happened, the result that never came back, the pathway the patient fell out of: those aren't failures of intention. They're failures of visibility. Give the loop a thread to hang on, and far fewer of them die in the fog.
 
+*Referrals are the after-the-visit half of the same invisibility problem. The before-the-visit half — rebuilding each patient's picture from scratch every morning — is [Chart Prep Shouldn't Take Your Staff an Hour Per Patient](/blog/chart-prep-shouldnt-take-an-hour).*
+
 ---
 
 *Stream is the AI documentation platform built on the ideas in [our book](https://www.riverrecords.ai/book) — referrals generated from the record under your own letterhead, and tracked as real tasks so they stop disappearing into old notes. Built for independent primary care, by primary care physicians. [See how it works](https://www.riverrecords.ai/#how-it-works) or [talk to a clinician](https://www.riverrecords.ai/book-demo).*

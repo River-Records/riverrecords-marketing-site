@@ -2,7 +2,7 @@
 
 **What this is:** every published blog post on riverrecords.ai, mapped to the sales objection it answers, the persona it lands with, the exact call moment to send it, and a paste-ready snippet. Built for follow-up emails and mid-cycle nurture — send the post that matches the objection you just heard, not the newest one.
 
-**Scope:** all 82 published posts as of 2026-07-11 (after the July 2026 dedup — five duplicate posts were consolidated with 301 redirects, so older links still work). Book chapters are NOT recategorized here — use the existing chapter map (Ch. 9 = burnout, Ch. 8 = coding/copy-paste, Ch. 13 = has-a-scribe) and escalate post → chapter with engaged prospects.
+**Scope:** all 87 published posts as of 2026-07-12 (after the July 2026 dedup — five duplicate posts were consolidated with 301 redirects, so older links still work). July 2026 additions: the Revenue & Coding trilogy (category 3) and two operations posts (category 4). Book chapters are NOT recategorized here — use the existing chapter map (Ch. 9 = burnout, Ch. 8 = coding/copy-paste, Ch. 13 = has-a-scribe) and escalate post → chapter with engaged prospects.
 
 **Reading weight:** **light** = under ~5 minutes (<~1,100 words) — safe for cold or low-engagement prospects. **heavy** = a real essay — send only to engaged prospects; for a cold prospect in categories 1–3, send the matching book chapter instead.
 
@@ -67,7 +67,10 @@
 | [Documentation Sucks: How Did We Get Here?!](https://riverrecords.ai/blog/why-medical-documentation-sucks-fix-it/) | 2 — burnout | physician owner | light |
 | [AI Medical Scribes: The Key to Managing Complex Care with Ease](https://riverrecords.ai/blog/ai-in-clinical-practice/) | 2 — burnout | physician owner | light |
 | [Automated Clinical Documentation: Supporting Complex Care Without Burdening Doctors](https://riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/) | 2 — burnout | physician owner | light |
-| [The Real Cost of Note Bloat](https://riverrecords.ai/blog/the-real-cost-of-note-bloat/) ⭐ | 3 — revenue/quality | CFO-hat owner | heavy |
+| [The Undercoding Tax: What Invisible Complexity Costs an Independent Practice](https://riverrecords.ai/blog/the-undercoding-tax/) ⭐ | 3 — revenue/quality | CFO-hat owner | heavy |
+| [Your Denials Start in the Note](https://riverrecords.ai/blog/your-denials-start-in-the-note/) | 3 — revenue/quality | CFO-hat owner | heavy |
+| [Risk Adjustment Is a Documentation-Structure Problem](https://riverrecords.ai/blog/risk-adjustment-documentation-structure/) | 3 — revenue/quality | CFO-hat owner (VBC) | heavy |
+| [The Real Cost of Note Bloat](https://riverrecords.ai/blog/the-real-cost-of-note-bloat/) | 3 — revenue/quality | CFO-hat owner | heavy |
 | [Why Clinicians Copy-Paste: Designing for Persistence, Not Duplication](https://riverrecords.ai/blog/why-clinicians-copy-paste-ehr/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Why EHRs Are Causing "Note Bloat"](https://riverrecords.ai/blog/ehrs-cause-note-bloat/) | 3 — revenue/quality | CFO-hat owner | light |
 | [The Danger of Pre-Templated Information in Medical Records](https://riverrecords.ai/blog/templated-ehr-notes-patient-safety-risks/) | 3 — revenue/quality | CFO-hat owner | light |
@@ -76,7 +79,9 @@
 | [How Medical AI Scribes Can Support Value-Based Care](https://riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Stream: The Medical AI Scribe for Longitudinal Care & Value-Based Transformation](https://riverrecords.ai/blog/longitudinal/) | 3 — revenue/quality | CFO-hat owner | light |
 | [Automated Clinical Documentation: The Key to Reducing Errors](https://riverrecords.ai/blog/automated-clinical-documentation-ai-healthcare/) | 3 — revenue/quality | CFO-hat owner | light |
-| [You Already Read That Fax. Why Are You Charting It Again?](https://riverrecords.ai/blog/you-already-read-that-fax-why-are-you-charting-it-again/) ⭐ | 4 — operations | office manager | light |
+| [Chart Prep Shouldn't Take Your Staff an Hour Per Patient](https://riverrecords.ai/blog/chart-prep-shouldnt-take-an-hour/) ⭐ | 4 — operations | office manager / practice owner | heavy |
+| [Where Referrals Go to Die](https://riverrecords.ai/blog/where-referrals-go-to-die/) | 4 — operations | office manager / physician owner | heavy |
+| [You Already Read That Fax. Why Are You Charting It Again?](https://riverrecords.ai/blog/you-already-read-that-fax-why-are-you-charting-it-again/) | 4 — operations | office manager | light |
 | [Your Clinical Note Is the Best Task Manager You're Not Using](https://riverrecords.ai/blog/clinical-note-best-task-manager/) | 4 — operations | physician owner | light |
 | [Three New Stream Updates That Reduce Cognitive Load](https://riverrecords.ai/blog/stream-updates-tasks-document-uploads-and-smarter-continuity/) | 4 — operations | office manager | light |
 | [Automated Clinical Documentation: Preparing Practice Managers for 2025](https://riverrecords.ai/blog/automated-clinical-documentation-preparing-practice-managers-for-2025/) | 4 — operations | office manager | light |
@@ -115,8 +120,8 @@
 |---|---|---|
 | 1 — "We already have a scribe" | **The Note Is Solved. The Chart Is Not.** | The whole objection in one sentence. Concedes their scribe works, then reframes: speed was never the hard problem. Light enough for anyone; escalate to **Ch. 13** if they engage. |
 | 2 — Burnout / review burden | **The Work Before the Work** | Names the thing they feel every night at 7:40 pm. Heavy — for engaged prospects; for cold ones send **Ch. 9** or "Information Scatter" (light) instead. |
-| 3 — Revenue / coding / quality | **The Real Cost of Note Bloat** | Connects documentation quality to clinical and financial risk. Heavy — for cold prospects send **Ch. 8** or "Why Clinicians Copy-Paste" (light) instead. |
-| 4 — Operations | **You Already Read That Fax. Why Are You Charting It Again?** | Two-minute read, and every office manager has lived it. Instantly credible. |
+| 3 — Revenue / coding / quality | **The Undercoding Tax** | Part 1 of the Revenue & Coding trilogy — the argument that moves a CFO-hat owner to act: they're leaving money on the table today, and it's the note's fault, not the clinician's. Heavy — for cold prospects send **Ch. 8** or "Why Clinicians Copy-Paste" (light) instead. |
+| 4 — Operations | **Chart Prep Shouldn't Take Your Staff an Hour Per Patient** | Names the biggest uncounted labor cost in the practice, in the administrator's own terms. Heavy — for a cold ops contact, open with the fax post (light) and escalate to this. |
 | 5 — AI skepticism | **Not All Problems Need AI** | We literally wrote the skeptic's own argument. Nothing disarms "I'm tired of AI hype" faster than agreeing in print. |
 | 6 — "We don't want another system" | **The Bridge, Not the Destination** | Unusually honest about EHR integration limits and why Stream works alongside any EHR rather than replacing it. |
 | 7 — Evidence / credibility | **Prevalence and Sources of Duplicate Information in the EMR (JAMA Network Open)** | Founder-authored, top-tier journal, one unforgettable number: half the record is duplicated text. |
@@ -452,9 +457,30 @@
 
 ## Category 3 — Revenue / coding / documentation quality
 
-**The move:** talk to the CFO hat — bloated, duplicated, templated documentation is a financial and audit risk, not just an annoyance. **Escalation path: post → Book Ch. 8.** For hard evidence, pair with the JAMA duplication study (category 7).
+**The move:** talk to the CFO hat — bloated, duplicated, templated documentation is a financial and audit risk, not just an annoyance. **Escalation path: post → Book Ch. 8.** For hard evidence, pair with the JAMA duplication study (category 7). The **Revenue & Coding trilogy** (undercoding → denials → risk adjustment) is the flagship sequence here — each post's series nav links to the other two, so one send opens all three; pick the part that matches their contract mix.
 
-### ⭐ The Real Cost of Note Bloat
+### ⭐ The Undercoding Tax: What Invisible Complexity Costs an Independent Practice
+- **URL:** https://riverrecords.ai/blog/the-undercoding-tax/
+- **Persona:** CFO-hat owner
+- **Send this when…** they say the practice is busier than ever but revenue doesn't show it — or shrug that they "just code 99213 to be safe."
+- **Snippet:** "You mentioned coding conservatively to stay safe — this piece is about what that habit actually costs an independent practice each year, and why it's the note's fault, not the clinician's: [link]"
+- **Weight:** heavy — engaged prospects; for cold ones send Ch. 8 or "Why Clinicians Copy-Paste" (light) instead. Part 1 of the Revenue & Coding trilogy.
+
+### Your Denials Start in the Note
+- **URL:** https://riverrecords.ai/blog/your-denials-start-in-the-note/
+- **Persona:** CFO-hat owner
+- **Send this when…** denials, appeals, or billing-office rework come up — especially if they frame denials as a biller problem, not a documentation problem.
+- **Snippet:** "You brought up denials — this piece argues most documentation-driven denials are decided in the exam room weeks before the claim goes out, and shows what a note that supports the claim looks like: [link]"
+- **Weight:** heavy — engaged prospects. Part 2 of the Revenue & Coding trilogy.
+
+### Risk Adjustment Is a Documentation-Structure Problem
+- **URL:** https://riverrecords.ai/blog/risk-adjustment-documentation-structure/
+- **Persona:** CFO-hat owner (Medicare Advantage / ACO / value-based)
+- **Send this when…** they carry MA or ACO risk and mention RAF scores, annual recapture, or chronic conditions falling off the score year over year.
+- **Snippet:** "Since you're carrying MA/ACO risk: this is on why chronic conditions vanish from risk scores every January — annual recapture is a persistence problem, and a time-organized note is the worst possible tool for it: [link]"
+- **Weight:** heavy — engaged prospects. Part 3 of the trilogy. Skip for pure fee-for-service practices — the post's own scope note says so and points them to parts 1 and 2 instead.
+
+### The Real Cost of Note Bloat
 - **URL:** https://riverrecords.ai/blog/the-real-cost-of-note-bloat/
 - **Persona:** CFO-hat owner
 - **Send this when…** the owner frames documentation as a cost/risk problem — denials, audits, or "our notes are a mess."
@@ -523,7 +549,22 @@
 
 **The move:** talk minutes and staff, not philosophy. Faxes, referrals, chart prep, task tracking — the office manager's actual Tuesday.
 
-### ⭐ You Already Read That Fax. Why Are You Charting It Again?
+### ⭐ Chart Prep Shouldn't Take Your Staff an Hour Per Patient
+- **URL:** https://riverrecords.ai/blog/chart-prep-shouldnt-take-an-hour/
+- **Persona:** office manager / practice owner
+- **Send this when…** morning huddles, pre-visit prep, or MA workload come up — anyone who describes staff (or the provider) rebuilding each patient's story before clinic starts.
+- **Snippet:** "You mentioned your staff prepping charts every morning — this piece is about why that reconstruction exists at all, and what prep looks like when the current picture is already assembled the moment you open the chart: [link]"
+- **Weight:** heavy — engaged prospects; for a cold ops contact, open with the fax post (light) and escalate to this.
+
+### Where Referrals Go to Die
+- **URL:** https://riverrecords.ai/blog/where-referrals-go-to-die/
+- **Persona:** office manager / physician owner
+- **Send this when…** dropped referrals, specialist notes that never come back, or loops that never close come up — the ops-side companion to "Your Clinical Note Is the Best Task Manager."
+- **Snippet:** "You described referrals disappearing after they leave the office — this is on why that happens (the referral becomes invisible the moment it's just a sentence in an old note) and what changes when it's a tracked item with a status: [link]"
+- **Weight:** heavy — engaged prospects.
+- **Note:** references referral tracking as shipped and auto loop-closure as roadmap — safe to send; do not pair with any claim that closure is automatic today.
+
+### You Already Read That Fax. Why Are You Charting It Again?
 - **URL:** https://riverrecords.ai/blog/you-already-read-that-fax-why-are-you-charting-it-again/
 - **Persona:** office manager
 - **Send this when…** faxes, scanned documents, or duplicate data entry come up — the most relatable ops moment there is.
@@ -743,18 +784,13 @@
 
 Where the library is thin relative to the objections reps actually hear, ranked by sales impact:
 
-1. **Revenue / coding (category 3) — the biggest gap.** We have quality-risk posts but **nothing on undercoding, complexity capture, or denials** — the arguments that move a CFO-hat owner to act. Suggested titles:
-   - *"The Undercoding Tax: What Invisible Complexity Costs an Independent Practice"*
-   - *"Your Denials Start in the Note"*
-   - *"Risk Adjustment Is a Documentation-Structure Problem"*
+1. **Revenue / coding (category 3) — ✅ COVERED (July 2026).** The Revenue & Coding trilogy shipped, exactly as scoped: *The Undercoding Tax* (part 1, new ⭐ top pick), *Your Denials Start in the Note* (part 2), and *Risk Adjustment Is a Documentation-Structure Problem* (part 3). All three are heavy — Ch. 8 remains the cold-prospect send for this category.
 2. **AI skepticism (category 5) — only two posts,** though both are strong. Missing: an honest piece on failure modes and guardrails, which is what the burned-by-hype prospect actually wants to read. Suggested titles:
    - *"Where AI Genuinely Helps in Clinic — and Where It Shouldn't Be Trusted Yet"*
    - *"You Shouldn't Have to Trust the AI. You Should Be Able to Check It."*
 3. **"Already on a scribe" switcher post (category 1).** We argue the concept well but have no post depicting the concrete outcome: what a chart looks like after two years of fast, unstructured notes. This would be the single most sendable post for Freed-user prospects. Suggested title:
    - *"Two Years and 10,000 Fast Notes Later: What Your Chart Looks Like"*
-4. **Operations (category 4) — no chart-prep or referral-tracking deep dive.** The fax post proves the visceral-and-specific formula works; repeat it. Suggested titles:
-   - *"Chart Prep Shouldn't Take Your Staff an Hour Per Patient"*
-   - *"Where Referrals Go to Die"*
+4. **Operations (category 4) — 🟡 PARTIALLY COVERED (July 2026).** Both suggested posts shipped: *Chart Prep Shouldn't Take Your Staff an Hour Per Patient* (new ⭐ top pick) and *Where Referrals Go to Die*. Both are heavy, so the category still lacks light/cold sends beyond the fax post — more operations content could follow (e.g. phone/inbox load, staff turnover and onboarding, or a scheduling-workflow piece in the same visceral-and-specific formula).
 5. **"No new system" (category 6) — no operational explainer.** The posts are philosophical; missing a concrete "day one with Stream next to your EHR" walkthrough (login, workflow, what staff see, what doesn't change). Suggested title:
    - *"What 'Works Alongside Any EHR' Means on an Actual Tuesday"*
 6. **Evidence (category 7) — no pillar post.** Five separate abstract posts, but no single piece walking the whole research arc (duplication → noteless EMR → extraction → Stream). One roundup would replace five links in a rep's follow-up. Suggested title:
@@ -767,3 +803,4 @@ Where the library is thin relative to the objections reps actually hear, ranked 
 - **Done (July 2026):** all 82 posts tagged using this map's categories as the taxonomy; synonym tags merged into `ai-scribe` / `care-coordination`; new `practice-operations` and `ehr-design` tags added; retired tag URLs 301-redirected. Tag pages at `/blog/tag/<tag>/` now work as rep-facing category indexes.
 - Decision (July 2026): the 15 posts using the word "narrative" stay as-is — the copy rule applies to new content only.
 - Many category-2 SEO posts are near-interchangeable; reps only need the ⭐ picks and the light/cold options flagged above.
+- **Done (July 2026, post-trilogy re-audit):** re-ran the duplicate/broken-link diagnostic after adding the five new posts — zero live duplicate pairs and zero broken internal links remain (the earlier six-pair / three-draft finding predates the July dedup recorded above and is fully resolved by it). One broken destination found and fixed: `/#how-it-works` had no matching anchor on the homepage even though the nav, footer, research page, and five post footers all linked to it — `id="how-it-works"` added to the homepage How Stream Works section.
