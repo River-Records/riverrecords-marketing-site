@@ -76,6 +76,8 @@ export const HUDDLE_DATA = {
       },
       priorAPs: [],
     },
+  ],
+  hccDue: [
     {
       title: "CKD stage 2",
       hccCodes: [{ hcc_code: "326", hcc_description: "Chronic kidney disease, stage 2", raf_weight: 0.0 }],
@@ -88,25 +90,6 @@ export const HUDDLE_DATA = {
         provider: "Dr. J. Kantrowitz",
         assessment: "Stable CKD stage 2. eGFR 64.",
         plan: ["Continue current management", "Avoid nephrotoxic medications", "Recheck BMP and eGFR in 6 months"],
-      },
-      priorAPs: [],
-    },
-  ],
-  hccDue: [
-    {
-      title: "Type 2 diabetes",
-      hccCodes: [{ hcc_code: "37", hcc_description: "Diabetes with chronic complications", raf_weight: 0.302 }],
-      reassessMonths: null,
-      hasOverdue: false,
-      resolved: false,
-      tasks: [
-        { id: 1, description: "Obtain UACR — annual diabetic nephropathy screen", type: "order", status: "active", priority: "medium", reminder_date: "2026-01-15" },
-      ],
-      lastAP: {
-        date: "4/15/2026",
-        provider: "Dr. J. Kantrowitz",
-        assessment: "Rising A1c 8.4 despite current regimen.",
-        plan: ["Increase metformin to 1000mg BID", "A1c recheck in 3 months"],
       },
       priorAPs: [],
     },
