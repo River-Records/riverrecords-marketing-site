@@ -17,6 +17,10 @@ export const pricing = {
   introPrice: '$149/month',
   annualPrice: '$99/month',
 
+  // Canonical pricing copy — homepage banner, pricing section, and FAQ must match exactly
+  pricePhrase: '$149/month, or $99/month billed annually.',
+  priceLine: '$149/month, or $99/month billed annually. 30-day free trial, no credit card.',
+
   // Headlines & descriptions
   introHeadline: '$149/month. Start free.',
   introSubline: 'Annual billing available at $99/month.',
@@ -34,7 +38,7 @@ export const pricing = {
 
   // FAQ
   faqQuestion: 'What does Stream cost?',
-  faqAnswer: 'Stream is $149/month per user, billed monthly. Annual billing is available at $99/month ($1,188/year). Every plan starts with a 30-day free trial — no credit card required. Cancel anytime.',
+  faqAnswer: '$149/month, or $99/month billed annually. 30-day free trial, no credit card.',
 
   // Freed comparison
   freedSavings: 'Same price as Freed with annual billing',
