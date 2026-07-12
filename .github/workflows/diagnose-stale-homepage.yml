@@ -5,9 +5,6 @@ name: Diagnose stale homepage for non-browser clients
 # getting the old pre-Astro homepage. Safe to delete after the fix.
 on:
   workflow_dispatch:
-  push:
-    branches: [claude/river-records-stale-homepage-e0152a]
-    paths: ['.github/workflows/diagnose-stale-homepage.yml']
 
 permissions:
   contents: read
