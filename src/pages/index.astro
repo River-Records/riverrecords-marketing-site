@@ -6,6 +6,7 @@ import HuddleDemo from '../components/demos/HuddleDemo.vue';
 import EncounterViewDemo from '../components/demos/EncounterViewDemo.vue';
 import TimelineRecapDemo from '../components/demos/TimelineRecapDemo.vue';
 import { pricing } from '../config/pricing';
+import { stats } from '../config/stats';
 
 const utmBase = '?utm_source=homepage&utm_medium=landing&utm_campaign=home-v2';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
@@ -35,6 +36,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         { "@type": "Question", "name": "How does Stream work?", "acceptedAnswer": { "@type": "Answer", "text": "Stream listens to your encounter, transcribes it in real time, and generates a structured clinical note with Assessment and Plan split per medical problem. Each note updates a problem-oriented longitudinal chart." }},
         { "@type": "Question", "name": "Can I use Stream with my existing EHR?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Stream works alongside any EHR. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena." }},
         { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber. Encrypted at rest and in transit. We never train our models on your patient data." }},
+        { "@type": "Question", "name": "What security measures does Stream have beyond HIPAA?", "acceptedAnswer": { "@type": "Answer", "text": "All data is encrypted at rest and in transit. Audit controls and access logging are in place across the platform. We sign a Business Associate Agreement (BAA) with every subscriber, and we never train our models on your patient data." }},
         { "@type": "Question", "name": "What does Stream cost?", "acceptedAnswer": { "@type": "Answer", "text": "$149/month, or $99/month billed annually. 30-day free trial, no credit card. Staff seats: your first non-clinician team member is free; additional staff are $25/month each." }}
       ]
     }
@@ -114,6 +116,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .home-thesis h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 14px; text-align: center; max-width: 760px; margin-left: auto; margin-right: auto; }
 .home-thesis h2 em { font-style: italic; color: var(--stream); }
 .home-thesis-lede { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.65; max-width: 680px; margin: 0 auto 40px; text-align: center; }
+.home-thesis-lede a { color: var(--stream); text-decoration: underline; text-underline-offset: 2px; }
 .home-thesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .home-thesis-card { border-radius: 16px; padding: 32px; border: 1px solid var(--rule); }
 .home-thesis-card--muted { background: var(--paper); }
@@ -178,6 +181,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .home-quote-title { font-size: 0.78rem; color: rgba(250,247,240,0.5); }
 .home-quote-link { font-size: 0.78rem; color: var(--accent-soft); text-decoration: none; margin-top: 16px; display: inline-block; }
 .home-quote-link:hover { text-decoration: underline; }
+.home-quote-story { font-size: 0.9rem; color: rgba(250,247,240,0.6); max-width: 560px; margin: 0 auto 24px; line-height: 1.6; }
 
 /* === FEATURE GRID === */
 .home-features { padding: 80px 0; }
@@ -337,11 +341,12 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
           <span>{pricing.trustIntro}</span>
           <span>Pastes into any EHR</span>
           <span>HIPAA compliant</span>
+          <span>{stats.encounters}+ patient encounters documented and organized</span>
         </div>
       </div>
       <div>
         <div class="demo-frame">
-          <div class="demo-frame__label">LIVE DEMO · fake patient data</div>
+          <div class="demo-frame__label">LIVE DEMO · sample patient data</div>
           <HuddleDemo client:load />
         </div>
       </div>
@@ -368,7 +373,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
   <div class="hc">
     <div class="hl" style="text-align:center;">A DIFFERENT CATEGORY</div>
     <h2>The scribe is table stakes. <em>The chart is the product.</em></h2>
-    <p class="home-thesis-lede">Every AI scribe records a visit and writes a note. That's solved. The problem that isn't solved — and what Stream was built for — is what happens to that note over the next five years. A chart that organizes itself around your patient, not around the calendar.</p>
+    <p class="home-thesis-lede">Every AI scribe records a visit and writes a note. That's solved. The problem that isn't solved — and what Stream was built for — is what happens to that note over the next five years. A chart that organizes itself around your patient, not around the calendar. Stream's founders authored the <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">peer-reviewed research on chart duplication</a> — 104 million notes, <em>JAMA Network Open</em>, 2022 — and built Stream to answer it.</p>
     <div class="home-thesis-grid">
       <div class="home-thesis-card home-thesis-card--muted">
         <div class="home-thesis-tag">MOST AI SCRIBES</div>
@@ -499,6 +504,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
   <div class="hc">
     <div class="home-quote-card">
       <div class="hl" style="color:var(--accent-soft);text-align:center;">WHY WE BUILT STREAM</div>
+      <p class="home-quote-story">We're River Records — Stream is our first product, a stream cutting through the mountain of data in every chart.</p>
       <blockquote>"Primary care is a project management specialty. Every patient is a longitudinal project — with an evolving problem list, open tasks, and a plan that changes over time. <em>We built the tool to manage it.</em>"</blockquote>
       <div class="home-quote-attr">
         <img class="home-quote-avatar" src="/images/team/Jake.jpg" alt="Jake Kantrowitz, MD" />
@@ -605,20 +611,16 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
     <div class="home-proof-grid">
       <div class="home-proof-feature">
         <div class="qm">"</div>
-        <blockquote>River Records' approach to clinical documentation matches how we think clinically. I love the concept.</blockquote>
+        <blockquote>Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters.</blockquote>
         <div class="home-proof-attr">
-          <div class="home-proof-avatar">SD</div>
+          <div class="home-proof-avatar">AB</div>
           <div>
-            <div class="home-proof-name">Spencer Dorn, MD</div>
-            <div class="home-proof-title">Vice Chair &amp; Professor of Medicine, UNC</div>
+            <div class="home-proof-name">Anatoli Berezovsky, MD</div>
+            <div class="home-proof-title">Owner &amp; CEO, Mila Family Health</div>
           </div>
         </div>
       </div>
       <div class="home-proof-stack">
-        <div class="home-proof-mini">
-          <blockquote>"Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters."</blockquote>
-          <div class="home-proof-mini-attr">— Anatoli Berezovsky, MD · Owner &amp; CEO, Mila Family Health</div>
-        </div>
         <div class="home-proof-mini">
           <blockquote>"I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time."</blockquote>
           <div class="home-proof-mini-attr">— Donna Kirchoff, MD, FAAP · Integrative Developmental &amp; Behavioral Peds</div>
@@ -705,6 +707,10 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         <div class="home-faq-a">Yes. Fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber. All data is encrypted at rest and in transit. We never train our models on your patient data.</div>
       </div>
       <div class="home-faq-item">
+        <button class="home-faq-q">What security measures does Stream have beyond HIPAA?<span class="home-faq-icon">+</span></button>
+        <div class="home-faq-a">All data is encrypted at rest and in transit. Audit controls and access logging are in place across the platform. We sign a Business Associate Agreement (BAA) with every subscriber, and we never train our models on your patient data.</div>
+      </div>
+      <div class="home-faq-item">
         <button class="home-faq-q">How is Stream different from other AI scribes?<span class="home-faq-icon">+</span></button>
         <div class="home-faq-a">Most AI scribes generate one SOAP note per visit and stop there. Stream's scribe produces a structured note — Subjective, Objective, and separate Assessment &amp; Plan sections per medical problem. That architectural choice means every visit updates a living, problem-organized chart. Six months in, you have an actual longitudinal record — not a stack of disconnected documents. Stream was built by practicing physicians with peer-reviewed research on exactly this problem.</div>
       </div>
@@ -730,6 +736,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
       <span>Cancel anytime</span>
       <span>HIPAA compliant</span>
       <span>BAA included</span>
+      <span>{stats.encounters}+ patient encounters documented and organized</span>
     </div>
   </div>
 </section>
