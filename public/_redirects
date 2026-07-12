@@ -13,6 +13,8 @@
 /clinical-specialties  /  301
 /pricing  /#pricing  301
 /faq  /  301
+# Old Framer-site about page still lingering in Google's index
+/about-us2  /about  301
 
 # NP / AANP conference landing page
 /aanp  /np  301

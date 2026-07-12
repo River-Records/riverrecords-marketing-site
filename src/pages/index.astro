@@ -35,7 +35,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         { "@type": "Question", "name": "How does Stream work?", "acceptedAnswer": { "@type": "Answer", "text": "Stream listens to your encounter, transcribes it in real time, and generates a structured clinical note with Assessment and Plan split per medical problem. Each note updates a problem-oriented longitudinal chart." }},
         { "@type": "Question", "name": "Can I use Stream with my existing EHR?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Stream works alongside any EHR. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena." }},
         { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber. Encrypted at rest and in transit. We never train our models on your patient data." }},
-        { "@type": "Question", "name": "What does Stream cost?", "acceptedAnswer": { "@type": "Answer", "text": "Stream is $149/month per user, billed monthly. Annual billing is available at $99/month. Every plan starts with a 30-day free trial — no credit card required. Cancel anytime." }}
+        { "@type": "Question", "name": "What does Stream cost?", "acceptedAnswer": { "@type": "Answer", "text": "$149/month, or $99/month billed annually. 30-day free trial, no credit card." }}
       ]
     }
     </script>
@@ -199,6 +199,21 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .home-research-cite { font-size: 0.82rem; }
 .home-research-cite a { color: rgba(250,247,240,0.4); text-decoration: none; border-bottom: 1px solid rgba(250,247,240,0.2); transition: color 0.12s; }
 .home-research-cite a:hover { color: var(--accent-soft); }
+.home-research-book { font-size: 0.92rem; margin-top: 24px; }
+.home-research-book a { color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(232,122,97,0.35); transition: border-color 0.12s; }
+.home-research-book a:hover { border-color: var(--accent-soft); }
+
+/* === REVENUE === */
+.home-revenue { padding: 80px 0; background: var(--cream); }
+.home-revenue h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 14px; }
+.home-revenue h2 em { font-style: italic; color: var(--stream); }
+.home-revenue-body { font-size: 1rem; color: var(--ink-soft); line-height: 1.7; max-width: 680px; margin-bottom: 36px; }
+.home-rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.home-rev-card { display: flex; flex-direction: column; gap: 8px; background: var(--cream); border: 1px solid var(--rule); border-radius: 16px; padding: 28px; text-decoration: none; transition: border-color 0.15s; }
+.home-rev-card:hover { border-color: var(--stream); }
+.home-rev-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
+.home-rev-card h3 { font-size: 1.05rem; color: var(--ink); }
+.home-rev-more { font-size: 0.82rem; color: var(--stream); font-weight: 600; margin-top: auto; }
 
 /* === TESTIMONIALS === */
 .home-proof { padding: 80px 0; background: var(--paper); border-top: 1px solid var(--rule); }
@@ -246,6 +261,8 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .home-price-card--secondary .hp-features li::before { color: var(--stream); }
 .home-price-card--primary .hp-features li { color: rgba(250,247,240,0.75); }
 .hp-trust { font-size: 0.76rem; color: rgba(250,247,240,0.35); text-align: center; margin-top: 12px; }
+.hp-anchor { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.55; margin-bottom: 24px; }
+.hp-proof { font-size: 0.8rem; color: var(--ink-mute); font-style: italic; line-height: 1.55; border-left: 2px solid var(--stream-light); padding-left: 12px; margin-bottom: 24px; }
 
 /* === FAQ === */
 .home-faq { padding: 80px 0; background: var(--paper); border-top: 1px solid var(--rule); }
@@ -277,6 +294,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
   .home-tour-pair { grid-template-columns: 1fr; }
   .home-tour-card--wide { grid-template-columns: 1fr; }
   .home-tour-card--wide .home-tour-card-vis { border-right: none; border-bottom: 1px solid var(--rule); }
+  .home-rev-grid { grid-template-columns: 1fr; }
   .home-proof-grid { grid-template-columns: 1fr; }
   .home-pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
 }
@@ -295,7 +313,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="home-announce">
-  <strong>Limited pricing:</strong> {pricing.bannerText} {pricing.trialLine}
+  <strong>Simple pricing:</strong> {pricing.priceLine}
 </div>
 
 <!-- NAV -->
@@ -522,6 +540,11 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         <p>Follow-up tasks, pending labs, overdue screenings — extracted from every note automatically and tied to the problem they belong to. Not buried in the body of a document where nobody finds them.</p>
       </div>
       <div class="home-feat">
+        <div class="home-feat-label">OUT THE DOOR</div>
+        <h3>Referrals in a couple of clicks.</h3>
+        <p>Generate a referral letter from the problem's own history, on your clinic's letterhead, and fax it out — without leaving Stream. The follow-up becomes a tracked task, so the referral doesn't vanish into an old note.</p>
+      </div>
+      <div class="home-feat">
         <div class="home-feat-label">POINT OF CARE</div>
         <h3>ICD, CPT, and HCC support.</h3>
         <p>Diagnosis codes, procedure codes, and HCC capture opportunities suggested at point of care. Revenue integrity that happens as a byproduct of doing the clinical work right.</p>
@@ -541,8 +564,35 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
     <div class="home-research-inner">
       <div class="hl" style="color:rgba(250,247,240,0.4);text-align:center;">PEER-REVIEWED RESEARCH</div>
       <h2>Half of everything in your patient's chart is copy-pasted noise.</h2>
-      <p class="home-research-body">A peer-reviewed study of 104 million clinical notes found that half of the text in the average EHR is duplicated word-for-word from prior documentation — and that fraction grows every year. The average patient chart contains roughly half the words of <em>Hamlet</em>. Half of it is noise.<br><br>Stream's founders wrote that paper. Then they built the product that answers it.</p>
+      <p class="home-research-body">A peer-reviewed study of 104 million clinical notes found that half of the text in the average EHR is duplicated word-for-word from prior documentation — and that fraction grows every year. The average patient chart contains roughly half the words of <em>Hamlet</em>. Half of it is noise.<br><br>Stream's founders wrote that paper. Then they wrote the book on what to do about it — and built the product that answers both.</p>
       <p class="home-research-cite"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664" target="_blank" rel="noopener">Steinkamp, Kantrowitz et al. — <em>JAMA Network Open</em>, 2022 →</a></p>
+      <p class="home-research-book"><a href="/book"><em>The Note Was Never the Point</em> — read it free →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE -->
+<section class="home-revenue hr">
+  <div class="hc">
+    <div class="hl">FOR PRACTICE OWNERS</div>
+    <h2>Capture the complexity <em>you already deliver.</em></h2>
+    <p class="home-revenue-body">Most independent practices bill below the level of care they provide — not from laziness, but because the note can't defend the visit. Problem-organized documentation makes complexity visible and defensible: coding that matches the work you actually did, fewer documentation-driven denials, and chronic conditions that don't fall off the chart every January.</p>
+    <div class="home-rev-grid">
+      <a class="home-rev-card" href="/blog/the-undercoding-tax/">
+        <span class="home-rev-label">Revenue &amp; Coding · Part 1</span>
+        <h3>The Undercoding Tax</h3>
+        <span class="home-rev-more">Read →</span>
+      </a>
+      <a class="home-rev-card" href="/blog/your-denials-start-in-the-note/">
+        <span class="home-rev-label">Revenue &amp; Coding · Part 2</span>
+        <h3>Your Denials Start in the Note</h3>
+        <span class="home-rev-more">Read →</span>
+      </a>
+      <a class="home-rev-card" href="/blog/risk-adjustment-documentation-structure/">
+        <span class="home-rev-label">Revenue &amp; Coding · Part 3</span>
+        <h3>Risk Adjustment Is a Documentation-Structure Problem</h3>
+        <span class="home-rev-more">Read →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -587,7 +637,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
   <div class="hc">
     <div class="hl" style="text-align:center;">SIMPLE PRICING</div>
     <h2>One flat rate. No tiers. <em>No usage caps.</em></h2>
-    <p class="home-pricing-lede">{pricing.introPrice} for your first year. {pricing.standardPrice} after. 30-day free trial on every plan. Cancel anytime.</p>
+    <p class="home-pricing-lede">{pricing.priceLine}</p>
     <div class="home-pricing-grid">
       <div class="home-price-card home-price-card--primary">
         <div class="hp-label">INDIVIDUAL PLAN <span class="hp-badge">MOST POPULAR</span></div>
@@ -612,19 +662,19 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
       </div>
       <div class="home-price-card home-price-card--secondary">
         <div class="hp-label">CLINIC PLAN</div>
-        <div class="hp-name">For multi-provider practices needing team collaboration.</div>
+        <div class="hp-name">For multi-provider practices — 3 to 20 clinicians.</div>
         <div class="hp-amount">Custom</div>
         <div class="hp-per">Reach out to discuss your clinic</div>
-        <p style="font-size:0.88rem;color:var(--ink-soft);line-height:1.55;margin-bottom:24px;">Best for group practices, FQHCs, DPC clinics, and multi-provider independent practices. Per-seat pricing with volume discounts available.</p>
+        <p class="hp-anchor">Per-clinician pricing with volume discounts. First admin seat free, then $25/month per admin.</p>
         <ul class="hp-features">
           <li>Everything in Individual Plan</li>
-          <li>Team-based collaboration &amp; shared templates</li>
-          <li>Role-based permissions &amp; admin controls</li>
+          <li>Shared task assignment across clinicians and admin staff</li>
+          <li>Shared document and fax intake with team review workflows</li>
+          <li>Team templates, role-based permissions, admin controls</li>
           <li>Bulk patient panel upload</li>
-          <li>Periodic workflow optimization reviews</li>
-          <li>Custom onboarding &amp; dedicated support</li>
-          <li>Support roles for admin and ancillary staff</li>
+          <li>Custom onboarding and dedicated support</li>
         </ul>
+        <p class="hp-proof">One independent network started with a single clinic — and now runs most of their locations on Stream.</p>
         <a href="/book-demo" class="hb-secondary" style="width:100%;justify-content:center;text-align:center;">Contact Sales →</a>
       </div>
     </div>
@@ -670,7 +720,7 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 <section class="home-final hr" id="cta">
   <div class="hc">
     <h2>Your chart should work the way you <em>actually think.</em></h2>
-    <p class="home-final-body">Start your 30-day free trial. No credit card. {pricing.introPrice} for your first year. Takes under three minutes to set up.</p>
+    <p class="home-final-body">Start your 30-day free trial. No credit card. {pricing.pricePhrase} Takes under three minutes to set up.</p>
     <div class="home-cta-row" style="justify-content:center;">
       <a href={`${onboardUrl}&utm_content=final`} class="hb-primary">Start free for 30 days →</a>
       <a href="/book-demo" class="hb-secondary">Talk to a clinician first</a>

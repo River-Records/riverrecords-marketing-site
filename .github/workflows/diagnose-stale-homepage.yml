@@ -1,0 +1,90 @@
+name: Diagnose stale homepage for non-browser clients
+
+# One-off diagnostic: compares what riverrecords.ai serves to different
+# user agents, plus DNS, to locate where crawlers/link-preview bots are
+# getting the old pre-Astro homepage. Safe to delete after the fix.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: DNS
+        run: |
+          set +e
+          echo "=== NS riverrecords.ai ==="
+          dig +short NS riverrecords.ai
+          echo "=== A riverrecords.ai ==="
+          dig +short A riverrecords.ai
+          echo "=== AAAA riverrecords.ai ==="
+          dig +short AAAA riverrecords.ai
+          echo "=== CNAME/A www.riverrecords.ai ==="
+          dig +short www.riverrecords.ai
+          echo "=== A riverrecords-marketing-site.pages.dev ==="
+          dig +short riverrecords-marketing-site.pages.dev
+          true
+
+      - name: UA comparison
+        run: |
+          set +e
+          probe () {
+            local label="$1" url="$2" ua="$3"
+            echo ""
+            echo "##### $label → $url"
+            echo "----- headers (no redirect follow) -----"
+            curl -sS -o /tmp/body.html -D /tmp/h.txt --max-time 30 -A "$ua" "$url"
+            rc=$?
+            [ $rc -ne 0 ] && { echo "curl exit $rc"; return; }
+            grep -iE "^(HTTP/|server:|location:|cf-ray:|cf-cache-status:|age:|cache-control:|last-modified:|etag:|x-served-by:|via:|x-powered-by:|content-type:)" /tmp/h.txt
+            echo "----- body signals -----"
+            echo "bytes: $(wc -c < /tmp/body.html)"
+            echo "title: $(grep -o '<title>[^<]*</title>' /tmp/body.html | head -1)"
+            echo "og:title: $(grep -o '<meta property="og:title"[^>]*>' /tmp/body.html | head -1)"
+            echo "generator: $(grep -o '<meta name="generator"[^>]*>' /tmp/body.html | head -1)"
+            echo "NEW hero present: $(grep -c 'Your AI scribe stops at the note' /tmp/body.html)"
+            echo "OLD hero present: $(grep -c 'Revolutionizing Documentation' /tmp/body.html)"
+            echo "OLD tiers present: $(grep -c 'Stream for Business' /tmp/body.html)"
+            echo "first h1: $(grep -o '<h1[^>]*>.*</h1>' /tmp/body.html | head -1 | cut -c1-200)"
+          }
+
+          BROWSER_UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+          PLAIN_UA="curl/8.5.0"
+          FB_UA="facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+          GOOGLE_UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          SLACK_UA="Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)"
+
+          for host in "https://riverrecords.ai/" "https://www.riverrecords.ai/"; do
+            probe "plain curl"          "$host" "$PLAIN_UA"
+            probe "browser UA"          "$host" "$BROWSER_UA"
+            probe "facebookexternalhit" "$host" "$FB_UA"
+            probe "Googlebot"           "$host" "$GOOGLE_UA"
+            probe "Slackbot"            "$host" "$SLACK_UA"
+          done
+
+          probe "plain curl (pages.dev)" "https://riverrecords-marketing-site.pages.dev/" "$PLAIN_UA"
+          probe "browser UA (pages.dev)" "https://riverrecords-marketing-site.pages.dev/" "$BROWSER_UA"
+
+          echo ""
+          echo "##### redirect chain, plain curl, apex with -L"
+          curl -sSL -o /dev/null --max-time 30 -A "$PLAIN_UA" -w "%{url_effective} (%{num_redirects} redirects, final %{http_code})\n" "https://riverrecords.ai/"
+          echo "##### redirect chain, browser UA, apex with -L"
+          curl -sSL -o /dev/null --max-time 30 -A "$BROWSER_UA" -w "%{url_effective} (%{num_redirects} redirects, final %{http_code})\n" "https://riverrecords.ai/"
+          true
+
+      - name: Other pages with plain curl
+        run: |
+          set +e
+          for path in /book-demo/ /blog/ /pricing /about/ /for/primary-care/; do
+            url="https://riverrecords.ai$path"
+            code=$(curl -sS -o /tmp/b.html -D /tmp/h.txt --max-time 30 -A "curl/8.5.0" -w "%{http_code}" "$url")
+            title=$(grep -o '<title>[^<]*</title>' /tmp/b.html | head -1)
+            loc=$(grep -i '^location:' /tmp/h.txt | head -1)
+            old=$(grep -c 'Revolutionizing Documentation\|Stream for Business' /tmp/b.html)
+            echo "$url → $code $loc | $title | old-copy hits: $old"
+          done
+          true
