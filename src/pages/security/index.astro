@@ -1,0 +1,63 @@
+---
+import Page from '../../layouts/Page.astro';
+---
+<Page
+  title="Security — Stream by River Records"
+  description="How Stream protects patient data: encryption at rest and in transit, audit controls and access logging, a BAA with every subscriber, and no model training on patient data.">
+
+<style>
+.legal {
+  padding: 72px 0 88px;
+}
+.legal-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.legal-content h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.legal-content h2 {
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-top: 40px;
+  margin-bottom: 12px;
+  font-family: var(--font-sans);
+}
+.legal-content p {
+  font-size: 0.925rem;
+  color: var(--ink-muted);
+  line-height: 1.72;
+  margin-bottom: 16px;
+}
+.legal-content a {
+  color: var(--primary);
+}
+</style>
+
+<section class="legal">
+  <div class="container">
+    <div class="legal-content">
+      <h1>Security at Stream</h1>
+      <p>Stream handles protected health information every day, and we treat that as the core responsibility of the product. This page summarizes our security practices in plain language. For contractual terms, see our <a href="/baa">Business Associate Agreement</a>, <a href="/privacy-policy">Privacy Policy</a>, and <a href="/terms-of-service">Terms of Service</a>.</p>
+
+      <h2>Encryption</h2>
+      <p>All data is encrypted at rest and in transit. Connections to Stream use TLS, and stored data — recordings, transcripts, notes, and chart content — is encrypted on disk.</p>
+
+      <h2>Audit controls and access logging</h2>
+      <p>Audit controls and access logging are in place across the platform. Access to patient data is logged, and internal access is restricted to what is required to operate and support the service.</p>
+
+      <h2>HIPAA compliance and BAA</h2>
+      <p>Stream is fully HIPAA compliant, and we sign a Business Associate Agreement (BAA) with every subscriber — on every plan, including trials. There is no minimum seat count or enterprise tier required.</p>
+
+      <h2>Your data is never used to train models</h2>
+      <p>We never train our models on your patient data. Your recordings, transcripts, and notes are used to deliver the service to you — not to build training datasets.</p>
+
+      <h2>Security questionnaires</h2>
+      <p>Evaluating Stream for your practice or health system and need a completed security questionnaire or more detail on our practices? <a href="/contact">Contact us</a> and we'll work through it with your team.</p>
+    </div>
+  </div>
+</section>
+
+</Page>
