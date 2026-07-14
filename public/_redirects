@@ -8,6 +8,9 @@
 /compare/freed-alternative  /comparison/freedai  301
 /compare/heidi-alternative  /  301
 /compare/open-evidence-alternative  /  301
+# Catch-all for any other legacy /compare URL → comparison hub
+/compare/*  /comparison  301
+/compare  /comparison  301
 # /features now has its own page
 /how-it-works  /  301
 /clinical-specialties  /  301

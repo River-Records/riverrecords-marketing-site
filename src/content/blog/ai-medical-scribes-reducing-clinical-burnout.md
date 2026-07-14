@@ -23,7 +23,7 @@ Clinical burnout affects a significant percentage of healthcare professionals, w
 
 ## How AI Medical Scribes Transform Documentation Workflows
 
-AI medical scribes are reshaping documentation in healthcare, offering real-time transcription, efficient data capture, and seamless integration with Electronic Health Record (EHR) systems. River Records’ AI medical scribe technology takes on the documentation burden, freeing up valuable time for healthcare providers to devote to patient-centered care.
+AI medical scribes are reshaping documentation in healthcare, offering real-time transcription and efficient data capture, working alongside any Electronic Health Record (EHR) system — with native integrations in development. River Records’ AI medical scribe technology takes on the documentation burden, freeing up valuable time for healthcare providers to devote to patient-centered care.
 
  
 
