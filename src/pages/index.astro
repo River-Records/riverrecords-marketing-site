@@ -12,13 +12,18 @@ const utmBase = '?utm_source=homepage&utm_medium=landing&utm_campaign=home-v2';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
 const jamaUrl = 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664';
 
-// Clinic logo strip — flip to true and fill in logo files once assets land
+// Clinic logo strip — flip to true and fill in logo files once assets land.
+// The "Trusted by independent practices" label hides with the logo row so the
+// two appear as a unit; the specialties line below stays visible either way.
 const SHOW_CLINIC_LOGOS = false;
 const clinicLogos = [
   // { src: '/images/clinics/example.png', alt: 'Example Family Medicine' },
 ];
 
-// Metrics bar — entries whose stat is null in src/config/stats.ts are hidden
+// Metrics bar — off until it can be a real three-stat bar. Flip to true once
+// noteMinutes ([X] min average note time) and retention90 ([Y]%) are filled in
+// src/config/stats.ts; entries whose stat is null stay hidden.
+const SHOW_METRICS = false;
 const metricItems = [
   stats.noteMinutes ? { value: `${stats.noteMinutes} min`, label: 'average time to complete a note' } : null,
   { value: `${stats.encounters}+`, label: 'patient encounters documented and organized' },
@@ -48,7 +53,7 @@ const metricItems = [
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "Can I use Stream with my existing EHR?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Stream works alongside any EHR. You copy your note into your EHR, or use Stream as your standalone documentation layer. Native integrations are in development for Elation first, then Athena." }},
-        { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber. Encrypted at rest and in transit. We never train our models on your patient data." }},
+        { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber — on every plan, including trials, with no minimum seat count. Encrypted at rest and in transit. We never train our models on your patient data." }},
         { "@type": "Question", "name": "What security measures does Stream have beyond HIPAA?", "acceptedAnswer": { "@type": "Answer", "text": "All data is encrypted at rest and in transit. Audit controls and access logging are in place across the platform. We sign a Business Associate Agreement (BAA) with every subscriber, and we never train our models on your patient data." }}
       ]
     }
@@ -137,7 +142,7 @@ const metricItems = [
 .home-logos { padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .home-logos-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); text-align: center; margin-bottom: 6px; }
 .home-logos-specialties { font-family: 'Fraunces', Georgia, serif; font-size: 0.95rem; color: var(--ink-soft); text-align: center; }
-.home-logos-row { display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; margin-top: 14px; }
+.home-logos-row { display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; margin: 14px 0 10px; }
 .home-logos-row img { height: 28px; width: auto; filter: grayscale(1); opacity: 0.55; }
 
 /* === TOUR === */
@@ -338,7 +343,7 @@ const metricItems = [
           <span>30-day free trial</span>
           <span>{pricing.trustIntro}</span>
           <span>Pastes into any EHR</span>
-          <span>HIPAA compliant</span>
+          <span>HIPAA · BAA on every plan</span>
           <span>{stats.encounters}+ patient encounters documented and organized</span>
         </div>
       </div>
@@ -355,13 +360,15 @@ const metricItems = [
 <!-- CLINIC LOGO STRIP (logos render once assets land — set SHOW_CLINIC_LOGOS above) -->
 <div class="home-logos">
   <div class="hc">
-    <div class="home-logos-label">Trusted by independent practices</div>
-    <div class="home-logos-specialties">Built for primary care · Peds · DPC · SNF</div>
     {SHOW_CLINIC_LOGOS && clinicLogos.length > 0 && (
-      <div class="home-logos-row">
-        {clinicLogos.map((logo) => <img src={logo.src} alt={logo.alt} loading="lazy" />)}
-      </div>
+      <Fragment>
+        <div class="home-logos-label">Trusted by independent practices</div>
+        <div class="home-logos-row">
+          {clinicLogos.map((logo) => <img src={logo.src} alt={logo.alt} loading="lazy" />)}
+        </div>
+      </Fragment>
     )}
+    <div class="home-logos-specialties">Built for primary care · Peds · DPC · SNF</div>
   </div>
 </div>
 
@@ -386,8 +393,7 @@ const metricItems = [
   </div>
 </section>
 
-<!-- PRODUCT TOUR (single How-It-Works; #features anchor kept for legacy links) -->
-<div id="features"></div>
+<!-- PRODUCT TOUR (single How-It-Works) -->
 <section class="home-tour hr" id="how-it-works">
   <div class="hc">
     <div class="hl">HOW STREAM WORKS</div>
@@ -492,25 +498,27 @@ const metricItems = [
 </section>
 
 <!-- FEATURES STRIP -->
-<section class="home-incl hr">
+<section class="home-incl hr" id="features">
   <div class="hc">
     <p class="home-incl-line"><span class="home-incl-label">Also in every subscription:</span> real-time scribe in 22 languages · external records summarized &amp; filed · automatic tasks · referrals &amp; fax on your letterhead · ICD/CPT/HCC support · customizable templates · encrypted, BAA included. <a href="/features">See all features →</a></p>
   </div>
 </section>
 
-<!-- METRICS -->
-<section class="home-metrics hr">
-  <div class="hc">
-    <div class="home-metrics-grid">
-      {metricItems.map((m) => (
-        <div class="home-metric">
-          <div class="home-metric-value">{m.value}</div>
-          <div class="home-metric-label">{m.label}</div>
-        </div>
-      ))}
+<!-- METRICS (off until it's a real three-stat bar — see SHOW_METRICS above) -->
+{SHOW_METRICS && (
+  <section class="home-metrics hr">
+    <div class="hc">
+      <div class="home-metrics-grid">
+        {metricItems.map((m) => (
+          <div class="home-metric">
+            <div class="home-metric-value">{m.value}</div>
+            <div class="home-metric-label">{m.label}</div>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <!-- RESEARCH STRIP -->
 <section class="home-research hr">
@@ -610,6 +618,7 @@ const metricItems = [
           <li>Per-problem Timeline + Recap</li>
           <li>ICD, CPT, HCC coding support</li>
           <li>Pastes into any EHR</li>
+          <li>First non-clinician staff seat free</li>
         </ul>
         <a href={`${onboardUrl}&utm_content=pricing`} class="hb-accent" style="width:100%;justify-content:center;text-align:center;">Start free for 30 days →</a>
         <div class="hp-trust">No credit card · Cancel anytime · BAA included</div>
@@ -652,7 +661,7 @@ const metricItems = [
       </div>
       <div class="home-faq-item">
         <button class="home-faq-q">Is Stream HIPAA compliant?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Yes. Fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber. All data is encrypted at rest and in transit. We never train our models on your patient data.</div>
+        <div class="home-faq-a">Yes. Fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber — on every plan, including trials, with no minimum seat count. All data is encrypted at rest and in transit. We never train our models on your patient data.</div>
       </div>
       <div class="home-faq-item">
         <button class="home-faq-q">What security measures does Stream have beyond HIPAA?<span class="home-faq-icon">+</span></button>
