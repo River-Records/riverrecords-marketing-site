@@ -116,12 +116,6 @@ const metricItems = [
 .home-trust span { display: flex; align-items: center; gap: 4px; }
 .home-trust span::before { content: '✓'; color: var(--stream); font-weight: 700; }
 
-/* === TRUST BAR === */
-.home-trustbar { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--cream); padding: 18px 0; }
-.home-trustbar-inner { display: flex; align-items: center; gap: 8px; justify-content: center; flex-wrap: wrap; font-size: 1rem; }
-.home-trustbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); margin-right: 8px; }
-.home-trustbar-inner span { font-family: 'Fraunces', Georgia, serif; color: var(--ink-soft); }
-.home-trustbar-dot { color: var(--ink-mute); font-size: 0.5rem; }
 
 /* === THESIS === */
 .home-thesis { padding: 80px 0; background: var(--cream); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
@@ -139,10 +133,11 @@ const metricItems = [
 .home-thesis-card p { font-size: 0.925rem; color: var(--ink-soft); line-height: 1.6; }
 .home-thesis-card strong { color: var(--ink); }
 
-/* === CLINIC LOGOS (hidden until assets land) === */
-.home-logos { padding: 20px 0 4px; }
-.home-logos-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); text-align: center; margin-bottom: 12px; }
-.home-logos-row { display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; }
+/* === CLINIC LOGOS (label + specialties always; logo row appears when assets land) === */
+.home-logos { padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.home-logos-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); text-align: center; margin-bottom: 6px; }
+.home-logos-specialties { font-family: 'Fraunces', Georgia, serif; font-size: 0.95rem; color: var(--ink-soft); text-align: center; }
+.home-logos-row { display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; margin-top: 14px; }
 .home-logos-row img { height: 28px; width: auto; filter: grayscale(1); opacity: 0.55; }
 
 /* === TOUR === */
@@ -233,18 +228,13 @@ const metricItems = [
 .home-proof { padding: 80px 0; background: var(--paper); border-top: 1px solid var(--rule); }
 .home-proof h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 40px; }
 .home-proof h2 em { font-style: italic; color: var(--stream); }
-.home-proof-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
-.home-proof-feature { background: var(--cream); border: 1px solid var(--rule); border-radius: 16px; padding: 36px; position: relative; }
-.home-proof-feature .qm { font-family: 'Fraunces', Georgia, serif; font-size: 4rem; color: var(--stream-light); line-height: 1; position: absolute; top: 20px; left: 28px; }
-.home-proof-feature blockquote { font-family: 'Fraunces', Georgia, serif; font-size: 1.25rem; color: var(--ink); line-height: 1.5; margin: 24px 0 24px; }
-.home-proof-attr { display: flex; align-items: center; gap: 12px; }
+.home-proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.home-proof-feature { background: var(--cream); border: 1px solid var(--rule); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; }
+.home-proof-feature blockquote { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--ink); line-height: 1.5; margin-bottom: 20px; }
+.home-proof-attr { display: flex; align-items: center; gap: 12px; margin-top: auto; }
 .home-proof-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--stream-light); color: var(--stream); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600; flex-shrink: 0; }
 .home-proof-name { font-weight: 600; color: var(--ink); font-size: 0.9rem; }
 .home-proof-title { font-size: 0.78rem; color: var(--ink-mute); }
-.home-proof-stack { display: flex; flex-direction: column; gap: 12px; }
-.home-proof-mini { background: var(--cream); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; }
-.home-proof-mini blockquote { font-family: 'Fraunces', Georgia, serif; font-size: 0.95rem; color: var(--ink); line-height: 1.5; margin-bottom: 10px; font-style: italic; }
-.home-proof-mini-attr { font-size: 0.75rem; color: var(--ink-mute); }
 
 /* === PRICING === */
 .home-pricing { padding: 80px 0; }
@@ -338,7 +328,7 @@ const metricItems = [
       <div>
         <div class="home-eyebrow">Built by practicing physicians · Published in JAMA Network Open</div>
         <h1>Your AI scribe stops at the note.<br><em>Stream keeps going.</em></h1>
-        <p class="home-hero-sub">Most AI scribes write a better note. Stream builds a chart — organizing every visit by medical problem, surfacing what's falling off your radar, and keeping the longitudinal record you've spent years building actually usable.</p>
+        <p class="home-hero-sub">Faster notes today. A smarter chart tomorrow. Stream organizes every visit by medical problem — so the record you've spent years building finally works the way you think.</p>
         <div class="home-cta-row">
           <a href={`${onboardUrl}&utm_content=hero`} class="hb-primary">Start free for 30 days →</a>
           <a href="/book-demo" class="hb-secondary">Talk to a clinician first</a>
@@ -362,29 +352,16 @@ const metricItems = [
   </div>
 </section>
 
-<!-- CLINIC LOGO STRIP (hidden until logo assets land — set SHOW_CLINIC_LOGOS above) -->
-{SHOW_CLINIC_LOGOS && clinicLogos.length > 0 && (
-  <div class="home-logos">
-    <div class="hc">
-      <div class="home-logos-label">Trusted by independent practices</div>
+<!-- CLINIC LOGO STRIP (logos render once assets land — set SHOW_CLINIC_LOGOS above) -->
+<div class="home-logos">
+  <div class="hc">
+    <div class="home-logos-label">Trusted by independent practices</div>
+    <div class="home-logos-specialties">Built for primary care · Peds · DPC · SNF</div>
+    {SHOW_CLINIC_LOGOS && clinicLogos.length > 0 && (
       <div class="home-logos-row">
         {clinicLogos.map((logo) => <img src={logo.src} alt={logo.alt} loading="lazy" />)}
       </div>
-    </div>
-  </div>
-)}
-
-<!-- TRUST BAR -->
-<div class="home-trustbar">
-  <div class="hc">
-    <div class="home-trustbar-inner">
-      <span class="home-trustbar-label">Built by clinicians from</span>
-      <span>Tufts University School of Medicine</span>
-      <span class="home-trustbar-dot">·</span>
-      <span>Published in JAMA Network Open</span>
-      <span class="home-trustbar-dot">·</span>
-      <span>Primary care · Peds · DPC · SNF</span>
-    </div>
+    )}
   </div>
 </div>
 
@@ -581,7 +558,6 @@ const metricItems = [
     <h2>Built by physicians. <em>Trusted by clinicians.</em></h2>
     <div class="home-proof-grid">
       <div class="home-proof-feature">
-        <div class="qm">"</div>
         <blockquote>Stream focuses on the entire patient — perfect for DPC where progress matters more than individual encounters.</blockquote>
         <div class="home-proof-attr">
           <div class="home-proof-avatar">AB</div>
@@ -591,14 +567,24 @@ const metricItems = [
           </div>
         </div>
       </div>
-      <div class="home-proof-stack">
-        <div class="home-proof-mini">
-          <blockquote>"I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time."</blockquote>
-          <div class="home-proof-mini-attr">— Donna Kirchoff, MD, FAAP · Integrative Developmental &amp; Behavioral Peds</div>
+      <div class="home-proof-feature">
+        <blockquote>I can review and reuse information from previous visits inside Stream — creating a more comprehensive note every time.</blockquote>
+        <div class="home-proof-attr">
+          <div class="home-proof-avatar">DK</div>
+          <div>
+            <div class="home-proof-name">Donna Kirchoff, MD, FAAP</div>
+            <div class="home-proof-title">Integrative Developmental &amp; Behavioral Peds</div>
+          </div>
         </div>
-        <div class="home-proof-mini">
-          <blockquote>"I've gone from writing in the dirt to writing Rolls Royce quality."</blockquote>
-          <div class="home-proof-mini-attr">— Allen Coffman, MD · Highland Pediatrics</div>
+      </div>
+      <div class="home-proof-feature">
+        <blockquote>I've gone from writing in the dirt to writing Rolls Royce quality.</blockquote>
+        <div class="home-proof-attr">
+          <div class="home-proof-avatar">AC</div>
+          <div>
+            <div class="home-proof-name">Allen Coffman, MD</div>
+            <div class="home-proof-title">Highland Pediatrics</div>
+          </div>
         </div>
       </div>
     </div>
@@ -642,7 +628,7 @@ const metricItems = [
           <li>Bulk patient panel upload</li>
           <li>Custom onboarding and dedicated support</li>
         </ul>
-        <p class="hp-proof">One independent network started with a single clinic — and now runs most of their locations on Stream.</p>
+        <p class="hp-proof">One independent network started with a single clinic — and has since rolled Stream out across their locations.</p>
         <a href="/book-demo" class="hb-secondary" style="width:100%;justify-content:center;text-align:center;">Contact Sales →</a>
       </div>
     </div>
