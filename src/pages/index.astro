@@ -152,15 +152,15 @@ const metricItems = [
 .home-tour-lede { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.65; max-width: 600px; margin-bottom: 40px; }
 .home-tour-flow { display: flex; flex-direction: column; gap: 20px; }
 .home-tour-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.home-tour-card { background: var(--cream); border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; }
-.home-tour-card-vis { padding: 16px; background: var(--paper); border-bottom: 1px solid var(--rule); min-height: 170px; }
+.home-tour-card { background: var(--cream); border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.home-tour-card-vis { padding: 16px; background: var(--paper); border-top: 1px solid var(--rule); min-height: 170px; margin-top: auto; }
 .home-tour-card-body { padding: 24px; }
 .home-tour-card-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .home-tour-card h3 { font-size: 1.15rem; color: var(--ink); margin-bottom: 10px; }
 .home-tour-card p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; }
-.home-tour-card--wide { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
-.home-tour-card--wide .home-tour-card-vis { border-bottom: none; border-right: 1px solid var(--rule); padding: 16px; display: flex; align-items: center; min-height: auto; }
-.home-tour-card--wide .home-tour-card-body { padding: 40px; align-self: center; }
+.home-tour-card--wide .home-tour-card-vis { display: flex; justify-content: center; min-height: auto; }
+.home-tour-card--wide .home-tour-card-vis .demo-frame { max-width: 760px; }
+.home-tour-card--wide .home-tour-card-body { padding: 32px 40px; max-width: 820px; }
 .home-tour-callouts { margin-top: 20px; display: flex; flex-direction: column; gap: 6px; }
 .home-tour-callout { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--stream); letter-spacing: 0.02em; }
 .home-tour-callout::before { content: '→ '; color: var(--accent); }
@@ -306,8 +306,7 @@ const metricItems = [
   .home-thesis-grid { grid-template-columns: 1fr; }
   .home-tour-pair { grid-template-columns: 1fr; }
   .home-metrics-grid { gap: 40px; }
-  .home-tour-card--wide { grid-template-columns: 1fr; }
-  .home-tour-card--wide .home-tour-card-vis { border-right: none; border-bottom: 1px solid var(--rule); }
+  .home-tour-card--wide .home-tour-card-body { padding: 24px; }
   .home-rev-grid { grid-template-columns: 1fr; }
   .home-proof-grid { grid-template-columns: 1fr; }
   .home-pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
@@ -421,6 +420,11 @@ const metricItems = [
       <!-- Row 1: Huddle + Scratchpad -->
       <div class="home-tour-pair">
         <div class="home-tour-card">
+          <div class="home-tour-card-body">
+            <div class="home-tour-card-label">01 · HUDDLE</div>
+            <h3>Every patient, pre-organized.</h3>
+            <p>Open a patient five minutes before their visit. Huddle shows three lenses: active problems from your last three visits, problems falling off your attention past ten months, and compliance flags. Clinician priority first, revenue capture as a byproduct.</p>
+          </div>
           <div class="home-tour-card-vis">
             <div class="huddle-mini">
               <div class="huddle-mini-tabs">
@@ -433,13 +437,13 @@ const metricItems = [
               <div class="huddle-mini-row"><span class="huddle-mini-name">Diabetes · HTN · Anxiety</span><span class="huddle-mini-meta">ACTIVE</span></div>
             </div>
           </div>
-          <div class="home-tour-card-body">
-            <div class="home-tour-card-label">01 · HUDDLE</div>
-            <h3>Every patient, pre-organized.</h3>
-            <p>Open a patient five minutes before their visit. Huddle shows three lenses: active problems from your last three visits, problems falling off your attention past ten months, and compliance flags. Clinician priority first, revenue capture as a byproduct.</p>
-          </div>
         </div>
         <div class="home-tour-card">
+          <div class="home-tour-card-body">
+            <div class="home-tour-card-label">02 · SCRATCHPAD</div>
+            <h3>Type what you don't want to forget.</h3>
+            <p>Jot free-text notes during the visit in the Scratchpad. When the note generates, Stream incorporates what you wrote into the right sections. Your mental sticky notes become permanent chart content.</p>
+          </div>
           <div class="home-tour-card-vis">
             <div class="scratchpad-mock">"Mom's breast ca at 58 — update fam hx. Refill rx for 90 days. Pt wants to try walking group."</div>
             <div class="scratchpad-arrow">↓</div>
@@ -449,20 +453,10 @@ const metricItems = [
               <div><strong>HTN · Plan</strong> · refill + walking group</div>
             </div>
           </div>
-          <div class="home-tour-card-body">
-            <div class="home-tour-card-label">02 · SCRATCHPAD</div>
-            <h3>Type what you don't want to forget.</h3>
-            <p>Jot free-text notes during the visit in the Scratchpad. When the note generates, Stream incorporates what you wrote into the right sections. Your mental sticky notes become permanent chart content.</p>
-          </div>
         </div>
       </div>
       <!-- Row 2: Note -->
       <div class="home-tour-card home-tour-card--wide" id="note">
-        <div class="home-tour-card-vis" style="padding:12px;">
-          <div class="demo-frame" style="box-shadow:none;border:none;width:100%;">
-            <EncounterViewDemo client:visible />
-          </div>
-        </div>
         <div class="home-tour-card-body">
           <div class="home-tour-card-label">03 · NOTE</div>
           <h3>A/P split per problem, every visit.</h3>
@@ -473,14 +467,14 @@ const metricItems = [
             <span class="home-tour-callout">Paste-ready in any format</span>
           </div>
         </div>
+        <div class="home-tour-card-vis" style="padding:12px;">
+          <div class="demo-frame" style="box-shadow:none;border:none;width:100%;">
+            <EncounterViewDemo client:visible />
+          </div>
+        </div>
       </div>
       <!-- Row 3: Timeline + Recap -->
       <div class="home-tour-card home-tour-card--wide">
-        <div class="home-tour-card-vis" style="padding:12px;">
-          <div class="demo-frame" style="box-shadow:none;border:none;width:100%;">
-            <TimelineRecapDemo client:visible />
-          </div>
-        </div>
         <div class="home-tour-card-body">
           <div class="home-tour-card-label">04 · TIMELINE + RECAP</div>
           <h3>Open any problem. See it across time.</h3>
@@ -489,6 +483,11 @@ const metricItems = [
             <span class="home-tour-callout">Real chart data, not AI</span>
             <span class="home-tour-callout">Meds + metrics on demand</span>
             <span class="home-tour-callout">One click from any problem</span>
+          </div>
+        </div>
+        <div class="home-tour-card-vis" style="padding:12px;">
+          <div class="demo-frame" style="box-shadow:none;border:none;width:100%;">
+            <TimelineRecapDemo client:visible />
           </div>
         </div>
       </div>
