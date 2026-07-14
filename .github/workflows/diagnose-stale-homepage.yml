@@ -49,6 +49,11 @@ jobs:
             echo "NEW hero present: $(grep -c 'Your AI scribe stops at the note' /tmp/body.html)"
             echo "OLD hero present: $(grep -c 'Revolutionizing Documentation' /tmp/body.html)"
             echo "OLD tiers present: $(grep -c 'Stream for Business' /tmp/body.html)"
+            echo "consolidation - features strip: $(grep -c 'Also in every subscription' /tmp/body.html)"
+            echo "consolidation - JAMA announce: $(grep -c 'Our founders authored' /tmp/body.html)"
+            echo "consolidation - metrics bar: $(grep -c 'home-metric-value' /tmp/body.html)"
+            echo "pre-consolidation - 3-step section: $(grep -c 'Three things, in the order' /tmp/body.html)"
+            echo "pre-consolidation - 7-card grid: $(grep -c 'EVERYTHING INCLUDED' /tmp/body.html)"
             echo "first h1: $(grep -o '<h1[^>]*>.*</h1>' /tmp/body.html | head -1 | cut -c1-200)"
           }
 
