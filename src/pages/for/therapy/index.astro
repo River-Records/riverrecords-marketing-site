@@ -1,0 +1,351 @@
+---
+import Page from '../../../layouts/Page.astro';
+import HeroSection from '../../../components/HeroSection.astro';
+import ProofStrip from '../../../components/ProofStrip.astro';
+import PainCard from '../../../components/PainCard.astro';
+import PhilBlock from '../../../components/PhilBlock.astro';
+import StepMock from '../../../components/StepMock.astro';
+import FeatureCell from '../../../components/FeatureCell.astro';
+import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "name": "AI Medical Scribe for Therapy & Behavioral Health",
+      "description": "Stream is the AI scribe built for therapy and behavioral health — a problem-oriented chart that keeps treatment goals, interventions, and progress connected across months of sessions.",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Clinician",
+        "healthCondition": { "@type": "MedicalCondition", "name": "Behavioral Health Documentation" }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Stream private enough for therapy sessions?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream is fully HIPAA compliant, signs a BAA with every subscriber, and encrypts data in transit and at rest. Your patient data is never used to train AI models." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Stream write psychotherapy notes?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream documents the clinical record — the progress note with assessment, interventions, and plan, structured by problem. Under HIPAA, psychotherapy notes are a distinct category kept separate from the medical record, and Stream does not produce them." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to record my sessions?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Stream works ambient, capturing the session as it happens, or from direct dictation afterward in your own words. Many clinicians use both depending on the session." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Stream handle a client seen weekly for a year?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Each problem being treated gets its own block that updates every session, so goals, interventions, and progress stay connected across the whole course of care rather than scattered across fifty dated notes." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Stream work with my EHR?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream pastes into any EHR and can also be used as a standalone documentation layer. Native integrations are rolling out, starting with Elation and then Athena." }
+        }
+      ]
+    }
+  ]
+};
+---
+<Page
+  title="AI Medical Scribe for Therapy & Behavioral Health — Stream"
+  description="Stream is the AI scribe built for therapy. It organizes every session by the problem being treated, so goals, interventions, and progress stay connected across months of care. 30-day free trial.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</Fragment>
+
+<style>
+/* Pain section */
+.pain { padding: 72px 0 60px; }
+.pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 600px; line-height: 1.65; margin-bottom: 36px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* How it works */
+.how { padding: 88px 0 72px; }
+.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
+.how-header h2 em { font-style: italic; color: var(--primary); }
+.how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+.how-steps { display: flex; flex-direction: column; }
+.how-step { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 60px 0; border-top: 1px solid var(--border); }
+.how-step:last-child { border-bottom: 1px solid var(--border); }
+.how-step.reverse .how-step-visual { order: -1; }
+.how-step-num { font-family: var(--font-serif); font-size: 0.82rem; color: var(--primary); margin-bottom: 12px; letter-spacing: 0.02em; }
+.how-step h3 { font-size: clamp(1.45rem, 2.4vw, 1.85rem); color: var(--ink); margin-bottom: 12px; }
+.how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
+.how-step-aside { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; padding-left: 14px; border-left: 2px solid var(--border-strong); line-height: 1.55; }
+
+/* Pricing callout */
+.pricing-callout { padding: 64px 0; }
+.pricing-card { background: var(--white); border: 1.5px solid rgba(15,26,20,0.2); border-radius: var(--r-xl); padding: 40px; max-width: 480px; margin: 0 auto; box-shadow: var(--shadow-md); text-align: center; position: relative; overflow: hidden; }
+.pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+.pricing-card h2 { font-size: 2rem; color: var(--ink); margin-bottom: 10px; }
+.pricing-card p { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 24px; }
+.pricing-card .btn-primary-lg { max-width: 360px; width: 100%; display: block; margin: 0 auto; text-align: center; }
+.pricing-small { font-size: 0.78rem; color: var(--ink-faint); margin-top: 12px; }
+.pricing-clinic { font-size: 0.85rem; color: var(--ink-muted); text-align: center; max-width: 480px; margin: 18px auto 0; line-height: 1.6; }
+
+/* FAQ */
+.therapy-faq { padding: 64px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.therapy-faq-inner { max-width: 720px; }
+.therapy-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
+.therapy-faq h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; }
+.therapy-faq p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.68; }
+
+/* Research line */
+.therapy-research { padding: 48px 0 8px; text-align: center; }
+.therapy-research p { font-size: 0.92rem; color: var(--ink-faint); }
+.therapy-research a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.therapy-research a:hover { text-decoration: underline; }
+
+/* Final CTA */
+.final-cta { padding: 56px 0 88px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pain-cards { grid-template-columns: 1fr; }
+  .how-step { grid-template-columns: 1fr; gap: 28px; }
+  .how-step.reverse .how-step-visual { order: 0; }
+}
+</style>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow="Built for Therapy & Behavioral Health"
+  sub="Therapy is a course of care, not a series of hours. Stream organizes every session by the problem being treated — so goals, interventions, and progress stay connected across months of work instead of scattered across dated notes."
+  primaryLabel="Start free for 30 days"
+  secondaryHref="/book-demo"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
+>
+  The AI scribe that holds<br><em>the thread between sessions.</em>
+</HeroSection>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Built by practicing physicians", "Works alongside any EHR", "BAA with every subscriber", "Never trains on your data"]} />
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <span class="section-label reveal">Why therapy needs a different kind of scribe</span>
+    <h2 class="reveal">A course of therapy isn't<br>a stack of hour-long notes.</h2>
+    <p class="pain-lead reveal">Most AI scribes are built for the fifteen-minute medical encounter — capture it, close it, move on. Therapy doesn't work that way. The work is cumulative: what happened in week three shapes what you do in week eleven. A scribe that treats every session as a standalone note captures the hour and loses the course.</p>
+    <div class="pain-cards reveal">
+      <PainCard icon="🕐" title="The notes pile up behind back-to-back sessions" body="Six or seven hours with no gap between them, and the documentation waits until the end of the day. The note you write at 7pm about the 9am session is the thinnest one you'll write all week." />
+      <PainCard icon="🧵" title="Every session starts by re-reading the last one" body="What did we work on? What did they agree to try? Where did we leave the safety plan? Scrolling back through months of dated notes before each session isn't clinical work." />
+      <PainCard icon="📉" title="Progress is the hardest thing to document" body="Payers want to see movement toward treatment goals. But when every note lives on its own, showing the arc from intake to today means reconstructing it by hand." />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 56px 0;">
+  <div class="container">
+    <PhilBlock label="Why therapy needs something different" name="Jake Kantrowitz, MD" title="Co-Founder, River Records">
+      "Therapy is the clearest case for the way we built Stream. The unit of care was never the session — it's the problem being treated, followed over months. A chart organized by date buries that. A chart organized by problem shows it."
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Designed around the way <em>therapy</em> actually works.</h2>
+      <p>A course of care, not a calendar of appointments.</p>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 01 — Before the session</div>
+          <h3>Walk in knowing exactly where you left off.</h3>
+          <p>Before each session, Huddle surfaces the active problems, what's been drifting, and anything still outstanding — drawn from the whole course of treatment. Where the plan stood, what was assigned, what moved and what didn't.</p>
+          <p class="how-step-aside">Thirty seconds of review instead of ten minutes of scrolling.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Pre-Session Huddle" flush>
+            <div id="th-huddle"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 02 — During the session</div>
+          <h3>Record it, or dictate after. Your call.</h3>
+          <p>Some sessions you'll capture ambient. Some you won't — and in therapy that's a clinical decision, not a technical one. Stream works either way: ambient capture while you talk, or direct dictation afterward in your own words. The note comes back structured by problem and ready for you to review and edit.</p>
+          <p class="how-step-aside">22 languages supported. Templates you can shape to your own documentation style.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Recording in progress">
+            <div id="th-waveform"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 03 — Across the course of care</div>
+          <h3>The whole treatment arc, at a glance.</h3>
+          <p>Each problem you're treating — the depressive episode, the panic, the trauma work, the substance use — gets its own block that updates every session. Goals, interventions tried, what's shifted and what hasn't, all in one place instead of reassembled by hand from a year of notes.</p>
+          <p class="how-step-aside">Pastes into any EHR today. Native integrations are rolling out — Elation first, then Athena.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem List" flush>
+            <div id="th-problems"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 04 — Between sessions</div>
+          <h3>Nothing falls through the week.</h3>
+          <p>Releases of information, referrals, coordination with a prescriber, screeners coming due, homework to revisit — extracted from each session automatically and tied to the problem they belong to. Outside records like discharge summaries, psychiatric consults, and prior treatment records get summarized and filed under the right problem.</p>
+          <p class="how-step-aside">The follow-through happens whether or not you remembered to write it down.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Auto-Generated Tasks" flush>
+            <div id="th-tasks"></div>
+          </StepMock>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">How Stream fits the behavioral health workflow</span>
+      <h2>Every feature earns its place in a full caseload.</h2>
+    </div>
+    <div class="features-grid reveal">
+      <FeatureCell icon="🗂️" title="Problem-Oriented Chart" body="Each condition you're treating gets its own living block that updates every session. The course of treatment is visible at a glance, not reconstructed from a year of dated notes." />
+      <FeatureCell icon="🎙️" title="Ambient or Dictated" body="Capture the session as it happens, or dictate afterward in your own words. Stream returns a structured, reviewable note either way." />
+      <FeatureCell icon="♻️" title="Reuse Prior Documentation" body="Pull forward the treatment plan, goals, and interventions from previous sessions instead of retyping them — a more complete note in less time." />
+      <FeatureCell icon="🔭" title="Pre-Session Huddle" body="See active problems, what's fallen off your attention, and outstanding items before the session starts — not after it's over." />
+      <FeatureCell icon="✅" title="Automatic Task Tracking" body="Releases, referrals, screeners, and follow-ups are extracted from each session and tied to the relevant problem so nothing slips between weeks." />
+      <FeatureCell icon="🔒" title="Private by Design" body="HIPAA compliant, BAA with every subscriber, encrypted in transit and at rest. Your patient data never trains our models." />
+    </div>
+  </div>
+</section>
+
+<!--
+  TESTIMONIALS — intentionally omitted until we have real quotes from behavioral
+  health clinicians. To add: import TestimonialCard, copy the .testimonials /
+  .tgrid block from /for/pediatrics, and drop it in above the pricing callout.
+-->
+
+<!-- PRICING CALLOUT -->
+<section class="pricing-callout">
+  <div class="container">
+    <div class="pricing-card reveal">
+      <h2>{pricing.calloutHeadline}</h2>
+      <p>{pricing.calloutBody}</p>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Start free for 30 days</a>
+      <div class="pricing-small">{pricing.calloutSmall}</div>
+    </div>
+    <p class="pricing-clinic reveal">Group practices and behavioral health teams can ask about per-seat Clinic pricing.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="therapy-faq">
+  <div class="container">
+    <div class="therapy-faq-inner reveal">
+      <h2>Frequently asked questions</h2>
+      <h3>Is Stream private enough for therapy sessions?</h3>
+      <p>Stream is fully HIPAA compliant, signs a BAA with every subscriber, and encrypts data in transit and at rest. Your patient data is never used to train AI models.</p>
+      <h3>Does Stream write psychotherapy notes?</h3>
+      <p>Stream documents the clinical record — the progress note with assessment, interventions, and plan, structured by problem. Under HIPAA, psychotherapy notes are a distinct category kept separate from the medical record, and Stream does not produce them.</p>
+      <h3>Do I have to record my sessions?</h3>
+      <p>No. Stream works ambient, capturing the session as it happens, or from direct dictation afterward in your own words. Many clinicians use both depending on the session.</p>
+      <h3>How does Stream handle a client seen weekly for a year?</h3>
+      <p>Each problem being treated gets its own block that updates every session, so goals, interventions, and progress stay connected across the whole course of care rather than scattered across fifty dated notes.</p>
+      <h3>Does Stream work with my EHR?</h3>
+      <p>Stream pastes into any EHR and can also be used as a standalone documentation layer. Native integrations are rolling out, starting with Elation and then Athena.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH LINE -->
+<section class="therapy-research">
+  <div class="container">
+    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research">Read the research →</a></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first">
+      Built for the way therapy actually works.<br><em>A course of care, not a calendar of hours.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Behavioral health datasets — override the widgets' primary care defaults.
+  StreamWidgets.ProblemSummaryCard('#th-huddle', {
+    data: {
+      title: "Major Depressive Disorder, Recurrent",
+      status: "Active",
+      icd: "F33.1",
+      summary: "PHQ-9 down from 19 at intake to 11 last session. Behavioral activation schedule holding on weekdays, slipping on weekends. Sleep remains the limiting factor — averaging five hours. Returned to work part-time three weeks ago. Sertraline increased by the prescriber last month; no follow-up scheduled yet.",
+      medications: [
+        { name: "Sertraline 100 mg daily", status: "Active" },
+        { name: "Trazodone 50 mg nightly", status: "New" },
+        { name: "Sertraline 50 mg daily", status: "D/C" },
+      ],
+      lastUpdated: "6 days ago",
+    },
+  });
+
+  StreamWidgets.WaveformWidget('#th-waveform', { autoStart: true });
+
+  StreamWidgets.ProblemListWidget('#th-problems', {
+    unitLabel: "sessions",
+    problems: [
+      { name: "Major Depressive Disorder, Recurrent", status: "Active", encounters: 18, icd: "F33.1" },
+      { name: "Generalized Anxiety Disorder", status: "Active", encounters: 14, icd: "F41.1" },
+      { name: "Post-Traumatic Stress Disorder", status: "Active", encounters: 9, icd: "F43.10" },
+      { name: "Alcohol Use Disorder, Moderate", status: "Stable", encounters: 7, icd: "F10.20" },
+      { name: "Insomnia Disorder", status: "Resolved", encounters: 4, icd: "F51.01" },
+    ],
+  });
+
+  StreamWidgets.TaskListWidget('#th-tasks', {
+    tasks: [
+      { text: "Review and update safety plan contacts", due: "Apr 11", tag: "Urgent", done: false },
+      { text: "PHQ-9 and GAD-7 at next session", due: "Apr 16", tag: "Routine", done: false },
+      { text: "Coordinate sertraline follow-up with prescriber", due: "Apr 14", tag: "Routine", done: false },
+      { text: "Send ROI for prior treatment records", due: "Apr 9", tag: "Routine", done: false },
+      { text: "Assign sleep hygiene worksheet", due: "Apr 8", tag: "Routine", done: true },
+    ],
+  });
+});
+</script>
+
+</Page>
