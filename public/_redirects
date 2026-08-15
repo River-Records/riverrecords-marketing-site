@@ -42,3 +42,6 @@
 # Fixed blog slug typos (July 2026 cleanup)
 /blog/ai-symmptom-extraction-research-86-percent-accuracy/  /blog/ai-symptom-extraction-research-86-percent-accuracy/  301
 /blog/the-problem-with-ehr-workflowswhy-its-time-for-a-redesign/  /blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/  301
+
+# Stream Inlet — brand-name URL points at the page's descriptive slug
+/inlet  /intake  301

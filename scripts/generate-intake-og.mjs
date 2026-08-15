@@ -1,5 +1,5 @@
 /**
- * Generates the Stream Intake OG image (1200x630) at public/intake/og-intake.png.
+ * Generates the Stream Inlet OG image (1200x630) at public/intake/og-intake.png.
  *
  * The image is the excerpt-to-source-highlight moment, drawn from the same
  * fictional demo data the page uses (src/components/demos/demo-data.js) — no real
@@ -70,7 +70,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .badge { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#8b9a92; }
 </style></head><body>
   <div class="wrap">
-    <div class="eyebrow">Stream Intake</div>
+    <div class="eyebrow">Stream Inlet</div>
     <h1>Every fact, one click from the page it came from.</h1>
     <div class="panes">
       <div class="pane">
