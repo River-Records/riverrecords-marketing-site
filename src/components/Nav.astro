@@ -1,3 +1,9 @@
+---
+const {
+  ctaLabel = 'Start free trial',
+  ctaHref = 'https://stream.riverrecords.ai/onboard/stream-pro',
+} = Astro.props;
+---
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -30,7 +36,7 @@
     </ul>
     <div class="nav-actions">
       <a href="https://stream.riverrecords.ai/login" class="nav-login">Log In</a>
-      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary nav-cta">Start free trial</a>
+      <a href={ctaHref} class="btn btn-primary nav-cta">{ctaLabel}</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -53,7 +59,7 @@
   <a href="/#pricing" class="mobile-menu-link">Pricing</a>
   <a href="/#faq" class="mobile-menu-link">FAQ</a>
   <a href="https://stream.riverrecords.ai/login" class="mobile-menu-link">Log In</a>
-  <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="mobile-menu-link highlight">Start free trial →</a>
+  <a href={ctaHref} class="mobile-menu-link highlight">{ctaLabel} →</a>
 </div>
 
 <style>

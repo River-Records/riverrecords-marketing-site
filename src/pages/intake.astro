@@ -22,6 +22,7 @@ const avail = LAUNCHED
       closing: 'is on Stream Pro today.',
       faqPlan: 'Stream Pro.',
       ctaTrust: 'Available on Stream Pro',
+      navCta: { ctaLabel: 'Start free trial', ctaHref: 'https://stream.riverrecords.ai/onboard/stream-pro' },
     }
   : {
       eyebrow: 'Next week on Stream Pro',
@@ -30,6 +31,8 @@ const avail = LAUNCHED
       closing: 'is coming to Stream Pro next week.',
       faqPlan: 'Stream Pro, as a metered add-on. It ships next week.',
       ctaTrust: 'Coming to Stream Pro',
+      // Pre-launch the nav must not offer a trial of a product that isn't out.
+      navCta: { ctaLabel: 'Book a demo', ctaHref: '/book-demo' },
     };
 
 // S4 asset. The live demo component ships today; flip HAS_S4_VIDEO to true once a
@@ -751,7 +754,7 @@ const trustPoints = [
 </style>
 
 <div class="intake-page">
-<Nav />
+<Nav ctaLabel={avail.navCta.ctaLabel} ctaHref={avail.navCta.ctaHref} />
 
 <!-- STICKY CTA — shows after S2 -->
 <div class="intake-sticky" id="intake-sticky">
@@ -766,7 +769,7 @@ const trustPoints = [
   <div class="ic">
     <div class="hero-eyebrow">{avail.eyebrow}</div>
     <h1>Your fax line, finally connected to the chart.</h1>
-    <p class="hero-sub">Stream reads every record that arrives, files it to the right patient, and lays its clinical content out under the problems it belongs to — as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from.</p>
+    <p class="hero-sub">{PRODUCT} reads every record that arrives at Stream — by fax or by upload — files it to the right patient, and lays its clinical content out under the problems it belongs to, as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from. Nothing is filed, written, or actioned without a human decision.</p>
     <div class="hero-actions">
       <a href={demoUrl} class="ib-primary" data-intake-cta="hero">Book a demo →</a>
       <a href="#s4" class="ib-secondary" data-intake-cta="hero-how">See how it works</a>
@@ -775,8 +778,6 @@ const trustPoints = [
       <span>{avail.trust}</span>
       <span class="hero-trust-dot"></span>
       <span>Keep your existing fax line</span>
-      <span class="hero-trust-dot"></span>
-      <span>Works alongside any EHR</span>
       <span class="hero-trust-dot"></span>
       <span>HIPAA compliant</span>
     </div>

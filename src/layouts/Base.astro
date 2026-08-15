@@ -6,6 +6,10 @@ const {
   canonicalUrl = Astro.url.href
 } = Astro.props;
 
+// og:image and twitter:image must be absolute — several scrapers (LinkedIn and
+// Slack among them) drop relative paths, so share cards render without an image.
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
+
 const siteName = "Stream by River Records";
 const twitterHandle = "@riverrecordshq";
 ---
@@ -37,14 +41,14 @@ const twitterHandle = "@riverrecordshq";
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={ogImageUrl} />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content={twitterHandle} />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image" content={ogImageUrl} />
 
   <!-- Indexing -->
   <meta name="robots" content="index, follow" />
