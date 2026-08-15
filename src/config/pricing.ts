@@ -73,9 +73,9 @@ export const inletPricing = {
   setupFeeDisplay: '$299',
   overagePerPage: 0.14,
   tiers: [
-    { name: 'Starter',   pages: 500,   monthly: 89,  display: '$89',  fit: 'Roughly 8 faxes a day' },
-    { name: 'Practice',  pages: 1500,  monthly: 199, display: '$199', fit: 'Roughly 19 a day — where most two-clinician practices land' },
-    { name: 'Practice+', pages: 3000,  monthly: 349, display: '$349', fit: 'Roughly 38 a day — heavy referral, imaging and records traffic' },
+    { name: 'Starter',   pages: 500,   monthly: 89,  display: '$89',  fit: 'Typically a solo or two-clinician office' },
+    { name: 'Practice',  pages: 1500,  monthly: 199, display: '$199', fit: 'Typically a small group' },
+    { name: 'Practice+', pages: 3000,  monthly: 349, display: '$349', fit: 'Typically a larger clinic — or heavy referral, imaging and records traffic at any size' },
   ],
   includes: 'Every plan includes your fax number, unlimited users, and processing of every page in your plan. Extra pages $0.14. We notify you at 80% of your allowance. Junk faxes are filtered and never billed.',
   addOnNote: 'Stream Inlet is metered, and sits on top of your Stream Pro subscription.',
