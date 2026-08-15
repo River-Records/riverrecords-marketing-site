@@ -232,6 +232,8 @@ export const INTAKE_DOCUMENT = {
   date: "3/15/24",
   pageCount: 12,
   stamp: "from Discharge Summary — Dr. A. Chen, Riverside Medical Center, 3/15/24",
+  summary:
+    "64-year-old woman admitted 3/11/24 with hyperglycemia and fatigue. Hospital course covered diabetes, hypertension and CKD, with a medication change in each. Discharged 3/15/24.",
 };
 
 // Mock scanned pages. `id` lines are the ones facts point back to.

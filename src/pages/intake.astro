@@ -25,7 +25,7 @@ const demoUrl = `/book-demo${utm}`;
 const faqs = [
   {
     q: 'Which fax carriers does Stream support?',
-    a: 'Inbound faxing runs on Sinch and Spruce Health. Stream provisions numbers for your practice on either.',
+    a: 'Inbound faxing runs on Sinch and Spruce Health. Sinch numbers are provisioned and managed by River Records. Spruce numbers run on your clinic’s own Spruce account, which your clinic manages. Pricing differs between the two — tell us which you’d prefer and we’ll walk you through it.',
   },
   {
     q: 'Do we have to give up our current fax number?',
@@ -49,11 +49,11 @@ const faqs = [
   },
   {
     q: 'Can I upload documents that didn’t come by fax?',
-    a: 'Yes — up to 10 PDFs at a time, 15MB each, from the Documents page.',
+    a: 'Yes. PDFs — up to 10 at a time, 15MB each — plus text files, or text pasted straight in, all from the Documents page.',
   },
   {
     q: 'What plan is this on?',
-    a: 'Stream Pro.',
+    a: 'Stream Pro. It ships shortly — book a demo and we’ll show you where it stands.',
   },
 ];
 
@@ -439,6 +439,7 @@ const trustPoints = [
 .mock-med-name { font-weight: 600; color: var(--ink); }
 .mock-med-detail { font-size: 0.76rem; color: var(--ink-muted); }
 .mock-med-change { font-size: 0.66rem; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+.mock-summary { font-size: 0.84rem; line-height: 1.65; color: var(--ink-muted); margin-bottom: 4px; }
 .mock-note {
   font-size: 0.72rem;
   color: var(--ink-faint);
@@ -693,7 +694,7 @@ const trustPoints = [
 <!-- STICKY CTA — shows after S2 -->
 <div class="intake-sticky" id="intake-sticky">
   <div class="intake-sticky-inner">
-    <div class="intake-sticky-label">{PRODUCT} <span>· Available on Stream Pro</span></div>
+    <div class="intake-sticky-label">{PRODUCT} <span>· Coming to Stream Pro</span></div>
     <a href={demoUrl} class="ib-primary" data-intake-cta="sticky">Book a demo →</a>
   </div>
 </div>
@@ -701,7 +702,7 @@ const trustPoints = [
 <!-- S1 — HERO -->
 <section class="s-hero" id="s1">
   <div class="ic">
-    <div class="hero-eyebrow">Now on Stream Pro</div>
+    <div class="hero-eyebrow">Coming soon to Stream Pro</div>
     <h1>Your fax line, finally connected to the chart.</h1>
     <p class="hero-sub">Stream reads every record that arrives, files it to the right patient, and lays its clinical content out under the problems it belongs to — as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from.</p>
     <div class="hero-actions">
@@ -709,7 +710,7 @@ const trustPoints = [
       <a href="#s4" class="ib-secondary" data-intake-cta="hero-how">See how it works</a>
     </div>
     <div class="hero-trust">
-      <span>Available on Stream Pro</span>
+      <span>Coming to Stream Pro</span>
       <span class="hero-trust-dot"></span>
       <span>Keep your existing fax line</span>
       <span class="hero-trust-dot"></span>
@@ -840,8 +841,8 @@ const trustPoints = [
       <div class="how-step">
         <div class="how-step-num">01</div>
         <h3>It arrives.</h3>
-        <p>Stream provisions a fax number for your practice on either of two carriers. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
-        <p>Not a fax? Drag in up to 10 PDFs at a time from the Documents page. Same pipeline from there on.</p>
+        <p>Inbound faxing runs on two carriers. Sinch numbers are provisioned and managed by River Records; Spruce numbers run on your clinic’s own Spruce account. Pricing differs between the two. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
+        <p>Not a fax? Upload PDFs — up to 10 at a time — or text files, or paste text straight in, from the Documents page. Same pipeline from there on.</p>
       </div>
 
       <div class="how-step">
@@ -1060,6 +1061,42 @@ const trustPoints = [
   </div>
 </section>
 
+<!-- S8b — OUTPUT 4: DOCUMENT SUMMARY -->
+<!-- NEW COPY, not from the v1 deck — added on Jacob's correction that document
+     summaries are a real output and can be included as note context. Needs sign-off.
+     Numbered S8b so the deck's S6/S7/S8 section IDs stay stable. -->
+<section class="s-output s-output-alt ir" id="s8b">
+  <div class="ic">
+    <div class="output-grid">
+      <div>
+        <div class="il">OUTPUT 4 — THE SUMMARY</div>
+        <h2>Sometimes you want the document, not the facts.</h2>
+        <p>Stream gives every document a name, a date, and a short clinical summary — enough to know what arrived without opening twelve pages of it.</p>
+        <p>The summary sits in the review panel next to the excerpts, medications and proposed tasks, everywhere that panel is mounted.</p>
+        <p>When you want it in a note, <strong>Include in note</strong> puts it there as an attributed quote — the same explicit click as any other outside content. The entire document can go in the same way.</p>
+        <p>Like everything else on this page, nothing about it happens on its own.</p>
+      </div>
+      <div class="mock">
+        <div class="mock-marker">Demo — fake patient data — not a real chart</div>
+        <div class="mock-head">
+          <span class="mock-title">Document summary</span>
+          <span class="mock-meta">{INTAKE_DOCUMENT.type} · {INTAKE_DOCUMENT.date}</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-problem">{INTAKE_DOCUMENT.title}</div>
+          <div class="mock-stamp">{INTAKE_DOCUMENT.stamp}</div>
+          <p class="mock-summary">{INTAKE_DOCUMENT.summary}</p>
+          <div class="mock-chiprow">
+            <span class="mock-chip mock-chip-on">Include in note</span>
+            <span class="mock-chip">Include full document</span>
+            <span class="mock-chip">Mark reviewed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- S9 — THE GUARANTEE -->
 <section class="s-guarantee" id="s9">
   <div class="ic">
@@ -1166,12 +1203,12 @@ const trustPoints = [
   <div class="ic">
     <div class="cta-inner">
       <h2>Stop looking for information you already have.</h2>
-      <p>If a fact has to be resurfaced, it was lost. {PRODUCT} is on Stream Pro today.</p>
+      <p>If a fact has to be resurfaced, it was lost. {PRODUCT} is coming to Stream Pro.</p>
       <div class="cta-actions">
         <a href={demoUrl} class="ib-white" data-intake-cta="closing">Book a demo →</a>
         <a href="/contact" class="ib-outline-white" data-intake-cta="closing-fax">Talk to us about your fax volume</a>
       </div>
-      <p class="cta-trust">Available on Stream Pro · hello@riverrecords.ai · We respond same day.</p>
+      <p class="cta-trust">Coming to Stream Pro · hello@riverrecords.ai · We respond same day.</p>
     </div>
   </div>
 </section>

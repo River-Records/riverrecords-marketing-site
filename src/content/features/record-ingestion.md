@@ -3,22 +3,24 @@ slug: "record-ingestion"
 name: "Record Ingestion"
 description: "Outside documents, filed under the problems they're about."
 headline: "Record Ingestion — Outside Records, Filed by Problem"
-subheadline: "Fax or upload a record. Stream reads it, proposes a patient match, and lays its clinical content out under the problems it belongs to — for a person to review."
+subheadline: "Fax, upload or paste a record. Stream reads it, proposes a patient match, and lays its clinical content out under the problems it belongs to — for a person to review."
 seoTitle: "Record Ingestion for Outside Documents | Stream"
-seoDescription: "Stream reads inbound faxes and uploaded PDFs and sorts their content under the problems it belongs to. Every fact links to its page. Nothing is auto-filed."
+seoDescription: "Stream reads inbound faxes, uploads and pasted text, and sorts their content under the problems it belongs to. Every fact links to its page. Nothing is auto-filed."
 hasPage: true
 draft: false
 order: 7
 tags: []
 bullets:
-  - "Inbound fax and PDF upload"
+  - "Inbound fax, PDF upload, text files or pasted text"
+  - "A short clinical summary of every document"
   - "Excerpts filed under each problem"
   - "Every fact links to its source page"
-  - "Proposed tasks, each with the quote that justifies it"
-  - "Nothing reaches your note without an explicit click"
+  - "Proposed tasks you approve, never auto-created"
 faq:
   - question: "Does Stream store the original documents?"
     answer: "Yes. The original is kept, and every excerpt points back into it — click a fact and the source opens at the sentence it came from, highlighted."
+  - question: "Do I review things before they land?"
+    answer: "Yes. You approve excerpts and proposed tasks, and you decide whether an extracted medication list goes into your documentation. Nothing is auto-filed and nothing is created behind your back."
   - question: "Does Stream update the chart automatically?"
     answer: "No, and that's deliberate. Every excerpt, medication list, and proposed task waits for a human decision. Stream's job is to put the right thing in front of the right person, ready to accept in one click."
   - question: "Does it reconcile our medication list?"
@@ -29,17 +31,25 @@ faq:
 
 Every clinician knows the feeling — a new patient arrives with years of records from outside systems: scanned PDFs, faxed letters, printouts from old EHRs. You spend half the visit scrolling, searching, and summarizing before you can even begin to plan care.
 
-Stream’s **Record Ingestion** is the pipeline that fixes that. It ships as **[Stream Inlet](/intake)**, available on Stream Pro.
+Stream’s **Record Ingestion** is the pipeline that fixes that. It ships as **[Stream Inlet](/intake)**, coming to Stream Pro.
 
-Fax a record to your Stream number, or drag up to 10 PDFs at a time into the Documents page. Every page goes through OCR that captures the text *and its position* — so every fact can point back to its exact spot later. Stream proposes a patient match, and a person confirms it before anything is filed.
+Get a record in however it reaches you. Fax it — inbound faxing runs on Sinch, provisioned and managed by River Records, or on your clinic’s own Spruce account, which your clinic manages. Or upload PDFs and text files from the Documents page, or paste text straight in. Everything goes down the same pipeline from there.
 
-From there the document’s clinical content comes out as **excerpts** — one per document, per problem. A discharge summary touching diabetes, hypertension, and CKD produces three excerpts, one filed under each problem, each labeled with who wrote it and where it came from.
+Every page goes through OCR that captures the text *and its position* — so every fact can point back to its exact spot later. Stream proposes a patient match, and a person confirms it before anything is filed.
 
-They’re extracted, not written. Stream pulls facts and classifies them; it doesn’t compose prose about your patient. Every fact is checked against a verbatim span of the source, and facts that can’t be grounded in the actual text are dropped, not shown.
+Then the document’s content comes out in four forms.
 
-**Nothing is auto-filed.** Excerpts, medications, and proposed tasks all wait for a human decision.
+A **summary** — every document gets a name, a date, and a short clinical summary, so you know what arrived without reading twelve pages of it.
 
-And outside records inform the clinician — they never write the clinician’s note. The only way outside content enters a note is one explicit click, **Include in note**, which inserts it as an attributed quote.
+**Excerpts** — one per document, per problem. A discharge summary touching diabetes, hypertension, and CKD produces three excerpts, one filed under each problem, each labeled with who wrote it and where it came from. They’re extracted, not written: Stream pulls facts and classifies them rather than composing prose about your patient, every fact is checked against a verbatim span of the source, and facts that can’t be grounded in the actual text are dropped rather than shown.
+
+**Medications** — what that one document says, each verified against the source and linked to its line on the page. It isn’t a reconciled list, and Stream says so rather than implying otherwise.
+
+**Proposed tasks** — the follow-ups the document is actually asking for, each carrying the exact quote that justifies it. Proposals stay proposals until you accept them.
+
+**Nothing is auto-filed.** You approve excerpts and proposed tasks, and you decide whether an extracted medication list goes into your documentation.
+
+And outside records inform the clinician — they never write the clinician’s note. The only way outside content enters a note is one explicit click, **Include in note**, which inserts it as an attributed quote. The summary and the full document can go in the same way, by the same click.
 
 The next time you see the patient, you’re not digging through attachments — you’re continuing from where someone else left off.
 
