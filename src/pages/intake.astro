@@ -4,10 +4,33 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import IntakeProvenanceDemo from '../components/demos/IntakeProvenanceDemo.vue';
 import { INTAKE_MEDICATIONS, INTAKE_TASKS, INTAKE_EXCERPTS, INTAKE_DOCUMENT } from '../components/demos/demo-data.js';
+import { inletPricing } from '../config/pricing';
 
 // Product name — the copy deck's [PRODUCT NAME] placeholder resolves here.
 // Changing this one line renames the product everywhere on the page.
 const PRODUCT = 'Stream Inlet';
+
+// Launch state. Pre-launch copy says it ships next week; flip LAUNCHED to true on
+// launch day and every availability string below reverts to the deck's own wording.
+// "Next week" is dated copy — it is wrong the moment it ships, so do not leave it.
+const LAUNCHED = false;
+const avail = LAUNCHED
+  ? {
+      eyebrow: 'Now on Stream Pro',
+      trust: 'Available on Stream Pro',
+      sticky: '· Available on Stream Pro',
+      closing: 'is on Stream Pro today.',
+      faqPlan: 'Stream Pro.',
+      ctaTrust: 'Available on Stream Pro',
+    }
+  : {
+      eyebrow: 'Next week on Stream Pro',
+      trust: 'Coming to Stream Pro',
+      sticky: '· Coming to Stream Pro',
+      closing: 'is coming to Stream Pro next week.',
+      faqPlan: 'Stream Pro, as a metered add-on. It ships next week.',
+      ctaTrust: 'Coming to Stream Pro',
+    };
 
 // S4 asset. The live demo component ships today; flip HAS_S4_VIDEO to true once a
 // recording made from the demo components lands in public/intake/ and the <video>
@@ -25,7 +48,7 @@ const demoUrl = `/book-demo${utm}`;
 const faqs = [
   {
     q: 'Which fax carriers does Stream support?',
-    a: 'Inbound faxing runs on Sinch and Spruce Health. Sinch numbers are provisioned and managed by River Records. Spruce numbers run on your clinic’s own Spruce account, which your clinic manages. Pricing differs between the two — tell us which you’d prefer and we’ll walk you through it.',
+    a: 'Two options. Sinch is the River Records option — we provision the number, whitelist it and manage it for you, and it is what we recommend. Spruce Health is supported as an integration for practices already running Spruce: the number lives on your own Spruce account and your clinic manages it.',
   },
   {
     q: 'Do we have to give up our current fax number?',
@@ -33,7 +56,7 @@ const faqs = [
   },
   {
     q: 'So how do senders find us?',
-    a: 'You call them. In practice, a short list of senders — the hospital, the two or three specialty groups you refer to most, the imaging center — accounts for most of what arrives. Give those offices your Stream number and the bulk of your inbound volume moves over in an afternoon. The rest follows as you update your directory listings and referral forms.\n\nAnything that still comes to the old line, or arrives on paper, can be dragged into Stream from the Documents page and goes through exactly the same pipeline.',
+    a: 'We call them. A short list of senders — the hospital records department, the two or three specialty groups you refer to most, the imaging center — accounts for most of what arrives. We contact your highest-volume senders with your new number as part of setup, so the bulk of your inbound volume moves over without your front desk picking up the phone. The rest follows as you update your directory listings and referral forms.\n\nAnything that still comes to the old line, or arrives on paper, can be dragged into Stream from the Documents page and goes through exactly the same pipeline.',
   },
   {
     q: 'What happens when a hospital sends 40 pages covering three patients?',
@@ -53,7 +76,11 @@ const faqs = [
   },
   {
     q: 'What plan is this on?',
-    a: 'Stream Pro. It ships shortly — book a demo and we’ll show you where it stands.',
+    a: avail.faqPlan,
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Stream Inlet is metered on top of Stream Pro: $89/month for 500 pages, $199 for 1,500, or $349 for 3,000, plus a $299 setup fee. Extra pages are $0.14. Your fax number and unlimited users are included, and junk faxes are filtered and never billed.',
   },
 ];
 
@@ -568,6 +595,40 @@ const trustPoints = [
 .door-card h3 { font-size: 1.1rem; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
 .door-card p { font-size: 0.9rem; line-height: 1.66; color: var(--ink-muted); }
 
+/* S11b — pricing */
+.s-price { padding: 84px 0; }
+.s-price h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
+.price-lede { font-size: 1rem; line-height: 1.72; color: var(--ink-muted); max-width: 60ch; margin-bottom: 36px; }
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 22px; }
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.price-card--mid { border: 1.5px solid var(--primary-border); box-shadow: var(--shadow-md); }
+.price-name { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+.price-amt { font-family: var(--font-serif); font-size: 2.4rem; line-height: 1; color: var(--ink); letter-spacing: -0.02em; }
+.price-per { font-size: 0.8rem; color: var(--ink-faint); margin: 6px 0 14px; }
+.price-pages { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.price-fit { font-size: 0.85rem; line-height: 1.55; color: var(--ink-muted); }
+.price-setup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+.price-setup strong { font-size: 0.95rem; color: var(--ink); }
+.price-setup span { font-size: 0.88rem; color: var(--ink-muted); }
+.price-fine { font-size: 0.82rem; line-height: 1.65; color: var(--ink-faint); max-width: 72ch; }
+
 /* S12 — FAQ */
 .s-faq { padding: 84px 0; }
 .s-faq h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 28px; }
@@ -665,6 +726,7 @@ const trustPoints = [
 /* Responsive */
 @media (max-width: 900px) {
   .reframe-grid, .output-grid, .start-grid { grid-template-columns: 1fr; gap: 32px; }
+  .price-grid { grid-template-columns: 1fr; }
   .how-grid { grid-template-columns: repeat(2, 1fr); }
   .doors-grid { grid-template-columns: 1fr; }
   .s-guarantee { padding: 72px 0; }
@@ -694,7 +756,7 @@ const trustPoints = [
 <!-- STICKY CTA — shows after S2 -->
 <div class="intake-sticky" id="intake-sticky">
   <div class="intake-sticky-inner">
-    <div class="intake-sticky-label">{PRODUCT} <span>· Coming to Stream Pro</span></div>
+    <div class="intake-sticky-label">{PRODUCT} <span>{avail.sticky}</span></div>
     <a href={demoUrl} class="ib-primary" data-intake-cta="sticky">Book a demo →</a>
   </div>
 </div>
@@ -702,7 +764,7 @@ const trustPoints = [
 <!-- S1 — HERO -->
 <section class="s-hero" id="s1">
   <div class="ic">
-    <div class="hero-eyebrow">Coming soon to Stream Pro</div>
+    <div class="hero-eyebrow">{avail.eyebrow}</div>
     <h1>Your fax line, finally connected to the chart.</h1>
     <p class="hero-sub">Stream reads every record that arrives, files it to the right patient, and lays its clinical content out under the problems it belongs to — as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from.</p>
     <div class="hero-actions">
@@ -710,7 +772,7 @@ const trustPoints = [
       <a href="#s4" class="ib-secondary" data-intake-cta="hero-how">See how it works</a>
     </div>
     <div class="hero-trust">
-      <span>Coming to Stream Pro</span>
+      <span>{avail.trust}</span>
       <span class="hero-trust-dot"></span>
       <span>Keep your existing fax line</span>
       <span class="hero-trust-dot"></span>
@@ -841,7 +903,7 @@ const trustPoints = [
       <div class="how-step">
         <div class="how-step-num">01</div>
         <h3>It arrives.</h3>
-        <p>Inbound faxing runs on two carriers. Sinch numbers are provisioned and managed by River Records; Spruce numbers run on your clinic’s own Spruce account. Pricing differs between the two. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
+        <p>Stream provisions a fax number for your practice on Sinch — whitelisted and managed by River Records — or connects to your clinic’s own Spruce Health account if you already run one. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
         <p>Not a fax? Upload PDFs — up to 10 at a time — or text files, or paste text straight in, from the Documents page. Same pipeline from there on.</p>
       </div>
 
@@ -1152,6 +1214,35 @@ const trustPoints = [
   </div>
 </section>
 
+<!-- S11b — PRICING -->
+<!-- NEW SECTION, not in the v1 deck. Tiers and setup fee only, per Jacob —
+     first-month metering, founding-customer terms, the Spruce-path rate and the
+     ROI table stay in the quote, not on the page. Numbers live in
+     src/config/pricing.ts (inletPricing). -->
+<section class="s-price ir" id="s11b">
+  <div class="ic">
+    <div class="il">PRICING</div>
+    <h2>Priced by the page, because that’s what varies.</h2>
+    <p class="price-lede">{PRODUCT} is metered and sits on top of your Stream Pro subscription. Pick the allowance that matches your volume — most two-clinician practices land in the middle.</p>
+    <div class="price-grid">
+      {inletPricing.tiers.map((tier, i) => (
+        <div class={`price-card${i === 1 ? ' price-card--mid' : ''}`}>
+          <div class="price-name">{tier.name}</div>
+          <div class="price-amt">{tier.display}</div>
+          <div class="price-per">per month</div>
+          <div class="price-pages">{tier.pages.toLocaleString()} pages included</div>
+          <div class="price-fit">{tier.fit}</div>
+        </div>
+      ))}
+    </div>
+    <div class="price-setup">
+      <strong>{inletPricing.setupFeeDisplay} setup</strong>
+      <span>Routing, testing, a staff walkthrough, and the calls to your highest-volume senders.</span>
+    </div>
+    <p class="price-fine">{inletPricing.includes}</p>
+  </div>
+</section>
+
 <!-- S12 — FAQ -->
 <section class="s-faq ir" id="faq">
   <div class="ic">
@@ -1176,15 +1267,15 @@ const trustPoints = [
     <div class="start-grid">
       <div>
         <div class="il">GETTING STARTED</div>
-        <h2>Ten phone calls, not a migration.</h2>
+        <h2>Ten phone calls, and we make them.</h2>
         <p>You don’t port a number and you don’t switch anything off. You get a Stream fax number, your old line keeps working, and there’s no moment where a fax could fall between two systems.</p>
-        <p>Then you make a short list of calls. Most practices find that ten senders — the hospital records department, the specialty groups they refer to most, the imaging center — account for the majority of what comes in. Give those offices the new number and most of your inbound volume is running through Stream the same week.</p>
+        <p>Then we make the calls. Most practices find that ten senders — the hospital records department, the specialty groups they refer to most, the imaging center — account for the majority of what comes in. We contact them with your new number as part of setup, so most of your inbound volume is running through Stream the same week without anyone at your front desk picking up the phone.</p>
         <p>Everything else moves at its own pace. And whatever still arrives the old way, or on paper, gets dragged into Stream from the Documents page and goes down the same pipeline.</p>
       </div>
       <div class="start-steps">
         <div class="start-step">
           <span class="start-step-num">1</span>
-          <span class="start-step-text"><strong>Get a Stream number</strong>Provisioned on either carrier. Nothing to port.</span>
+          <span class="start-step-text"><strong>Get a Stream number</strong>Provisioned on Sinch, or connected to your own Spruce. Nothing to port.</span>
         </div>
         <div class="start-step">
           <span class="start-step-num">2</span>
@@ -1192,7 +1283,7 @@ const trustPoints = [
         </div>
         <div class="start-step">
           <span class="start-step-num">3</span>
-          <span class="start-step-text"><strong>Call your top ten senders</strong>Hospital records, your usual specialty groups, imaging.</span>
+          <span class="start-step-text"><strong>We call your top ten senders</strong>Hospital records, your usual specialty groups, imaging — routing, testing and a staff walkthrough included.</span>
         </div>
         <div class="start-step">
           <span class="start-step-num">4</span>
@@ -1208,12 +1299,12 @@ const trustPoints = [
   <div class="ic">
     <div class="cta-inner">
       <h2>Stop looking for information you already have.</h2>
-      <p>If a fact has to be resurfaced, it was lost. {PRODUCT} is coming to Stream Pro.</p>
+      <p>If a fact has to be resurfaced, it was lost. {PRODUCT} {avail.closing}</p>
       <div class="cta-actions">
         <a href={demoUrl} class="ib-white" data-intake-cta="closing">Book a demo →</a>
         <a href="/contact" class="ib-outline-white" data-intake-cta="closing-fax">Talk to us about your fax volume</a>
       </div>
-      <p class="cta-trust">Coming to Stream Pro · hello@riverrecords.ai · We respond same day.</p>
+      <p class="cta-trust">{avail.ctaTrust} · hello@riverrecords.ai · We respond same day.</p>
     </div>
   </div>
 </section>

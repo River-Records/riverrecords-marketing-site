@@ -61,3 +61,22 @@ export const pricing = {
   calloutBody: 'Unlimited visits. Works alongside any EHR. 30-day free trial, no credit card required.',
   calloutSmall: 'Cancel anytime. Annual billing available at $99/month.',
 } as const;
+
+/**
+ * Stream Inlet — metered fax and records intake, added on top of a Stream Pro
+ * subscription. Page allowances are per month. Bespoke and founding-customer
+ * terms (first-month metering, setup waivers, the Spruce-path rate) are
+ * deliberately not here: they belong in a quote, not on the public page.
+ */
+export const inletPricing = {
+  setupFee: 299,
+  setupFeeDisplay: '$299',
+  overagePerPage: 0.14,
+  tiers: [
+    { name: 'Starter',   pages: 500,   monthly: 89,  display: '$89',  fit: 'Roughly 8 faxes a day' },
+    { name: 'Practice',  pages: 1500,  monthly: 199, display: '$199', fit: 'Roughly 19 a day — where most two-clinician practices land' },
+    { name: 'Practice+', pages: 3000,  monthly: 349, display: '$349', fit: 'Roughly 38 a day — heavy referral, imaging and records traffic' },
+  ],
+  includes: 'Every plan includes your fax number, unlimited users, and processing of every page in your plan. Extra pages $0.14. We notify you at 80% of your allowance. Junk faxes are filtered and never billed.',
+  addOnNote: 'Stream Inlet is metered, and sits on top of your Stream Pro subscription.',
+} as const;
