@@ -219,3 +219,166 @@ export const RECAP_DATA = {
     { metric: "HbA1c", value: "7.1%", date: "Jul 2025" },
   ],
 };
+
+// ============ INTAKE DATA ============
+// Fictional outside document for the Intake page (S4 provenance demo + S6/S7/S8 mocks).
+// Sender, author and institution are invented stand-ins — see the copy deck's demo-data rule.
+
+export const INTAKE_DOCUMENT = {
+  title: "Discharge Summary with Dr. A. Chen, 3/15/24",
+  type: "Discharge Summary",
+  author: "Dr. A. Chen",
+  institution: "Riverside Medical Center",
+  date: "3/15/24",
+  pageCount: 12,
+  stamp: "from Discharge Summary — Dr. A. Chen, Riverside Medical Center, 3/15/24",
+};
+
+// Mock scanned pages. `id` lines are the ones facts point back to.
+export const INTAKE_PAGES = {
+  3: {
+    heading: "HOSPITAL COURSE — ENDOCRINE",
+    lines: [
+      { text: "The patient was admitted on 3/11/24 for evaluation of hyperglycemia" },
+      { text: "and generalized fatigue of two weeks' duration." },
+      { id: "dm-a1c", text: "Hemoglobin A1c on admission was 9.1% (Riverside lab, 3/12/24)." },
+      { text: "Prior outside value was reported as 8.4% approximately eleven months ago." },
+      { id: "dm-insulin", text: "Insulin glargine 10 units nightly was started during this admission." },
+      { text: "Metformin 1000 mg twice daily was continued without change." },
+      { text: "Fingerstick glucose ranged 142–210 mg/dL over the final 48 hours." },
+      { id: "dm-followup", text: "Recommend repeat A1c in 3 months." },
+      { text: "Diabetes education was completed with the inpatient team on 3/14/24." },
+    ],
+  },
+  4: {
+    heading: "HOSPITAL COURSE — CARDIOVASCULAR",
+    lines: [
+      { text: "The patient has a long-standing history of essential hypertension." },
+      { id: "htn-bp", text: "Blood pressure on admission was 168/94, improving to 138/82 by discharge." },
+      { text: "Telemetry throughout the admission showed normal sinus rhythm." },
+      { id: "htn-amlodipine", text: "Amlodipine 5 mg daily was added to the existing lisinopril 20 mg daily." },
+      { text: "No orthostatic symptoms were reported following the addition." },
+      { id: "htn-bmp", text: "Repeat BMP in 1–2 weeks to assess electrolytes after the medication change." },
+      { text: "An exertional murmur was noted on the day of discharge." },
+      { id: "htn-echo", text: "Refer to cardiology for stress echo." },
+    ],
+  },
+  5: {
+    heading: "HOSPITAL COURSE — RENAL",
+    lines: [
+      { text: "Baseline renal function was reviewed against records provided by the patient." },
+      { id: "ckd-cr", text: "Creatinine 1.24 mg/dL with eGFR 58, down from 64 six months prior." },
+      { text: "Urinalysis showed no active sediment. No proteinuria on dipstick." },
+      { id: "ckd-held", text: "Nephrotoxic agents were held for the duration of the admission." },
+      { text: "Volume status remained euvolemic throughout." },
+      { id: "ckd-neph", text: "Refer to nephrology for evaluation of declining eGFR." },
+      { text: "The patient was counseled to avoid NSAIDs after discharge." },
+    ],
+  },
+};
+
+// One excerpt per document, per problem — the S4 / S6 shape.
+export const INTAKE_EXCERPTS = [
+  {
+    problem: "Type 2 diabetes mellitus",
+    matchedTo: "Type 2 diabetes",
+    icd: "E11.65",
+    status: "Worsening — A1c up from prior outside value",
+    groups: [
+      {
+        label: "What the data says",
+        facts: [{ text: "A1c 9.1% on admission", page: 3, line: "dm-a1c" }],
+      },
+      {
+        label: "What was done",
+        facts: [{ text: "Insulin glargine 10 units nightly started", page: 3, line: "dm-insulin" }],
+      },
+      {
+        label: "What happens next",
+        facts: [{ text: "Repeat A1c in 3 months", page: 3, line: "dm-followup" }],
+      },
+    ],
+  },
+  {
+    problem: "Hypertension",
+    matchedTo: "Hypertension",
+    icd: "I10",
+    status: "Regimen changed during admission",
+    groups: [
+      {
+        label: "What the data says",
+        facts: [{ text: "BP 168/94 on admission, 138/82 at discharge", page: 4, line: "htn-bp" }],
+      },
+      {
+        label: "What was done",
+        facts: [{ text: "Amlodipine 5 mg daily added to lisinopril 20 mg daily", page: 4, line: "htn-amlodipine" }],
+      },
+      {
+        label: "What happens next",
+        facts: [
+          { text: "Repeat BMP in 1–2 weeks", page: 4, line: "htn-bmp" },
+          { text: "Refer to cardiology for stress echo", page: 4, line: "htn-echo" },
+        ],
+      },
+    ],
+  },
+  {
+    problem: "CKD stage 2",
+    matchedTo: "CKD stage 2",
+    icd: "N18.2",
+    status: "eGFR declining since last recorded value",
+    groups: [
+      {
+        label: "What the data says",
+        facts: [{ text: "Creatinine 1.24, eGFR 58 — down from 64", page: 5, line: "ckd-cr" }],
+      },
+      {
+        label: "What was done",
+        facts: [{ text: "Nephrotoxic agents held during admission", page: 5, line: "ckd-held" }],
+      },
+      {
+        label: "What happens next",
+        facts: [{ text: "Refer to nephrology for declining eGFR", page: 5, line: "ckd-neph" }],
+      },
+    ],
+  },
+];
+
+// S7 — what this one document says about medications. Not a reconciled list.
+export const INTAKE_MEDICATIONS = [
+  { name: "Insulin glargine", detail: "10 units subcutaneous nightly", change: "Started this admission", page: 3, line: "dm-insulin" },
+  { name: "Amlodipine", detail: "5 mg daily", change: "Added", page: 4, line: "htn-amlodipine" },
+  { name: "Lisinopril", detail: "20 mg daily", change: "Continued", page: 4, line: "htn-amlodipine" },
+  { name: "Metformin", detail: "1000 mg twice daily", change: "Continued", page: 3, line: "dm-insulin" },
+];
+
+// S8 — proposed tasks. Every row carries the verbatim quote that justifies it.
+export const INTAKE_TASKS = [
+  {
+    action: "Repeat BMP in 1–2 weeks",
+    type: "Order",
+    problem: "Hypertension",
+    timeframe: "1–2 weeks",
+    quote: "Repeat BMP in 1–2 weeks to assess electrolytes after the medication change.",
+    page: 4,
+    assignee: "Dr. J. Kantrowitz",
+  },
+  {
+    action: "Refer to cardiology for stress echo",
+    type: "Referral",
+    problem: "Hypertension",
+    timeframe: "",
+    quote: "Refer to cardiology for stress echo.",
+    page: 4,
+    assignee: "Dr. J. Kantrowitz",
+  },
+  {
+    action: "Refer to nephrology for evaluation of declining eGFR",
+    type: "Referral",
+    problem: "CKD stage 2",
+    timeframe: "",
+    quote: "Refer to nephrology for evaluation of declining eGFR.",
+    page: 5,
+    assignee: "Dr. J. Kantrowitz",
+  },
+];

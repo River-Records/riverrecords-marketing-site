@@ -1,0 +1,1281 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import IntakeProvenanceDemo from '../components/demos/IntakeProvenanceDemo.vue';
+import { INTAKE_MEDICATIONS, INTAKE_TASKS, INTAKE_EXCERPTS, INTAKE_DOCUMENT } from '../components/demos/demo-data.js';
+
+// Product name — the copy deck's [PRODUCT NAME] placeholder resolves here.
+// Changing this one line renames the product everywhere on the page.
+const PRODUCT = 'Stream Intake';
+
+// S4 asset. The live demo component ships today; flip HAS_S4_VIDEO to true once a
+// recording made from the demo components lands in public/intake/ and the <video>
+// path takes over. Both paths honour prefers-reduced-motion.
+const HAS_S4_VIDEO = false;
+const S4_VIDEO = {
+  webm: '/intake/provenance.webm',
+  mp4: '/intake/provenance.mp4',
+  poster: '/intake/provenance-poster.png',
+};
+
+const utm = '?utm_source=intake-page&utm_medium=landing&utm_campaign=intake-launch';
+const demoUrl = `/book-demo${utm}`;
+
+const faqs = [
+  {
+    q: 'Which fax carriers does Stream support?',
+    a: 'Inbound faxing runs on Sinch and Spruce Health. Stream provisions numbers for your practice on either.',
+  },
+  {
+    q: 'Do we have to give up our current fax number?',
+    a: 'No. You get a Stream number and keep your existing line running as long as you want. There’s no cutover and no day where faxes could fall between two systems.',
+  },
+  {
+    q: 'So how do senders find us?',
+    a: 'You call them. In practice, a short list of senders — the hospital, the two or three specialty groups you refer to most, the imaging center — accounts for most of what arrives. Give those offices your Stream number and the bulk of your inbound volume moves over in an afternoon. The rest follows as you update your directory listings and referral forms.\n\nAnything that still comes to the old line, or arrives on paper, can be dragged into Stream from the Documents page and goes through exactly the same pipeline.',
+  },
+  {
+    q: 'What happens when a hospital sends 40 pages covering three patients?',
+    a: 'Stream detects that the file contains more than one document or more than one patient and holds it for a person to sort out, rather than guessing. A clinician can release the hold explicitly.',
+  },
+  {
+    q: 'Does Stream update the chart automatically?',
+    a: 'No, and that’s deliberate. Every excerpt, medication list, and proposed task waits for a human decision. Stream’s job is to put the right thing in front of the right person, ready to accept in one click.',
+  },
+  {
+    q: 'Does it reconcile our medication list?',
+    a: 'No. Stream shows the medications each document mentions, tells you it’s that one document’s view, and leaves reconciliation to you. A reconciled patient medication list is on the roadmap.',
+  },
+  {
+    q: 'Can I upload documents that didn’t come by fax?',
+    a: 'Yes — up to 10 PDFs at a time, 15MB each, from the Documents page.',
+  },
+  {
+    q: 'What plan is this on?',
+    a: 'Stream Pro.',
+  },
+];
+
+const trustPoints = [
+  { lead: 'Excerpts can’t leak into your note.', rest: ' Structurally prevented, enforced by the build.' },
+  { lead: 'Every fact traces to a highlighted sentence on the page', rest: ' — not a citation number.' },
+  { lead: 'Facts that can’t be grounded in the source are dropped', rest: ', not shown.' },
+  { lead: 'Multi-patient fax batches are detected and held', rest: ', not silently split into the wrong charts.' },
+  { lead: 'Nothing is auto-filed.', rest: ' Excerpts, medications, and tasks all wait for a human decision.' },
+  { lead: 'Nothing labeled as loss loses anything.', rest: ' “No action” and “Dismiss” both preserve the data, and both tell you where it’s still visible.' },
+  { lead: 'Outside content lands under the problem it’s about', rest: ', not in a documents folder.' },
+  { lead: 'A carrier retry never creates a duplicate.', rest: '' },
+  { lead: 'Each practice’s data is isolated in its own database', rest: ', and carrier credentials are write-only — never displayed again after entry.' },
+];
+---
+<Base
+  title={`${PRODUCT} — Faxes and records, filed under the problem they’re about`}
+  description="Stream reads inbound faxes and uploads, files them to the right patient, and sorts their content under the problems it belongs to. Every fact links to its page."
+  ogImage="/intake/og-intake.png">
+
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    })}></script>
+  </Fragment>
+
+<style>
+.intake-page { font-family: var(--font-sans); color: var(--ink); background: var(--white); }
+.intake-page h1, .intake-page h2, .intake-page h3 { font-family: var(--font-serif); }
+.ic { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.ic-narrow { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+.il {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+
+/* Buttons — matching the Huddle page's product-page button set */
+.ib-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-dark); color: var(--white); padding: 13px 26px; border-radius: 100px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+.ib-primary:hover { background: var(--primary); }
+.ib-secondary { display: inline-flex; align-items: center; gap: 6px; background: none; color: var(--ink-muted); padding: 13px 26px; border-radius: 100px; border: 1.5px solid var(--border-strong); font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
+.ib-secondary:hover { border-color: var(--primary); color: var(--primary); }
+.ib-white { display: inline-flex; align-items: center; gap: 6px; background: var(--white); color: var(--dark); padding: 13px 26px; border-radius: 100px; font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: background 0.15s; }
+.ib-white:hover { background: var(--primary-light); }
+.ib-outline-white { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,255,255,0.35); padding: 13px 26px; border-radius: 100px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
+.ib-outline-white:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+/* Reveal */
+.ir { opacity: 0; transform: translateY(24px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
+.ir.visible { opacity: 1; transform: translateY(0); }
+
+/* Sticky CTA — appears once the reader is past S2 */
+.intake-sticky {
+  position: fixed;
+  /* Sits directly under the nav. The nav grows taller than 62px on narrow
+     screens when the logo wraps, so the real height is measured at runtime. */
+  top: var(--intake-nav-h, 62px);
+  left: 0; right: 0;
+  z-index: 150;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-110%);
+  transition: transform 0.25s ease;
+}
+.intake-sticky.on { transform: translateY(0); }
+.intake-sticky-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.intake-sticky-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.intake-sticky-label span { color: var(--ink-faint); font-weight: 500; }
+.intake-sticky .ib-primary { padding: 9px 20px; font-size: 0.85rem; }
+
+/* S1 — hero */
+.s-hero { padding: 72px 0 56px; }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary-border);
+  border-radius: 100px;
+  padding: 5px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.s-hero h1 {
+  font-size: clamp(2.3rem, 5vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  max-width: 15ch;
+  margin-bottom: 22px;
+}
+.hero-sub { font-size: 1.12rem; line-height: 1.68; color: var(--ink-muted); max-width: 60ch; margin-bottom: 30px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.hero-trust { display: flex; gap: 8px; flex-wrap: wrap; font-size: 0.78rem; color: var(--ink-muted); align-items: center; }
+.hero-trust-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-strong); }
+
+/* S2 — the problem */
+.s-problem { padding: 72px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.s-problem h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 28px; max-width: 22ch; }
+.problem-measure { max-width: 65ch; }
+.problem-beat { font-size: 1.08rem; line-height: 1.6; color: var(--ink); margin-bottom: 6px; font-weight: 500; }
+.problem-beat-last { margin-bottom: 24px; font-weight: 400; color: var(--ink-muted); }
+.problem-turn { font-size: 1.08rem; line-height: 1.6; color: var(--ink); font-weight: 600; margin-bottom: 24px; }
+.problem-because { font-size: 1rem; line-height: 1.72; color: var(--ink-muted); }
+.problem-because em { color: var(--ink); font-style: italic; }
+
+/* S3 — the reframe */
+.s-reframe { padding: 80px 0; }
+.reframe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.s-reframe h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+.s-reframe p { font-size: 1rem; line-height: 1.72; color: var(--ink-muted); margin-bottom: 18px; }
+.s-reframe p strong { color: var(--ink); font-weight: 600; }
+.reframe-figure { margin: 0; }
+.reframe-figure svg { width: 100%; height: auto; display: block; }
+
+/* Pull quotes — S3b, S7b */
+.s-pull { padding: 72px 0; background: var(--surface-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.s-pull blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 22ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* S4 — provenance */
+.s-provenance { padding: 84px 0; }
+.provenance-head { max-width: 66ch; margin-bottom: 40px; }
+.s-provenance h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+.s-provenance p { font-size: 1.02rem; line-height: 1.72; color: var(--ink-muted); margin-bottom: 16px; }
+.provenance-kicker { font-size: 1.12rem !important; font-weight: 600; color: var(--ink) !important; margin-bottom: 0 !important; }
+.provenance-stage { max-width: 940px; margin: 0 auto; }
+.provenance-frame {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(15,26,20,0.10), 0 24px 60px rgba(15,26,20,0.08);
+}
+.provenance-video { width: 100%; height: auto; display: block; border-radius: 10px; }
+.provenance-controls { display: flex; justify-content: flex-end; padding: 8px 4px 2px; }
+.provenance-pause {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 100px;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+.provenance-pause:hover { color: var(--primary); border-color: var(--primary); }
+
+/* S5 — how it works */
+.s-how { padding: 84px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.s-how h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 44px; max-width: 20ch; }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.how-step {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px 24px;
+}
+.how-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+.how-step h3 { font-size: 1.12rem; line-height: 1.32; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
+.how-step p { font-size: 0.9rem; line-height: 1.66; color: var(--ink-muted); margin-bottom: 12px; }
+.how-step p:last-child { margin-bottom: 0; }
+/* Step 4 — the safety story gets its own weight */
+.how-step-safety { border: 1.5px solid var(--accent-border); background: #fdf6f4; box-shadow: var(--shadow-sm); }
+.how-step-safety .how-step-num { color: var(--accent-dark); }
+.how-step-safety strong { color: var(--accent-dark); font-weight: 700; }
+.how-hold {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--accent-dark);
+  background: var(--white);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  margin-top: 12px;
+}
+.how-hold-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 2px 6px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Worklist mock — S5 step 5 */
+.worklist {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.78rem;
+}
+.worklist-head {
+  background: var(--surface);
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--border);
+}
+.worklist-row { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+.worklist-row:last-child { border-bottom: none; }
+.worklist-doc { font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.worklist-match { color: var(--ink-muted); }
+.worklist-match strong { color: var(--primary); font-weight: 600; }
+.worklist-state {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-top: 5px;
+}
+
+/* Output sections — S6, S7, S8 */
+.s-output { padding: 84px 0; }
+.s-output-alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+.s-output h2 { font-size: clamp(1.75rem, 3.3vw, 2.35rem); line-height: 1.22; letter-spacing: -0.02em; margin-bottom: 22px; }
+.s-output p { font-size: 1rem; line-height: 1.72; color: var(--ink-muted); margin-bottom: 18px; }
+.s-output p strong { color: var(--ink); font-weight: 600; }
+.s-output p em { font-style: italic; }
+.output-actions {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+}
+.output-actions strong { font-weight: 600; }
+
+/* Mock panels */
+.mock {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  font-size: 0.82rem;
+}
+.mock-marker {
+  background: var(--surface-warm);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.mock-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.mock-title { font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.mock-meta { font-size: 0.7rem; color: var(--ink-faint); text-align: right; }
+.mock-body { padding: 14px; }
+.mock-stamp {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  background: var(--surface);
+  border-left: 2px solid var(--border-strong);
+  border-radius: 0 4px 4px 0;
+  padding: 7px 10px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.mock-problem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.mock-icd {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--ink-faint);
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.mock-merge { font-size: 0.72rem; color: var(--ink-faint); margin-bottom: 12px; }
+.mock-group { margin-bottom: 11px; }
+.mock-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
+}
+.mock-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 9px;
+  margin-bottom: 4px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.mock-page { font-size: 0.66rem; font-weight: 600; color: var(--primary); flex-shrink: 0; }
+.mock-chiprow { display: flex; flex-wrap: wrap; gap: 4px; border-top: 1px solid var(--border); padding-top: 11px; margin-top: 12px; }
+.mock-chip { font-size: 0.66rem; color: var(--ink-faint); border: 1px solid var(--border); border-radius: 4px; padding: 3px 7px; }
+.mock-chip-on { color: var(--primary); border-color: var(--primary-border); background: var(--primary-light); font-weight: 600; }
+
+/* Medication mock */
+.mock-med { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--border); padding: 9px 0; }
+.mock-med:last-of-type { border-bottom: none; }
+.mock-med-name { font-weight: 600; color: var(--ink); }
+.mock-med-detail { font-size: 0.76rem; color: var(--ink-muted); }
+.mock-med-change { font-size: 0.66rem; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+.mock-note {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.55;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+/* Task mock */
+.mock-task { border: 1px solid var(--border); border-radius: 8px; padding: 11px; margin-bottom: 8px; }
+.mock-task-action { font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 5px; }
+.mock-task-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+.mock-task-tag { font-size: 0.62rem; font-weight: 600; color: var(--ink-faint); background: var(--surface); border-radius: 4px; padding: 2px 6px; }
+.mock-quote {
+  font-size: 0.73rem;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  font-style: italic;
+  border-left: 2px solid var(--primary);
+  padding: 2px 0 2px 9px;
+  margin-bottom: 8px;
+}
+.mock-assignee { font-size: 0.7rem; color: var(--ink-faint); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mock-assignee strong { color: var(--ink-muted); font-weight: 600; }
+
+/* S6b — two words */
+.s-twowords { padding: 0 0 84px; }
+.twowords-box {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px 28px;
+}
+.twowords-box h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: 14px; letter-spacing: -0.01em; }
+.twowords-box p { font-size: 0.9rem; line-height: 1.68; color: var(--ink-muted); margin-bottom: 10px; }
+.twowords-box p:last-child { margin-bottom: 0; }
+.twowords-box strong { color: var(--ink); font-weight: 700; }
+
+/* S6c — freshness */
+.s-freshness { padding: 0 0 84px; }
+.freshness-note {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.72;
+  color: var(--ink-muted);
+}
+
+/* S9 — the guarantee */
+.s-guarantee { background: var(--dark); color: var(--white); padding: 96px 0; position: relative; overflow: hidden; }
+.s-guarantee::before {
+  content: '';
+  position: absolute;
+  top: -140px; right: -120px;
+  width: 460px; height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,90,62,0.28) 0%, transparent 65%);
+  pointer-events: none;
+}
+.guarantee-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.s-guarantee .il { color: var(--accent-light); }
+.s-guarantee h2 {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--white);
+  margin-bottom: 26px;
+}
+.s-guarantee p { font-size: 1.05rem; line-height: 1.75; color: rgba(255,255,255,0.72); margin-bottom: 20px; }
+.s-guarantee p:last-child { margin-bottom: 0; }
+.s-guarantee strong { color: var(--white); font-weight: 600; }
+.guarantee-quote {
+  font-family: var(--font-mono);
+  font-size: 0.85rem !important;
+  line-height: 1.7 !important;
+  color: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.06);
+  border-left: 2px solid var(--accent-light);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+}
+.guarantee-close { font-size: 1.15rem !important; color: var(--white) !important; font-weight: 600; }
+
+/* S10 — trust list */
+.s-trust { padding: 84px 0; }
+.s-trust h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 36px; }
+.trust-list { max-width: 720px; list-style: none; counter-reset: trust; }
+.trust-item {
+  counter-increment: trust;
+  position: relative;
+  padding: 16px 0 16px 44px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+.trust-item:first-child { border-top: 1px solid var(--border); }
+.trust-item::before {
+  content: counter(trust);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trust-item strong { color: var(--ink); font-weight: 600; }
+
+/* S11 — three doors */
+.s-doors { padding: 84px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.s-doors h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 18px; }
+.doors-lede { font-size: 1rem; line-height: 1.72; color: var(--ink-muted); max-width: 62ch; margin-bottom: 36px; }
+.doors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.door-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 26px 24px; }
+.door-card h3 { font-size: 1.1rem; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+.door-card p { font-size: 0.9rem; line-height: 1.66; color: var(--ink-muted); }
+
+/* S12 — FAQ */
+.s-faq { padding: 84px 0; }
+.s-faq h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 28px; }
+.faq-list { max-width: 760px; }
+.faq-item { border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin-bottom: 10px; overflow: hidden; }
+.faq-item[open] { border-left: 3px solid var(--primary); }
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 1.45;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover { background: var(--surface); }
+.faq-q:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.faq-icon {
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.faq-item[open] .faq-icon { background: var(--primary-light); color: var(--primary); }
+.faq-item[open] .faq-icon::after { content: '−'; }
+.faq-icon::after { content: '+'; }
+.faq-a { padding: 0 22px 18px; font-size: 0.92rem; line-height: 1.7; color: var(--ink-muted); }
+.faq-a p { margin-bottom: 12px; }
+.faq-a p:last-child { margin-bottom: 0; }
+
+/* S12b — getting started */
+.s-start { padding: 84px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.start-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 52px; align-items: center; }
+.s-start h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 22px; }
+.s-start p { font-size: 1.02rem; line-height: 1.72; color: var(--ink-muted); margin-bottom: 18px; }
+.s-start p:last-child { margin-bottom: 0; }
+.start-steps { display: flex; flex-direction: column; gap: 12px; }
+.start-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px 16px;
+}
+.start-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  border-radius: 50%;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.start-step-text { font-size: 0.88rem; line-height: 1.6; color: var(--ink-muted); }
+.start-step-text strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+
+/* S13 — closing CTA */
+.s-cta { background: var(--dark); padding: 96px 0; text-align: center; position: relative; overflow: hidden; }
+.s-cta::before {
+  content: '';
+  position: absolute;
+  bottom: -180px; left: 50%;
+  transform: translateX(-50%);
+  width: 620px; height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,90,62,0.20) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; }
+.s-cta h2 {
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+.s-cta p { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.6); max-width: 48ch; margin: 0 auto 34px; }
+.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.cta-trust { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .reframe-grid, .output-grid, .start-grid { grid-template-columns: 1fr; gap: 32px; }
+  .how-grid { grid-template-columns: repeat(2, 1fr); }
+  .doors-grid { grid-template-columns: 1fr; }
+  .s-guarantee { padding: 72px 0; }
+  .s-guarantee::before { display: none; }
+}
+@media (max-width: 640px) {
+  .how-grid { grid-template-columns: 1fr; }
+  .s-hero { padding: 48px 0 44px; }
+  .s-hero h1 { max-width: none; }
+  .hero-actions .ib-primary, .hero-actions .ib-secondary { width: 100%; justify-content: center; }
+  .cta-actions .ib-white, .cta-actions .ib-outline-white { width: 100%; justify-content: center; }
+  .intake-sticky-inner { padding: 8px 20px; }
+  .intake-sticky-label { display: none; }
+  .intake-sticky .ib-primary { width: 100%; justify-content: center; }
+  .s-pull blockquote { max-width: none; }
+  .trust-item { padding-left: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ir { opacity: 1; transform: none; transition: none; }
+  .intake-sticky { transition: none; }
+}
+</style>
+
+<div class="intake-page">
+<Nav />
+
+<!-- STICKY CTA — shows after S2 -->
+<div class="intake-sticky" id="intake-sticky">
+  <div class="intake-sticky-inner">
+    <div class="intake-sticky-label">{PRODUCT} <span>· Available on Stream Pro</span></div>
+    <a href={demoUrl} class="ib-primary" data-intake-cta="sticky">Book a demo →</a>
+  </div>
+</div>
+
+<!-- S1 — HERO -->
+<section class="s-hero" id="s1">
+  <div class="ic">
+    <div class="hero-eyebrow">Now on Stream Pro</div>
+    <h1>Your fax line, finally connected to the chart.</h1>
+    <p class="hero-sub">Stream reads every record that arrives, files it to the right patient, and lays its clinical content out under the problems it belongs to — as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from.</p>
+    <div class="hero-actions">
+      <a href={demoUrl} class="ib-primary" data-intake-cta="hero">Book a demo →</a>
+      <a href="#s4" class="ib-secondary" data-intake-cta="hero-how">See how it works</a>
+    </div>
+    <div class="hero-trust">
+      <span>Available on Stream Pro</span>
+      <span class="hero-trust-dot"></span>
+      <span>Keep your existing fax line</span>
+      <span class="hero-trust-dot"></span>
+      <span>Works alongside any EHR</span>
+      <span class="hero-trust-dot"></span>
+      <span>HIPAA compliant</span>
+    </div>
+  </div>
+</section>
+
+<!-- S2 — THE PROBLEM -->
+<section class="s-problem" id="s2">
+  <div class="ic">
+    <div class="il">THE PROBLEM</div>
+    <h2>Filed is where clinical information goes to be forgotten.</h2>
+    <div class="problem-measure">
+      <p class="problem-beat">A fax lands.</p>
+      <p class="problem-beat">Someone prints it.</p>
+      <p class="problem-beat">Someone else scans it.</p>
+      <p class="problem-beat problem-beat-last">At the end of the day a clinician skims it and retypes the parts that matter — or doesn’t, and the A1c from the cardiology consult never reaches the diabetes plan.</p>
+      <p class="problem-turn">The document gets filed. Everyone did their job. The information is still gone.</p>
+      <p class="problem-because">Because the failure was never storage. A stored document is a flat object in a list, and that’s not the shape of the question a clinician is asking. The question is problem-shaped: <em>what do I know about this patient’s heart failure, from every source, in order?</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- S3 — THE REFRAME -->
+<section class="s-reframe ir">
+  <div class="ic">
+    <div class="reframe-grid">
+      <div>
+        <div class="il">THE REFRAME</div>
+        <h2>Documents are sources, not containers.</h2>
+        <p>Most systems attach a document to a chart. Some go further and turn it into a visit — which is worse, because an outside consult note is not a visit that happened in your clinic, and putting it on your visit timeline misrepresents your own record.</p>
+        <p>Stream projects a document onto the patient’s <strong>problems</strong>. A discharge summary touching diabetes, hypertension, and CKD produces three excerpts — one filed under each problem, each labeled with who wrote it and where it came from.</p>
+        <p>The problem view becomes a single merged view: your notes and everything the outside world has said about that condition, in chronological order, visually distinguished by source.</p>
+      </div>
+      <figure class="reframe-figure">
+        <svg viewBox="0 0 420 300" role="img" aria-labelledby="reframe-svg-title">
+          <title id="reframe-svg-title">One discharge summary fanning out into three problem rows — diabetes, hypertension and CKD — each receiving its own excerpt.</title>
+          <!-- source document -->
+          <rect x="8" y="104" width="108" height="92" rx="6" fill="var(--white)" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <rect x="22" y="120" width="66" height="5" rx="2.5" fill="var(--ink-faint)"/>
+          <rect x="22" y="133" width="80" height="4" rx="2" fill="var(--border-strong)"/>
+          <rect x="22" y="144" width="80" height="4" rx="2" fill="var(--border-strong)"/>
+          <rect x="22" y="155" width="60" height="4" rx="2" fill="var(--border-strong)"/>
+          <rect x="22" y="166" width="80" height="4" rx="2" fill="var(--border-strong)"/>
+          <rect x="22" y="177" width="44" height="4" rx="2" fill="var(--border-strong)"/>
+          <text x="62" y="215" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--ink-faint)">One document</text>
+
+          <!-- connectors -->
+          <path d="M116 150 C 160 150, 160 52, 204 52" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.55"/>
+          <path d="M116 150 L 204 150" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.55"/>
+          <path d="M116 150 C 160 150, 160 248, 204 248" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.55"/>
+          <circle cx="116" cy="150" r="4" fill="var(--primary)"/>
+
+          <!-- problem rows -->
+          <rect x="204" y="28" width="208" height="48" rx="6" fill="var(--white)" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <rect x="204" y="28" width="3" height="48" rx="1.5" fill="var(--primary)"/>
+          <text x="220" y="48" font-family="var(--font-sans)" font-size="11" font-weight="600" fill="var(--ink)">Type 2 diabetes</text>
+          <text x="220" y="64" font-family="var(--font-sans)" font-size="9.5" fill="var(--ink-faint)">excerpt · A1c 9.1% on admission</text>
+
+          <rect x="204" y="126" width="208" height="48" rx="6" fill="var(--white)" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <rect x="204" y="126" width="3" height="48" rx="1.5" fill="var(--primary)"/>
+          <text x="220" y="146" font-family="var(--font-sans)" font-size="11" font-weight="600" fill="var(--ink)">Hypertension</text>
+          <text x="220" y="162" font-family="var(--font-sans)" font-size="9.5" fill="var(--ink-faint)">excerpt · amlodipine 5 mg added</text>
+
+          <rect x="204" y="224" width="208" height="48" rx="6" fill="var(--white)" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <rect x="204" y="224" width="3" height="48" rx="1.5" fill="var(--primary)"/>
+          <text x="220" y="244" font-family="var(--font-sans)" font-size="11" font-weight="600" fill="var(--ink)">CKD stage 2</text>
+          <text x="220" y="260" font-family="var(--font-sans)" font-size="9.5" fill="var(--ink-faint)">excerpt · eGFR 58, down from 64</text>
+        </svg>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- S3b — PULL QUOTE -->
+<section class="s-pull ir">
+  <div class="ic">
+    <blockquote>Every document that arrives makes the chart more complete without making it longer.</blockquote>
+  </div>
+</section>
+
+<!-- S4 — PROVENANCE -->
+<section class="s-provenance" id="s4">
+  <div class="ic">
+    <div class="provenance-head">
+      <div class="il">PROVENANCE</div>
+      <h2>Every fact, one click from the page it came from.</h2>
+      <p>Before Stream reads a word, it records where the words are — page number and position for every sentence on every page. Unglamorous, and it’s the foundation of the whole product.</p>
+      <p>So when a clinician sees a fact on the Huddle, it isn’t a citation number or a footnote. Click it, and the source PDF opens scrolled to that sentence, highlighted.</p>
+      <p class="provenance-kicker">No fact on this screen has to be taken on faith.</p>
+    </div>
+
+    <div class="provenance-stage">
+      <div class="provenance-frame">
+        {HAS_S4_VIDEO ? (
+          <video
+            id="provenance-video"
+            class="provenance-video"
+            autoplay loop muted playsinline
+            poster={S4_VIDEO.poster}
+            aria-label="An excerpt on the Huddle is clicked and the source document opens with the quoted sentence highlighted.">
+            <source src={S4_VIDEO.webm} type="video/webm" />
+            <source src={S4_VIDEO.mp4} type="video/mp4" />
+          </video>
+        ) : (
+          <IntakeProvenanceDemo client:visible />
+        )}
+      </div>
+      {HAS_S4_VIDEO && (
+        <div class="provenance-controls">
+          <button type="button" class="provenance-pause" id="provenance-pause" aria-pressed="false">Pause</button>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<!-- S5 — HOW IT WORKS -->
+<section class="s-how ir">
+  <div class="ic">
+    <div class="il">HOW IT WORKS</div>
+    <h2>From ringing fax line to reviewed record.</h2>
+    <div class="how-grid">
+
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <h3>It arrives.</h3>
+        <p>Stream provisions a fax number for your practice on either of two carriers. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
+        <p>Not a fax? Drag in up to 10 PDFs at a time from the Documents page. Same pipeline from there on.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <h3>It’s read.</h3>
+        <p>Every page goes through OCR that captures the text <em>and its position</em> — so every fact can point back to its exact spot later.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <h3>It’s understood.</h3>
+        <p>One pass gives the document a name and a date (“Rheumatology Consult with Dr. Chen, 3/15/24”), a short clinical summary, and a type. Stream searches your patient roster and proposes a match — an existing patient, a new patient it can create from the name and DOB on the page, or not a patient document at all.</p>
+        <p>It also flags what kind of content is in there, and only the relevant extractors run. A signed insurance letter doesn’t get sent through a clinical extractor.</p>
+      </div>
+
+      <div class="how-step how-step-safety">
+        <div class="how-step-num">04</div>
+        <h3>It’s checked for the thing that goes badly wrong.</h3>
+        <p>Fax batches contain more than one document. Sometimes more than one patient. A hospital records department sends 40 pages covering three people, and a system that assumes one file equals one patient will silently file one patient’s data into another patient’s chart.</p>
+        <p>Stream watches for the seams — fresh letterhead, a new patient header, a jump in dates. When a file looks like several documents or several patients, it <strong>stops and asks a human</strong> instead of guessing.</p>
+        <div class="how-hold">
+          <span class="how-hold-tag">HELD</span>
+          <span>40-page fax · seams detected on p.14 and p.27 · looks like 3 patients · awaiting human review</span>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-num">05</div>
+        <h3>A person confirms the patient.</h3>
+        <p>The document lands in the Documents worklist as awaiting confirmation. Front-desk staff see it next to Stream’s proposed match, confirm it or create the new patient, and assign the reviewing clinician. Their view is deliberately trimmed to what’s needed to route it — and nothing clinical they’d never act on.</p>
+        <div class="worklist">
+          <div class="worklist-head">Documents · sample data</div>
+          <div class="worklist-row">
+            <div class="worklist-doc">Discharge Summary — Riverside Medical Center, 3/15/24</div>
+            <div class="worklist-match">Proposed match: <strong>Maria Rodriguez, 64F</strong> · DOB on page matches</div>
+            <span class="worklist-state">Awaiting confirmation</span>
+          </div>
+          <div class="worklist-row">
+            <div class="worklist-doc">Rheumatology Consult — 3/15/24</div>
+            <div class="worklist-match">Proposed match: <strong>new patient</strong> · create from name and DOB</div>
+            <span class="worklist-state">Awaiting confirmation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-num">06</div>
+        <h3>The clinical content comes out.</h3>
+        <p>Excerpts, medications, and proposed follow-ups — each described below.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- S6 — EXCERPTS -->
+<section class="s-output ir" id="s6">
+  <div class="ic">
+    <div class="output-grid">
+      <div>
+        <div class="il">OUTPUT 1 — EXCERPTS</div>
+        <h2>Excerpts land on the problem they’re about.</h2>
+        <p>One excerpt per document, per problem. Each carries a status line and three groups — <strong>what the data says</strong>, <strong>what was done</strong>, <strong>what happens next</strong> — plus ICD codes where the document gives them.</p>
+        <p><strong>They’re extracted, not written.</strong> Stream pulls facts and classifies them; it doesn’t compose prose about your patient. Every fact is then checked against a verbatim span of the source. Facts that can’t be grounded in the actual text are dropped, not shown.</p>
+        <p><strong>They merge with the problem you already have.</strong> “Attention deficit” from an outside note snaps onto your chart’s existing “Attention deficit hyperactivity disorder” instead of spawning a near-duplicate. If the document raises a problem the patient has no note for, that problem shows up anyway, as a row of its own.</p>
+        <p><strong>They say where they came from.</strong> Stream reads the letterhead and signature block and stamps author, institution, and date on every excerpt from that document — <em>“from Discharge Summary — Dr. A. Chen, Riverside Medical Center, 3/15/24.”</em> Correct a field once and the fix propagates to every excerpt from that document.</p>
+        <p class="output-actions"><strong>What a clinician can do with one:</strong> Accept · No action · Re-tag to a different problem · Dismiss from my view · View source · Include in note.</p>
+      </div>
+      <div class="mock">
+        <div class="mock-marker">Demo — fake patient data — not a real chart</div>
+        <div class="mock-head">
+          <span class="mock-title">Huddle · Excerpt</span>
+          <span class="mock-meta">Maria Rodriguez, 64F</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-stamp">{INTAKE_DOCUMENT.stamp}</div>
+          <div class="mock-problem">
+            {INTAKE_EXCERPTS[0].problem}
+            <span class="mock-icd">{INTAKE_EXCERPTS[0].icd}</span>
+          </div>
+          <div class="mock-merge">Merged onto your existing problem “{INTAKE_EXCERPTS[0].matchedTo}”</div>
+          {INTAKE_EXCERPTS[0].groups.map((group) => (
+            <div class="mock-group">
+              <div class="mock-group-label">{group.label}</div>
+              {group.facts.map((fact) => (
+                <div class="mock-fact">
+                  <span>{fact.text}</span>
+                  <span class="mock-page">p.{fact.page}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div class="mock-chiprow">
+            <span class="mock-chip">Accept</span>
+            <span class="mock-chip">No action</span>
+            <span class="mock-chip">Re-tag</span>
+            <span class="mock-chip">Dismiss</span>
+            <span class="mock-chip mock-chip-on">View source</span>
+            <span class="mock-chip">Include in note</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6b — TWO WORDS -->
+<section class="s-twowords ir">
+  <div class="ic">
+    <div class="twowords-box">
+      <h3>Two words we chose carefully</h3>
+      <p><strong>No action</strong> is not <em>discard</em>. Nothing is deleted; the excerpt stays visible on the document.</p>
+      <p><strong>Dismiss</strong> takes it off <em>my</em> Huddle. It stays on the shared chart timeline — because the timeline is the record, and one clinician’s triage isn’t a chart decision.</p>
+      <p>A personal view choice and a shared clinical decision are different things, and the interface never lets them blur.</p>
+    </div>
+  </div>
+</section>
+
+<!-- S6c — FRESHNESS -->
+<section class="s-freshness ir">
+  <div class="ic">
+    <p class="freshness-note">And they get out of the way on their own. Content past a freshness window, or predating your own last signed encounter, drops off the at-a-glance view — it’s already been accounted for. Anything still pending never goes stale.</p>
+  </div>
+</section>
+
+<!-- S7 — MEDICATIONS -->
+<section class="s-output s-output-alt ir" id="s7">
+  <div class="ic">
+    <div class="output-grid">
+      <div>
+        <div class="il">OUTPUT 2 — MEDICATIONS</div>
+        <h2>What the document says about medications. Not a reconciled list — and we say so.</h2>
+        <p>Stream surfaces the medications a document mentions, each verified against the source, each with its own location on the page. Click a drug, land on that line of the PDF.</p>
+        <p>Then it deliberately does less than you’d expect. That list appears only in the <strong>Review Required</strong> view — never on the day-to-day problem view. Because a list of drugs sitting under a problem list reads as <em>the patient’s current regimen</em>, and it isn’t. It’s one document’s snapshot, possibly months stale, possibly contradicted by a later record. The honest place for it is the screen whose framing is already “here’s what came in.”</p>
+        <p>Clear a document’s medications with one Dismiss for the whole group. It’s per-user, it’s reversible, and the list stays in the document drawer afterward — which is what makes the word “dismiss” literally true.</p>
+        <p>There’s no Accept button here, and that’s on purpose. Accept would imply we wrote to a reconciled medication list. We don’t offer a button that implies a chart write that doesn’t happen.</p>
+      </div>
+      <div class="mock">
+        <div class="mock-marker">Demo — fake patient data — not a real chart</div>
+        <div class="mock-head">
+          <span class="mock-title">Review Required · Medications</span>
+          <span class="mock-meta">{INTAKE_DOCUMENT.type} · {INTAKE_DOCUMENT.date}</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-stamp">What this one document says. Not a reconciled list.</div>
+          {INTAKE_MEDICATIONS.map((med) => (
+            <div class="mock-med">
+              <div>
+                <div class="mock-med-name">{med.name}</div>
+                <div class="mock-med-detail">{med.detail}</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="mock-med-change">{med.change}</div>
+                <div class="mock-page">p.{med.page}</div>
+              </div>
+            </div>
+          ))}
+          <div class="mock-chiprow">
+            <span class="mock-chip mock-chip-on">Dismiss all from this document</span>
+          </div>
+          <p class="mock-note">No Accept button — Stream does not write to a reconciled medication list.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S7b — PULL QUOTE -->
+<section class="s-pull ir">
+  <div class="ic">
+    <blockquote>We’d rather tell you what one document says than pretend we’ve reconciled your med list.</blockquote>
+  </div>
+</section>
+
+<!-- S8 — PROPOSED TASKS -->
+<section class="s-output ir" id="s8">
+  <div class="ic">
+    <div class="output-grid">
+      <div>
+        <div class="il">OUTPUT 3 — PROPOSED TASKS</div>
+        <h2>Three real follow-ups, not thirty plausible ones.</h2>
+        <p>Stream proposes the actions a document is actually asking for. Each one carries an imperative action — <em>“Repeat BMP in 1–2 weeks”</em>, <em>“Refer to cardiology for stress echo”</em> — a type, the problem it belongs to, and <strong>the exact quote from the document that justifies it</strong>.</p>
+        <p>Timeframes come verbatim from the source. When the source doesn’t give one, the field stays empty. We don’t invent urgency.</p>
+        <p><strong>The quality bar is the feature.</strong> No verbatim quote, no task. The extractor is told to leave out continuation of medications the patient is already on, safety-net boilerplate, plan-of-care summaries, narrative rephrased as an action, and the same action twice in different words. For many documents the correct answer is an empty list, and it returns one.</p>
+        <p>Ten plausible tasks per document is how a task queue becomes wallpaper.</p>
+        <p><strong>Nothing is created behind your back.</strong> Proposals stay proposals. Accept, edit the wording, or delete — and the whole session commits on one Save, with a conflict check so two people reviewing the same document can’t overwrite each other.</p>
+        <p><strong>And accepted tasks go to a person.</strong> Each row has an assignee that defaults to the reviewing clinician and takes one click to change. There’s an add-your-own row for what the model missed.</p>
+        <p><strong>The document itself is somebody’s job.</strong> Every confirmed document generates a document review task assigned to a named clinician — so a fax that arrives at 4pm isn’t an item in a queue nobody owns. Wrong person? Reassign, with a reason, recorded on the document.</p>
+      </div>
+      <div class="mock">
+        <div class="mock-marker">Demo — fake patient data — not a real chart</div>
+        <div class="mock-head">
+          <span class="mock-title">Proposed tasks</span>
+          <span class="mock-meta">{INTAKE_TASKS.length} proposed · none created yet</span>
+        </div>
+        <div class="mock-body">
+          {INTAKE_TASKS.map((task) => (
+            <div class="mock-task">
+              <div class="mock-task-action">{task.action}</div>
+              <div class="mock-task-tags">
+                <span class="mock-task-tag">{task.type}</span>
+                <span class="mock-task-tag">{task.problem}</span>
+                {task.timeframe ? <span class="mock-task-tag">{task.timeframe}</span> : <span class="mock-task-tag">No timeframe given</span>}
+              </div>
+              <div class="mock-quote">“{task.quote}” <span class="mock-page">p.{task.page}</span></div>
+              <div class="mock-assignee">
+                <span>Assignee: <strong>{task.assignee}</strong></span>
+                <span>Accept · Edit · Delete</span>
+              </div>
+            </div>
+          ))}
+          <p class="mock-note">Nothing here exists as a task until you Save.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S9 — THE GUARANTEE -->
+<section class="s-guarantee" id="s9">
+  <div class="ic">
+    <div class="guarantee-inner">
+      <div class="il">THE GUARANTEE</div>
+      <h2>Outside records inform the clinician. They never write the clinician’s note.</h2>
+      <p>This isn’t a policy, it’s an architecture. The code that reads excerpts is physically separate from the code that drafts notes, and an automated test fails the build if the note-generating path so much as imports the excerpt reader.</p>
+      <p>The only way outside content enters a note is one explicit click — <strong>Include in note</strong> — which inserts it as an attributed quote:</p>
+      <p class="guarantee-quote">Per Discharge Summary, Dr. A. Chen, 3/15/24: “…”</p>
+      <p class="guarantee-close">Your record stays your record. And where it isn’t, it says so on the page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- S10 — TRUST -->
+<section class="s-trust ir">
+  <div class="ic">
+    <div class="il">TRUST</div>
+    <h2>What we do so you don’t have to check.</h2>
+    <ol class="trust-list">
+      {trustPoints.map((point) => (
+        <li class="trust-item"><strong>{point.lead}</strong>{point.rest}</li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- S11 — THREE DOORS -->
+<section class="s-doors ir">
+  <div class="ic">
+    <div class="il">ONE SURFACE, THREE DOORS</div>
+    <h2>Learn the review panel once.</h2>
+    <p class="doors-lede">The same panel is mounted in three places, with everything available at each: excerpts, medications, proposed tasks, the summary, mark-reviewed, and reassign.</p>
+    <div class="doors-grid">
+      <div class="door-card">
+        <h3>Documents</h3>
+        <p>For whoever works the fax queue.</p>
+      </div>
+      <div class="door-card">
+        <h3>The Huddle</h3>
+        <p>During pre-visit prep, in the drawer beside the patient’s problems.</p>
+      </div>
+      <div class="door-card">
+        <h3>Tasks</h3>
+        <p>Open the document review task and review it in place, without being thrown to another page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S12 — FAQ -->
+<section class="s-faq ir" id="faq">
+  <div class="ic">
+    <div class="il">FAQ</div>
+    <h2>Questions we get asked.</h2>
+    <div class="faq-list">
+      {faqs.map((faq) => (
+        <details class="faq-item" data-faq={faq.q}>
+          <summary class="faq-q">{faq.q}<span class="faq-icon"></span></summary>
+          <div class="faq-a">
+            {faq.a.split('\n\n').map((para) => <p>{para}</p>)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- S12b — GETTING STARTED -->
+<section class="s-start ir">
+  <div class="ic">
+    <div class="start-grid">
+      <div>
+        <div class="il">GETTING STARTED</div>
+        <h2>Ten phone calls, not a migration.</h2>
+        <p>You don’t port a number and you don’t switch anything off. You get a Stream fax number, your old line keeps working, and there’s no moment where a fax could fall between two systems.</p>
+        <p>Then you make a short list of calls. Most practices find that ten senders — the hospital records department, the specialty groups they refer to most, the imaging center — account for the majority of what comes in. Give those offices the new number and most of your inbound volume is running through Stream the same week.</p>
+        <p>Everything else moves at its own pace. And whatever still arrives the old way, or on paper, gets dragged into Stream from the Documents page and goes down the same pipeline.</p>
+      </div>
+      <div class="start-steps">
+        <div class="start-step">
+          <span class="start-step-num">1</span>
+          <span class="start-step-text"><strong>Get a Stream number</strong>Provisioned on either carrier. Nothing to port.</span>
+        </div>
+        <div class="start-step">
+          <span class="start-step-num">2</span>
+          <span class="start-step-text"><strong>Keep your old line running</strong>Both work at once. No cutover day.</span>
+        </div>
+        <div class="start-step">
+          <span class="start-step-num">3</span>
+          <span class="start-step-text"><strong>Call your top ten senders</strong>Hospital records, your usual specialty groups, imaging.</span>
+        </div>
+        <div class="start-step">
+          <span class="start-step-num">4</span>
+          <span class="start-step-text"><strong>Drag in the rest</strong>Anything on paper or on the old line uploads from Documents.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S13 — CLOSING CTA -->
+<section class="s-cta" id="s13">
+  <div class="ic">
+    <div class="cta-inner">
+      <h2>Stop looking for information you already have.</h2>
+      <p>If a fact has to be resurfaced, it was lost. {PRODUCT} is on Stream Pro today.</p>
+      <div class="cta-actions">
+        <a href={demoUrl} class="ib-white" data-intake-cta="closing">Book a demo →</a>
+        <a href="/contact" class="ib-outline-white" data-intake-cta="closing-fax">Talk to us about your fax volume</a>
+      </div>
+      <p class="cta-trust">Available on Stream Pro · hello@riverrecords.ai · We respond same day.</p>
+    </div>
+  </div>
+</section>
+
+<Footer />
+</div>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dl = (window.dataLayer = window.dataLayer || []);
+
+    // Reveal on scroll
+    if (!reduce && 'IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.ir').forEach(function (el) { obs.observe(el); });
+    } else {
+      document.querySelectorAll('.ir').forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    // Sticky CTA — on once the reader is past S2
+    var sticky = document.getElementById('intake-sticky');
+    var s2 = document.getElementById('s2');
+
+    // Park it directly under the nav, whatever height the nav actually is.
+    var nav = document.querySelector('.nav');
+    var setNavHeight = function () {
+      if (!nav) return;
+      document.documentElement.style.setProperty('--intake-nav-h', nav.getBoundingClientRect().height + 'px');
+    };
+    setNavHeight();
+    window.addEventListener('resize', setNavHeight);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(setNavHeight); }
+    if (sticky && s2 && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          sticky.classList.toggle('on', !e.isIntersecting && e.boundingClientRect.top < 0);
+        });
+      }, { threshold: 0 }).observe(s2);
+    }
+
+    // CTA clicks
+    document.querySelectorAll('[data-intake-cta]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        dl.push({ event: 'intake_cta_click', intake_cta: el.getAttribute('data-intake-cta') });
+      });
+    });
+
+    // FAQ expands — tells us what the page failed to answer
+    document.querySelectorAll('.faq-item').forEach(function (item) {
+      item.addEventListener('toggle', function () {
+        if (item.open) {
+          dl.push({ event: 'intake_faq_expand', intake_faq: item.getAttribute('data-faq') });
+        }
+      });
+    });
+
+    // Scroll depth at S4 / S9 / S13
+    ['s4', 's9', 's13'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el || !('IntersectionObserver' in window)) return;
+      var seen = false;
+      var o = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !seen) {
+            seen = true;
+            dl.push({ event: 'intake_scroll_depth', intake_section: id });
+            o.disconnect();
+          }
+        });
+      }, { threshold: 0.25 });
+      o.observe(el);
+    });
+
+    // S4 video path — pause control + reduced-motion default
+    var video = document.getElementById('provenance-video');
+    var pause = document.getElementById('provenance-pause');
+    if (video) {
+      if (reduce) { video.autoplay = false; video.removeAttribute('autoplay'); video.pause(); }
+      var played = false;
+      video.addEventListener('play', function () {
+        if (played) return;
+        played = true;
+        dl.push({ event: 'intake_video_play' });
+      });
+      video.addEventListener('ended', function () { dl.push({ event: 'intake_video_complete' }); });
+      if (pause) {
+        var sync = function () {
+          var paused = video.paused;
+          pause.textContent = paused ? 'Play' : 'Pause';
+          pause.setAttribute('aria-pressed', paused ? 'true' : 'false');
+        };
+        pause.addEventListener('click', function () {
+          if (video.paused) { video.play(); } else { video.pause(); }
+          sync();
+        });
+        sync();
+      }
+    }
+  })();
+</script>
+
+</Base>
