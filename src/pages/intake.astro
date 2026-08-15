@@ -979,6 +979,10 @@ const trustPoints = [
         <p>Then it deliberately does less than you’d expect. That list appears only in the <strong>Review Required</strong> view — never on the day-to-day problem view. Because a list of drugs sitting under a problem list reads as <em>the patient’s current regimen</em>, and it isn’t. It’s one document’s snapshot, possibly months stale, possibly contradicted by a later record. The honest place for it is the screen whose framing is already “here’s what came in.”</p>
         <p>Clear a document’s medications with one Dismiss for the whole group. It’s per-user, it’s reversible, and the list stays in the document drawer afterward — which is what makes the word “dismiss” literally true.</p>
         <p>There’s no Accept button here, and that’s on purpose. Accept would imply we wrote to a reconciled medication list. We don’t offer a button that implies a chart write that doesn’t happen.</p>
+        {/* NEW COPY, not from the v1 deck — added on Jacob's correction that medications
+            have an Include in note path. Needs sign-off, and the attribution label below
+            should be checked against the app's actual UI string. */}
+        <p><strong>What you can do is use them.</strong> <em>Include in note</em> puts the document’s medication list into your documentation, attributed to where it came from — <em>from external records</em>. It’s the same explicit click that governs every other outside fact on this page, and it writes to your note, not to a list Stream doesn’t keep.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1001,9 +1005,10 @@ const trustPoints = [
             </div>
           ))}
           <div class="mock-chiprow">
-            <span class="mock-chip mock-chip-on">Dismiss all from this document</span>
+            <span class="mock-chip mock-chip-on">Include in note</span>
+            <span class="mock-chip">Dismiss all from this document</span>
           </div>
-          <p class="mock-note">No Accept button — Stream does not write to a reconciled medication list.</p>
+          <p class="mock-note">No Accept button — Include in note writes to your note as <em>from external records</em>, never to a reconciled medication list.</p>
         </div>
       </div>
     </div>
