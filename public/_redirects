@@ -45,3 +45,7 @@
 
 # Stream Inlet — brand-name URL points at the page's descriptive slug
 /inlet  /intake  301
+
+# Record Ingestion folded into the Stream Inlet page (Aug 2026)
+/features/record-ingestion  /intake  301
+/features/record-ingestion/  /intake  301

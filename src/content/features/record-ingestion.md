@@ -6,7 +6,7 @@ headline: "Record Ingestion — Outside Records, Filed by Problem"
 subheadline: "Fax, upload or paste a record. Stream reads it, proposes a patient match, and lays its clinical content out under the problems it belongs to — for a person to review."
 seoTitle: "Record Ingestion for Outside Documents | Stream"
 seoDescription: "Stream reads inbound faxes, uploads and pasted text, and sorts their content under the problems it belongs to. Every fact links to its page. Nothing is auto-filed."
-hasPage: true
+hasPage: false
 draft: false
 order: 7
 tags: []
@@ -28,6 +28,16 @@ faq:
   - question: "Does this replace my EHR’s media tab?"
     answer: "No. Stream organizes content for documentation; originals can remain in your EHR's repository."
 ---
+
+<!--
+This page is no longer generated. /features/record-ingestion 301s to /intake
+(see public/_redirects) so the two pages stop competing for the same search.
+hasPage: false keeps the entry as a card on the features index — where the
+pinned Stream Inlet card carries the link — and stops Astro building the
+standalone page, which is what lets the redirect fire on Cloudflare Pages.
+
+The body below is kept, corrected and unrendered, in case the page is restored.
+-->
 
 Every clinician knows the feeling — a new patient arrives with years of records from outside systems: scanned PDFs, faxed letters, printouts from old EHRs. You spend half the visit scrolling, searching, and summarizing before you can even begin to plan care.
 
