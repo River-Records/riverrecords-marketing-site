@@ -32,7 +32,7 @@ Here's the question I've started asking other physicians instead of asking wheth
 
 If it happens during, you're doing retrieval under time pressure with the patient watching. If it happens before, you're doing it in the evening on your own time. Either way you're paying for it, and either way the cost is invisible on every dashboard in the practice.
 
-If a fact has to be resurfaced, it was lost. That's the same failure I've written about elsewhere as [hunting through charts rather than reading them](/blog/i-dont-read-charts-i-hunt-through-them) — the work isn't comprehension, it's locating the thing you already comprehended once.
+If information has to be resurfaced, it was lost. That's the same failure I've written about elsewhere as [hunting through charts rather than reading them](/blog/i-dont-read-charts-i-hunt-through-them) — the work isn't comprehension, it's locating the thing you already comprehended once.
 
 ## What we built
 
