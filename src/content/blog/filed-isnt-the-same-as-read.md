@@ -50,7 +50,7 @@ Facts are extracted and classified, not composed. If a fact can't be grounded in
 
 **Follow-ups come with their receipts.** Each proposed task carries an imperative action, a type, the problem it belongs to, and the exact quote from the document that justifies it. No verbatim quote, no task. Timeframes are taken word-for-word from the source, and where the source doesn't give one, the field stays empty rather than getting filled in with a plausible interval.
 
-The extractor excludes continuation of existing medications, safety-net boilerplate, plan-of-care summaries, prose rephrased as an action, and duplicate actions. Most consult letters ask you to do approximately nothing, and an empty list is a valid and common result. Three real follow-ups, not thirty plausible ones — thirty plausible ones are how these tools lose physicians in the first week.
+The extractor excludes continuation of existing medications, safety-net boilerplate, plan-of-care summaries, prose rephrased as an action, and duplicate actions. Most consult letters ask you to do approximately nothing, and an empty list is a valid and common result. Three real follow-ups, not thirty plausible ones. A list short enough to trust is a list you'll actually read.
 
 Proposals stay proposals. Accept, edit, or delete, and the session commits on one Save with a conflict check. The ones you accept become tracked items rather than sentences in a document nobody will reopen, which is most of what it takes to stop [a referral loop from dying quietly](/blog/where-referrals-go-to-die).
 
@@ -80,9 +80,9 @@ There's no cutover day. You get a Stream number and your existing line keeps run
 
 We also make the calls. As part of setup, we contact your highest-volume senders with the new number — usually around ten of them: the hospital records department, the two or three specialty groups you refer to most, the imaging center. Your front desk doesn't have to do it. The rest migrate over time as you update directory listings and referral forms.
 
-Stream Inlet is available on Stream Pro as a metered add-on — it runs on the Stream chart, not as a layer over a third-party system. Starter is $89/month for 500 pages, Practice is $199/month for 1,500, and Practice+ is $349/month for 3,000. Setup is $299 and covers routing, testing, a staff walkthrough, and those outreach calls. Overage runs $0.14 per page and you're notified at 80% of your allowance. Junk faxes are filtered and never billed.
+Stream Inlet is available on Stream Pro as a metered add-on, and it runs on the Stream chart itself. Starter is $89/month for 500 pages, Practice is $199/month for 1,500, and Practice+ is $349/month for 3,000. Setup is $299 and covers routing, testing, a staff walkthrough, and those outreach calls. Overage runs $0.14 per page and you're notified at 80% of your allowance. Junk faxes are filtered and never billed.
 
-Freed remembers your visit. Stream remembers your patient. Stream Inlet is the part that makes the second one true for everything that arrives at Stream.
+Stream remembers your patient. Stream Inlet is the part that makes that true for everything that arrives — including the letter from four months ago that answers the question you're about to ask again.
 
 Stream Inlet ships August 18, 2026.
 
