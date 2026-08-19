@@ -1,0 +1,574 @@
+<title>Stream — Field One-Pagers</title>
+
+<style>
+:root {
+  --paper:      #FCFCFA;
+  --paper-sunk: #F4F5F2;
+  --ink:        #15181A;
+  --ink-muted:  #5E6663;
+  --rule:       #DFE3DF;
+  --rule-soft:  #ECEEEA;
+  --accent:     #2E6A6E;
+  --peds:       #2E6A6E;
+  --dpc:        #8A6220;
+  --im:         #3F4A78;
+  --warn:       #9A3F2A;
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", Charter, "Bitstream Charter", "Palatino Linotype", Palatino, Georgia, serif;
+
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #14171A;
+    --paper-sunk: #1B1F22;
+    --ink:        #E7EAE6;
+    --ink-muted:  #98A19D;
+    --rule:       #2C3235;
+    --rule-soft:  #23282B;
+    --accent:     #5FA8AC;
+    --peds:       #5FA8AC;
+    --dpc:        #C99A46;
+    --im:         #8894C9;
+    --warn:       #D2775C;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #14171A;
+  --paper-sunk: #1B1F22;
+  --ink:        #E7EAE6;
+  --ink-muted:  #98A19D;
+  --rule:       #2C3235;
+  --rule-soft:  #23282B;
+  --accent:     #5FA8AC;
+  --peds:       #5FA8AC;
+  --dpc:        #C99A46;
+  --im:         #8894C9;
+  --warn:       #D2775C;
+}
+:root[data-theme="light"] {
+  --paper:      #FCFCFA;
+  --paper-sunk: #F4F5F2;
+  --ink:        #15181A;
+  --ink-muted:  #5E6663;
+  --rule:       #DFE3DF;
+  --rule-soft:  #ECEEEA;
+  --accent:     #2E6A6E;
+  --peds:       #2E6A6E;
+  --dpc:        #8A6220;
+  --im:         #3F4A78;
+  --warn:       #9A3F2A;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* ---- masthead ---- */
+.masthead { display: flex; flex-direction: column; gap: .75rem; border-bottom: 2px solid var(--ink); padding-bottom: 1.25rem; }
+.masthead h1 { font-family: var(--sans); font-size: 1.75rem; font-weight: 650; letter-spacing: -.015em; text-wrap: balance; }
+.masthead .meta { font-size: .8125rem; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: .375rem 1rem; }
+.masthead .howto { font-size: .9375rem; color: var(--ink-muted); max-width: var(--measure); }
+
+/* ---- segment sheet ---- */
+.sheet { display: flex; flex-direction: column; gap: 1.75rem; }
+.sheet-head { display: flex; flex-direction: column; gap: .5rem; border-top: 4px solid var(--seg, var(--accent)); padding-top: 1rem; }
+.eyebrow { font-size: .6875rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--seg, var(--accent)); }
+.sheet-head h2 { font-size: 1.5rem; font-weight: 650; letter-spacing: -.01em; }
+.sheet-head .stance { font-size: .9375rem; color: var(--ink-muted); max-width: var(--measure); }
+
+.block { display: flex; flex-direction: column; gap: .625rem; }
+.block > h3 {
+  font-size: .6875rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-muted);
+  border-bottom: 1px solid var(--rule); padding-bottom: .375rem;
+}
+.block p, .block li { max-width: var(--measure); }
+.block p { font-size: .9375rem; }
+
+/* the words a rep actually says */
+.say {
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  border-left: 3px solid var(--seg, var(--accent));
+  padding: .125rem 0 .125rem 1rem;
+  max-width: var(--measure);
+}
+.say + .say { margin-top: .25rem; }
+.say-note { font-size: .875rem; color: var(--ink-muted); max-width: var(--measure); }
+
+ul.tight, ol.tight { display: flex; flex-direction: column; gap: .4375rem; padding-left: 1.125rem; font-size: .9375rem; }
+ul.tight { list-style: square; }
+ol.tight { list-style: decimal; }
+ul.tight::marker, ol.tight li::marker { color: var(--seg, var(--accent)); }
+
+.beats { display: flex; flex-direction: column; gap: .875rem; counter-reset: beat; }
+.beat { display: grid; grid-template-columns: auto 1fr; gap: .875rem; align-items: baseline; }
+.beat .n {
+  font-family: var(--serif); font-size: 1.125rem; font-weight: 600;
+  color: var(--seg, var(--accent)); font-variant-numeric: tabular-nums;
+}
+.beat b { font-weight: 650; }
+.beat p { font-size: .9375rem; margin: 0; }
+
+/* qualify / disqualify */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.split > div { display: flex; flex-direction: column; gap: .5rem; }
+.split h4 { font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.split .go h4 { color: var(--seg, var(--accent)); }
+.split .no h4 { color: var(--warn); }
+.split ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .4375rem; font-size: .875rem; }
+.split .go li::before { content: "+ "; color: var(--seg, var(--accent)); font-weight: 700; }
+.split .no li::before { content: "\2212  "; color: var(--warn); font-weight: 700; }
+
+/* objections */
+.obj { display: flex; flex-direction: column; gap: .875rem; }
+.obj > div { display: flex; flex-direction: column; gap: .25rem; padding-left: .875rem; border-left: 1px solid var(--rule); }
+.obj .q { font-family: var(--serif); font-style: italic; font-size: 1rem; }
+.obj .a { font-size: .9375rem; }
+
+.callout {
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--seg, var(--accent));
+  padding: .875rem 1rem;
+  font-size: .9375rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.callout strong { font-weight: 650; }
+.callout.warnish { border-left-color: var(--warn); }
+
+.tojacob {
+  font-size: .8125rem; color: var(--ink-muted); font-style: italic;
+  border-top: 1px dashed var(--rule); padding-top: .625rem; max-width: var(--measure);
+}
+
+.price { font-size: .9375rem; font-variant-numeric: tabular-nums; }
+.price b { font-weight: 650; }
+
+/* guardrails */
+.rails { display: flex; flex-direction: column; gap: 1.75rem; }
+.rails .sheet-head { border-top-color: var(--warn); }
+.rails .eyebrow { color: var(--warn); }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; font-size: .875rem; min-width: 34rem; }
+thead th {
+  text-align: left; font-size: .6875rem; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink-muted); font-weight: 700; padding: .625rem .75rem;
+  background: var(--paper-sunk); border-bottom: 1px solid var(--rule);
+}
+td { padding: .625rem .75rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+td.never { color: var(--warn); }
+td.never::before { content: "\00d7  "; font-weight: 700; }
+td.instead { color: var(--ink); }
+
+.chips { display: flex; flex-wrap: wrap; gap: .375rem; }
+.chip {
+  font-size: .75rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  border: 1px solid var(--rule); background: var(--paper-sunk);
+  padding: .1875rem .4375rem; border-radius: 2px;
+}
+
+footer { font-size: .8125rem; color: var(--ink-muted); border-top: 1px solid var(--rule); padding-top: 1rem; max-width: var(--measure); }
+
+@media (max-width: 640px) {
+  .split { grid-template-columns: 1fr; }
+  .wrap { padding: 2.5rem 1.125rem 4rem; gap: 2.75rem; }
+}
+
+@media print {
+  :root {
+    --paper: #FFFFFF; --paper-sunk: #F4F5F2; --ink: #15181A; --ink-muted: #5E6663;
+    --rule: #DFE3DF; --rule-soft: #ECEEEA;
+    --accent: #2E6A6E; --peds: #2E6A6E; --dpc: #8A6220; --im: #3F4A78; --warn: #9A3F2A;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  body { background: #fff; font-size: 8.2pt; line-height: 1.34; }
+  .wrap { max-width: none; padding: 0; gap: 0; }
+
+  /* masthead compresses to a single rule-line above the first sheet */
+  .masthead { gap: .15rem; padding-bottom: .4rem; border-bottom-width: 1.5px; margin-bottom: .55rem; break-after: avoid; }
+  .masthead h1 { font-size: 1.05rem; }
+  .masthead .meta { font-size: .62rem; gap: .2rem .7rem; }
+  .masthead .howto { display: none; }
+
+  /* each segment becomes a two-column field sheet on one page */
+  .sheet { display: block; columns: 2; column-gap: 1.15rem; gap: 0; }
+  .sheet + .sheet, .rails { break-before: page; }
+  .sheet-head { column-span: all; border-top-width: 3px; padding-top: .4rem; margin-bottom: .5rem; gap: .15rem; break-after: avoid; }
+  .sheet-head h2 { font-size: 1.05rem; }
+  .sheet-head .stance { font-size: .78rem; max-width: none; }
+
+  .block { margin-bottom: .42rem; gap: .24rem; }
+  .block > h3 { font-size: .6rem; padding-bottom: .2rem; }
+  .block p, .block li, .block .price { font-size: .78rem; max-width: none; }
+  .say { font-size: .9rem; padding-left: .55rem; max-width: none; }
+  .say-note { font-size: .72rem; max-width: none; }
+  ul.tight, ol.tight { gap: .25rem; font-size: .78rem; }
+
+  /* the column is already narrow — don't split it again */
+  .split { grid-template-columns: 1fr; gap: .6rem; }
+  .split ul { gap: .25rem; font-size: .75rem; }
+  .split h4 { font-size: .6rem; }
+
+  .beats { gap: .35rem; }
+  .beat { gap: .5rem; }
+  .beat p, .obj .a { font-size: .78rem; }
+  .obj { gap: .35rem; }
+  .obj .q { font-size: .8rem; }
+  .callout { padding: .45rem .55rem; font-size: .76rem; gap: .25rem; }
+  /* internal aside — belongs on the web page Jacob reads, not on a rep's printed sheet */
+  .tojacob { display: none; }
+
+  /* a long block may flow across the column break; its atoms may not */
+  .block, .beats, .obj { break-inside: auto; }
+  .beat, .obj > div, .callout, .split > div, .chips, .tablewrap, li { break-inside: avoid; }
+
+  /* guardrails keeps full width — the table needs it */
+  .rails { display: block; columns: 2; column-gap: 1.15rem; }
+  .rails .sheet-head, .rails .span, .rails footer { column-span: all; }
+  .rails .sheet-head { margin-bottom: .45rem; }
+  .rails .span { margin-bottom: .55rem; }
+  .rails footer { margin-top: .3rem; }
+  .rails .sheet-head { margin-bottom: 0; }
+  table { font-size: .655rem; min-width: 0; }
+  thead th { padding: .2rem .36rem; font-size: .56rem; }
+  td { padding: .2rem .36rem; }
+  .chip { font-size: .65rem; }
+  footer { font-size: .68rem; max-width: none; break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>Stream — Field One-Pagers</h1>
+    <div class="meta">
+      <span>Pediatrics · Direct Primary Care · Internal Medicine</span>
+      <span>19 Aug 2026</span>
+      <span>For the GTM team — not for distribution to prospects</span>
+    </div>
+    <p class="howto"><b>Companion deck:</b> <em>Stream — Competitor Battle Cards</em> (<code>gtm/battle-cards/</code>) covers what to say when a prospect names Freed, Heidi, Twofold, Doximity, Abridge, Suki, Tali or their EHR's own scribe. One sheet per segment. Serif type is what you actually say or write; everything in sans is about it. Read the guardrails sheet before your first send — a few of the claims below the line will cost us a deal or a lawyer.</p>
+  </header>
+
+  <!-- ============ PEDIATRICS ============ -->
+  <section class="sheet" style="--seg: var(--peds)">
+    <div class="sheet-head">
+      <div class="eyebrow">Segment 01</div>
+      <h2>Independent Pediatrics</h2>
+      <p class="stance">The deepest thing we've built and the least proven. Sell the fax pile today; sell the well-visit panel as what it grows into.</p>
+    </div>
+
+    <div class="block">
+      <h3>Who to call, who to skip</h3>
+      <div class="split">
+        <div class="go">
+          <h4>Call</h4>
+          <ul>
+            <li><b>3–15 clinicians</b> — three is the floor, four or more is the target</li>
+            <li>Owner-physician or practice manager — they own both the schedule and the money</li>
+            <li>No EHR, a cheap one, or one whose recall report nobody trusts</li>
+            <li>Already bought a scribe (they've cleared the AI objection and found it didn't fix the paperwork)</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>Skip</h4>
+          <ul>
+            <li>Hospital-owned or system-affiliated</li>
+            <li>25+ clinicians, or anyone with an IT director</li>
+            <li><b>Under 3 clinicians</b> — self-serve trial, not a booked demo</li>
+            <li>Anyone who makes EHR write-back a condition of the trial</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The opener</h3>
+      <p class="say">When an ED discharge summary comes back for one of your patients, who reads it — and where does it end up?</p>
+      <p class="say-note">Every practice has a bad answer: scanned to a folder, or sitting in a pile. You're asking about a workflow, not claiming a capability — that's why it gets replies. Subject lines to test: <em>the discharge summary pile</em> · <em>who reads your faxes</em>. Never “AI scribe,” never “save 2 hours a day.”</p>
+    </div>
+
+    <div class="block">
+      <h3>The three beats</h3>
+      <div class="beats">
+        <div class="beat"><span class="n">1</span><p><b>Walk in ready.</b> Before you open the door: every active problem, everything the outside world sent, and what's waiting on you — one screen.</p></div>
+        <div class="beat"><span class="n">2</span><p><b>Leave with the note done.</b> Records the visit, writes it up problem by problem in your voice, suggests the codes. One click to paste wherever it goes.</p></div>
+        <div class="beat"><span class="n">3</span><p><b>Nothing falls off.</b> Faxes and discharge summaries read themselves and file under the right problem. Well visits surface on the AAP schedule as your panel comes through.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The demo — 20 seconds, run it on every call</h3>
+      <p>Upload a real ED discharge summary. Watch Stream pull out the clinical content and file it under the right problems. Click <b>View source</b> on the surprising one and land on the highlighted sentence in the original fax. Then stop talking.</p>
+      <p>Second demo, <em>only</em> if <span class="chip">task_rules</span> is on for that account: filter the panel to 1–5y, sort by days overdue, export CSV. “That's your call list.”</p>
+    </div>
+
+    <div class="block">
+      <h3>The number — make them build it</h3>
+      <p>Named references yes, time-saved statistic no — don't invent one. Ask: <em>what do you collect on a well visit, and how many kids are behind?</em> Multiply it in front of them; their number beats ours.</p>
+    </div>
+
+    <div class="callout warnish">
+      <strong>Say this before they discover it.</strong>
+      <p>The engine only counts visits it has seen, and won't accuse a family of missing one that happened before Stream arrived. The panel fills in as patients come through — useful in months, complete after a full visit cycle. <b>The document workflow works the first week.</b> Lead with that and let the panel compound; never promise a populated call list on day one.</p>
+    </div>
+
+    <div class="block">
+      <h3>Objections</h3>
+      <div class="obj">
+        <div><p class="q">“We already have an EHR.”</p><p class="a">Good — keep it. Stream works alongside it. Nothing to install, no interface, no IT project, no implementation fee.</p></div>
+        <div><p class="q">“Our EHR already does recall.”</p><p class="a">Pull it up while we're on the call. Does it know the difference between a visit that's clinically due and one the payer will cover yet? And does it reach the clinician at the visit, or land in a report nobody opens?</p></div>
+        <div><p class="q">“So we type everything twice?”</p><p class="a">One click, formatted for any field — rich text and plain text at once, or section by section. It's a paste, not a retype. <em>Two sentences, then move on; arguing a fair objection only makes it bigger.</em></p></div>
+        <div><p class="q">“Does it make things up?”</p><p class="a">Every claim links back to the exact sentence it came from, and anything unverifiable is suppressed. Outside records never silently become the clinician's words. Show it — don't describe it.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Pricing</h3>
+      <p class="price"><b>Pro $149</b>/clinician/mo, or <b>$99</b> annually · staff seats <b>$25</b> (first free) · 30-day trial, no card · uploads included · fax number <b>free for 30 days</b>.</p>
+    </div>
+
+    <p class="tojacob">To Jacob: when prior-well-visit import ships, the warning block above gets replaced with “send us your roster before the call and we'll show you your own overdue list.” That is a materially stronger sheet and it's the reason to build it.</p>
+  </section>
+
+  <!-- ============ DPC ============ -->
+  <section class="sheet" style="--seg: var(--dpc)">
+    <div class="sheet-head">
+      <div class="eyebrow">Segment 02</div>
+      <h2>Direct Primary Care &amp; Concierge</h2>
+      <p class="stance">The only segment where we aren't an add-on to something else, and the shortest sales cycle we have. But most DPC practices are solo or two — the qualifying pool here is small, so work it opportunistically behind pediatrics and internal medicine.</p>
+    </div>
+
+    <div class="block">
+      <h3>Who to call, who to skip</h3>
+      <div class="split">
+        <div class="go">
+          <h4>Call</h4>
+          <ul>
+            <li>DPC, concierge or cash-pay groups, <b>3+ clinicians</b> (four or more preferred)</li>
+            <li>The founding physician is the buyer <em>and</em> a user — no committee, decision in one call</li>
+            <li>Strongest signal: no EHR, or one they complain about by name</li>
+            <li>Newly forming groups at 3+ — zero switching cost, actively shopping</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>Skip</h4>
+          <ul>
+            <li>Anyone who needs us to e-prescribe</li>
+            <li>Anyone who needs claims or a superbill from us</li>
+            <li>Anyone who needs a patient portal</li>
+            <li><b>Solo and two-clinician practices</b> — the classic DPC shape, and below our booking floor. Self-serve trial only</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The opener</h3>
+      <p class="say">You left to spend more time with patients. Did the documentation follow you out?</p>
+      <p class="say-note">These physicians left fee-for-service for longer visits and smaller panels. Chart work is the part that came with them — and most are running either nothing or something cheap they resent paying for.</p>
+    </div>
+
+    <div class="block">
+      <h3>The three beats</h3>
+      <div class="beats">
+        <div class="beat"><span class="n">1</span><p><b>It's the chart, not a bolt-on.</b> Patients, problems, visit history, documents — one place. No EHR required, and nothing to integrate.</p></div>
+        <div class="beat"><span class="n">2</span><p><b>The visit writes itself.</b> Record from your phone, your laptop, or a telehealth tab. The note comes back problem by problem, in your voice, and it learns your style.</p></div>
+        <div class="beat"><span class="n">3</span><p><b>The outside world files itself.</b> Labs, consults and hospital notes come back and land under the right problem — each one linked to the sentence it came from.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Bring these up when they fit — don't recite them</h3>
+      <ul class="tight">
+        <li>Plain-language visit summaries to hand a member. For a membership practice that's a retention artifact, not a clinical one.</li>
+        <li>Referral letters and prior auths generated as faxable PDFs, with your signature block.</li>
+        <li>Lab requisitions and sample tracking.</li>
+        <li>A weekly reading list built from what you actually saw last week. DPC is professionally isolating; this lands harder here than anywhere else.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>The demo</h3>
+      <p>Skip the note — every scribe demos the note. Open a chart and show the problem list <em>assembled from their outside records</em>, then upload a specialist letter and watch it attach itself. For a doctor who keeps that list by hand in a Word document, that's the moment.</p>
+    </div>
+
+    <div class="callout warnish">
+      <strong>Name the boundary on call one, not call three.</strong>
+      <p>Stream is the clinical chart and the documentation. It does <b>not</b> e-prescribe, file claims, or provide a patient portal. Ask what they use for those and confirm they're keeping them. A physician who finds out in week two churns and tells every other DPC physician they know; one who hears it in minute five trusts everything else you said.</p>
+    </div>
+
+    <div class="block">
+      <h3>Objections</h3>
+      <div class="obj">
+        <div><p class="q">“Is this an EHR?”</p><p class="a">No, and we're not trying to be. It's your chart and your documentation. Prescribing and billing stay where they are.</p></div>
+        <div><p class="q">“I heard notes get deleted after 48 hours.”</p><p class="a">That's Lite — a standalone scribe with no chart. Pro keeps the chart. <em>Reps: never put a DPC practice on Lite.</em></p></div>
+        <div><p class="q">“I'm solo. Isn't this overkill?”</p><p class="a">The trial's free and you're set up the same afternoon. There's no implementation to be overkill about.</p></div>
+        <div><p class="q">“What does it cost me against my EHR?”</p><p class="a">Compare, don't discount. $149/month against what they're paying for software they've just finished complaining about.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Pricing</h3>
+      <p class="price"><b>Pro $149</b>/clinician/month, or <b>$99</b> billed annually · 30-day trial, no card · USD and CAD. Document upload included; provisioned fax number free for the first 30 days.</p>
+    </div>
+  </section>
+
+  <!-- ============ INTERNAL MEDICINE ============ -->
+  <section class="sheet" style="--seg: var(--im)">
+    <div class="sheet-head">
+      <div class="eyebrow">Segment 03</div>
+      <h2>Internal Medicine &amp; Risk-Bearing Primary Care</h2>
+      <p class="stance">Heaviest fax volume of the three, and the only segment where the buyer already has a dollar figure in their head. Qualify hard on risk exposure.</p>
+    </div>
+
+    <div class="block">
+      <h3>Who to call, who to skip</h3>
+      <div class="split">
+        <div class="go">
+          <h4>Call</h4>
+          <ul>
+            <li>Independent IM / adult primary care, <b>3–20 clinicians</b> (four or more preferred)</li>
+            <li>Risk exposure: Medicare Advantage, ACO participation, any capitated contract</li>
+            <li>Buyer is the owner, managing partner, or whoever answers for risk and quality</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>Skip</h4>
+          <ul>
+            <li>Health-system owned</li>
+            <li><b>Under 3 clinicians</b> — self-serve trial, not a booked demo</li>
+            <li>Pure fee-for-service with no fax pain — that's a scribe buyer who will grind you on price</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The opener</h3>
+      <p class="say">Which of your Medicare Advantage patients haven't had their conditions documented this year — and how do you find out?</p>
+      <p class="say-note">The answer is a spreadsheet, a vendor report that arrives two months late, or nobody. If they're not risk-bearing, fall back to: <em>“Who reads the hospital discharge summaries?”</em></p>
+    </div>
+
+    <div class="block">
+      <h3>The three beats</h3>
+      <div class="beats">
+        <div class="beat"><span class="n">1</span><p><b>Walk in ready.</b> Four tabs before you open the door: what's active, what's falling off the chart, what's HCC-coded and not yet documented this year, and what's waiting on your review.</p></div>
+        <div class="beat"><span class="n">2</span><p><b>An eight-problem patient gets an eight-problem note.</b> Each condition documented separately with its own assessment and plan — not one paragraph somebody has to unpick later. Codes suggested, then sharpened to the more specific one.</p></div>
+        <div class="beat"><span class="n">3</span><p><b>Nothing falls off.</b> Discharge summaries and consult letters file under the right problem. A condition that shows up <em>only</em> in the outside record becomes a real problem on the chart, flagged external — the hospital found something your chart didn't know about.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The demo</h3>
+      <p>Discharge summary first, same as every segment. Then open the pre-visit view and show <b>Falling Off</b> — problems last documented ten or eleven months ago, red badge at eleven. Say: <em>“That's your December scramble, in August.”</em></p>
+    </div>
+
+    <div class="block">
+      <h3>The number — make them build it</h3>
+      <p>Ask what their average RAF is and what a recaptured condition is worth under their contract. Stream carries HCC weights to four decimal places and shows them on the problem itself. Their finance person already owns the multiplier; you just supply the conditions they're about to lose.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Honest ramp.</strong>
+      <p>The HCC surfaces work from what's documented in Stream, so they sharpen over the first months as patients cycle through — faster here than pediatrics, because these patients come in three or four times a year. The document workflow works week one. Say both.</p>
+    </div>
+
+    <div class="block">
+      <h3>Objections</h3>
+      <div class="obj">
+        <div><p class="q">“Our ACO already sends us gap reports.”</p><p class="a">Those are retrospective and claims-based — they tell you what you missed. This tells the clinician what's open while the patient is still in the room. Different job, different month.</p></div>
+        <div><p class="q">“That's double documentation.”</p><p class="a">It is a paste, not a retype — one click, formatted for any field, section by section if that's how your EHR wants it. Acknowledge and move.</p></div>
+        <div><p class="q">“Does it hallucinate?”</p><p class="a">Every outside claim links to the highlighted sentence it came from; anything unverifiable is suppressed; outside content never enters a note without the clinician putting it there. Demo it.</p></div>
+        <div><p class="q">“What about compliance?”</p><p class="a">BAA included in our terms — no separate negotiation. Per-tenant database isolation, role-based access control, audit logging, two-factor authentication. <b>Do not say SOC 2.</b></p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Pricing</h3>
+      <p class="price"><b>Pro $149</b>/clinician/month, or <b>$99</b> billed annually · staff seats <b>$25</b> (first free) · 30-day trial, no card · USD and CAD. Document upload included; provisioned fax number free for the first 30 days.</p>
+    </div>
+  </section>
+
+  <!-- ============ GUARDRAILS ============ -->
+  <section class="rails">
+    <div class="sheet-head">
+      <div class="eyebrow">Applies to every segment</div>
+      <h2>Guardrails</h2>
+      <p class="stance">Everything here was verified against the product, not the roadmap. A claim from the left column is the fastest way to lose a deal in diligence.</p>
+    </div>
+
+    <div class="callout warnish span">
+      <strong>Booking floor — 3 clinicians minimum, 4 or more preferred.</strong>
+      <p>No demo with a practice under three clinicians. At $149 a seat, a one- or two-person practice doesn't cover the cost of sourcing the meeting — that demand is real, but it arrives through the self-serve trial, not a booked call. <b>Confirm headcount before the invite goes out.</b> Count physicians, NPs and PAs; not front-desk, billing or MAs — those are $25 seats.</p>
+    </div>
+
+    <div class="block span">
+      <h3>Never say / say instead</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Never say</th><th>Say instead</th></tr></thead>
+          <tbody>
+            <tr><td class="never">Integrates with your EHR · syncs with · connects to · writes back</td><td class="instead">Works alongside any EHR. No integration, no IT project, no implementation fee. <em>(The old "native integrations coming" claim was removed from the website in Aug 2026 — it was never true. Don't reintroduce it on a call.)</em></td></tr>
+            <tr><td class="never">SOC 2 compliant / certified</td><td class="instead">BAA included in our terms. Per-tenant data isolation, role-based access control, audit logging, two-factor authentication.</td></tr>
+            <tr><td class="never">HIPAA certified</td><td class="instead">HIPAA-aligned architecture. (No vendor can be HIPAA certified — the phrase reads as amateur to anyone who'd know.)</td></tr>
+            <tr><td class="never">Your overdue list is ready on day one</td><td class="instead">The document workflow works week one. The panel view fills in as your patients come through.</td></tr>
+            <tr><td class="never">Any mention of Form Filler, automatic chart extraction into structured tables, or style-learning from a sample note</td><td class="instead">Nothing. Not shipped. Don't hint at it either.</td></tr>
+            <tr><td class="never">Unlimited history on every plan</td><td class="instead">Lite / Quick Encounter deletes after 48 hours — state it plainly in all Lite material or it's a refund and a support fire. Lite ($59, scribe only, no chart) isn't publicly sold: <b>never put a practice on it</b>.</td></tr>
+            <tr><td class="never">Clinicians save X minutes a day</td><td class="instead">We have no time-saved statistic — don't invent one. We <em>do</em> have three named physician references and 30,000+ documented encounters. Use those, and build the ROI number out of the prospect's own figures.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Before any demo</h3>
+      <p>Confirm flag state on the account — these are per-tenant and may be off:</p>
+      <div class="chips">
+        <span class="chip">task_rules</span><span class="chip">document_excerpts</span><span class="chip">tasks_module</span><span class="chip">outbound_faxes</span><span class="chip">journal_club</span><span class="chip">help_chatbot</span><span class="chip">merge_inline_recommendation</span>
+      </div>
+      <p>Documents still carries a <b>Beta</b> badge. One-click demo charts exist for family medicine, pediatrics, cardiology, endocrinology and behavioral health — ask Jacob for access, and <b>demo a pediatrician a pediatric panel</b>.</p>
+    </div>
+
+    <div class="block">
+      <h3>Set these expectations in onboarding, not in the wild</h3>
+      <ul class="tight">
+        <li>Fax needs a Spruce account or a Stream-provisioned number: ~15 minutes of admin <em>plus</em> a manual step on our side. Not self-serve — don't promise same-day fax.</li>
+        <li>Excerpt review is one-way: Accept and No-action are final (Re-tag is the exception).</li>
+        <li>Regenerating a note replaces manual edits. Teach generate-once-then-edit-in-place — the most common way a new user loses work.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>What we still owe the field</h3>
+      <ul class="tight">
+        <li><b>Proof.</b> Three named physician references and 30,000+ documented encounters exist and are on the website — use them. Still missing: retention figures and a defensible time-saved number, so ROI is still built from the prospect's own numbers.</li>
+        <li><b>A security page.</b> Small-practice buyers ask, and the Trust Center link is currently commented out of the app.</li>
+        <li><b>Prior-well-visit import.</b> The single build that would turn the pediatrics sheet from a promise into a demo.</li>
+      </ul>
+    </div>
+
+    <footer>Derived from the engineering handoff of 19 Aug 2026 and a direct read of the source. Claims about what the product does were checked in code; claims about who wants it are hypotheses with one design partner behind them. Update this sheet when that changes.</footer>
+  </section>
+
+</div>
