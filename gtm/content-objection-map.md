@@ -2,6 +2,8 @@
 
 **What this is:** every published blog post on riverrecords.ai, mapped to the sales objection it answers, the persona it lands with, the exact call moment to send it, and a paste-ready snippet. Built for follow-up emails and mid-cycle nurture — send the post that matches the objection you just heard, not the newest one.
 
+**Companion doc:** [`competitor-battle-cards.md`](./competitor-battle-cards.md) — one card per competitor a prospect is likely to name. Use the cards *in* the call; use this map to pick what to send *after* it.
+
 **Scope:** all 87 published posts as of 2026-07-12 (after the July 2026 dedup — five duplicate posts were consolidated with 301 redirects, so older links still work). July 2026 additions: the Revenue & Coding trilogy (category 3) and two operations posts (category 4). Book chapters are NOT recategorized here — use the existing chapter map (Ch. 9 = burnout, Ch. 8 = coding/copy-paste, Ch. 13 = has-a-scribe) and escalate post → chapter with engaged prospects.
 
 **Reading weight:** **light** = under ~5 minutes (<~1,100 words) — safe for cold or low-engagement prospects. **heavy** = a real essay — send only to engaged prospects; for a cold prospect in categories 1–3, send the matching book chapter instead.
