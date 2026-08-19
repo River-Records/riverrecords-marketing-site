@@ -82,6 +82,29 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ---
 
+## Twofold
+
+**Price:** $49/user/mo billed annually, $69 month-to-month. Unlimited notes — no per-note, per-minute, or per-action metering.
+**Wins with:** independent practices and outpatient clinics — **explicitly our ICP, at a third of our price.** Also sells into therapy.
+**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning, EHR integration.
+
+**Where they genuinely beat us**
+- **Price, badly.** $49 against $149. They also bundle coding, which we charge Pro pricing for.
+- No audio stored — a clean privacy answer that plays well with cautious buyers.
+- They claim EHR integration; we don't have any.
+
+**Where we win**
+- Same category argument as everywhere else: it is a very good, very cheap note generator. No problem-oriented chart, no inbound document pipeline, no care-gap or HCC surfaces, no patient chart to speak of.
+- At $49 they are competing on price in a market where price is collapsing. That's a race we shouldn't enter and they can't exit.
+
+**The question:** *"At $49 unlimited, what happens to the notes after they're written?"*
+
+**Handle the price gap head-on.** Don't defend $149 as a scribe price — it isn't one, and the prospect can do arithmetic. *"If you want the cheapest good scribe, it's probably them. We're priced like a chart because that's what we are."*
+
+**Watch this one for a second reason.** Twofold runs a large SEO content operation — most of the "best AI scribe 2026" and competitor-pricing comparison pages that rank for our category are theirs, including pages targeting competitors by name. They are out-publishing the market on exactly the buying-intent keywords we care about. That's a marketing problem more than a sales one, but reps should know that a prospect who "did some research" has probably read Twofold's framing of the landscape.
+
+---
+
 ## Doximity Scribe
 
 **Price:** **Free** to verified US clinicians.
@@ -141,6 +164,26 @@ These usually come up as *"my friend at the hospital uses Abridge"*, not as an a
 - Still a scribe. Same category argument, and at 2–3× our price.
 
 **The question:** *"At $300 a month, what are you getting beyond the note?"*
+
+---
+
+## Tali AI (Canada)
+
+**Price:** free tier; Pro at CAD $100/user/mo annual, CAD $135 monthly.
+**Wins with:** Canadian primary care. Effectively the default there.
+**Their pitch:** Canadian-built, integrated directly into the EMRs Canadian clinics actually run.
+
+**Where they genuinely beat us**
+- **Direct EMR integration with the Canadian stack** — Oscar Pro, Accuro, PS Suite, Med Access, CHR, Healthquest, Profile. Not "in development." Live.
+- A free tier on top of that.
+- **Canada Health Infoway's AI Scribe Program is funding up to 10,000 one-year licences for eligible primary care clinicians.** In much of Canada a competing scribe is not merely cheaper than us — it is free, integrated, and government-funded.
+- Broader adjacent surface: task management, fillable forms, clinical search, call-a-patient.
+
+**Where we win**
+- The same category argument holds — it's a scribe plus utilities, not a longitudinal problem-oriented chart with document ingestion.
+- Our HCC and risk-adjustment surfaces are US-specific and don't translate, so the win has to be made purely on chart structure and inbound documents.
+
+**The honest read: Canada is not a market we should be spending outbound effort on right now.** Free + natively integrated + publicly funded is three structural disadvantages at once, and we have none of the three. If a Canadian prospect comes to us inbound, sell the chart and the fax pile. Don't prospect into it.
 
 ---
 
@@ -211,6 +254,8 @@ Pricing and positioning verified 2026-08-19:
 - [Abridge pricing (AI Agent Square)](https://aiagentsquare.com/blog/abridge-pricing) · [Abridge review (Vero)](https://www.veroscribe.com/blog/abridge-review-2026)
 - [Suki vs Abridge comparison](https://aiagentsquare.com/compare/suki-vs-abridge)
 - [AI scribe pricing overview 2026 (Commure)](https://www.commure.com/blog-scribe/scribe-pricing)
+- [Twofold pricing](https://www.trytwofold.com/blog/twofold-pricing-explained) · [Twofold on Capterra](https://www.capterra.com/p/25639/TwoFold/)
+- [Tali AI pricing](https://tali.ai/pricing) · [Tali AI review (Vero)](https://www.veroscribe.com/blog/tali-ai-review-2026) · [Tali for Canadian EMRs](https://tali.ai/us)
 - [Doximity's own AI scribe roundup](https://blog.doximity.com/articles/Best-AI-Medical-Scribe-Tools-in-2026-Software-for-Clinical-Notes-and-Medical-Charting)
 
 *Third-party review sites in this space are frequently published by competitors — Twofold, Commure, Vero and DeepCura all sell scribes. Their pricing tables are useful and broadly consistent with each other; their verdicts are not neutral. Verify any number you plan to say out loud against the vendor's own pricing page.*
