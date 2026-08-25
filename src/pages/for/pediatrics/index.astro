@@ -10,17 +10,39 @@ import TestimonialCard from '../../../components/TestimonialCard.astro';
 import CtaDark from '../../../components/CtaDark.astro';
 import { pricing } from '../../../config/pricing';
 
+/*
+ * BEFORE THIS PAGE GOES LIVE — open items from the pediatrics source doc (§9).
+ * Copy on this page is deliberately written to survive all of these, but they
+ * should still be closed out:
+ *
+ * 1. Well-visit tracking is BUILT, GATED (task_rules flag, tenant allow-list).
+ *    Every claim below is phrased as "available to" / "we turn it on for your
+ *    account" rather than present-tense-for-everyone. If Jake confirms broad
+ *    enablement, the copy can be tightened; until then, leave it as-is.
+ * 2. Engine output has not been clinically inspected against a real pediatric
+ *    panel here. Nothing on this page describes a specific customer's results.
+ * 3. No ROI arithmetic, no dollar figures, no overdue counts presented as real.
+ *    The step mocks below are labelled "Illustrative" on purpose.
+ * 4. Step mocks are diagrammatic, matching site convention. Replace with real
+ *    screenshots from the demo pediatric chart pack when they exist.
+ * 5. Confirm the Documents "Beta" badge status; this page mentions outside-record
+ *    processing in the cross-sell grid.
+ * 6. The page is deliberately well-visits-only. The immunization schedule stance
+ *    from §4 of the source doc is NOT here — it belongs in a blog post or
+ *    founder's note, not on a page selling a shipped capability.
+ */
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "MedicalWebPage",
-      "name": "AI Medical Scribe for Pediatrics",
-      "description": "Stream is the AI medical scribe built for pediatrics — a problem-oriented, longitudinal chart that keeps development, chronic conditions, and history connected across years of well-child and follow-up visits.",
+      "name": "Pediatric Well-Visit Tracking and AI Scribe",
+      "description": "Stream tracks the Bright Futures / AAP well-visit schedule across a pediatric practice's whole panel — 27 slots with real windows — and shows the evidence behind every closed slot. Built on a problem-oriented, longitudinal chart.",
       "medicalAudience": {
         "@type": "MedicalAudience",
         "audienceType": "Clinician",
-        "healthCondition": { "@type": "MedicalCondition", "name": "Pediatric Documentation" }
+        "healthCondition": { "@type": "MedicalCondition", "name": "Pediatric Preventive Care" }
       }
     },
     {
@@ -28,18 +50,43 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is Stream suitable for well-child and developmental visits?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Because Stream organizes the chart by problem over time, developmental milestones, chronic conditions, and recurring concerns stay connected across every visit rather than scattered across separate notes." }
+          "name": "Our EHR already has a recall report. Why do I need this?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A recall report runs off the appointment book. It can tell you who has an appointment and who cancelled one. It cannot tell you about the family that simply stopped coming, because there is no appointment for it to notice the absence of. Stream starts from the panel instead." }
         },
         {
           "@type": "Question",
-          "name": "Can Stream handle complex or behavioral pediatric visits?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Stream structures each problem discussed into its own Assessment & Plan and lets you reuse relevant prior-visit information, which helps with multi-problem and developmental-behavioral encounters." }
+          "name": "We report to the state immunization registry. Isn't that the same thing?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The registry knows which doses a child received. It doesn't know whether they're coming back, and it won't hand your front desk a call list." }
+        },
+        {
+          "@type": "Question",
+          "name": "Isn't this just another AI scribe?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The note is the input, not the product. Transcription is how Stream learns what happened at a visit; the well-visit tracking is what you're buying." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know the list is right?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every closed slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Every open slot shows the window it's being measured against. You can audit any row in about four seconds." }
+        },
+        {
+          "@type": "Question",
+          "name": "We're a small practice. We know our patients.",
+          "acceptedAnswer": { "@type": "Answer", "text": "You know the ones who come. The list is for the ones who don't." }
+        },
+        {
+          "@type": "Question",
+          "name": "What if it tells me a child is fine and they aren't?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It's built to refuse that. Evidence that falls outside a slot's window doesn't close the slot — it gets flagged as a discrepancy instead. When the record can't see far enough back to answer, Stream says so rather than guessing." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long before it's useful? Does it need months of data first?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Pediatric periodicity is computed from a date of birth, so a birthday and one visit is enough. A practice can be onboarded and see who is past their window the same week, not next year." }
         },
         {
           "@type": "Question",
           "name": "Does Stream work with my pediatric EHR?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Stream pastes into any EHR — Elation, Athena, or anything else — and can also be used as a standalone documentation layer. There is no integration to set up and nothing for your EHR vendor to approve." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Stream works alongside any EHR. Notes and lists copy to the clipboard or export as PDF, so there is no integration to set up and nothing for your EHR vendor to approve." }
         },
         {
           "@type": "Question",
@@ -50,10 +97,14 @@ const jsonLd = {
     }
   ]
 };
+
+// Bright Futures / AAP periodicity as the engine encodes it: 27 slots.
+const infancySlots = ['Newborn', '1 mo', '2 mo', '4 mo', '6 mo', '9 mo', '12 mo', '15 mo', '18 mo', '24 mo', '30 mo'];
+const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
 ---
 <Page
-  title="AI Medical Scribe for Pediatrics — Stream"
-  description="Stream is the AI scribe built for pediatrics. It organizes notes by medical problem into a chart that grows with the patient, so development, chronic conditions, and history stay connected across years. 30-day free trial.">
+  title="Pediatric Well-Visit Tracking & AI Scribe — Stream"
+  description="Your recall list starts with the appointment book. Stream starts with the panel — sweeping every active child against the Bright Futures schedule nightly, and showing the evidence behind every closed slot. 30-day free trial.">
 
 <Fragment slot="head">
   <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
@@ -63,15 +114,21 @@ const jsonLd = {
 /* Pain section */
 .pain { padding: 72px 0 60px; }
 .pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
-.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 600px; line-height: 1.65; margin-bottom: 36px; }
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 620px; line-height: 1.65; margin-bottom: 36px; }
 .pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
 
 /* How it works */
 .how { padding: 88px 0 72px; }
-.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header { max-width: 700px; margin-bottom: 20px; }
 .how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
 .how-header h2 em { font-style: italic; color: var(--primary); }
 .how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+.how-gate {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; color: var(--ink-muted); line-height: 1.5;
+  background: var(--primary-light); border: 1px solid var(--primary-border);
+  border-radius: var(--r-pill); padding: 7px 16px; margin-bottom: 40px;
+}
 .how-steps { display: flex; flex-direction: column; }
 .how-step { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 60px 0; border-top: 1px solid var(--border); }
 .how-step:last-child { border-bottom: 1px solid var(--border); }
@@ -80,6 +137,95 @@ const jsonLd = {
 .how-step h3 { font-size: clamp(1.45rem, 2.4vw, 1.85rem); color: var(--ink); margin-bottom: 12px; }
 .how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
 .how-step-aside { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; padding-left: 14px; border-left: 2px solid var(--border-strong); line-height: 1.55; }
+.how-illus { font-size: 0.75rem; color: var(--ink-faint); margin-top: 22px; }
+
+/* Step mock internals */
+.mk { font-family: var(--font-sans); padding: 16px 18px; }
+.mk-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; color: var(--ink-muted); }
+.mk-row:last-child { border-bottom: 0; }
+.mk-field { flex: 0 0 92px; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); font-weight: 600; }
+.mk-hit { background: var(--primary-light); border-bottom: 2px solid var(--primary); color: var(--ink); font-weight: 600; padding: 1px 4px; border-radius: 3px; }
+.mk-out { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border-strong); font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+.mk-out span { display: block; font-weight: 400; color: var(--ink-faint); font-size: 0.75rem; margin-top: 3px; }
+
+.mk-sweep-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.mk-sweep-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); font-weight: 600; }
+.mk-sweep-time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-faint); }
+.mk-bar { display: flex; height: 10px; border-radius: var(--r-pill); overflow: hidden; margin-bottom: 14px; }
+.mk-bar i { display: block; height: 100%; }
+.mk-bar .b1 { background: var(--primary); flex: 68; }
+.mk-bar .b2 { background: var(--gold); flex: 19; }
+.mk-bar .b3 { background: var(--accent); flex: 13; }
+.mk-key { display: flex; flex-direction: column; gap: 7px; }
+.mk-key div { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--ink-muted); }
+.mk-key i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.mk-key .k1 { background: var(--primary); }
+.mk-key .k2 { background: var(--gold); }
+.mk-key .k3 { background: var(--accent); }
+.mk-scope { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-strong); font-size: 0.75rem; color: var(--ink-faint); line-height: 1.5; }
+
+.mk-item { padding: 11px 0; border-bottom: 1px solid var(--border); }
+.mk-item:last-child { border-bottom: 0; }
+.mk-item-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.mk-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.mk-tag { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
+.mk-tag.past { background: rgba(201,86,63,0.12); color: var(--accent-dark); }
+.mk-tag.open { background: rgba(212,164,74,0.18); color: var(--ink-muted); }
+.mk-tag.met { background: var(--primary-light); color: var(--primary-dark); }
+.mk-why { font-size: 0.76rem; color: var(--ink-faint); line-height: 1.5; }
+.mk-why q { font-style: normal; color: var(--ink-muted); }
+
+/* Birthday band */
+.birthday { padding: 76px 0; background: var(--surface-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.birthday-inner { max-width: 720px; }
+.birthday h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--ink); margin-bottom: 18px; line-height: 1.2; }
+.birthday h2 em { font-style: italic; color: var(--primary); }
+.birthday p { font-size: 1.02rem; color: var(--ink-muted); line-height: 1.72; margin-bottom: 16px; }
+.birthday p strong { color: var(--ink); font-weight: 600; }
+.birthday p:last-child { margin-bottom: 0; }
+
+/* Schedule */
+.schedule { padding: 84px 0 72px; }
+.schedule-header { max-width: 680px; margin-bottom: 40px; }
+.schedule-header h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--ink); margin-bottom: 12px; }
+.schedule-header h2 em { font-style: italic; color: var(--primary); }
+.schedule-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.68; }
+.sched-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-sm); padding: 30px; }
+.sched-band + .sched-band { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--border); }
+.sched-band-hdr { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.sched-band-hdr h3 { font-family: var(--font-sans); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); font-weight: 700; }
+.sched-band-hdr span { font-size: 0.78rem; color: var(--ink-faint); }
+.sched-slots { display: flex; flex-wrap: wrap; gap: 7px; }
+.sched-slot { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 6px 10px; white-space: nowrap; }
+.sched-total { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--ink); font-weight: 600; }
+.sched-total span { display: block; font-weight: 400; color: var(--ink-faint); font-size: 0.82rem; margin-top: 4px; line-height: 1.55; }
+.windows { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 22px; }
+.window-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; }
+.window-card h4 { font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink); margin-bottom: 6px; }
+.window-card p { font-family: var(--font-mono); font-size: 0.8rem; color: var(--primary); }
+.sched-kicker { margin-top: 26px; font-size: 1rem; color: var(--ink-muted); line-height: 1.7; max-width: 660px; }
+.sched-kicker strong { color: var(--ink); font-weight: 600; }
+
+/* Trust */
+.trust { padding: 84px 0 72px; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.trust-header { max-width: 680px; margin-bottom: 36px; }
+.trust-header h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--ink); margin-bottom: 14px; line-height: 1.22; }
+.trust-header h2 em { font-style: italic; color: var(--primary); }
+.trust-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.7; }
+.trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+.trust-cell { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; }
+.trust-cell h3 { font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.trust-cell p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.62; }
+.trust-quote { margin-top: 22px; padding: 22px 26px; background: var(--surface-warm); border-left: 3px solid var(--primary); border-radius: 0 var(--r-lg) var(--r-lg) 0; }
+.trust-quote p { font-size: 1rem; color: var(--ink); line-height: 1.65; font-weight: 500; }
+.evidence-line { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); background: var(--white); border: 1px solid var(--border-strong); border-radius: var(--r-md); padding: 12px 14px; margin-top: 12px; line-height: 1.55; }
+
+/* Cross-sell */
+.also { padding: 84px 0 72px; }
+.also-header { max-width: 660px; margin-bottom: 36px; }
+.also-header h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: var(--ink); margin-bottom: 10px; }
+.also-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.68; }
+.also-mocks { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
 
 /* Testimonials (2-up) */
 .testimonials { padding: 64px 0 52px; }
@@ -119,22 +265,26 @@ const jsonLd = {
   .pain-cards { grid-template-columns: 1fr; }
   .how-step { grid-template-columns: 1fr; gap: 28px; }
   .how-step.reverse .how-step-visual { order: 0; }
+  .windows { grid-template-columns: 1fr; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .also-mocks { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .tgrid { grid-template-columns: 1fr; }
+  .sched-card { padding: 22px; }
 }
 </style>
 
 <!-- HERO -->
 <HeroSection
   eyebrow="Built for Pediatrics"
-  sub="Pediatrics is longitudinal by nature — every well-child visit builds on the last. Stream organizes notes by medical problem into a chart that grows with the patient, so development, chronic conditions, and history stay connected across years instead of buried in a stack of dated notes."
+  sub="Every recall report starts with the appointment book, so the only children it can see are the ones already coming. Stream starts with your panel — sweeping every active child against the Bright Futures schedule each night, and handing you the ones whose window has closed, with the evidence attached."
   primaryLabel="Start free for 30 days"
-  secondaryHref="/book-demo"
-  secondaryLabel="Talk to a clinician first"
+  secondaryHref="/contact"
+  secondaryLabel="Send us your panel"
   trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
 >
-  The AI scribe built for<br><em>a chart that grows with the patient.</em>
+  Your recall list starts with the appointment book.<br><em>Ours starts with the panel.</em>
 </HeroSection>
 
 <!-- PROOF STRIP -->
@@ -143,13 +293,13 @@ const jsonLd = {
 <!-- PAIN -->
 <section class="pain">
   <div class="container">
-    <span class="section-label reveal">Why pediatrics needs a longitudinal scribe</span>
-    <h2 class="reveal">A child isn't a series of<br>unrelated visits.</h2>
-    <p class="pain-lead reveal">Growth, development, immunization status, behavioral concerns, and chronic conditions all unfold over time — and each well-child or follow-up visit only makes sense in the context of the ones before it. A scribe that writes one isolated note per visit captures the encounter but loses the thread.</p>
+    <span class="section-label reveal">The problem, named</span>
+    <h2 class="reveal">The child who needs it most<br>is the one you can't see.</h2>
+    <p class="pain-lead reveal">Well visits are the business — billable, schedulable, and the visit type every pediatric practice actively wants more of. Eleven of them land before age three, on a schedule where "roughly on time" has a real definition, and where a missed window doesn't come back. But the tooling that's supposed to protect them can only look in one direction.</p>
     <div class="pain-cards reveal">
-      <PainCard icon="👶" title="The visits only make sense together" body="Growth curves, milestones, immunizations, and chronic conditions unfold over years. Each well-child or follow-up visit is downstream of every visit before it." />
-      <PainCard icon="🧵" title="One isolated note loses the thread" body="A scribe that writes a clean note and moves on captures today's encounter but not the trajectory — the developmental and clinical story gets buried in a stack of dated notes." />
-      <PainCard icon="📈" title="The trajectory is the point" body="Whether it's growth, a developmental milestone, asthma, or ADHD, what matters is how it has changed across visits — not just what happened today." />
+      <PainCard icon="📋" title="Recall is a person with a spreadsheet" body="Somebody at the front desk works a list. That list comes out of the appointment book, so it can only see children who already have some relationship with the schedule." />
+      <PainCard icon="🕳" title="The family that stopped coming is invisible" body="There is no appointment for a recall report to notice the absence of. Everyone in pediatrics knows this. Nobody's software solves it." />
+      <PainCard icon="📉" title="You're scored on a number you can't move" body="Medicaid managed care and commercial contracts measure well-child visit rates — while the tools you have to move that number only ever look at who's already booked." />
     </div>
   </div>
 </section>
@@ -157,8 +307,8 @@ const jsonLd = {
 <!-- PHILOSOPHY -->
 <section style="padding: 56px 0;">
   <div class="container">
-    <PhilBlock label="Why pediatrics needs something different" name="Jake Kantrowitz, MD" title="Co-Founder, River Records">
-      "A child isn't a series of unrelated visits — growth, development, and chronic conditions only make sense in the context of everything that came before. The chart should hold that thread across years. Stream is built to."
+    <PhilBlock label="Why we built this" name="Jake Kantrowitz, MD" title="Co-Founder, River Records">
+      "A pediatrician's anxiety isn't the child in front of them. It's the one they haven't seen in a while and can't quite name. Every recall report I've ever used starts with the appointment book — which means it starts with the children who are already coming. We started somewhere else."
     </PhilBlock>
   </div>
 </section>
@@ -167,72 +317,217 @@ const jsonLd = {
 <section class="how">
   <div class="container">
     <div class="how-header reveal">
-      <span class="section-label">How it works</span>
-      <h2>Designed around the way <em>pediatrics</em> actually works.</h2>
-      <p>Longitudinal from infancy forward.</p>
+      <span class="section-label">Well-visit tracking</span>
+      <h2>The note is how we learn.<br><em>The panel is what we watch.</em></h2>
+      <p>Three beats: it reads the visit out of the note you already wrote, sweeps your whole panel overnight, and hands you a list with its evidence attached.</p>
     </div>
+    <div class="how-gate reveal">Available to pediatric practices on Stream — we turn it on for your account during onboarding.</div>
     <div class="how-steps">
 
       <div class="how-step reveal">
         <div class="how-step-copy">
-          <div class="how-step-num">Step 01 — Before the visit</div>
-          <h3>Walk in knowing what's drifting.</h3>
-          <p>Before a visit, Huddle surfaces active problems, what's been falling off your attention, and outstanding items — drawn from the patient's whole history. Useful for catching overdue screenings, vaccines, or developmental follow-ups before the family is in the room.</p>
-          <p class="how-step-aside">Catch the overdue screening or vaccine before the visit, not after.</p>
+          <div class="how-step-num">Beat 01 — Recognition</div>
+          <h3>It learns the visit happened from the note you were already writing.</h3>
+          <p>No new checkbox, no new field, no changed workflow. The engine reads three places — the encounter name, the visit type, and the titles of the problem cards you wrote — and matches against the language pediatricians actually use: <em>well child</em>, <em>well visit</em>, <em>well check</em>, <em>well baby</em>, <em>WCC</em>, <em>health maintenance</em>, <em>health supervision</em>, and constructions like <em>6 month well</em>.</p>
+          <p class="how-step-aside">Nothing to remember. Nothing to click.</p>
         </div>
         <div class="how-step-visual">
-          <StepMock header="Pre-Visit Huddle" flush>
-            <div id="peds-huddle"></div>
+          <StepMock header="Recognizing the visit" flush>
+            <div class="mk">
+              <div class="mk-row"><span class="mk-field">Encounter</span><span><span class="mk-hit">15 month well child</span> — Rivera, A.</span></div>
+              <div class="mk-row"><span class="mk-field">Visit type</span><span class="mk-hit">Well Child Check</span></div>
+              <div class="mk-row"><span class="mk-field">Problem card</span><span><span class="mk-hit">Health maintenance</span> — growth, milestones</span></div>
+              <div class="mk-out">→ Matched to the 15-month slot<span>Window: 14–17 months</span></div>
+            </div>
           </StepMock>
         </div>
       </div>
 
       <div class="how-step reverse reveal">
         <div class="how-step-copy">
-          <div class="how-step-num">Step 02 — Across childhood</div>
-          <h3>A chart that grows with the patient.</h3>
-          <p>Each problem — a feeding concern, a developmental milestone question, asthma, ADHD — gets its own block that updates every visit, so you can see the whole trajectory at a glance. Pull forward and build on relevant history from previous visits instead of starting from scratch, producing a more complete note every time.</p>
-          <p class="how-step-aside">Pastes into any EHR — or works on its own. No integration to set up, no IT project.</p>
+          <div class="how-step-num">Beat 02 — The nightly sweep</div>
+          <h3>Every night, the whole panel.</h3>
+          <p>The system walks <strong>every active patient in the practice</strong> — anyone with a visit in the trailing 36 months — and recomputes who is inside their window, approaching it, or past it. It does not start from tomorrow's schedule. It does not wait for anyone to open a chart.</p>
+          <p>Which is the whole inversion: every recall report in every EHR begins with the appointment book, and can therefore only tell you about children who are already, in some sense, coming. This begins with the panel.</p>
+          <p class="how-step-aside">The child who isn't booked is exactly the child it finds.</p>
         </div>
         <div class="how-step-visual">
-          <StepMock header="Problem List" flush>
-            <div id="peds-problems"></div>
+          <StepMock header="Panel sweep" flush>
+            <div class="mk">
+              <div class="mk-sweep-top">
+                <span class="mk-sweep-label">Active panel · seen within 36 mo</span>
+                <span class="mk-sweep-time">Last swept 02:14</span>
+              </div>
+              <div class="mk-bar"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+              <div class="mk-key">
+                <div><i class="k1"></i> Inside their window</div>
+                <div><i class="k2"></i> Approaching the window</div>
+                <div><i class="k3"></i> Past the window — worklist</div>
+              </div>
+              <div class="mk-scope">Recomputed nightly across the whole panel, whether or not the child has an upcoming appointment.</div>
+            </div>
           </StepMock>
         </div>
       </div>
 
       <div class="how-step reveal">
         <div class="how-step-copy">
-          <div class="how-step-num">Step 03 — After the visit</div>
-          <h3>Nothing falls through between visits.</h3>
-          <p>Referrals, catch-up immunizations, and pending labs are extracted from each visit automatically and tied to the relevant problem. Outside records — specialist consults, ER visits, and school or therapy reports — get summarized and filed under the right problem.</p>
-          <p class="how-step-aside">Document visits in 22 languages, with translation to English.</p>
+          <div class="how-step-num">Beat 03 — The list</div>
+          <h3>A list you can audit in four seconds.</h3>
+          <p>When a visit satisfies a slot, the slot closes with a reason that names its proof — the date and the exact phrase from the chart that justified it. Not "closed." Not "complete." Every open slot shows the window it is being measured against.</p>
+          <p class="how-step-aside">Copy to clipboard or export to PDF. Works alongside any EHR — no integration to set up, nothing for your EHR vendor to approve.</p>
         </div>
         <div class="how-step-visual">
-          <StepMock header="Auto-Generated Tasks" flush>
-            <div id="peds-tasks"></div>
+          <StepMock header="Well-visit worklist" flush>
+            <div class="mk">
+              <div class="mk-item">
+                <div class="mk-item-top"><span class="mk-name">15-month slot</span><span class="mk-tag past">Past window</span></div>
+                <div class="mk-why">Window 14–17 mo closed 3 weeks ago. No qualifying encounter found.</div>
+              </div>
+              <div class="mk-item">
+                <div class="mk-item-top"><span class="mk-name">24-month slot</span><span class="mk-tag open">Approaching</span></div>
+                <div class="mk-why">Window opens next month. Nothing booked.</div>
+              </div>
+              <div class="mk-item">
+                <div class="mk-item-top"><span class="mk-name">9-month slot</span><span class="mk-tag met">Met</span></div>
+                <div class="mk-why">Met by encounter on 2026-03-14 — <q>9 month well baby</q></div>
+              </div>
+            </div>
           </StepMock>
         </div>
       </div>
 
     </div>
+    <p class="how-illus">Illustrative. Not a customer's data.</p>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="features">
+<!-- FROM A BIRTHDAY -->
+<section class="birthday">
   <div class="container">
-    <div class="features-header reveal">
-      <span class="section-label">How Stream fits the pediatric workflow</span>
-      <h2>Every feature earns its place in a pediatric day.</h2>
+    <div class="birthday-inner reveal">
+      <h2>From a birthday, <em>we know the whole schedule.</em></h2>
+      <p>Every other population-health claim in this market needs history — months of accumulated data before the software can say anything useful about your patients.</p>
+      <p><strong>Pediatric periodicity doesn't.</strong> The schedule is computed from a date of birth. A birthday and one visit is enough, which means a practice can be onboarded and see which children are past their window the same week.</p>
+      <p>There is no "give it six months and it'll get smart."</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE SCHEDULE, SHOWN -->
+<section class="schedule">
+  <div class="container">
+    <div class="schedule-header reveal">
+      <span class="section-label">The schedule, shown</span>
+      <h2>Bright Futures, encoded. <em>27 slots.</em></h2>
+      <p>Eleven visits before age three, then one a year through eighteen. Every slot carries a target age and a real window — so "overdue" means the window closed, not that a date on the calendar went by.</p>
+    </div>
+
+    <div class="sched-card reveal">
+      <div class="sched-band">
+        <div class="sched-band-hdr">
+          <h3>Infancy &amp; toddlerhood</h3>
+          <span>11 slots</span>
+        </div>
+        <div class="sched-slots">
+          {infancySlots.map((s) => <span class="sched-slot">{s}</span>)}
+        </div>
+      </div>
+      <div class="sched-band">
+        <div class="sched-band-hdr">
+          <h3>Annual, ages 3–18</h3>
+          <span>16 slots</span>
+        </div>
+        <div class="sched-slots">
+          {annualSlots.map((s) => <span class="sched-slot">{s}</span>)}
+        </div>
+      </div>
+      <div class="sched-total">27 slots, tracked per child.<span>AAP / Bright Futures periodicity, encoded — not "an annual visit" approximated.</span></div>
+    </div>
+
+    <div class="windows reveal">
+      <div class="window-card">
+        <h4>The 6-month visit</h4>
+        <p>5–8 months</p>
+      </div>
+      <div class="window-card">
+        <h4>The 15-month visit</h4>
+        <p>14–17 months</p>
+      </div>
+      <div class="window-card">
+        <h4>Annual visits</h4>
+        <p>±6 months around the birthday</p>
+      </div>
+    </div>
+
+    <p class="sched-kicker reveal">Most recall tooling treats a well visit as an anniversary. <strong>Windows are how periodicity actually works</strong> — and it's the difference between a list your front desk trusts and a list that gets ignored for crying wolf.</p>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-header reveal">
+      <span class="section-label">Why the list is trustworthy</span>
+      <h2>We won't tell you a child is fine <em>unless we can show you why.</em></h2>
+      <p>A false "you're covered" is the only truly dangerous error a safety net can make. This one is designed against it — it would rather flag a discrepancy than claim a match.</p>
+    </div>
+    <div class="trust-grid reveal">
+      <div class="trust-cell">
+        <h3>Every closure cites its evidence</h3>
+        <p>A satisfied slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Any row is spot-checkable in one glance.</p>
+        <div class="evidence-line">Met by encounter on 2026-03-14 — "15 month well child"</div>
+      </div>
+      <div class="trust-cell">
+        <h3>Evidence outside the window doesn't count</h3>
+        <p>If the visit that would satisfy a slot sits outside that slot's window, the system refuses to close it. It flags the discrepancy instead of quietly calling it a match.</p>
+      </div>
+      <div class="trust-cell">
+        <h3>The clinician's judgment wins</h3>
+        <p>A slot you close by hand is never reopened by the machine. Your call stands.</p>
+      </div>
+      <div class="trust-cell">
+        <h3>Suppression, with a stated reason</h3>
+        <p>Per-patient, permanent or temporary — the child in foster care, the family that transferred out, the medically complex kid on a different cadence.</p>
+      </div>
+      <div class="trust-cell">
+        <h3>It won't push a visit your contract won't cover</h3>
+        <p>A payer minimum-interval gate keeps the worklist inside what's actually reimbursable.</p>
+      </div>
+      <div class="trust-cell">
+        <h3>It says when it can't see far enough back</h3>
+        <p>Where the record doesn't reach, Stream tells you that rather than guessing. It closes slots, with cited evidence — it doesn't declare children complete.</p>
+      </div>
+    </div>
+    <div class="trust-quote reveal">
+      <p>The distinction is the whole product: it closes <em>slots</em>, and shows the evidence for each one. It does not tell you a child is up to date.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVERYTHING ELSE -->
+<section class="also">
+  <div class="container">
+    <div class="also-header reveal">
+      <span class="section-label">Everything else pediatrics gets</span>
+      <h2>The note is still the input.</h2>
+      <p>Stream is an ambient scribe with a problem-oriented, longitudinal chart underneath it. That chart is what makes the tracking possible — and it's useful on its own, from the first visit.</p>
+    </div>
+    <div class="also-mocks reveal">
+      <StepMock header="Problem List" flush>
+        <div id="peds-problems"></div>
+      </StepMock>
+      <StepMock header="Auto-Generated Tasks" flush>
+        <div id="peds-tasks"></div>
+      </StepMock>
     </div>
     <div class="features-grid reveal">
-      <FeatureCell icon="📈" title="Tracks Development Over Time" body="Each problem — a feeding concern, a milestone question, asthma, ADHD — gets its own block that updates every visit, so you can see the whole trajectory at a glance." />
-      <FeatureCell icon="♻️" title="Reuse Prior Documentation" body="Pull forward and build on relevant history from previous visits instead of starting from scratch — producing a more complete note every time." />
-      <FeatureCell icon="🔭" title="Pre-Visit Huddle" body="See active problems, what's been falling off your attention, and outstanding items before a visit — useful for catching overdue screenings, vaccines, or developmental follow-ups." />
-      <FeatureCell icon="📁" title="External Record Ingestion" body="Specialist consults, ER visits, and school or therapy reports get summarized and filed under the right problem — not left as separate attachments." />
-      <FeatureCell icon="✅" title="Automatic Task Tracking" body="Referrals, catch-up immunizations, and pending labs are extracted from each visit and tied to the relevant problem so nothing slips between visits." />
-      <FeatureCell icon="🌐" title="22 Languages" body="Document visits with families who speak different languages, with translation to English — without losing fidelity." />
+      <FeatureCell icon="📈" title="Tracks development over time" body="Each problem — a feeding concern, a milestone question, asthma, ADHD — gets its own block that updates every visit, so you see the trajectory rather than a stack of dated notes." />
+      <FeatureCell icon="♻️" title="Reuse prior documentation" body="Pull forward and build on relevant history from previous visits instead of starting from scratch — producing a more complete note every time." />
+      <FeatureCell icon="🔭" title="Pre-visit huddle" body="See active problems, what's been falling off your attention, and outstanding items before a visit — useful for catching overdue screenings or developmental follow-ups." />
+      <FeatureCell icon="📁" title="Outside records, filed" body="Specialist consults, ER visits, and school or therapy reports get summarized and filed under the right problem — not left as separate attachments." />
+      <FeatureCell icon="✅" title="Automatic task tracking" body="Referrals, catch-up immunizations, and pending labs are extracted from each visit and tied to the relevant problem so nothing slips between visits." />
+      <FeatureCell icon="🌐" title="22 languages" body="Document visits with families who speak different languages, with translation to English — without losing fidelity." />
     </div>
   </div>
 </section>
@@ -270,12 +565,31 @@ const jsonLd = {
   <div class="container">
     <div class="peds-faq-inner reveal">
       <h2>Frequently asked questions</h2>
-      <h3>Is Stream suitable for well-child and developmental visits?</h3>
-      <p>Yes. Because Stream organizes the chart by problem over time, developmental milestones, chronic conditions, and recurring concerns stay connected across every visit rather than scattered across separate notes.</p>
-      <h3>Can Stream handle complex or behavioral pediatric visits?</h3>
-      <p>Stream structures each problem discussed into its own Assessment &amp; Plan and lets you reuse relevant prior-visit information, which helps with multi-problem and developmental-behavioral encounters.</p>
+
+      <h3>Our EHR already has a recall report. Why do I need this?</h3>
+      <p>It runs off the appointment book. It can tell you who has an appointment and who cancelled one. It cannot tell you about the family that simply stopped coming, because there's no appointment for it to notice the absence of. Ours starts from the panel.</p>
+
+      <h3>We report to the state immunization registry. Isn't that the same thing?</h3>
+      <p>The registry knows which doses a child received. It doesn't know whether they're coming back, and it won't hand your front desk a call list.</p>
+
+      <h3>Isn't this just another AI scribe?</h3>
+      <p>The note is the input, not the product. Transcription is how Stream learns what happened at a visit; the tracking is what you're buying.</p>
+
+      <h3>How do I know the list is right?</h3>
+      <p>Every closed slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Every open one shows the window it's measured against. You can audit any row in about four seconds.</p>
+
+      <h3>We're a small practice. We know our patients.</h3>
+      <p>You know the ones who come. The list is for the ones who don't.</p>
+
+      <h3>What if it tells me a child is fine and they aren't?</h3>
+      <p>It's built to refuse that. Evidence that falls outside a slot's window doesn't close the slot — it gets flagged as a discrepancy instead. Where the record can't see far enough back to answer, Stream says so rather than guessing.</p>
+
+      <h3>How long before it's useful? Does it need months of data first?</h3>
+      <p>No. Pediatric periodicity is computed from a date of birth, so a birthday and one visit is enough. A practice can be onboarded and see who is past their window the same week, not next year.</p>
+
       <h3>Does Stream work with my pediatric EHR?</h3>
-      <p>Stream pastes into any EHR — Elation, Athena, or anything else — and can also be used as a standalone documentation layer. There is no integration to set up and nothing for your EHR vendor to approve.</p>
+      <p>Stream works alongside any EHR. Notes and lists copy to the clipboard or export as PDF, so there's no integration to set up and nothing for your EHR vendor to approve.</p>
+
       <h3>Is patient data used to train AI models?</h3>
       <p>No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.</p>
     </div>
@@ -292,9 +606,9 @@ const jsonLd = {
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
-    <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first">
-      Built for the way pediatrics actually works.<br><em>A chart that grows with the patient.</em>
-      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    <CtaDark primaryLabel="Start free for 30 days" secondaryHref="/contact" secondaryLabel="Send us your panel">
+      Send us your panel.<br><em>We'll tell you who's overdue.</em>
+      <Fragment slot="body">A date of birth and a visit history is all it takes — no integration, no six-month ramp. {pricing.ctaBodyWithTrial}</Fragment>
     </CtaDark>
   </div>
 </section>
@@ -307,21 +621,6 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 document.addEventListener('DOMContentLoaded', function() {
   // Pediatric datasets — override the widgets' adult defaults.
-  StreamWidgets.ProblemSummaryCard('#peds-huddle', {
-    data: {
-      title: "Persistent Asthma",
-      status: "Active",
-      icd: "J45.40",
-      summary: "Two albuterol refills and one prednisone course since the last visit. Up most nights with cough during the recent URI. Controller adherence slipped over the summer. Spirometry due; influenza vaccine still outstanding this season.",
-      medications: [
-        { name: "Fluticasone 110 mcg BID", status: "Active" },
-        { name: "Albuterol HFA PRN", status: "Active" },
-        { name: "Montelukast 5 mg nightly", status: "New" },
-      ],
-      lastUpdated: "4 days ago",
-    },
-  });
-
   StreamWidgets.ProblemListWidget('#peds-problems', {
     unitLabel: "visits",
     problems: [
