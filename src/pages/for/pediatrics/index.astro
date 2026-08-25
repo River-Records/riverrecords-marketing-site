@@ -32,6 +32,45 @@ import { pricing } from '../../../config/pricing';
  *    founder's note, not on a page selling a shipped capability.
  */
 
+const faqs = [
+  {
+    q: "Our EHR already has a recall report. Why do I need this?",
+    a: "It runs off the appointment book. It can tell you who has an appointment and who cancelled one. It cannot tell you about the family that simply stopped coming, because there's no appointment for it to notice the absence of. Ours starts from the panel.",
+  },
+  {
+    q: "We report to the state immunization registry. Isn't that the same thing?",
+    a: "The registry knows which doses a child received. It doesn't know whether they're coming back, and it won't hand your front desk a call list.",
+  },
+  {
+    q: "Isn't this just another AI scribe?",
+    a: "The note is the input, not the product. Transcription is how Stream learns what happened at a visit; the tracking is what you're buying.",
+  },
+  {
+    q: "How do I know the list is right?",
+    a: "Every closed slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Every open one shows the window it's measured against. You can audit any row in about four seconds.",
+  },
+  {
+    q: "We're a small practice. We know our patients.",
+    a: "You know the ones who come. The list is for the ones who don't.",
+  },
+  {
+    q: "What if it tells me a child is fine and they aren't?",
+    a: "It's built to refuse that. Evidence that falls outside a slot's window doesn't close the slot — it gets flagged as a discrepancy instead. Where the record can't see far enough back to answer, Stream says so rather than guessing.",
+  },
+  {
+    q: "How long before it's useful? Does it need months of data first?",
+    a: "No. Pediatric periodicity is computed from a date of birth, so a birthday and one visit is enough. A practice can be onboarded and see who is past their window the same week, not next year.",
+  },
+  {
+    q: "Does Stream work with my pediatric EHR?",
+    a: "Stream works alongside any EHR. Notes and lists copy to the clipboard or export as PDF, so there's no integration to set up and nothing for your EHR vendor to approve.",
+  },
+  {
+    q: "Is patient data used to train AI models?",
+    a: "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.",
+  },
+];
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -47,53 +86,11 @@ const jsonLd = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Our EHR already has a recall report. Why do I need this?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A recall report runs off the appointment book. It can tell you who has an appointment and who cancelled one. It cannot tell you about the family that simply stopped coming, because there is no appointment for it to notice the absence of. Stream starts from the panel instead." }
-        },
-        {
-          "@type": "Question",
-          "name": "We report to the state immunization registry. Isn't that the same thing?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. The registry knows which doses a child received. It doesn't know whether they're coming back, and it won't hand your front desk a call list." }
-        },
-        {
-          "@type": "Question",
-          "name": "Isn't this just another AI scribe?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The note is the input, not the product. Transcription is how Stream learns what happened at a visit; the well-visit tracking is what you're buying." }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I know the list is right?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Every closed slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Every open slot shows the window it's being measured against. You can audit any row in about four seconds." }
-        },
-        {
-          "@type": "Question",
-          "name": "We're a small practice. We know our patients.",
-          "acceptedAnswer": { "@type": "Answer", "text": "You know the ones who come. The list is for the ones who don't." }
-        },
-        {
-          "@type": "Question",
-          "name": "What if it tells me a child is fine and they aren't?",
-          "acceptedAnswer": { "@type": "Answer", "text": "It's built to refuse that. Evidence that falls outside a slot's window doesn't close the slot — it gets flagged as a discrepancy instead. When the record can't see far enough back to answer, Stream says so rather than guessing." }
-        },
-        {
-          "@type": "Question",
-          "name": "How long before it's useful? Does it need months of data first?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Pediatric periodicity is computed from a date of birth, so a birthday and one visit is enough. A practice can be onboarded and see who is past their window the same week, not next year." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does Stream work with my pediatric EHR?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Stream works alongside any EHR. Notes and lists copy to the clipboard or export as PDF, so there is no integration to set up and nothing for your EHR vendor to approve." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is patient data used to train AI models?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data." }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
     }
   ]
 };
@@ -246,10 +243,40 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
 
 /* FAQ */
 .peds-faq { padding: 64px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.peds-faq-inner { max-width: 720px; }
+.peds-faq-inner { max-width: 760px; }
 .peds-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
-.peds-faq h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; }
-.peds-faq p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.68; }
+.faq-item { border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin-bottom: 10px; overflow: hidden; }
+.faq-item[open] { border-left: 3px solid var(--primary); }
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 1.45;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover { background: var(--surface); }
+.faq-q:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.faq-icon {
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.faq-item[open] .faq-icon { background: var(--primary-light); color: var(--primary); }
+.faq-icon::after { content: '+'; }
+.faq-item[open] .faq-icon::after { content: '\2212'; }
+.faq-a { padding: 0 22px 18px; font-size: 0.92rem; line-height: 1.7; color: var(--ink-muted); }
 
 /* Research line */
 .peds-research { padding: 48px 0 8px; text-align: center; }
@@ -565,33 +592,12 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
   <div class="container">
     <div class="peds-faq-inner reveal">
       <h2>Frequently asked questions</h2>
-
-      <h3>Our EHR already has a recall report. Why do I need this?</h3>
-      <p>It runs off the appointment book. It can tell you who has an appointment and who cancelled one. It cannot tell you about the family that simply stopped coming, because there's no appointment for it to notice the absence of. Ours starts from the panel.</p>
-
-      <h3>We report to the state immunization registry. Isn't that the same thing?</h3>
-      <p>The registry knows which doses a child received. It doesn't know whether they're coming back, and it won't hand your front desk a call list.</p>
-
-      <h3>Isn't this just another AI scribe?</h3>
-      <p>The note is the input, not the product. Transcription is how Stream learns what happened at a visit; the tracking is what you're buying.</p>
-
-      <h3>How do I know the list is right?</h3>
-      <p>Every closed slot names the visit that satisfied it and quotes the phrase from the chart that justified it. Every open one shows the window it's measured against. You can audit any row in about four seconds.</p>
-
-      <h3>We're a small practice. We know our patients.</h3>
-      <p>You know the ones who come. The list is for the ones who don't.</p>
-
-      <h3>What if it tells me a child is fine and they aren't?</h3>
-      <p>It's built to refuse that. Evidence that falls outside a slot's window doesn't close the slot — it gets flagged as a discrepancy instead. Where the record can't see far enough back to answer, Stream says so rather than guessing.</p>
-
-      <h3>How long before it's useful? Does it need months of data first?</h3>
-      <p>No. Pediatric periodicity is computed from a date of birth, so a birthday and one visit is enough. A practice can be onboarded and see who is past their window the same week, not next year.</p>
-
-      <h3>Does Stream work with my pediatric EHR?</h3>
-      <p>Stream works alongside any EHR. Notes and lists copy to the clipboard or export as PDF, so there's no integration to set up and nothing for your EHR vendor to approve.</p>
-
-      <h3>Is patient data used to train AI models?</h3>
-      <p>No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.</p>
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-q">{faq.q}<span class="faq-icon"></span></summary>
+          <div class="faq-a">{faq.a}</div>
+        </details>
+      ))}
     </div>
   </div>
 </section>

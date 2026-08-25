@@ -10,6 +10,25 @@ import TestimonialCard from '../../../components/TestimonialCard.astro';
 import CtaDark from '../../../components/CtaDark.astro';
 import { pricing } from '../../../config/pricing';
 
+const faqs = [
+  {
+    q: "Is Stream a good fit for a membership / DPC practice?",
+    a: "Yes. DPC is built on long-term continuity, which is exactly what Stream's problem-oriented, longitudinal chart is designed for. It keeps each patient's evolving problem list, history, and open tasks organized across years of visits.",
+  },
+  {
+    q: "Does Stream work with DPC-friendly EHRs?",
+    a: "Stream pastes into any EHR — Elation, Athena, or anything else — and can also work as a standalone documentation layer. There is no integration to set up and nothing for your EHR vendor to approve.",
+  },
+  {
+    q: "Does Stream handle coding for DPC practices that bill insurance?",
+    a: "Yes. ICD, CPT, and HCC capture opportunities are suggested at the point of care, so the practices that need coding have it, and those that don't can ignore it.",
+  },
+  {
+    q: "Is my patient data used to train AI models?",
+    a: "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.",
+  },
+];
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -25,28 +44,11 @@ const jsonLd = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is Stream a good fit for a membership / DPC practice?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. DPC is built on long-term continuity, which is exactly what Stream's problem-oriented, longitudinal chart is designed for. It keeps each patient's evolving problem list, history, and open tasks organized across years of visits." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does Stream work with DPC-friendly EHRs?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Stream pastes into any EHR — Elation, Athena, or anything else — and can also work as a standalone documentation layer. There is no integration to set up and nothing for your EHR vendor to approve." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does Stream handle coding for DPC practices that bill insurance?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. ICD, CPT, and HCC capture opportunities are suggested at the point of care, so the practices that need coding have it, and those that don't can ignore it." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is my patient data used to train AI models?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data." }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
     }
   ]
 };
@@ -100,10 +102,40 @@ const jsonLd = {
 
 /* FAQ */
 .dpc-faq { padding: 64px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.dpc-faq-inner { max-width: 720px; }
+.dpc-faq-inner { max-width: 760px; }
 .dpc-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
-.dpc-faq h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; }
-.dpc-faq p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.68; }
+.faq-item { border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin-bottom: 10px; overflow: hidden; }
+.faq-item[open] { border-left: 3px solid var(--primary); }
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 1.45;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover { background: var(--surface); }
+.faq-q:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.faq-icon {
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.faq-item[open] .faq-icon { background: var(--primary-light); color: var(--primary); }
+.faq-icon::after { content: '+'; }
+.faq-item[open] .faq-icon::after { content: '\2212'; }
+.faq-a { padding: 0 22px 18px; font-size: 0.92rem; line-height: 1.7; color: var(--ink-muted); }
 
 /* Research line */
 .dpc-research { padding: 48px 0 8px; text-align: center; }
@@ -272,14 +304,12 @@ const jsonLd = {
   <div class="container">
     <div class="dpc-faq-inner reveal">
       <h2>Frequently asked questions</h2>
-      <h3>Is Stream a good fit for a membership / DPC practice?</h3>
-      <p>Yes. DPC is built on long-term continuity, which is exactly what Stream's problem-oriented, longitudinal chart is designed for. It keeps each patient's evolving problem list, history, and open tasks organized across years of visits.</p>
-      <h3>Does Stream work with DPC-friendly EHRs?</h3>
-      <p>Stream pastes into any EHR — Elation, Athena, or anything else — and can also work as a standalone documentation layer. There is no integration to set up and nothing for your EHR vendor to approve.</p>
-      <h3>Does Stream handle coding for DPC practices that bill insurance?</h3>
-      <p>Yes. ICD, CPT, and HCC capture opportunities are suggested at the point of care, so the practices that need coding have it, and those that don't can ignore it.</p>
-      <h3>Is my patient data used to train AI models?</h3>
-      <p>No. Stream is fully HIPAA compliant, signs a BAA with every subscriber, encrypts data in transit and at rest, and never trains its models on your patient data.</p>
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-q">{faq.q}<span class="faq-icon"></span></summary>
+          <div class="faq-a">{faq.a}</div>
+        </details>
+      ))}
     </div>
   </div>
 </section>
