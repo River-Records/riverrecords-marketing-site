@@ -88,6 +88,8 @@ const twitterHandle = "@riverrecordshq";
   <!-- End Google Tag Manager (noscript) -->
 
   <slot />
+  <!-- Acquisition attribution: must run before any CTA can be clicked. -->
+  <script is:inline src="/attribution.js"></script>
   <script is:inline src="/ui-widgets.js"></script>
 
   <!--

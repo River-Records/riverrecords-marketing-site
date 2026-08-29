@@ -10,6 +10,8 @@ import { stats } from '../config/stats';
 import { productVideos } from '../config/videos';
 import LoomEmbed from '../components/LoomEmbed.astro';
 
+// Build-time fallback only. attribution.js overrides utm_source at runtime with the
+// visitor's real inbound channel and moves this page identity into utm_content.
 const utmBase = '?utm_source=homepage&utm_medium=landing&utm_campaign=home-v2';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
 const jamaUrl = 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664';

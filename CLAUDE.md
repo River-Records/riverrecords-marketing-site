@@ -57,6 +57,7 @@ public/
   brand-extract.css     ← Design tokens from product
   shared.css            ← All component styles + CSS variables
   ui-widgets.js         ← Interactive product widgets
+  attribution.js        ← Acquisition attribution (see below)
   _redirects            ← Cloudflare 301 redirects
   robots.txt
   og-default.png        ← OG social sharing image
@@ -262,3 +263,47 @@ Node version: 22
 - Do not use localStorage or sessionStorage
 - Do not add cookie consent banners without checking with Jake
 - Do not add standalone analytics scripts — use GTM
+
+
+## Acquisition attribution (`public/attribution.js`)
+
+The site is a **static** Astro build on `www.riverrecords.ai`; the app is on
+`stream.riverrecords.ai`. CTA hrefs are therefore baked at build time and cannot
+carry the visitor's real inbound channel — so attribution is applied client-side.
+
+**The bug this fixed:** most signup CTAs (Nav, OfferBanner, HeroSection, CtaDark,
+BlogPost, BookChapter, all four `/for/*` pages) carried no UTM at all, so all 87
+blog posts contributed zero attribution. The two pages that did append UTM
+hardcoded `utm_source=homepage`, which *overwrote* the real channel. The app's
+`tenant.utm_source` column was recording which page the button was on, not where
+the visitor came from.
+
+**Rules the script enforces:**
+
+- A real inbound source always beats a page's hardcoded one. Page identity belongs
+  in `utm_content`, and a more specific existing `utm_content` (`hero`, `pricing`)
+  is never overwritten.
+- **First touch is write-once**; last touch is also kept (`rr_last_source`).
+- Ad click IDs (`gclid`, `fbclid`, `msclkid`, `li_fat_id`, `ttclid`) are forwarded.
+- Paramless visits are classified `organic` / `referral` / `direct` from the
+  referrer rather than collapsing into "(none)". Internal navigation never
+  re-attributes.
+- `rr_vid`, an anonymous first-party id, is set in localStorage **and** a
+  `.riverrecords.ai` cookie — the parent-domain cookie reaches the app even when
+  URL params are lost (bookmark, new tab, return visit).
+- **Only `/onboard*` links are decorated.** `/login` is an existing customer, not
+  an acquisition; decorating it pollutes the app's UTM columns and firing a signup
+  conversion on a login click corrupts the conversion count.
+- All storage access is try/caught — private mode must not break a CTA.
+
+**dataLayer events pushed** (GTM container `GTM-N767QFHJ`): `rr_attribution_ready`,
+`cta_click_signup`, `cta_click_demo`.
+
+**Verify with** `scripts/verify-attribution.mjs` after any change to CTA components
+or link structure. It drives a real browser through five scenarios (paid click on a
+blog post, the homepage-overwrite case, organic, direct + click event, and blocked
+localStorage).
+
+**Not yet done:** the app does not yet read `rr_vid` — that needs a column on
+`tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
+Adding a first-party cookie should also be reflected in the privacy policy.
