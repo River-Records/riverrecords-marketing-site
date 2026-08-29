@@ -299,10 +299,33 @@ the visitor came from.
 **dataLayer events pushed** (GTM container `GTM-N767QFHJ`): `rr_attribution_ready`,
 `cta_click_signup`, `cta_click_demo`.
 
+### Debugging in production: `?rr_debug=1`
+
+Add `?rr_debug=1` to any page. The console then prints, per pageview:
+
+- how the visit was classified, in words (`explicit URL parameters`,
+  `inferred from referrer (organic)`, `internal navigation — attribution left
+  unchanged`, `inferred source ignored — a real campaign is already stored`)
+- the visitor id, and whether it was newly minted or restored
+- first touch and last touch, and whether first touch was created on this visit
+- storage health — localStorage, and **whether the `.riverrecords.ai` cookie
+  actually stuck**, which is the one thing that cannot be checked on a
+  `*.pages.dev` preview or on localhost. A failed cookie prints a warning naming
+  the likely cause.
+- a table of every signup link rewritten, showing `utm_source` **before and
+  after** — this is the direct check that the homepage-overwrite bug is fixed
+- app links deliberately skipped, with the reason (`/login` is not acquisition)
+- the `dataLayer` payload on any CTA click
+
+The flag persists in `sessionStorage`, so it survives internal navigation —
+necessary because verifying the overwrite fix requires landing on one page and
+then clicking through to another. `?rr_debug=0` clears it. Output is silent for
+everyone else; nothing is logged without the flag.
+
 **Verify with** `scripts/verify-attribution.mjs` after any change to CTA components
-or link structure. It drives a real browser through five scenarios (paid click on a
-blog post, the homepage-overwrite case, organic, direct + click event, and blocked
-localStorage).
+or link structure. It drives a real browser through six scenarios (paid click on a
+blog post, the homepage-overwrite case, organic, direct + click event, blocked
+localStorage, and the debug flag itself) — 22 checks.
 
 **Not yet done:** the app does not yet read `rr_vid` — that needs a column on
 `tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.

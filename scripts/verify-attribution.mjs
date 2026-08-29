@@ -10,6 +10,7 @@
 // Set CHROME_PATH if your Chromium is elsewhere.
 
 import { chromium } from 'playwright';
+import { chromium } from 'playwright';
 const BASE = 'http://127.0.0.1:4321';
 const APP = 'stream.riverrecords.ai';
 let fails = 0;
@@ -114,6 +115,40 @@ const loginHref = (page) => page.evaluate((h) => {
   console.log('  href: ' + href);
   check('no uncaught page error', pageErr === null, pageErr || '');
   check('link still decorated from URL params', href && new URL(href).searchParams.get('utm_source') === 'newsletter');
+
+  // --- Scenario 6: ?rr_debug=1 reports, persists across pages, and is off by default ---
+  await ctx.close();
+  ctx = await browser.newContext();
+  page = await ctx.newPage();
+  let logs = [];
+  page.on('console', m => logs.push(m.text()));
+  await page.goto(BASE + '/?utm_source=linkedin&utm_medium=social&rr_debug=1');
+  await page.waitForFunction(() => window.dataLayer && window.dataLayer.some(e => e.event === 'rr_attribution_ready'));
+  await page.waitForTimeout(300);
+  console.log('\nScenario 6 — ?rr_debug=1');
+  check('debug output printed', logs.some(l => l.indexOf('[rr] attribution') !== -1), 'logs: ' + logs.length);
+  check('explains how the visit was classified', logs.some(l => l.indexOf('explicit URL parameters') !== -1));
+  check('warns the parent-domain cookie did not stick (localhost)', logs.some(l => l.indexOf('did not stick') !== -1));
+
+  logs = [];
+  await page.goto(BASE + '/for/pediatrics/');   // no flag in URL
+  await page.waitForTimeout(300);
+  check('debug persists across internal navigation', logs.some(l => l.indexOf('[rr] attribution') !== -1));
+
+  logs = [];
+  await page.goto(BASE + '/?rr_debug=0');
+  await page.waitForTimeout(300);
+  check('?rr_debug=0 turns it off', !logs.some(l => l.indexOf('[rr] attribution') !== -1));
+
+  // silent for a normal visitor
+  await ctx.close();
+  ctx = await browser.newContext();
+  page = await ctx.newPage();
+  logs = [];
+  page.on('console', m => logs.push(m.text()));
+  await page.goto(BASE + '/');
+  await page.waitForTimeout(300);
+  check('silent by default for real visitors', !logs.some(l => l.indexOf('[rr]') !== -1), 'logs: ' + JSON.stringify(logs.slice(0,3)));
 
   await browser.close();
   console.log('\n' + (fails === 0 ? 'ALL CHECKS PASSED' : fails + ' CHECK(S) FAILED'));

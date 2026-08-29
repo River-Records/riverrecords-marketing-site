@@ -8,11 +8,16 @@
 // This runs on every page and does three things:
 //   1. Captures inbound UTM + ad click IDs, storing FIRST touch (write-once) and
 //      LAST touch (overwritten) in localStorage and a .riverrecords.ai cookie.
-//   2. Rewrites every outbound link to the app so it carries that attribution.
+//   2. Rewrites every outbound signup link so it carries that attribution.
 //   3. Pushes a cta_click event to the GTM dataLayer.
 //
 // The cookie is scoped to the parent domain, so it reaches the app even when the
 // URL params are lost (bookmark, new tab, return visit days later).
+//
+// DEBUGGING IN PRODUCTION: add ?rr_debug=1 to any URL. The script then prints what
+// it captured, how it classified the visit, and every link it rewrote. The flag
+// persists for the browser session (so it survives internal navigation) until you
+// visit ?rr_debug=0. See CLAUDE.md → Acquisition attribution.
 
 (function () {
   "use strict";
@@ -20,27 +25,39 @@
   var APP_HOST = "stream.riverrecords.ai";
   var ACQUISITION_PATH = "/onboard"; // signup only — /login is an existing
                                      // customer returning, not an acquisition
-
   var COOKIE_DOMAIN = ".riverrecords.ai";
   var STORE_KEY = "rr_attr";
   var VID_KEY = "rr_vid";
+  var DEBUG_KEY = "rr_debug";
   var COOKIE_MAX_AGE = 60 * 60 * 24 * 180; // 180 days
 
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
   var CLICK_IDS = ["gclid", "fbclid", "msclkid", "li_fat_id", "ttclid"];
   var REF_KEYS = ["ref", "referral"];
 
-  // localStorage throws outright in some privacy modes — never let that break the page.
+  // --- storage (all access guarded: private mode throws outright) ---
+
   function readStore(key) {
     try { return window.localStorage.getItem(key); } catch (e) { return null; }
   }
   function writeStore(key, value) {
-    try { window.localStorage.setItem(key, value); } catch (e) { /* non-fatal */ }
+    try { window.localStorage.setItem(key, value); return true; } catch (e) { return false; }
+  }
+  function readSession(key) {
+    try { return window.sessionStorage.getItem(key); } catch (e) { return null; }
+  }
+  function writeSession(key, value) {
+    try { window.sessionStorage.setItem(key, value); } catch (e) { /* non-fatal */ }
+  }
+  function clearSession(key) {
+    try { window.sessionStorage.removeItem(key); } catch (e) { /* non-fatal */ }
   }
 
   function readCookie(name) {
-    var match = document.cookie.match(new RegExp("(^|;\\s*)" + name + "=([^;]*)"));
-    return match ? decodeURIComponent(match[2]) : null;
+    try {
+      var match = document.cookie.match(new RegExp("(^|;\\s*)" + name + "=([^;]*)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    } catch (e) { return null; }
   }
   function writeCookie(name, value) {
     try {
@@ -50,7 +67,45 @@
         ";path=/;max-age=" + COOKIE_MAX_AGE +
         ";samesite=lax" +
         (location.protocol === "https:" ? ";secure" : "");
-    } catch (e) { /* non-fatal */ }
+      return readCookie(name) !== null; // did it actually stick?
+    } catch (e) { return false; }
+  }
+
+  // --- debug ---
+
+  // Enabled by ?rr_debug=1, and remembered for the session so it survives internal
+  // navigation (checking the first-touch-survives-the-homepage case needs two pages).
+  var DEBUG = (function () {
+    var q;
+    try { q = new URLSearchParams(location.search).get(DEBUG_KEY); } catch (e) { q = null; }
+    if (q === "1" || q === "true") { writeSession(DEBUG_KEY, "1"); return true; }
+    if (q === "0" || q === "false") { clearSession(DEBUG_KEY); return false; }
+    return readSession(DEBUG_KEY) === "1";
+  })();
+
+  function canLog() {
+    return DEBUG && typeof console !== "undefined" && console && typeof console.log === "function";
+  }
+  function logGroup(title) {
+    if (!canLog()) return;
+    var style = "color:#0b7285;font-weight:600";
+    if (console.groupCollapsed) console.groupCollapsed("%c" + title, style);
+    else console.log("%c" + title, style);
+  }
+  function logEnd() {
+    if (canLog() && console.groupEnd) console.groupEnd();
+  }
+  function log(label, value) {
+    if (!canLog()) return;
+    if (value === undefined) console.log(label); else console.log(label, value);
+  }
+  function logTable(rows) {
+    if (!canLog()) return;
+    if (console.table) console.table(rows); else console.log(rows);
+  }
+  function warn(msg) {
+    if (!DEBUG || typeof console === "undefined" || !console) return;
+    (console.warn || console.log).call(console, msg);
   }
 
   function uuid() {
@@ -62,11 +117,14 @@
 
   // A stable anonymous id for this browser. This is what later lets us join
   // "read four posts over nine days" to "signed up" — impossible with UTM alone.
+  var health = { localStorage: true, cookie: true, vidRestored: false };
+
   function visitorId() {
     var id = readCookie(VID_KEY) || readStore(VID_KEY);
+    health.vidRestored = !!id;
     if (!id) id = uuid();
-    writeStore(VID_KEY, id);
-    writeCookie(VID_KEY, id); // parent-domain cookie: the app can read this directly
+    health.localStorage = writeStore(VID_KEY, id);
+    health.cookie = writeCookie(VID_KEY, id); // parent-domain: the app can read this
     return id;
   }
 
@@ -110,18 +168,29 @@
     catch (e) { return { first: null, last: null }; }
   }
 
+  // Returns { store, decision } — decision explains WHY, which is the whole point
+  // of the debug flag. Silent attribution is how the original bug survived.
   function record() {
     var store = loadStored();
+    var hadFirst = !!store.first;
     var found = paramsFromUrl();
+    var decision;
 
-    if (!hasAttribution(found)) {
+    if (hasAttribution(found)) {
+      decision = "explicit URL parameters";
+    } else {
       var inferred = inferredSource();
-      if (!inferred) return store;    // internal navigation — leave attribution alone
+      if (!inferred) {
+        return { store: store, decision: "internal navigation — attribution left unchanged", hadFirst: hadFirst };
+      }
       found = inferred;
+      decision = "inferred from referrer (" + found.utm_medium + ")";
       // Only let an inferred source create a first touch; never let it overwrite a
       // real campaign on a later pageview.
       if (store.last && store.last.utm_source && store.last.utm_source !== "direct") {
-        if (store.first) return store;
+        if (store.first) {
+          return { store: store, decision: "inferred source ignored — a real campaign is already stored", hadFirst: hadFirst };
+        }
       }
     }
 
@@ -135,9 +204,9 @@
     store.last = touch;                      // always the most recent
 
     var serialized = JSON.stringify(store);
-    writeStore(STORE_KEY, serialized);
-    writeCookie(STORE_KEY, serialized);
-    return store;
+    if (!writeStore(STORE_KEY, serialized)) health.localStorage = false;
+    if (!writeCookie(STORE_KEY, serialized)) health.cookie = false;
+    return { store: store, decision: decision, hadFirst: hadFirst };
   }
 
   // Build the params appended to app links.
@@ -190,26 +259,74 @@
     anchor.href = url.toString();
   }
 
-  function appLinks() {
-    var all = Array.prototype.slice.call(document.querySelectorAll('a[href*="' + APP_HOST + '"]'));
-    return all.filter(function (a) {
-      try { return isAcquisitionLink(new URL(a.href, location.href)); } catch (e) { return false; }
+  function allAppLinks() {
+    return Array.prototype.slice.call(document.querySelectorAll('a[href*="' + APP_HOST + '"]'));
+  }
+
+  function report(vid, store, decision, hadFirst, rewritten, skipped) {
+    logGroup("[rr] attribution — " + location.pathname);
+    log("visit classified as:", decision);
+    log("visitor id:", vid + (health.vidRestored ? "  (restored)" : "  (new this browser)"));
+    log("first touch " + (hadFirst ? "(existing)" : "(created on this visit)") + ":", store.first);
+    log("last touch:", store.last);
+    log("storage:", {
+      localStorage: health.localStorage ? "ok" : "BLOCKED (private mode?) — URL params still work",
+      parentDomainCookie: health.cookie ? "ok (.riverrecords.ai)" : "NOT SET"
     });
+    if (!health.cookie) {
+      warn("[rr] The .riverrecords.ai cookie did not stick. Expected on a *.pages.dev " +
+           "preview or localhost — the app will not see rr_vid there. On production this " +
+           "means the cross-domain join is broken.");
+    }
+    if (rewritten.length) {
+      log("signup links rewritten (" + rewritten.length + "):");
+      logTable(rewritten);
+    } else {
+      log("signup links rewritten: none found on this page");
+    }
+    if (skipped.length) {
+      log("app links deliberately skipped (not acquisition):");
+      logTable(skipped);
+    }
+    log("Turn this off with ?rr_debug=0");
+    logEnd();
   }
 
   function init() {
     var vid = visitorId();
-    var store = record();
+    var result = record();
+    var store = result.store;
     var params = outboundParams(store, vid);
+    var rewritten = [];
+    var skipped = [];
 
-    appLinks().forEach(function (a) {
+    allAppLinks().forEach(function (a) {
+      var url;
+      try { url = new URL(a.href, location.href); } catch (e) { return; }
+
+      if (!isAcquisitionLink(url)) {
+        if (DEBUG) skipped.push({ href: a.href, reason: "not " + ACQUISITION_PATH + "*" });
+        return;
+      }
+
       // Stash the build-time source before we overwrite it.
       if (!a.hasAttribute("data-rr-original-source")) {
-        var existing = null;
-        try { existing = new URL(a.href, location.href).searchParams.get("utm_source"); } catch (e) {}
+        var existing = url.searchParams.get("utm_source");
         if (existing) a.setAttribute("data-rr-original-source", existing);
       }
+
+      var before = DEBUG ? a.href : null;
       decorate(a, params);
+      if (DEBUG) {
+        var after = new URL(a.href, location.href);
+        rewritten.push({
+          label: (a.textContent || "").trim().slice(0, 30),
+          "utm_source before": before ? (new URL(before, location.href).searchParams.get("utm_source") || "(none)") : "",
+          "utm_source after": after.searchParams.get("utm_source"),
+          utm_content: after.searchParams.get("utm_content") || "(none)",
+          href: a.href
+        });
+      }
     });
 
     window.dataLayer = window.dataLayer || [];
@@ -223,21 +340,25 @@
       rr_landing_page: store.first ? store.first.landing_page || null : null
     });
 
+    if (DEBUG) report(vid, store, result.decision, result.hadFirst, rewritten, skipped);
+
     document.addEventListener("click", function (e) {
       var a = e.target && e.target.closest ? e.target.closest("a") : null;
       if (!a || !a.href) return;
       var isSignup = false;
-      try { isSignup = isAcquisitionLink(new URL(a.href, location.href)); } catch (e) {}
+      try { isSignup = isAcquisitionLink(new URL(a.href, location.href)); } catch (e2) {}
       var isDemo = (a.getAttribute("href") || "").indexOf("/book-demo") === 0;
       if (!isSignup && !isDemo) return;
 
-      window.dataLayer.push({
+      var payload = {
         event: isSignup ? "cta_click_signup" : "cta_click_demo",
         cta_label: (a.textContent || "").trim().slice(0, 80),
         cta_page: location.pathname,
         cta_section: a.closest("[data-section]") ? a.closest("[data-section]").getAttribute("data-section") : null,
         rr_vid: vid
-      });
+      };
+      window.dataLayer.push(payload);
+      if (DEBUG) { log("[rr] dataLayer event pushed:", payload); log("[rr] destination:", a.href); }
     }, true);
   }
 
