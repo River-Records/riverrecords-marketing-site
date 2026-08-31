@@ -53,30 +53,53 @@ Everything below happens in a workspace and changes nothing live until you press
 
 ## Part 1 — Fix the duplicate GA4 *(10 minutes, do this first)*
 
-**The problem:** every page load sets two GA4 session cookies, `_ga_39BPK056ZB` and
-`_ga_F2ZN4Z3VK3`. Two configuration tags are firing into two different properties, so
-sessions and page views are being double-counted or split. **Every GA4 traffic number
-you have looked at recently is unreliable**, and there is no way to tell in which
-direction without opening the container.
-
-Nothing in the site's code sets a GA4 ID, so both come from here.
-
-The cookie names map directly to measurement IDs: the two properties are
+**The problem:** two GA4 properties receive a copy of every page view —
 **G-39BPK056ZB** and **G-F2ZN4Z3VK3**.
 
-1. **Tags** in the left sidebar.
-2. Look for tags of type **Google Tag** or **Google Analytics: GA4 Configuration**.
-   (GTM renamed this; you may have one of each, which is itself a likely cause.)
-3. Open each and note its Measurement ID / Tag ID.
-4. Decide which property is the real one. In [analytics.google.com](https://analytics.google.com),
-   open both and compare — keep the one with the longer, more complete history and the
-   reporting you actually use.
-5. On the tag for the property you are **not** keeping: open it, click the **⋮** menu top
-   right, choose **Pause**. Pause rather than delete, so it can be undone.
-6. Leave the workspace open — you will publish once at the end.
+Diagnosed from the live network traffic on 31 Aug 2026, which is worth stating precisely
+because it changes where you look:
 
-> Do not delete the losing GA4 *property* in Analytics. Pausing the tag stops new
-> double-counting; the old data is still worth keeping for comparison.
+| | G-39BPK056ZB | G-F2ZN4Z3VK3 |
+|---|---|---|
+| Registered on the **Google tags** screen | yes, under *www.riverrecords.ai (Marketing Site)* | **no** |
+| Loads its own `gtag/js?id=…` | yes | no — piggybacks on the loaded runtime |
+| `gtm=` signature on its hits | `45je68s1v92337…` | `45be68s1v92012…` (different) |
+
+Both hits carry the **same** `cid` and `sid`, so it is one visitor being reported into two
+places by two different tag configurations.
+
+**What this is *not*.** It does not inflate the numbers inside either property — each
+gets one clean copy of each page view. The damage is subtler: there is no agreed source
+of truth, two properties drift apart as filters, conversions and audiences are configured
+on one and not the other, and any figure produced by adding them together is double.
+Before trusting a GA4 number, establish which property it came from.
+
+**Where to fix it.** Because G-F2ZN4Z3VK3 does not appear on the Google tags screen and
+never loads its own `gtag/js`, it is being sent by a tag **inside the container**, not by
+the account-level Google tag. So:
+
+1. Open container **GTM-N767QFHJ** → **Tags** in the left sidebar.
+2. Look for a tag of type **Google Analytics: GA4 Configuration**, **GA4 Event** or
+   **Google Tag** whose Measurement ID is `G-F2ZN4Z3VK3`. Use the search box — searching
+   the container for `F2ZN4Z3VK3` is the fastest route.
+3. Open it, click **⋮** top right, choose **Pause**. Pause, not delete, so it is reversible.
+4. Leave the workspace open — you publish once at the end.
+
+**Keep G-39BPK056ZB.** It is the one registered as the marketing site's Google tag, it
+loads properly, and it is almost certainly where the usable history lives. Confirm in
+[analytics.google.com](https://analytics.google.com) by opening both and comparing history
+before you commit to it.
+
+> Do not delete the losing GA4 *property* in Analytics — only pause the tag that feeds it.
+> The historical data is still worth keeping for comparison.
+
+### While you are in there: a second question
+`AW-16689515634` also fires on the marketing site. Per the Google tags screen that ID
+belongs to **stream.riverrecords.ai (Product App)**, while the marketing site has its own
+`AW-17722798601`. Two Ads accounts both tagging www is sometimes deliberate — it is how
+you would measure an app-side conversion against a marketing-site visit — but if it is
+not deliberate, conversions may be landing in the wrong account. Worth confirming which
+of the two the Ads conversions are actually configured against before ads restart.
 
 ---
 
