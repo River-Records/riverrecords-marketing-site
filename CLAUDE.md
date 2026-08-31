@@ -231,7 +231,16 @@ exception is deliberate and worth understanding before overriding it:
    Logic that lives in this repo can be read, diffed, and fixed; logic in the console
    rots unnoticed. Keep the container thin and the repo authoritative.
 
-See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning.
+See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning, `docs/GTM-SETUP.md` for the
+container work this is waiting on, and `docs/VERIFY-DEPLOY.md` to confirm a deploy
+actually works.
+
+### dataLayer events the site pushes
+Ten, and **no GTM tag listens to any of them yet** — see `docs/GTM-SETUP.md`. Site-wide:
+`rr_attribution_ready`, `cta_click_signup`, `cta_click_demo`, `video_play`,
+`contact_form_submit`. On `/intake` only: `intake_cta_click`, `intake_faq_expand`,
+`intake_scroll_depth`, `intake_video_play`, `intake_video_complete`. If you add another,
+add it to that doc's table too, or it will fire into the void like these did.
 
 ### Conversion triggers (configured in the GTM console)
 - /book-demo page view → $200 Ads conversion
