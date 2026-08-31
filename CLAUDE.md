@@ -231,7 +231,16 @@ exception is deliberate and worth understanding before overriding it:
    Logic that lives in this repo can be read, diffed, and fixed; logic in the console
    rots unnoticed. Keep the container thin and the repo authoritative.
 
-See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning.
+See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning, `docs/GTM-SETUP.md` for the
+container work this is waiting on, and `docs/VERIFY-DEPLOY.md` to confirm a deploy
+actually works.
+
+### dataLayer events the site pushes
+Ten, and **no GTM tag listens to any of them yet** — see `docs/GTM-SETUP.md`. Site-wide:
+`rr_attribution_ready`, `cta_click_signup`, `cta_click_demo`, `video_play`,
+`contact_form_submit`. On `/intake` only: `intake_cta_click`, `intake_faq_expand`,
+`intake_scroll_depth`, `intake_video_play`, `intake_video_complete`. If you add another,
+add it to that doc's table too, or it will fire into the void like these did.
 
 ### Conversion triggers (configured in the GTM console)
 - /book-demo page view → $200 Ads conversion
@@ -357,6 +366,23 @@ deliberately its own route rather than middleware — a cached HTML response car
 `Set-Cookie` would hand every visitor the same id. The `rr_vids` cookie marks that the
 durable cookie has been issued, so it is one request per visitor, not per page view.
 Verify with `node scripts/verify-vid-cookie.mjs` (no wrangler needed).
+
+### Consuming attribution from another script
+`window.rrAttribution` is the one public surface — `{ ready, vid, first, last }` plus
+`whenReady(cb)`, which fires immediately if attribution has already resolved. Both the
+Calendly embed on `/book-demo` and the contact form read from it.
+
+**Never re-derive the source in a page script.** Two definitions of "where did this
+visitor come from" drift apart, and the entire point is that one answer reaches every
+system. If something needs attribution, read it here.
+
+`/book-demo` deliberately does not use Calendly's `calendly-inline-widget` auto-init.
+That fires as soon as Calendly's async script lands, which is a race attribution loses,
+and an unattributed booking is exactly the bug being fixed. The page calls
+`Calendly.initInlineWidget()` itself once both are ready. Consequence worth knowing: if
+that init breaks, the booking box renders **empty** rather than merely unattributed —
+`scripts/verify-conversion-attribution.mjs` checks the widget actually renders first,
+before it checks any UTM.
 
 **Not yet done:** the app does not yet read `rr_vid` — that needs a column on
 `tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.

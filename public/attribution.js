@@ -312,11 +312,39 @@
     logEnd();
   }
 
+  // Public surface for page scripts that need the same attribution but cannot
+  // read it off a rewritten link — the Calendly embed and the contact form.
+  // They must not re-derive any of this: two implementations of "what is the real
+  // source" drift, and the whole point is that one answer reaches every system.
+  var readyQueue = [];
+  var api = (window.rrAttribution = {
+    ready: false,
+    vid: null,
+    first: null, // write-once: the channel that originally brought them here
+    last: null,  // most recent channel
+    whenReady: function (cb) {
+      if (typeof cb !== "function") return;
+      if (api.ready) { try { cb(api); } catch (e) {} }
+      else readyQueue.push(cb);
+    }
+  });
+
+  function publish(vid, store) {
+    api.ready = true;
+    api.vid = vid;
+    api.first = store.first || null;
+    api.last = store.last || null;
+    readyQueue.splice(0).forEach(function (cb) {
+      try { cb(api); } catch (e) { /* a bad consumer must not break the rest */ }
+    });
+  }
+
   function init() {
     var vid = visitorId();
     var result = record();
     var store = result.store;
     var params = outboundParams(store, vid);
+    publish(vid, store);
     var rewritten = [];
     var skipped = [];
 

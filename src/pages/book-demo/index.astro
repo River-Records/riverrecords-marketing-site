@@ -88,14 +88,97 @@ import Page from '../../layouts/Page.astro';
         </ul>
       </div>
       <div class="demo-embed">
-        <div
-          class="calendly-inline-widget"
-          data-url="https://calendly.com/jacob-riverrecords/meeting"
-          style="min-width:320px;height:700px;">
-        </div>
+        <!--
+          Deliberately NOT `class="calendly-inline-widget"` with a data-url. That form
+          auto-initialises as soon as Calendly's script loads, which is a race we lose:
+          the booking would be created before attribution.js has resolved where this
+          visitor actually came from, and every demo would land unattributed — which is
+          what was happening before. We initialise it ourselves, once both are ready.
+        -->
+        <div id="calendly-embed" style="min-width:320px;height:700px;"></div>
+        <noscript>
+          <p>Booking needs JavaScript. Email <a href="mailto:hello@riverrecords.ai">hello@riverrecords.ai</a> and we'll find a time.</p>
+        </noscript>
       </div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+/*
+ * Carry the visitor's real acquisition channel into the Calendly booking.
+ *
+ * A booked demo is the highest-intent action on this site and, until now, the one
+ * that arrived with no idea where the person came from — the embed URL was static.
+ * Calendly passes utm_* through to the booking record, its webhooks and its CRM
+ * integrations, so setting them here is what makes "this demo came from organic
+ * search" answerable at all.
+ *
+ * Attribution comes from window.rrAttribution so there is exactly one definition of
+ * "the real source" on the site. Never re-derive it here.
+ */
+(function () {
+  var MOUNT = 'calendly-embed';
+  var URL_BASE = 'https://calendly.com/jacob-riverrecords/meeting';
+  var started = false;
+
+  function calendlyReady() {
+    return window.Calendly && typeof window.Calendly.initInlineWidget === 'function';
+  }
+
+  function start(attr) {
+    if (started) return;
+    var el = document.getElementById(MOUNT);
+    if (!el || !calendlyReady()) return;
+    started = true;
+
+    var first = (attr && attr.first) || {};
+    var utm = {
+      // First touch, not last: we want the channel that originally earned this
+      // person, not the tab they happened to arrive from today.
+      utmSource: first.utm_source || 'direct',
+      utmMedium: first.utm_medium || 'none',
+      utmCampaign: first.utm_campaign || '(none)',
+      // Where they were standing when they decided to book.
+      utmContent: 'book-demo',
+      utmTerm: first.landing_page || ''
+    };
+    // Calendly's one free-form tracking field. Misleadingly named — it is passed
+    // straight through to webhooks and integrations regardless of Salesforce — and
+    // it is the only way to carry rr_vid onto the booking so a demo can later be
+    // joined back to the browsing that led to it.
+    if (attr && attr.vid) utm.salesforceUuid = attr.vid;
+
+    try {
+      window.Calendly.initInlineWidget({ url: URL_BASE, parentElement: el, utm: utm });
+    } catch (e) {
+      // Never leave a blank box where the booking form should be.
+      el.innerHTML =
+        '<p style="padding:24px;">Booking did not load. ' +
+        '<a href="' + URL_BASE + '" target="_blank" rel="noopener">Open the scheduler in a new tab</a>' +
+        ' or email hello@riverrecords.ai.</p>';
+    }
+  }
+
+  function attempt() {
+    if (window.rrAttribution && window.rrAttribution.whenReady) {
+      window.rrAttribution.whenReady(start);
+    } else {
+      start(null); // attribution missing — still render the booking form
+    }
+  }
+
+  // Calendly's script is async, so it may land before or after this runs.
+  if (calendlyReady()) attempt();
+  else {
+    var waited = 0;
+    var poll = setInterval(function () {
+      waited += 100;
+      if (calendlyReady()) { clearInterval(poll); attempt(); }
+      else if (waited >= 8000) { clearInterval(poll); start(null); }
+    }, 100);
+  }
+})();
+</script>
 
 </Page>
