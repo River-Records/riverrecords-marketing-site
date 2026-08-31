@@ -1,0 +1,253 @@
+---
+/**
+ * Click-to-play Loom embed.
+ *
+ * Renders a static thumbnail and only swaps in Loom's iframe once the visitor
+ * actually clicks. Three reasons that matters here:
+ *   1. Performance — three Loom iframes on the homepage would each pull their own
+ *      player bundle on a page most visitors never scroll to the bottom of.
+ *   2. Privacy — no third-party frame, and no Loom cookies, for anyone who does
+ *      not choose to watch. Keeps the marketing site's tracking surface honest.
+ *   3. Signal — the click is the intent event worth measuring, and it is only
+ *      measurable if we own the control that starts playback.
+ *
+ * The play click pushes `video_play` to the dataLayer. Watching a product
+ * walkthrough is one of the strongest buying signals on the site, so it is worth
+ * a GTM tag and, once someone is a known contact, a line on their CRM timeline.
+ * See docs/GROWTH-DATA-AUDIT.md.
+ */
+import type { ProductVideo } from '../config/videos';
+import { videoRatio } from '../config/videos';
+
+interface Props {
+  video: ProductVideo;
+  /** 'card' for the homepage grid, 'wide' for a single video in the page flow */
+  variant?: 'card' | 'wide';
+  /** Show the label / title / blurb block under the player */
+  caption?: boolean;
+  /** Where this instance lives — sent with the dataLayer event */
+  context?: string;
+}
+
+const { video, variant = 'card', caption = true, context = 'page' } = Astro.props;
+---
+
+<figure class:list={['loom', `loom--${variant}`]}>
+  <button
+    class="loom-frame"
+    type="button"
+    data-loom-id={video.id}
+    data-loom-key={video.key}
+    data-loom-title={video.title}
+    data-loom-context={context}
+    aria-label={`Play video: ${video.title}, ${video.durationLabel}`}
+  >
+    <img
+      src={video.thumb}
+      alt={video.thumbAlt}
+      width={videoRatio.width}
+      height={videoRatio.height}
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="loom-scrim"></span>
+    <span class="loom-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" focusable="false">
+        <path d="M8 5.5v13a1 1 0 0 0 1.53.85l10.2-6.5a1 1 0 0 0 0-1.7L9.53 4.65A1 1 0 0 0 8 5.5Z" />
+      </svg>
+    </span>
+    <span class="loom-time">{video.durationLabel}</span>
+  </button>
+
+  {caption && (
+    <figcaption class="loom-caption">
+      <span class="loom-label">{video.label}</span>
+      <span class="loom-title">{video.title}</span>
+      <span class="loom-blurb">{video.blurb}</span>
+    </figcaption>
+  )}
+</figure>
+
+<style define:vars={{ loomRatio: `${videoRatio.width} / ${videoRatio.height}` }}>
+  .loom {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The button is the player surface: sized by the real video ratio so swapping
+     the iframe in on click cannot shift the page. */
+  .loom-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--loomRatio);
+    padding: 0;
+    border: 1px solid rgba(15, 26, 20, 0.14);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0b1310;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .loom-frame:hover,
+  .loom-frame:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(15, 26, 20, 0.18);
+    border-color: rgba(15, 26, 20, 0.3);
+  }
+  .loom-frame:focus-visible {
+    outline: 3px solid var(--accent, #27959c);
+    outline-offset: 3px;
+  }
+
+  .loom-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .loom-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(6, 12, 10, 0.06) 0%,
+      rgba(6, 12, 10, 0.16) 55%,
+      rgba(6, 12, 10, 0.42) 100%
+    );
+    transition: background 0.18s ease;
+  }
+  .loom-frame:hover .loom-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(6, 12, 10, 0.02) 0%,
+      rgba(6, 12, 10, 0.1) 55%,
+      rgba(6, 12, 10, 0.36) 100%
+    );
+  }
+
+  .loom-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.94);
+    color: #12261c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(6, 12, 10, 0.34);
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .loom-play svg { margin-left: 3px; }
+  .loom-frame:hover .loom-play {
+    transform: translate(-50%, -50%) scale(1.07);
+    background: #fff;
+  }
+
+  .loom-time {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(6, 12, 10, 0.76);
+    color: #fff;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+
+  /* Once playing, the iframe replaces the img/scrim/play inside the same box. */
+  .loom-frame.is-playing {
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+  .loom-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .loom-caption {
+    padding: 16px 2px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .loom-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent, #c9563f);
+  }
+  .loom-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: inherit;
+  }
+  .loom-blurb {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.82;
+  }
+
+  .loom--wide { max-width: 860px; margin-inline: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loom-frame,
+    .loom-scrim,
+    .loom-play { transition: none; }
+    .loom-frame:hover,
+    .loom-frame:focus-visible { transform: none; }
+    .loom-frame:hover .loom-play { transform: translate(-50%, -50%); }
+  }
+
+  @media (max-width: 640px) {
+    .loom-play { width: 52px; height: 52px; }
+  }
+</style>
+
+<script>
+  // One delegated listener regardless of how many embeds are on the page.
+  // Astro bundles this once even when the component is used several times.
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const frame = target?.closest<HTMLElement>('.loom-frame');
+    if (!frame || frame.classList.contains('is-playing')) return;
+
+    const id = frame.dataset.loomId;
+    if (!id) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.loom.com/embed/${id}?autoplay=1&hideEmbedTopBar=true`;
+    iframe.title = frame.dataset.loomTitle || 'Product walkthrough';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.allowFullscreen = true;
+
+    frame.replaceChildren(iframe);
+    frame.classList.add('is-playing');
+    frame.setAttribute('aria-label', `Playing: ${frame.dataset.loomTitle || ''}`);
+
+    // Buying-intent signal — see docs/GROWTH-DATA-AUDIT.md.
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      event: 'video_play',
+      video_key: frame.dataset.loomKey,
+      video_title: frame.dataset.loomTitle,
+      video_context: frame.dataset.loomContext,
+      video_page: window.location.pathname,
+    });
+  });
+</script>

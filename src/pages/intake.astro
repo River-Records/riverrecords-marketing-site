@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import IntakeProvenanceDemo from '../components/demos/IntakeProvenanceDemo.vue';
 import { INTAKE_MEDICATIONS, INTAKE_TASKS, INTAKE_EXCERPTS, INTAKE_DOCUMENT } from '../components/demos/demo-data.js';
 import { inletPricing } from '../config/pricing';
+import { videoByKey } from '../config/videos';
+import LoomEmbed from '../components/LoomEmbed.astro';
 
 // Product name — the copy deck's [PRODUCT NAME] placeholder resolves here.
 // Changing this one line renames the product everywhere on the page.
@@ -266,6 +268,10 @@ const trustPoints = [
 .provenance-pause:hover { color: var(--primary); border-color: var(--primary); }
 
 /* S5 — how it works */
+.s-watch { padding: 84px 0; }
+.s-watch h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; max-width: 20ch; }
+.s-watch-lede { font-size: 1.02rem; line-height: 1.65; color: var(--ink-muted); max-width: 60ch; margin-bottom: 32px; }
+
 .s-how { padding: 84px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .s-how h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 44px; max-width: 20ch; }
 .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -958,6 +964,16 @@ const trustPoints = [
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- WATCH IT -->
+<section class="s-watch ir">
+  <div class="ic">
+    <div class="il">WATCH IT</div>
+    <h2>A chest CT, start to filed.</h2>
+    <p class="s-watch-lede">Jake uploads a real radiology report and follows it all the way through — extraction, the excerpt landing under a pulmonary nodule, and the link back to the highlighted source text.</p>
+    <LoomEmbed video={videoByKey('intake')} variant="wide" caption={false} context="intake" />
   </div>
 </section>
 

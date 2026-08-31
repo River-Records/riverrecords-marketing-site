@@ -148,6 +148,28 @@ Current pages:
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 
+## Product videos (Loom)
+All video metadata lives in `src/config/videos.ts` — ids, titles, durations, thumbnails.
+Add or re-record a video there and every placement updates. Currently embedded on the
+homepage (`#see-it-work`, all three), `/intake` (intake) and `/features/huddle` (huddle).
+
+`src/components/LoomEmbed.astro` renders a **click-to-play facade**: a static thumbnail
+plus a play button, with Loom's iframe injected only once the visitor clicks. Do not
+replace it with a bare `<iframe>` — the facade exists so that (1) three Loom players
+don't load on the homepage, (2) no third-party frame or Loom cookie is set for people
+who never watch, and (3) the play click is measurable. It pushes `video_play` to the
+dataLayer with the video key and context; watching a walkthrough is one of the strongest
+buying signals on the site.
+
+Sizing is built to `1280x828`, the real footage dimensions. Loom's oEmbed reports
+`1668x1251` — that is its default player box, and building to it letterboxes every video.
+
+Thumbnails are static frames in `public/images/videos/`, extracted from Loom's animated
+preview GIF (the refresh command is in the header of `videos.ts`). They are committed
+rather than hotlinked so the homepage doesn't pull ~1MB of animated GIF from Loom's CDN.
+
+Verify with `scripts/verify-video-embeds.mjs` after touching the component or the config.
+
 ## Design system
 
 ### Colors
