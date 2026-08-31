@@ -25,18 +25,26 @@ page — feeding **one** three-field form and a Calendly embed that carries no a
 
 The headline finding is not a bug, it's an absence:
 
-> **HubSpot holds 3,440 contacts and 350 deals. Sixteen contacts (0.5%) carry any web
-> source attribution, and the most recent of those was created 9 October 2025 — roughly
-> eleven months ago. Every deal in the pipeline is `hs_analytics_source: OFFLINE`.**
+> **HubSpot has never recorded a single page view on riverrecords.ai.** The
+> `hs_analytics_num_page_views` counter is `0` for effectively every contact, and on the
+> handful where it isn't, `hs_analytics_last_url` points at `meetings.hubspot.com` — a
+> HubSpot-hosted page, not ours. The tracking script has never been in `Base.astro`.
 
-The CRM does not know the website exists. Not "attributes it badly" — does not know it
-exists. Every contact arriving today is stamped `OFFLINE` with a sub-source of
-`EXTENSION`, `CRM_UI`, or `INTEGRATION`: prospecting tools, manual entry, and imports.
-Marketing spend cannot currently be connected to a single dollar of pipeline.
+**A correction to an earlier draft of this document.** It led with "16 of 3,440 contacts
+carry web attribution (0.5%)," which was a misleading denominator. Most of those 3,440 are
+cold outbound prospects sourced by Bullpen who never visited the site and were never
+supposed to carry web attribution. The honest version of the finding is narrower and still
+serious: *inbound is not measured at all, so we cannot even count it.* The site→CRM join
+is missing, not broken.
 
-Two fixes account for most of the recoverable value, and neither is large:
-1. Give anonymous visitors a durable identity and carry it into the CRM and the app.
-2. Give the 88 blog posts something to ask for other than a credit card.
+That matters most for the outbound motion, not for reporting — see Part 8, which is now
+the highest-value section in this document.
+
+Three fixes account for most of the recoverable value:
+1. **Install the HubSpot tracking script.** One script tag. It turns the website into a
+   live buying-intent signal for Bullpen's call list.
+2. Give anonymous visitors a durable identity and carry it into the CRM and the app.
+3. Give the 88 blog posts something to ask for other than a credit card.
 
 ---
 
@@ -117,6 +125,10 @@ unmeasurable at the revenue level. This also means any claim about CAC by channe
 is unsupported.
 
 ### Finding 2 — All three Google Ads conversions measure proxies, not outcomes ⚠️ needs GTM confirmation
+> **Priority: deferred.** No ad spend is running as of August 2026, so nothing is leaking
+> today. This becomes blocking again the day ads resume — fix it *before* switching them
+> back on, not after, because the first weeks of a restarted campaign are when the bidding
+> algorithm learns what to chase.
 Per `CLAUDE.md`, the three Ads conversions are:
 
 | Conversion | Value | What it actually fires on |
@@ -368,6 +380,91 @@ absorbed, and the two session-recording tools go dormant until someone can own t
 
 ---
 
+## Part 8 — The website as an instrument for outbound
+
+This is the highest-value section in the document, and it reframes everything above.
+
+Bullpen is running cold outreach through HubSpot, tracking opens and link clicks, and
+prioritising calls by engagement — though in practice calling most offices they find. The
+website's job, right now, is **not** to generate inbound. It is to tell Bullpen which of
+those offices to call today.
+
+It cannot currently do that at all.
+
+### The signal that doesn't exist
+Ranked by how much they predict a real conversation, the intent signals available on a
+cold prospect look roughly like:
+
+| Signal | Predictive value | Do we have it? |
+|---|---|---|
+| Read the Freed comparison page twice | Very high | ❌ |
+| Viewed pricing, or the specialty page matching their practice | High | ❌ |
+| Read 3+ blog posts in a week | High | ❌ |
+| Visited the site at all after an email | Moderate–high | ❌ |
+| Clicked a link in an email | Moderate | ⚠️ partially — see below |
+| Opened an email | Low — inflated by image proxies and scanners | ⚠️ 67 contacts |
+
+Every high-value row is missing, and all of them arrive with **one script tag**. HubSpot's
+tracking code sets its own first-party cookie (`hubspotutk`) and — critically — when
+someone clicks a link in a HubSpot email, HubSpot ties that cookie to their contact record
+on arrival. From that moment every page they view lands on their CRM timeline, by name.
+
+For a 3,440-contact outbound list, installing that script means: any prospect who ever
+clicks through from a Bullpen email stops being anonymous, permanently, and their browsing
+becomes a call-prioritisation signal. **"Dr. K read the Freed comparison and the pricing
+section on Tuesday"** is a fundamentally different call than "Dr. K opened an email."
+
+This is the answer to the original question about tracking users via cookies across the
+site. For the outbound population, HubSpot's cookie does the identity join natively and
+better than anything we would hand-roll. `rr_vid` from PR #31 remains necessary for the
+genuinely anonymous population — organic search and LinkedIn readers who have never been
+emailed — and for joining a signup back to first touch inside the app. The two are
+complementary, not competing: HubSpot de-anonymises known contacts, `rr_vid` carries
+anonymous first touch across to `stream.riverrecords.ai`.
+
+### A question for Bullpen, worth asking this week
+Only **67 of 3,440 contacts** have any `hs_email_open` value, and the maximum is 8. For an
+active cold-outreach programme those numbers look far too low. Either the sending happens
+in a tool outside HubSpot that only syncs partial data, or the sequences are not writing
+to the standard properties. Either way, if the engagement data Bullpen prioritises on
+isn't fully visible in the portal, then Jake cannot audit their targeting and no HubSpot
+scoring rule can use it. Ask them directly: *where do you send from, and what syncs back?*
+
+### Point the emails at the right pages
+Bullpen calls offices by specialty, and `gtm/field-sheets/` already contains
+specialty-specific collateral. The site has matching pages — `/for/primary-care`,
+`/for/snf`, `/for/dpc`, `/for/pediatrics`, `/for/np`. Outbound emails should link to the
+**matching segment page**, not the homepage. Two benefits: the prospect lands on copy
+written for their specialty, and the page they visit becomes a self-declared segment
+signal on their timeline.
+
+### Turn visits into call triggers
+Once tracking is live, HubSpot can notify on revisits. The classic outbound play — *call
+the prospect the day they come back to the site* — becomes available with no custom code.
+For a solo founder taking the warmest calls himself while Bullpen works the top of the
+funnel, this is the highest-value routing rule available.
+
+### One risk worth heading off early: sending domain
+If Bullpen sends cold outbound from the primary `riverrecords.ai` domain, that reputation
+is shared with any future marketing email — including the newsletter proposed in Phase 2.
+Cold outbound attracts spam complaints by nature. Burning the root domain's reputation is
+slow to happen and very slow to undo. Standard practice is a **separate subdomain or
+sending domain for cold outbound**, kept away from the domain used for opt-in marketing
+email. Worth confirming with Bullpen now, while the list is still small, rather than
+discovering it when the first newsletter lands in spam.
+
+### Revised priority order
+1. **HubSpot tracking script in `Base.astro`** — one tag, unlocks the entire table above.
+2. Segment-page links in Bullpen's sequences + revisit notifications.
+3. Confirm the sending-domain split and where Bullpen's engagement data lives.
+4. HubSpot Meetings instead of Calendly (Part 7) — restores booking attribution.
+5. HubSpot form instead of `formsubmit.co`.
+6. Everything else in Phase 2 onward.
+
+Ads (Finding 2) drop off the near-term list entirely until spend resumes.
+
+---
+
 ## Appendix — How the findings were verified
 
 | Claim | How to re-check |
@@ -381,4 +478,6 @@ absorbed, and the two session-recording tools go dormant until someone can own t
 | Calendly has no UTM | `src/pages/book-demo/index.astro:93` |
 | Blog CTA is trial-only | `src/layouts/BlogPost.astro:85-88` |
 | Cookie is JS-set, 180d | `public/attribution.js:32,64` (PR #31) |
+| HubSpot has never seen a riverrecords.ai page view | Contact search on `hs_analytics_num_page_views` + `hs_analytics_last_url`; non-zero values point only at `meetings.hubspot.com` / `app.hubspot.com` |
+| 67 contacts with any email-open data | Contact search, `hs_email_open HAS_PROPERTY`, total = 67 |
 | Ads conversions ⚠️ | **Not verified** — from `CLAUDE.md`. Confirm in the GTM console |
