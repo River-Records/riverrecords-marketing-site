@@ -3,9 +3,17 @@
 **Date:** 31 August 2026
 **Scope:** riverrecords.ai marketing site — what we capture today, what works, what to build.
 **Audit boundary:** everything below is verified from the repo and from read access to
-HubSpot (portal `46752060`). The GTM container's internal config is managed by Jay and is
-**not** visible from here — claims about triggers and tags come from `CLAUDE.md`, not from
-inspection. Those are marked ⚠️ and need confirming in the GTM console.
+HubSpot (portal `46752060`). The GTM container's internal config is **not** visible from
+here — claims about triggers and tags come from `CLAUDE.md`, not from inspection. Those
+are marked ⚠️ and need confirming in the GTM console.
+
+**Operating constraint:** as of August 2026 Jay is no longer on the project and Jake is
+running this alone. That is a design constraint, not a footnote — it changes what a good
+recommendation looks like. Every phase below is written to be executable by one person
+who is a physician first and a marketer second. Where a choice exists between repo code
+and console configuration, this document picks repo code: it is reviewable, version
+controlled, and maintainable with Claude's help, whereas console config is invisible from
+here and rots unattended. Adding tools is treated as a cost, not a win.
 
 ---
 
@@ -218,12 +226,21 @@ the same project, not two projects.
 Ordered by (value ÷ effort). Phase 0 and 1 are prerequisites for measuring anything else,
 so sequence matters more than usual here.
 
-### Phase 0 — Land what's already built · ~1 day
+### Phase 0 — Secure access, then land what's built · do the first item today
+- [ ] **Confirm ownership of every marketing account** — GTM `GTM-N767QFHJ`, the GA4
+      property, Google Ads, Hotjar, PostHog, Ahrefs. If any of these were created under
+      Jay's personal login rather than a River Records account, access can disappear
+      without warning and the Ads conversion history with it. This is the one item on the
+      list with a deadline attached, and it is not a code change.
+- [ ] **Decide whether ad spend keeps running in the meantime.** Per Finding 2 the
+      conversions are proxies, so an unattended account is optimising toward page views.
+      Spending against a metric nobody is watching is the most expensive item here.
 - [ ] Merge **PR #31**. Resolve the two `CLAUDE.md` conflicts first (Part 6).
 - [ ] Add the Safari server-side cookie fix (Finding 6) — Cloudflare Pages Function.
 - [ ] Build the GTM triggers/tags for `rr_attribution_ready`, `cta_click_signup`,
       `cta_click_demo`. **These events currently fire into a void** — the container has no
-      tags listening. Console work for Jay, not a code change.
+      tags listening. This is console work with no owner now; treat it as a candidate for
+      Part 7 rather than assuming it gets done.
 
 ### Phase 1 — Connect the site to the CRM · ~2–3 days · highest value in the document
 - [ ] Install the HubSpot tracking script in `Base.astro`. This alone restores web
@@ -290,6 +307,64 @@ nothing here touches PHI — the OCR tracking-technology guidance that has drive
 litigation against health systems is aimed at patient-facing properties. Worth stating
 explicitly in the privacy policy that the marketing site collects no patient data, since
 the buyers are themselves privacy-sensitive and will look.
+
+---
+
+## Part 7 — Running this with one person
+
+The stack currently spans **ten systems**: GTM, GA4, Google Ads, Hotjar, PostHog, Ahrefs,
+HubSpot, Calendly, formsubmit.co, and Cloudflare. That is a reasonable number for a team
+with a dedicated growth person. It is too many for one physician founder, and an
+unwatched tool is worse than no tool — it costs money, adds page weight and privacy
+surface, and produces numbers nobody checks but everybody half-trusts.
+
+The good news is that consolidating *also* fixes findings 1, 3 and 7, because HubSpot
+already does natively what we were about to build by hand.
+
+### Move demo booking from Calendly back to HubSpot Meetings
+This is the highest-leverage single change available, and the audit data argues for it
+directly: **13 of the 16 contacts that ever carried web attribution came through
+`meetings.hubspot.com`.** HubSpot Meetings was the only thing on this site that ever
+produced attribution, and switching to Calendly is what turned it off.
+
+Switching back:
+- restores source attribution on booked demos with no code at all,
+- creates the contact and logs the meeting straight into the CRM,
+- makes Finding 3 disappear rather than needing UTM-passthrough plumbing,
+- removes a vendor.
+
+The cost is losing whatever Calendly-specific scheduling features are in use. Worth
+checking before committing, but the default answer here looks like yes.
+
+### Replace formsubmit.co with a HubSpot form
+Same argument. A HubSpot form writes a real record with source data attached, instead of
+mailing `hello@riverrecords.ai` and leaving re-keying as manual work. One fewer vendor,
+and Finding 7 is solved as a side effect.
+
+### Pick one of Hotjar and PostHog, and cut the other
+Both do session recording and behavioural analytics; the overlap is substantial. Both load
+on every page. Ask the honest question: when did either last change a decision? If the
+answer is "never" or "I don't have the login," cut both for now — they can be restored in
+an afternoon when there's someone to watch them.
+
+### Where the newsletter should live
+If the HubSpot tier includes Marketing Hub email, put the list there — the subscriber, the
+attribution, and the CRM record become one object rather than three, and no new vendor
+appears. If it doesn't, that is the one case in this document where adding a tool is
+justified, since the owned-audience argument in Finding 8 outweighs the overhead.
+
+### The principle for anything built from here
+Prefer the repo over a console. Code in this repo is reviewable, version controlled,
+recoverable, and something Claude can maintain alongside you. GTM container config is
+invisible from here, has no history, and — with no owner — will drift out of sync with
+the site until someone discovers it broke months ago. That is not an argument for removing
+GTM, which is still the right place to fire tags. It is an argument for keeping the logic
+in `attribution.js` and the container dumb, so that the part that can rot is as small as
+possible.
+
+**Target state: six systems.** Cloudflare, GTM (thin), GA4, Google Ads, Ahrefs, HubSpot
+(CRM + forms + meetings + email). Everything Calendly and formsubmit.co do today gets
+absorbed, and the two session-recording tools go dormant until someone can own them.
 
 ---
 

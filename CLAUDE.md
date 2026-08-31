@@ -193,10 +193,16 @@ GTM contains: GA4, 3 Google Ads conversions, Hotjar, PostHog, login tracking.
 Ahrefs analytics loaded separately in Base.astro.
 Do NOT add standalone analytics scripts — everything goes through GTM.
 
-### Conversion triggers (managed by Jay in GTM)
+### Conversion triggers (configured in the GTM console)
 - /book-demo page view → $200 Ads conversion
 - /contacted page view → $50 Ads conversion
 - Click to stream.riverrecords.ai → $150 Ads conversion
+
+These were set up by Jay, who is no longer working on the project — as of Aug 2026
+nobody is actively maintaining the container. Two of the three fire on a page view or
+an outbound click rather than on a completed booking or signup, so they measure intent
+rather than outcome. See `docs/GROWTH-DATA-AUDIT.md`. The container is not visible from
+the repo, so treat the list above as unverified until checked in the console.
 
 ## Tone & copy rules
 - DO NOT use the word "narrative" in any copy
