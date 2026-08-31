@@ -53,6 +53,8 @@ src/
   content/
     blog/               ← Markdown files (Astro content collection)
   content.config.ts     ← Collection schema (at src/ root, not in content/)
+functions/
+  rr/id.js              ← Cloudflare Pages Function: durable rr_vid cookie (Safari/ITP)
 public/
   brand-extract.css     ← Design tokens from product
   shared.css            ← All component styles + CSS variables
@@ -260,9 +262,29 @@ Node version: 22
 - Do not use inline styles — use shared.css classes or scoped component styles
 - Do not duplicate CSS between pages — use components
 - Do not add external CSS frameworks (Tailwind, Bootstrap, etc.)
-- Do not use localStorage or sessionStorage
+- Do not use browser storage for page state or UI behaviour — **except** the
+  named acquisition-attribution keys below
 - Do not add cookie consent banners without checking with Jake
-- Do not add standalone analytics scripts — use GTM
+- Do not add standalone analytics scripts — **except** the two already documented
+  (Ahrefs, HubSpot); default to GTM for anything new
+
+### The two storage/analytics exceptions, and why
+These rules used to be absolute. Both now carry a deliberate exception, so that the
+list matches the code rather than quietly contradicting it.
+
+**Browser storage.** `public/attribution.js` uses `localStorage` for `rr_vid` and
+first-touch attribution, and `sessionStorage` for the `?rr_debug=1` flag. First touch
+has to survive a return visit days later, which is exactly what storage is for. The
+rule still stands for everything else: no storing UI state, form drafts, dismissed
+banners, or preferences — those cause stale-state bugs on a static site and are what
+the rule was written against. Permitted keys are `rr_vid`, `rr_attribution`,
+`rr_debug`. Adding a new one is a decision, not a detail.
+
+**Standalone scripts.** Ahrefs and HubSpot load directly in `Base.astro`. See the
+Analytics section for the full reasoning; the short version is that identity tracking
+has to run on every page to work at all, and the GTM container has had no owner since
+Jay left, so logic placed there has no reviewer, no history, and no version control.
+Keep the container thin and the repo authoritative.
 
 
 ## Acquisition attribution (`public/attribution.js`)
@@ -327,6 +349,15 @@ or link structure. It drives a real browser through six scenarios (paid click on
 blog post, the homepage-overwrite case, organic, direct + click event, blocked
 localStorage, and the debug flag itself) — 22 checks.
 
+**Safari.** Cookies written by script are capped at 7 days by Safari's ITP, so
+`attribution.js` writes `rr_vid` client-side for an immediate result and then calls
+`GET /rr/id` once, which re-issues the same value as a real `Set-Cookie` with the full
+180 days. That endpoint is a Cloudflare Pages Function (`functions/rr/id.js`) and is
+deliberately its own route rather than middleware — a cached HTML response carrying
+`Set-Cookie` would hand every visitor the same id. The `rr_vids` cookie marks that the
+durable cookie has been issued, so it is one request per visitor, not per page view.
+Verify with `node scripts/verify-vid-cookie.mjs` (no wrangler needed).
+
 **Not yet done:** the app does not yet read `rr_vid` — that needs a column on
 `tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
-Adding a first-party cookie should also be reflected in the privacy policy.
+The privacy policy now names the cookie.

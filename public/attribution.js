@@ -28,6 +28,7 @@
   var COOKIE_DOMAIN = ".riverrecords.ai";
   var STORE_KEY = "rr_attr";
   var VID_KEY = "rr_vid";
+  var MARKER_KEY = "rr_vids"; // set by /rr/id — "a durable cookie has been issued"
   var DEBUG_KEY = "rr_debug";
   var COOKIE_MAX_AGE = 60 * 60 * 24 * 180; // 180 days
 
@@ -125,7 +126,26 @@
     if (!id) id = uuid();
     health.localStorage = writeStore(VID_KEY, id);
     health.cookie = writeCookie(VID_KEY, id); // parent-domain: the app can read this
+    persistServerSide();
     return id;
+  }
+
+  // Safari's ITP caps cookies written by script at 7 days, so the 180-day max-age
+  // above is silently ignored on much of a clinician audience. Ask the server to
+  // re-issue the same value as a real Set-Cookie, which is not capped that way.
+  //
+  // Fire-and-forget, and deliberately AFTER the cookie is written client-side: the
+  // browser then sends that cookie with this request, so /rr/id reuses the id rather
+  // than minting a different one. The rr_vids marker means the server has already
+  // done this, so it is one request per visitor rather than one per page view.
+  function persistServerSide() {
+    try {
+      if (readCookie(MARKER_KEY)) return;      // already durable
+      if (location.protocol !== "https:") return; // Secure cookie needs https
+      if (typeof fetch !== "function") return;
+      fetch("/rr/id", { credentials: "same-origin", cache: "no-store" })
+        .catch(function () { /* endpoint absent or offline — client cookie still stands */ });
+    } catch (e) { /* never let this break a CTA */ }
   }
 
   function paramsFromUrl() {
