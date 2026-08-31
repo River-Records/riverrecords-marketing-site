@@ -60,6 +60,7 @@ public/
   shared.css            ← All component styles + CSS variables
   ui-widgets.js         ← Interactive product widgets
   attribution.js        ← Acquisition attribution (see below)
+  hubspot-events.js     ← Forwards high-intent events to the HubSpot timeline
   _redirects            ← Cloudflare 301 redirects
   robots.txt
   og-default.png        ← OG social sharing image
@@ -234,6 +235,34 @@ exception is deliberate and worth understanding before overriding it:
 See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning, `docs/GTM-SETUP.md` for the
 container work this is waiting on, and `docs/VERIFY-DEPLOY.md` to confirm a deploy
 actually works.
+
+### High-intent events go straight to HubSpot
+`public/hubspot-events.js` forwards a short list of dataLayer events — `video_play`,
+`intake_video_complete`, `cta_click_demo` — to HubSpot as page views at synthetic
+`/engagement/*` paths, so they land on the contact timeline **without** needing a GTM
+tag. The outbound team works in HubSpot, not GA4, and "watched four minutes of Huddle"
+is the strongest buying signal the site produces.
+
+Three things to know before changing it:
+- **Keep the list short.** Every entry becomes a line on a real person's timeline; one
+  cluttered with scroll depth is one nobody reads.
+- **It reads the dataLayer by polling, never intercepts it.** Wrapping `dataLayer.push`
+  would race GTM installing its own — `gtm.js` is async, so whoever assigns last wins.
+- **The real path must be restored after each send.** Leaving the synthetic path set
+  makes the visitor's *next* genuine page view report it, turning one extra row into
+  corrupted page data.
+
+The cost of the approach: these appear in HubSpot's Pages report alongside real pages.
+That is why they are namespaced under `/engagement/` — so they can be filtered out. If
+the portal is ever on Marketing Hub Enterprise, switch to `trackCustomBehavioralEvent`
+and the tradeoff goes away.
+
+The contact form additionally calls `_hsq identify` with the submitted email, which
+retroactively attaches everything that visitor already browsed to their contact record.
+That is sent **directly to HubSpot, never through the dataLayer** — an email address in
+the dataLayer would flow to GA4, and Google prohibits personal data there.
+
+Verify with `scripts/verify-hubspot-events.mjs`.
 
 ### dataLayer events the site pushes
 Ten, and **no GTM tag listens to any of them yet** — see `docs/GTM-SETUP.md`. Site-wide:
