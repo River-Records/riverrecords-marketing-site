@@ -10,7 +10,6 @@
 // Set CHROME_PATH if your Chromium is elsewhere.
 
 import { chromium } from 'playwright';
-import { chromium } from 'playwright';
 const BASE = 'http://127.0.0.1:4321';
 const APP = 'stream.riverrecords.ai';
 let fails = 0;
