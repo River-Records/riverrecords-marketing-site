@@ -53,10 +53,13 @@ src/
   content/
     blog/               ← Markdown files (Astro content collection)
   content.config.ts     ← Collection schema (at src/ root, not in content/)
+functions/
+  rr/id.js              ← Cloudflare Pages Function: durable rr_vid cookie (Safari/ITP)
 public/
   brand-extract.css     ← Design tokens from product
   shared.css            ← All component styles + CSS variables
   ui-widgets.js         ← Interactive product widgets
+  attribution.js        ← Acquisition attribution (see below)
   _redirects            ← Cloudflare 301 redirects
   robots.txt
   og-default.png        ← OG social sharing image
@@ -259,6 +262,102 @@ Node version: 22
 - Do not use inline styles — use shared.css classes or scoped component styles
 - Do not duplicate CSS between pages — use components
 - Do not add external CSS frameworks (Tailwind, Bootstrap, etc.)
-- Do not use localStorage or sessionStorage
+- Do not use browser storage for page state or UI behaviour — **except** the
+  named acquisition-attribution keys below
 - Do not add cookie consent banners without checking with Jake
-- Do not add standalone analytics scripts — use GTM
+- Do not add standalone analytics scripts — **except** the two already documented
+  (Ahrefs, HubSpot); default to GTM for anything new
+
+### The two storage/analytics exceptions, and why
+These rules used to be absolute. Both now carry a deliberate exception, so that the
+list matches the code rather than quietly contradicting it.
+
+**Browser storage.** `public/attribution.js` uses `localStorage` for `rr_vid` and
+first-touch attribution, and `sessionStorage` for the `?rr_debug=1` flag. First touch
+has to survive a return visit days later, which is exactly what storage is for. The
+rule still stands for everything else: no storing UI state, form drafts, dismissed
+banners, or preferences — those cause stale-state bugs on a static site and are what
+the rule was written against. Permitted keys are `rr_vid`, `rr_attribution`,
+`rr_debug`. Adding a new one is a decision, not a detail.
+
+**Standalone scripts.** Ahrefs and HubSpot load directly in `Base.astro`. See the
+Analytics section for the full reasoning; the short version is that identity tracking
+has to run on every page to work at all, and the GTM container has had no owner since
+Jay left, so logic placed there has no reviewer, no history, and no version control.
+Keep the container thin and the repo authoritative.
+
+
+## Acquisition attribution (`public/attribution.js`)
+
+The site is a **static** Astro build on `www.riverrecords.ai`; the app is on
+`stream.riverrecords.ai`. CTA hrefs are therefore baked at build time and cannot
+carry the visitor's real inbound channel — so attribution is applied client-side.
+
+**The bug this fixed:** most signup CTAs (Nav, OfferBanner, HeroSection, CtaDark,
+BlogPost, BookChapter, all four `/for/*` pages) carried no UTM at all, so all 87
+blog posts contributed zero attribution. The two pages that did append UTM
+hardcoded `utm_source=homepage`, which *overwrote* the real channel. The app's
+`tenant.utm_source` column was recording which page the button was on, not where
+the visitor came from.
+
+**Rules the script enforces:**
+
+- A real inbound source always beats a page's hardcoded one. Page identity belongs
+  in `utm_content`, and a more specific existing `utm_content` (`hero`, `pricing`)
+  is never overwritten.
+- **First touch is write-once**; last touch is also kept (`rr_last_source`).
+- Ad click IDs (`gclid`, `fbclid`, `msclkid`, `li_fat_id`, `ttclid`) are forwarded.
+- Paramless visits are classified `organic` / `referral` / `direct` from the
+  referrer rather than collapsing into "(none)". Internal navigation never
+  re-attributes.
+- `rr_vid`, an anonymous first-party id, is set in localStorage **and** a
+  `.riverrecords.ai` cookie — the parent-domain cookie reaches the app even when
+  URL params are lost (bookmark, new tab, return visit).
+- **Only `/onboard*` links are decorated.** `/login` is an existing customer, not
+  an acquisition; decorating it pollutes the app's UTM columns and firing a signup
+  conversion on a login click corrupts the conversion count.
+- All storage access is try/caught — private mode must not break a CTA.
+
+**dataLayer events pushed** (GTM container `GTM-N767QFHJ`): `rr_attribution_ready`,
+`cta_click_signup`, `cta_click_demo`.
+
+### Debugging in production: `?rr_debug=1`
+
+Add `?rr_debug=1` to any page. The console then prints, per pageview:
+
+- how the visit was classified, in words (`explicit URL parameters`,
+  `inferred from referrer (organic)`, `internal navigation — attribution left
+  unchanged`, `inferred source ignored — a real campaign is already stored`)
+- the visitor id, and whether it was newly minted or restored
+- first touch and last touch, and whether first touch was created on this visit
+- storage health — localStorage, and **whether the `.riverrecords.ai` cookie
+  actually stuck**, which is the one thing that cannot be checked on a
+  `*.pages.dev` preview or on localhost. A failed cookie prints a warning naming
+  the likely cause.
+- a table of every signup link rewritten, showing `utm_source` **before and
+  after** — this is the direct check that the homepage-overwrite bug is fixed
+- app links deliberately skipped, with the reason (`/login` is not acquisition)
+- the `dataLayer` payload on any CTA click
+
+The flag persists in `sessionStorage`, so it survives internal navigation —
+necessary because verifying the overwrite fix requires landing on one page and
+then clicking through to another. `?rr_debug=0` clears it. Output is silent for
+everyone else; nothing is logged without the flag.
+
+**Verify with** `scripts/verify-attribution.mjs` after any change to CTA components
+or link structure. It drives a real browser through six scenarios (paid click on a
+blog post, the homepage-overwrite case, organic, direct + click event, blocked
+localStorage, and the debug flag itself) — 22 checks.
+
+**Safari.** Cookies written by script are capped at 7 days by Safari's ITP, so
+`attribution.js` writes `rr_vid` client-side for an immediate result and then calls
+`GET /rr/id` once, which re-issues the same value as a real `Set-Cookie` with the full
+180 days. That endpoint is a Cloudflare Pages Function (`functions/rr/id.js`) and is
+deliberately its own route rather than middleware — a cached HTML response carrying
+`Set-Cookie` would hand every visitor the same id. The `rr_vids` cookie marks that the
+durable cookie has been issued, so it is one request per visitor, not per page view.
+Verify with `node scripts/verify-vid-cookie.mjs` (no wrangler needed).
+
+**Not yet done:** the app does not yet read `rr_vid` — that needs a column on
+`tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
+The privacy policy now names the cookie.
