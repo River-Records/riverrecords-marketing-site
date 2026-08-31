@@ -358,6 +358,23 @@ deliberately its own route rather than middleware — a cached HTML response car
 durable cookie has been issued, so it is one request per visitor, not per page view.
 Verify with `node scripts/verify-vid-cookie.mjs` (no wrangler needed).
 
+### Consuming attribution from another script
+`window.rrAttribution` is the one public surface — `{ ready, vid, first, last }` plus
+`whenReady(cb)`, which fires immediately if attribution has already resolved. Both the
+Calendly embed on `/book-demo` and the contact form read from it.
+
+**Never re-derive the source in a page script.** Two definitions of "where did this
+visitor come from" drift apart, and the entire point is that one answer reaches every
+system. If something needs attribution, read it here.
+
+`/book-demo` deliberately does not use Calendly's `calendly-inline-widget` auto-init.
+That fires as soon as Calendly's async script lands, which is a race attribution loses,
+and an unattributed booking is exactly the bug being fixed. The page calls
+`Calendly.initInlineWidget()` itself once both are ready. Consequence worth knowing: if
+that init breaks, the booking box renders **empty** rather than merely unattributed —
+`scripts/verify-conversion-attribution.mjs` checks the widget actually renders first,
+before it checks any UTM.
+
 **Not yet done:** the app does not yet read `rr_vid` — that needs a column on
 `tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
 The privacy policy now names the cookie.

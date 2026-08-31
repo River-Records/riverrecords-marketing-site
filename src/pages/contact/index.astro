@@ -65,6 +65,7 @@ import Page from '../../layouts/Page.astro';
   margin-bottom: 6px;
 }
 .contact-form input,
+.contact-form select,
 .contact-form textarea {
   width: 100%;
   padding: 10px 14px;
@@ -79,8 +80,25 @@ import Page from '../../layouts/Page.astro';
   margin-bottom: 18px;
 }
 .contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   border-color: var(--primary);
+}
+/* Native select needs the height matched to the text inputs explicitly. */
+.contact-form select {
+  appearance: none;
+  height: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.contact-optional {
+  font-weight: 400;
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  margin-left: 4px;
 }
 .contact-form textarea {
   min-height: 120px;
@@ -111,14 +129,44 @@ import Page from '../../layouts/Page.astro';
     <p class="contact-sub">Have a question about Stream, need help with your account, or want to discuss pricing for your practice? We respond within one business day.</p>
 
     <div class="contact-card">
-      <form class="contact-form" action="https://formsubmit.co/hello@riverrecords.ai" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/hello@riverrecords.ai" method="POST">
         <input type="hidden" name="_next" value="https://www.riverrecords.ai/contacted">
         <input type="hidden" name="_subject" value="New contact from riverrecords.ai">
         <input type="hidden" name="_captcha" value="false">
+        <!-- Readable table instead of a wall of key/value lines, now that the mail
+             carries attribution fields as well as the message. -->
+        <input type="hidden" name="_template" value="table">
+
+        <!--
+          Populated by attribution.js at submit time. Without these, every enquiry
+          arrives with no idea which channel produced it, and the only way to find out
+          is to ask the person. Left blank if scripting is off — the form still works.
+        -->
+        <input type="hidden" name="first_source" value="">
+        <input type="hidden" name="first_medium" value="">
+        <input type="hidden" name="first_campaign" value="">
+        <input type="hidden" name="landing_page" value="">
+        <input type="hidden" name="submitted_from" value="">
+        <input type="hidden" name="visitor_id" value="">
+
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Your name" required>
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="you@practice.com" required>
+
+        <label for="practice">Practice or organization <span class="contact-optional">optional</span></label>
+        <input type="text" id="practice" name="practice" placeholder="Riverside Family Medicine">
+
+        <label for="role">Your role <span class="contact-optional">optional</span></label>
+        <select id="role" name="role">
+          <option value="">Select one</option>
+          <option>Physician (MD/DO)</option>
+          <option>Nurse practitioner or PA</option>
+          <option>Practice owner or administrator</option>
+          <option>Behavioral health clinician</option>
+          <option>Other</option>
+        </select>
+
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
         <button type="submit" class="btn btn-primary-lg" style="width:100%;display:block;text-align:center;">Send Message</button>
@@ -127,5 +175,50 @@ import Page from '../../layouts/Page.astro';
     </div>
   </div>
 </section>
+
+<script is:inline>
+/*
+ * Stamp the enquiry with where the person actually came from.
+ *
+ * This form posts to an email relay, so each submission has historically arrived as a
+ * name, an email and a message — with the channel that produced it nowhere in sight.
+ * These fields make the answer arrive with the enquiry instead of being reconstructed
+ * later, or more usually not at all.
+ *
+ * Values come from window.rrAttribution so there is one definition of "the real
+ * source" across the site. Filled on submit rather than on load so a long-lived tab
+ * carries what was true when the person actually pressed the button.
+ */
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+
+  function setField(name, value) {
+    var el = form.querySelector('[name="' + name + '"]');
+    if (el) el.value = value == null ? '' : String(value);
+  }
+
+  form.addEventListener('submit', function () {
+    var attr = window.rrAttribution;
+    // Never block the submit: a missing attribution script must not cost us an enquiry.
+    if (!attr || !attr.ready) return;
+    var first = attr.first || {};
+    setField('first_source', first.utm_source || 'direct');
+    setField('first_medium', first.utm_medium || 'none');
+    setField('first_campaign', first.utm_campaign || '(none)');
+    setField('landing_page', first.landing_page || '');
+    setField('submitted_from', location.pathname);
+    setField('visitor_id', attr.vid || '');
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'contact_form_submit',
+      form_page: location.pathname,
+      rr_vid: attr.vid || null,
+      rr_first_source: first.utm_source || null
+    });
+  });
+})();
+</script>
 
 </Page>
