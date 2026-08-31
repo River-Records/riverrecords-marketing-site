@@ -189,6 +189,29 @@ RSS exists and auto-posts to LinkedIn. There is no email list. LinkedIn reach is
 and algorithm-dependent; an email list is owned. For a 88-post content operation, not
 having a newsletter is leaving the compounding asset uncollected.
 
+### Finding 9 — Two GA4 properties are firing at once, so traffic numbers are inflated
+Found incidentally while verifying the HubSpot tag in a real browser: loading any page
+sets **two** distinct GA4 session cookies, `_ga_39BPK056ZB` and `_ga_F2ZN4Z3VK3`. That
+means two GA4 configuration tags are firing on every pageview, into two different
+properties.
+
+Nothing in this repo sets a GA4 ID — `grep -rn "G-[A-Z0-9]\{8,\}\|gtag(" src/ public/`
+returns nothing — so both come from the GTM container.
+
+**Consequence.** Sessions and page views are being counted twice, or split across two
+properties, depending on which one anybody actually reports from. Any traffic figure
+quoted from GA4 today is suspect, and it is impossible to say in which direction without
+opening the container. Given nobody currently owns that container, this is exactly the
+kind of drift Part 7 warns about — it has probably been true for a long time and nobody
+would have noticed.
+
+**Fix.** Open GTM → Tags, find the two GA4 Configuration tags, decide which property is
+the real one (check which has history worth keeping in GA4 first), and pause the other.
+Console work, ~10 minutes, no code change.
+
+`scripts/verify-hubspot-tracking.mjs` warns whenever more than one `_ga_*` cookie appears,
+so this cannot silently return.
+
 ---
 
 ## Part 4 — The identity architecture
@@ -480,4 +503,5 @@ Ads (Finding 2) drop off the near-term list entirely until spend resumes.
 | Cookie is JS-set, 180d | `public/attribution.js:32,64` (PR #31) |
 | HubSpot has never seen a riverrecords.ai page view | Contact search on `hs_analytics_num_page_views` + `hs_analytics_last_url`; non-zero values point only at `meetings.hubspot.com` / `app.hubspot.com` |
 | 67 contacts with any email-open data | Contact search, `hs_email_open HAS_PROPERTY`, total = 67 |
+| Two GA4 properties firing | `node scripts/verify-hubspot-tracking.mjs` against a local build — warns on multiple `_ga_*` cookies |
 | Ads conversions ⚠️ | **Not verified** — from `CLAUDE.md`. Confirm in the GTM console |
