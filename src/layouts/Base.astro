@@ -89,6 +89,21 @@ const twitterHandle = "@riverrecordshq";
 
   <slot />
   <script is:inline src="/ui-widgets.js"></script>
+
+  <!--
+    HubSpot tracking (portal 46752060).
+
+    Loaded directly rather than through GTM, deliberately — see the analytics note in
+    CLAUDE.md. This is what de-anonymises outbound prospects: when someone clicks a link
+    in a HubSpot email, HubSpot ties its first-party cookie to their contact record, and
+    every page they view afterwards lands on their CRM timeline by name. That turns
+    website activity into a call-prioritisation signal for the outbound team.
+
+    Before this was added, HubSpot had never recorded a single page view on this domain.
+    Verify with docs/GROWTH-DATA-AUDIT.md.
+  -->
+  <script is:inline type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/46752060.js"></script>
+
   <slot name="scripts" />
 </body>
 </html>
