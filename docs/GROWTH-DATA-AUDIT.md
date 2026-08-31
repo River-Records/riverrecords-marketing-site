@@ -198,16 +198,20 @@ properties.
 Nothing in this repo sets a GA4 ID — `grep -rn "G-[A-Z0-9]\{8,\}\|gtag(" src/ public/`
 returns nothing — so both come from the GTM container.
 
-**Consequence.** Sessions and page views are being counted twice, or split across two
-properties, depending on which one anybody actually reports from. Any traffic figure
-quoted from GA4 today is suspect, and it is impossible to say in which direction without
-opening the container. Given nobody currently owns that container, this is exactly the
+**Consequence.** Confirmed from live network traffic 31 Aug 2026: both hits carry the
+same `cid` and `sid`, so it is one visitor reported into two places by two different tag
+configurations. That does *not* inflate either property — each receives one clean copy.
+The damage is subtler: no agreed source of truth, two properties that drift apart as
+filters and conversions get configured on one and not the other, and any figure produced
+by summing them being double. Establish which property a number came from before
+trusting it. Given nobody currently owns that container, this is exactly the
 kind of drift Part 7 warns about — it has probably been true for a long time and nobody
 would have noticed.
 
-**Fix.** Open GTM → Tags, find the two GA4 Configuration tags, decide which property is
-the real one (check which has history worth keeping in GA4 first), and pause the other.
-Console work, ~10 minutes, no code change.
+**Fix.** `G-F2ZN4Z3VK3` never loads its own `gtag/js` and is absent from the account's
+Google tags screen, so it is sent by a tag *inside* the container rather than by the
+account-level Google tag — search the container for `F2ZN4Z3VK3` and pause what you find.
+Keep `G-39BPK056ZB`. Step by step in `docs/GTM-SETUP.md`, Part 1. ~10 minutes, no code.
 
 `scripts/verify-hubspot-tracking.mjs` warns whenever more than one `_ga_*` cookie appears,
 so this cannot silently return.

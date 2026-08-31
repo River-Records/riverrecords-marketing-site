@@ -87,9 +87,9 @@ await page.waitForTimeout(2000);
 const gaIds = (await ctx.cookies()).filter((c) => /^_ga_/.test(c.name)).map((c) => c.name);
 if (gaIds.length > 1) {
   console.log('  WARN  ' + gaIds.length + ' GA4 properties are firing: ' + gaIds.join(', '));
-  console.log('        Two config tags double-count sessions and page views, so GA4');
-  console.log('        traffic numbers are inflated. Fix in the GTM container — see');
-  console.log('        docs/GROWTH-DATA-AUDIT.md, Finding 9.');
+  console.log('        Each property gets its own copy of every page view — the numbers');
+  console.log('        inside each are fine, but there is no agreed source of truth and');
+  console.log('        adding them together doubles. Fix: docs/GTM-SETUP.md, Part 1.');
 } else {
   console.log('  PASS  exactly one GA4 property firing' + (gaIds.length ? ` (${gaIds[0]})` : ''));
 }
