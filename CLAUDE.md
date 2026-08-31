@@ -188,15 +188,36 @@ Login:        https://stream.riverrecords.ai/login
 Contact:      /contact (form redirects to /contacted)
 
 ## Analytics & tracking
-All analytics managed via Google Tag Manager (GTM-N767QFHJ).
+Most analytics run through Google Tag Manager (GTM-N767QFHJ).
 GTM contains: GA4, 3 Google Ads conversions, Hotjar, PostHog, login tracking.
-Ahrefs analytics loaded separately in Base.astro.
-Do NOT add standalone analytics scripts — everything goes through GTM.
 
-### Conversion triggers (managed by Jay in GTM)
+Two scripts load directly in Base.astro instead, on purpose:
+- **Ahrefs** analytics
+- **HubSpot** tracking (portal 46752060)
+
+Do not add further standalone analytics scripts — default to GTM. The HubSpot
+exception is deliberate and worth understanding before overriding it:
+
+1. It has to run reliably on every page to do its job. Routing identity tracking
+   through a container adds a failure mode (a mis-set trigger silently stops
+   de-anonymising prospects) for no benefit.
+2. Nobody currently owns the GTM container. Jay set it up and is no longer on the
+   project, so container config has no reviewer, no history, and no version control.
+   Logic that lives in this repo can be read, diffed, and fixed; logic in the console
+   rots unnoticed. Keep the container thin and the repo authoritative.
+
+See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning.
+
+### Conversion triggers (configured in the GTM console)
 - /book-demo page view → $200 Ads conversion
 - /contacted page view → $50 Ads conversion
 - Click to stream.riverrecords.ai → $150 Ads conversion
+
+These were set up by Jay, who is no longer working on the project — as of Aug 2026
+nobody is actively maintaining the container. Two of the three fire on a page view or
+an outbound click rather than on a completed booking or signup, so they measure intent
+rather than outcome. See `docs/GROWTH-DATA-AUDIT.md`. The container is not visible from
+the repo, so treat the list above as unverified until checked in the console.
 
 ## Tone & copy rules
 - DO NOT use the word "narrative" in any copy
