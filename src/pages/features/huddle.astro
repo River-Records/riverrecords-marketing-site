@@ -4,6 +4,8 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import HuddleDemo from '../../components/demos/HuddleDemo.vue';
 import { pricing } from '../../config/pricing';
+import { videoByKey } from '../../config/videos';
+import LoomEmbed from '../../components/LoomEmbed.astro';
 
 const utmBase = '?utm_source=huddle-page&utm_medium=landing&utm_campaign=huddle-launch';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
@@ -93,6 +95,11 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
 .huddle-tab-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
 .huddle-tab-card h3 { font-size: 1.1rem; color: var(--ink); margin-bottom: 10px; }
 .huddle-tab-card p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; }
+
+/* Watch it */
+.huddle-video { padding: 0 0 80px; }
+.huddle-video h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 14px; }
+.huddle-video-lede { font-size: 1.02rem; color: var(--ink-muted); line-height: 1.65; max-width: 62ch; margin-bottom: 32px; }
 
 /* What you're looking at */
 .huddle-what { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -248,6 +255,16 @@ const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`
         <p>HCC-relevant problems you haven't captured this calendar year. Huddle flags them so nothing clinically legitimate slips past documentation. Capture happens as a byproduct of doing the visit — not as a separate admin chore.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- WATCH IT -->
+<section class="huddle-video hr">
+  <div class="hc">
+    <div class="hl">WATCH IT</div>
+    <h2>Four minutes, one patient.</h2>
+    <p class="huddle-video-lede">Jake opens a patient the way you would before a visit — active problems with his own A&amp;P, the documents that arrived since, and the tasks still open, all on one screen. Nothing is lost. Nothing needs to be resurfaced.</p>
+    <LoomEmbed video={videoByKey('huddle')} variant="wide" caption={false} context="huddle-page" />
   </div>
 </section>
 

@@ -7,6 +7,8 @@ import EncounterViewDemo from '../components/demos/EncounterViewDemo.vue';
 import TimelineRecapDemo from '../components/demos/TimelineRecapDemo.vue';
 import { pricing } from '../config/pricing';
 import { stats } from '../config/stats';
+import { productVideos } from '../config/videos';
+import LoomEmbed from '../components/LoomEmbed.astro';
 
 const utmBase = '?utm_source=homepage&utm_medium=landing&utm_campaign=home-v2';
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro${utmBase}`;
@@ -165,6 +167,16 @@ const metricItems = [
 .home-tour-callout { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--stream); letter-spacing: 0.02em; }
 .home-tour-callout::before { content: '→ '; color: var(--accent); }
 
+/* See it work — product walkthroughs */
+.home-video { padding: 80px 0; background: var(--cream); border-bottom: 1px solid var(--rule); }
+.home-video h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 14px; }
+.home-video h2 em { font-style: italic; color: var(--stream); }
+.home-video-lede { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.65; max-width: 640px; margin-bottom: 40px; }
+.home-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.home-video-grid :global(.loom-title) { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: var(--ink); }
+.home-video-grid :global(.loom-blurb) { color: var(--ink-soft); opacity: 1; }
+.home-video-grid :global(.loom-label) { color: var(--accent); }
+
 /* Mini visuals */
 .huddle-mini { font-size: 0.72rem; }
 .huddle-mini-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
@@ -300,6 +312,7 @@ const metricItems = [
   .home-hero-grid { grid-template-columns: 1fr; }
   .home-thesis-grid { grid-template-columns: 1fr; }
   .home-tour-pair { grid-template-columns: 1fr; }
+  .home-video-grid { grid-template-columns: 1fr; max-width: 560px; }
   .home-metrics-grid { gap: 40px; }
   .home-tour-card--wide .home-tour-card-body { padding: 24px; }
   .home-rev-grid { grid-template-columns: 1fr; }
@@ -473,6 +486,20 @@ const metricItems = [
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEE IT WORK -->
+<section class="home-video hr" id="see-it-work">
+  <div class="hc">
+    <div class="hl">SEE IT WORK</div>
+    <h2>Three walkthroughs. <em>No sales call first.</em></h2>
+    <p class="home-video-lede">Jake walks through the parts of Stream that are hard to picture from a screenshot — how outside records land, how a visit becomes a structured note, and how the two meet at the top of the next visit. About eleven minutes for all three.</p>
+    <div class="home-video-grid">
+      {productVideos.map((video) => (
+        <LoomEmbed video={video} context="homepage" />
+      ))}
     </div>
   </div>
 </section>
