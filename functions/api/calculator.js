@@ -56,9 +56,16 @@ const KNOWN_FIELDS = [
 ];
 
 /**
- * Our field names → HubSpot contact properties. `email` is the only one HubSpot has out
- * of the box; the rest must exist on the form in HubSpot or the submission is rejected,
- * so unmapped extras are deliberately not sent.
+ * Our field names → HubSpot contact properties.
+ *
+ * These names must match the property internal names in HubSpot EXACTLY, and nothing
+ * will tell you if they do not. The Forms API silently ignores fields it does not
+ * recognize and still returns 200 — verified against the live endpoint with an invented
+ * field name. A typo here therefore produces a contact with only an email address, the
+ * numbers discarded, and no error in HubSpot, Cloudflare or the response.
+ *
+ * The only way to confirm a change is to submit for real and look at the contact record.
+ * See docs/HUBSPOT-SETUP.md.
  */
 const HUBSPOT_FIELD_MAP = {
   email: 'email',
