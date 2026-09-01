@@ -178,6 +178,8 @@ Verify with `scripts/verify-calculator.mjs`, which asserts each line against
 hand-computed values.
 
 ## Calculator submissions (`functions/api/calculator.js`)
+Setup runbook: `docs/HUBSPOT-SETUP.md`. The three contact properties must exist with
+exactly the internal names the field map uses, or submissions fail silently.
 The calculator posts to a Cloudflare Pages Function that fans out to HubSpot, Mandrill
 and a notification path. Everything is optional and independently gated by environment
 variables, so it degrades to exactly the previous behaviour when nothing is set.
