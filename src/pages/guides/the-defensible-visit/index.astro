@@ -1,0 +1,218 @@
+---
+import Page from '../../../layouts/Page.astro';
+import { codingRates } from '../../../config/coding-rates';
+---
+<Page
+  title="The Defensible Visit — Documenting Medical Decision-Making So It Survives Review | Stream"
+  description="A practical guide to the 2021 MDM table: the 2-of-3 rule, what actually counts as data, why prescription drug management is the workhorse of moderate risk, and the phrases that quietly cost you a level.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Defensible Visit",
+    "description": "A practical guide to documenting medical decision-making under the 2021 E/M guidelines so it survives review.",
+    "author": { "@type": "Organization", "name": "River Records" },
+    "publisher": { "@type": "Organization", "name": "River Records" }
+  }
+  </script>
+</Fragment>
+
+<style>
+.dv { padding: 64px 0 88px; }
+.dv-wrap { max-width: 760px; margin: 0 auto; }
+.dv h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 18px; }
+.dv h1 em { font-style: italic; color: var(--primary); }
+.dv-lede { font-size: 1.1rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 14px; }
+.dv-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+.dv h2 { font-size: 1.55rem; color: var(--ink); margin: 44px 0 14px; line-height: 1.25; }
+.dv h3 { font-size: 1.08rem; color: var(--ink); margin: 28px 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.dv p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.dv strong { color: var(--ink); }
+.dv ul, .dv ol { margin: 0 0 18px; padding-left: 22px; }
+.dv li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
+
+.dv-rule { background: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--r-lg); padding: 22px 26px; margin: 26px 0; }
+.dv-rule p:last-child { margin-bottom: 0; }
+.dv-rule .dv-rule-label { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+
+table.dv-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 0.9rem; }
+table.dv-table th { text-align: left; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 12px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.dv-table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.6; vertical-align: top; }
+table.dv-table td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+.dv-note { border-left: 3px solid var(--border-strong); padding: 4px 0 4px 20px; margin: 24px 0; }
+.dv-note p { font-size: 0.94rem; margin-bottom: 10px; }
+.dv-note p:last-child { margin-bottom: 0; }
+
+.dv-ex { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 24px 0; }
+.dv-ex-half { padding: 20px 24px; }
+.dv-ex-half + .dv-ex-half { border-top: 1px solid var(--border); }
+.dv-ex-tag { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.dv-ex-before .dv-ex-tag { color: var(--accent-dark); }
+.dv-ex-after .dv-ex-tag { color: var(--primary); }
+.dv-ex-body { font-family: var(--font-mono); font-size: 0.83rem; line-height: 1.7; color: var(--ink-muted); white-space: pre-wrap; }
+.dv-ex-why { font-size: 0.88rem; color: var(--ink-faint); margin-top: 12px; line-height: 1.6; }
+
+.dv-check { background: var(--dark); color: var(--white); border-radius: var(--r-xl); padding: 32px; margin: 40px 0; }
+.dv-check h2 { color: var(--white); margin-top: 0; font-size: 1.4rem; }
+.dv-check ol { padding-left: 20px; }
+.dv-check li { color: rgba(250,247,240,0.86); margin-bottom: 12px; font-size: 0.96rem; }
+.dv-check li strong { color: var(--white); }
+
+.dv-disclaim { font-size: 0.85rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 44px; padding-top: 22px; }
+.dv-cta { margin-top: 36px; padding: 26px; background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); }
+.dv-cta p { margin-bottom: 14px; }
+.dv-cta a.btn-primary-lg { display: inline-block; }
+</style>
+
+<section class="dv">
+  <div class="container">
+    <div class="dv-wrap">
+
+      <span class="section-label">Guide</span>
+      <h1>The defensible visit</h1>
+      <p class="dv-lede">Most undercoding isn't a billing habit. It's a documentation problem wearing a billing costume: the visit was genuinely complex, the note couldn't show it in a shape that would survive review, and the safe code was the lower one.</p>
+      <p class="dv-lede">This is what the record has to show, in the terms the 2021 guidelines actually use.</p>
+      <p class="dv-meta">Written for independent primary care · Rates cited: {codingRates.effectiveLabel}</p>
+
+      <h2>Start here: history and exam no longer set the level</h2>
+      <p>This is the single most expensive piece of outdated habit still in circulation. Since January 2021, the level of an office visit is chosen by <strong>medical decision-making or total time</strong> — not by how many review-of-systems boxes you ticked or how many organ systems you examined.</p>
+      <p>History and exam still have to be performed and documented as medically appropriate. They just don't count toward the level any more. A note padded with a full ten-system ROS and a head-to-toe exam, describing a visit where you managed two chronic problems and changed a medication, is a note doing a great deal of work that earns nothing — while leaving the part that <em>does</em> earn something implicit.</p>
+
+      <div class="dv-rule">
+        <div class="dv-rule-label">The rule everything else hangs on</div>
+        <p>MDM has three elements: <strong>problems addressed</strong>, <strong>data reviewed</strong>, and <strong>risk</strong>. You need to meet the level in <strong>two of the three</strong>. Not all three. Two.</p>
+      </div>
+
+      <p>Almost every defensible 99214 in primary care is built the same way: the problems element and the risk element. Data is frequently the one you don't need — which matters, because data is the element clinicians most often try to manufacture and least often document properly.</p>
+
+      <h2>Element 1 — Problems addressed</h2>
+      <p>"Addressed" is a specific thing. A problem is addressed when you evaluated or treated it at this encounter. Listing it on the problem list is not addressing it. Noting that another clinician manages it is explicitly <em>not</em> addressing it.</p>
+
+      <table class="dv-table">
+        <tr><th>Level</th><th>What qualifies</th></tr>
+        <tr>
+          <td>Moderate<br />(99214)</td>
+          <td>One or more chronic illnesses with exacerbation, progression, or side effects of treatment · <strong>or</strong> two or more stable chronic illnesses · <strong>or</strong> one undiagnosed new problem with uncertain prognosis · <strong>or</strong> one acute illness with systemic symptoms · <strong>or</strong> one acute complicated injury</td>
+        </tr>
+        <tr>
+          <td>High<br />(99215)</td>
+          <td>One or more chronic illnesses with <strong>severe</strong> exacerbation or progression · <strong>or</strong> one acute or chronic illness that poses a threat to life or bodily function</td>
+        </tr>
+      </table>
+
+      <p><strong>Two stable chronic illnesses already reaches moderate.</strong> A visit where you reviewed and continued management of hypertension and type 2 diabetes — genuinely stable, genuinely addressed — meets the problems element for 99214. That is a very ordinary primary care visit.</p>
+
+      <h2>Element 2 — Data reviewed and analyzed</h2>
+      <p>Data is counted in three categories, and the counting rules are where most notes fall down.</p>
+
+      <table class="dv-table">
+        <tr><th>Category</th><th>What it is</th></tr>
+        <tr><td>Category 1</td><td>Tests, documents, or an independent historian. Any combination of three: reviewing prior external notes <em>from each unique source</em>, reviewing the result of <em>each unique test</em>, ordering <em>each unique test</em>, or needing an independent historian.</td></tr>
+        <tr><td>Category 2</td><td>Independent interpretation of a test performed by someone else, where you aren't separately billing for that interpretation.</td></tr>
+        <tr><td>Category 3</td><td>Discussion of management or test interpretation with an external physician or other qualified professional.</td></tr>
+      </table>
+
+      <div class="dv-rule">
+        <div class="dv-rule-label">Counting</div>
+        <p><strong>Moderate</strong> needs at least <strong>one</strong> of the three categories. <strong>High</strong> needs at least <strong>two</strong>. Within Category 1, you need three items to satisfy that single category.</p>
+      </div>
+
+      <p>The word doing the work in Category 1 is <em>unique</em>. Three results from one metabolic panel is one test, not three. A cardiology note and a nephrology note are two sources. Ordering a CBC, reviewing last month's A1c, and reviewing the hospital discharge summary is three items — a Category 1 satisfied, from a completely routine visit.</p>
+      <p>Two counting traps worth knowing. <strong>Ordering a test and then reviewing its result is generally one item, not two</strong> — you don't get to count both ends of the same test. And <strong>patient-supplied data, like home blood-pressure logs, is contested</strong>: some coders count it, some don't, and it is a poor thing to hang a level on. If a visit only reaches its level by counting a disputed data item, it isn't defensible — pick a visit that meets problems and risk instead, which most primary care visits do.</p>
+
+      <h2>Element 3 — Risk</h2>
+      <p>Risk means the risk of complications, morbidity or mortality <em>of patient management</em> — including the management options considered but not chosen.</p>
+      <p><strong>Prescription drug management is the workhorse of moderate risk.</strong> Starting a medication, stopping one, changing a dose, or making a documented decision to continue one with its attendant monitoring — all of that is prescription drug management. In primary care this element is met on a large share of visits, and it is met almost invisibly, because clinicians write "continue lisinopril" and think of it as a non-event rather than as the thing that establishes moderate risk.</p>
+      <p>Other moderate-risk examples: a decision about minor surgery with patient or procedure risk factors, or a decision about elective major surgery without such factors. High risk includes drug therapy requiring intensive monitoring for toxicity, decisions about hospitalization, and decisions about de-escalation of care.</p>
+
+      <h2>Five phrases that quietly cost you a level</h2>
+
+      <h3>1. "Stable" — when you actually did something</h3>
+      <p>"Diabetes: stable, continue metformin" reads as a non-event. If you reviewed the A1c trend, considered whether to intensify, and made a decision to hold, that is medical decision-making and the note should say the decision was made and why. "Stable" is a conclusion. The reasoning that produced it is what's defensible.</p>
+
+      <h3>2. Data reviewed, but not named</h3>
+      <p>"Labs reviewed" counts for nothing you can defend. <em>Which</em> labs, from when, and what you concluded. The specificity isn't bureaucratic — it's the difference between a claim that survives review and one that doesn't.</p>
+
+      <h3>3. Risk that's implied rather than stated</h3>
+      <p>You adjusted a medication with real monitoring implications, and the note records the new dose but not the reasoning or the monitoring plan. The risk element is met by what you decided and why, and it has to be legible.</p>
+
+      <h3>4. Problems mentioned but not addressed</h3>
+      <p>A problem list carried into the note is not a set of problems addressed. Conversely, a problem you genuinely worked on and then mentioned only in passing is a problem you addressed and won't get credit for.</p>
+
+      <h3>5. Copy-forward that buries today's thinking</h3>
+      <p>When today's decision-making sits inside three paragraphs carried from the last visit, a reviewer cannot separate what you did today from what you did in March. Neither can you, six months from now. Copy-forward doesn't just make notes long — it makes the complexity of any individual visit unrecoverable.</p>
+
+      <h2>What this looks like in practice</h2>
+      <p>The same visit, documented two ways. A 64-year-old with type 2 diabetes and hypertension, in for follow-up.</p>
+
+      <div class="dv-ex">
+        <div class="dv-ex-half dv-ex-before">
+          <div class="dv-ex-tag">Supports a 99213 at best</div>
+          <div class="dv-ex-body">A/P:
+Diabetes — stable. Continue metformin.
+Hypertension — stable. Continue lisinopril.
+Labs reviewed. Follow up 3 months.</div>
+          <p class="dv-ex-why">Two chronic problems are here, so the problems element may reach moderate — but nothing else does. No data is identified. No risk is articulated. There is no evidence of decision-making at all, only of conclusions.</p>
+        </div>
+        <div class="dv-ex-half dv-ex-after">
+          <div class="dv-ex-tag">Supports a 99214, defensibly</div>
+          <div class="dv-ex-body">A/P:
+Type 2 diabetes — A1c 7.9% (today), up from 7.1% in April.
+Adherence good by report. Considered adding a GLP-1;
+deferred given cost and no CV indication yet. Increasing
+metformin to 1000mg BID. Recheck A1c in 3 months.
+
+Hypertension — BP 142/90 today, similar to last two
+visits. Reviewed home readings patient brought (avg
+138/86). Continuing lisinopril 20mg; will add
+amlodipine if not improved by next visit. BMP today
+given dose considerations.</div>
+          <p class="dv-ex-why">Same visit, same care. <strong>Problems:</strong> two chronic illnesses, one with progression — moderate. <strong>Risk:</strong> prescription drug management, stated explicitly rather than implied. That is two of three, which is all you need — and note that the data element does <em>not</em> carry this visit. Reviewing a result and ordering a test is two items, and Category 1 wants three. Trying to force the data element here is exactly the reflex that leads people to pad notes; the visit already qualifies without it.</p>
+        </div>
+      </div>
+
+      <p>The second note is longer, but not by much — and the extra length is entirely decision-making. It is not a fuller ROS or a more elaborate exam. It is the reasoning that was already in your head, written down.</p>
+
+      <h2>Two things worth knowing beyond the level</h2>
+
+      <h3>The problem inside the preventive visit</h3>
+      <p>When a patient comes in for a wellness visit and you also evaluate and manage something separate — the eczema flare, the blood pressure that's drifted — that problem-oriented work can be reported alongside the preventive service with modifier 25 appended to the office visit code. The requirement is that it be significant and separately identifiable: enough additional work that it could stand on its own as a visit, documented so that no part of the preventive exam is doing double duty to support it.</p>
+      <p>At current rates that is roughly ${codingRates.em.level3.toFixed(0)}–${codingRates.em.level4.toFixed(0)} of separately earned work, and it is among the most commonly missed things in primary care.</p>
+
+      <h3>G2211</h3>
+      <p>The visit-complexity add-on, worth about ${codingRates.g2211.toFixed(2)} on top of the base visit. It's for the continuing care relationship — where you are the ongoing focal point for a patient's care, rather than treating a discrete problem in isolation. That describes most established primary care visits.</p>
+      <p>It is substantially underclaimed. CMS noted in its CY2026 rule that actual reporting came in below its own utilization estimate — which means practices absorbed the budget-neutrality reduction that funded the code and then didn't bill it. From January 2026 it also applies to home and residence visits.</p>
+
+      <div class="dv-check">
+        <h2>The checklist</h2>
+        <ol>
+          <li><strong>Did I name the problems I actually addressed</strong> — and say what I did about each?</li>
+          <li><strong>For anything I called stable</strong>, did I write down the reasoning that made it stable rather than just the conclusion?</li>
+          <li><strong>Did I name the specific data</strong> — which test, from when, which outside note, from which source?</li>
+          <li><strong>Is the risk visible?</strong> If I started, stopped, or changed a medication, does the note say so and say why?</li>
+          <li><strong>Can a reader tell what happened today</strong> without untangling it from copied text?</li>
+          <li><strong>If a separate problem came up in a preventive visit</strong>, is it documented well enough to stand alone?</li>
+          <li><strong>Does this patient have a continuing care relationship with me</strong> — and did I capture G2211?</li>
+        </ol>
+      </div>
+
+      <h2>The point of all this</h2>
+      <p>None of the above is an argument for billing a level you didn't earn. That is fraud, and the caution clinicians feel about it is well-placed and worth keeping.</p>
+      <p>It is an argument that the gap between the care you delivered and the care your record can demonstrate is a real, measurable, and largely unnecessary cost. You did the thinking. The only question is whether it's written down in a shape that survives someone else reading it.</p>
+
+      <div class="dv-cta">
+        <p><strong>Want the number for your own practice?</strong> The calculator runs this arithmetic against your provider count, visit volume and payer mix, using published Medicare rates, and shows every step.</p>
+        <a href="/tools/undercoding-calculator/" class="btn btn-primary-lg">Run the numbers</a>
+      </div>
+
+      <p class="dv-disclaim"><strong>This is educational, not compliance advice.</strong> Coding rules change, payer policies differ, and the right level for any given visit depends on facts only you have. Verify against current CPT guidance and your own coding and compliance resources before changing how your practice bills. Sources for the criteria described here: the AMA's 2021 E/M revisions, the ACS summary of the MDM table, and AAFP guidance on modifier 25.</p>
+
+    </div>
+  </div>
+</section>
+
+</Page>

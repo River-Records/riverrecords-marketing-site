@@ -152,6 +152,49 @@ Current pages:
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 
+## Revenue tools
+`/tools/undercoding-calculator/` estimates fee-for-service revenue an independent
+practice leaves uncaptured. All figures live in `src/config/coding-rates.ts`.
+
+**Those rates expire every January.** The Medicare Physician Fee Schedule is republished
+annually, and a calculator quoting last year's numbers is worse than none — it is wrong
+with a confident face, in front of a numerate audience. The config carries an
+`effectiveLabel` that is rendered on the page and a `reviewBy` date. Update both together
+with the citations, never one without the other.
+
+Three things on that page are not decoration and should not be trimmed:
+- the **rates-as-of stamp**, so a visitor can judge how current the numbers are
+- the **anti-upcoding guardrail**, because the audience is right to be wary and the
+  argument is about defensible documentation, not billing more
+- the **"what this leaves out" list**, which is what makes a conservative estimate
+  credible rather than promotional
+
+The undercoding-rate default is deliberately low. Published prevalence research reports
+much higher figures, but nearly all of it predates the 2021 E/M overhaul, after which
+coding shifted upward materially — so the page presents the rate as the visitor's own
+assumption and says why it does not lean on those studies.
+
+Verify with `scripts/verify-calculator.mjs`, which asserts each line against
+hand-computed values.
+
+## Guides
+`/guides/the-defensible-visit/` is the asset the calculator promises. It explains the
+2021 MDM table — the 2-of-3 rule, the data categories and their counting traps, and why
+prescription drug management carries moderate risk in primary care.
+
+**It makes specific coding claims to clinicians, so accuracy outranks persuasiveness.**
+Three rules if you edit it:
+- Every criterion must trace to AMA/ACS/AAFP guidance, not to a billing vendor's blog.
+- Do not let an example qualify on a contested item. The worked example deliberately
+  reaches its level on *problems plus risk* and states that the data element does not
+  carry it — an earlier draft claimed Category 1 was satisfied by two items plus
+  patient-supplied home BP readings, which is both a miscount and a disputed item.
+- Keep the compliance disclaimer. It is educational content, not compliance advice.
+
+Delivery: the calculator's `_autoresponse` field sends the guide link automatically when
+someone submits. Without it, "we'll email this to you" is a promise only a human can
+keep — the relay notifies `hello@` and the visitor gets nothing.
+
 ## Product videos (Loom)
 All video metadata lives in `src/config/videos.ts` — ids, titles, durations, thumbnails.
 Add or re-record a video there and every placement updates. Currently embedded on the

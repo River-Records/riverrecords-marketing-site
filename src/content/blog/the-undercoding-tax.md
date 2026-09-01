@@ -63,6 +63,17 @@ This is an argument for *capturing what you actually did*. The care in the eczem
 
 That choice always belongs to the clinician and the practice. Good documentation infrastructure surfaces the complexity and shows its work; it does not decide the code and it does not submit the claim. It makes the invisible visible, and then it gets out of the way. What the practice does with that visibility — how aggressively to capture, where to draw its own compliance line, which patients' cost-sharing to weigh — is a decision no tool should make for you.
 
+## Putting a number on it
+
+The arithmetic above is general. If you want it against your own practice — your provider
+count, your visit volume, your Medicare mix — we built a calculator that runs it on
+published Medicare rates and shows every step of the working:
+**[what conservative coding costs your practice](/tools/undercoding-calculator/)**.
+
+It also prices a second line this essay doesn't cover: G2211, the visit-complexity add-on
+for a continuing care relationship, which CMS itself has noted is being reported well
+below the level it projected.
+
 ## The tax is optional
 
 The reason the undercoding tax persists is not that practices have chosen to pay it. It's that most have never been able to see it. It hides in the structure of the note, one small increment at a time, invisible in any single visit and enormous in aggregate.
