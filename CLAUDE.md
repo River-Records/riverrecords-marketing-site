@@ -191,9 +191,18 @@ Three rules if you edit it:
   patient-supplied home BP readings, which is both a miscount and a disputed item.
 - Keep the compliance disclaimer. It is educational content, not compliance advice.
 
-Delivery: the calculator's `_autoresponse` field sends the guide link automatically when
-someone submits. Without it, "we'll email this to you" is a promise only a human can
-keep — the relay notifies `hello@` and the visitor gets nothing.
+**Delivery: on the page, not by email.** The calculator hands the guide over in the
+`?sent=1` confirmation the relay returns to. Do not replace this with an emailed link.
+
+The first version promised "we'll email this to you" using FormSubmit's `_autoresponse`.
+It never fired — FormSubmit does not send an autoresponse when `_captcha` is `false`,
+which the form sets — so the offer was broken for every visitor, and silently, because
+the submission itself succeeded. Rescuing it would have meant enabling reCAPTCHA, which
+puts friction and a Google script in front of a lead capture.
+
+The guide is a public URL. Handing it over immediately is faster for the visitor and
+removes deliverability from the critical path entirely. `scripts/verify-calculator-delivery.mjs`
+asserts the confirmation carries a working link and that no inbox promise creeps back in.
 
 ## Product videos (Loom)
 All video metadata lives in `src/config/videos.ts` — ids, titles, durations, thumbnails.

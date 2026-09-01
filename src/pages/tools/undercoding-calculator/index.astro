@@ -64,7 +64,10 @@ const l = codingRates.limits;
 .uc-capture button { background: var(--primary-dark); color: var(--white); border: none; padding: 11px 22px; border-radius: var(--r-md); font-size: 0.92rem; font-weight: 600; font-family: var(--font-sans); cursor: pointer; }
 .uc-capture button:hover { background: var(--primary); }
 .uc-capture-fine { font-size: 0.78rem; color: var(--ink-faint); margin: 12px 0 0; }
-.uc-sent { display: none; font-size: 0.95rem; color: var(--primary-dark); font-weight: 600; }
+.uc-sent { display: none; }
+.uc-sent h2 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--ink); margin-bottom: 8px; }
+.uc-sent p { font-size: 0.92rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 16px; }
+.uc-sent .uc-capture-fine { margin-top: 14px; margin-bottom: 0; }
 
 /* Sources */
 .uc-sources { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--ink-faint); line-height: 1.75; }
@@ -175,31 +178,19 @@ const l = codingRates.limits;
         <!-- CAPTURE -->
         <div class="uc-capture">
           <h2>Send me the breakdown</h2>
-          <p>We'll email this estimate with the arithmetic written out, plus <a href="/guides/the-defensible-visit/" style="color:var(--primary);font-weight:600;">The Defensible Visit</a> — our guide to documenting medical decision-making so it survives review. No call unless you ask for one.</p>
+          <p>Leave your email and we'll send you <a href="/guides/the-defensible-visit/" style="color:var(--primary);font-weight:600;">The Defensible Visit</a> — our guide to documenting medical decision-making so it survives review. You'll get the link straight away. No call unless you ask for one.</p>
           <form id="uc-email-form" action="https://formsubmit.co/hello@riverrecords.ai" method="POST">
             <input type="hidden" name="_next" value="https://www.riverrecords.ai/tools/undercoding-calculator/?sent=1">
             <input type="hidden" name="_subject" value="Undercoding calculator — breakdown requested">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
             <!--
-              Without this, "we'll email this to you" is a promise only Jake can keep by
-              hand: the relay notifies hello@, the visitor gets nothing. _autoresponse
-              sends them the guide immediately, so the offer is honoured whether or not
-              anyone is at a desk.
+              No _autoresponse here, deliberately. FormSubmit's autoresponder does not
+              fire when _captcha is false, and enabling reCAPTCHA to rescue it would put
+              friction and a Google script in front of a lead capture. The guide is a
+              public URL, so it is delivered on this page the moment the form returns
+              — no deliverability to depend on. See the ?sent=1 branch below.
             -->
-            <input type="hidden" name="_autoresponse" value="Thanks for running the numbers.
-
-Here is the guide we mentioned — how to document medical decision-making so it survives review, written for independent primary care:
-
-https://www.riverrecords.ai/guides/the-defensible-visit/
-
-It covers the 2-of-3 MDM rule, what actually counts as data, why prescription drug management is the workhorse of moderate risk, and the five phrases that quietly cost you a level. There is a one-page checklist at the end.
-
-Your estimate is a floor, not a forecast — it deliberately leaves out modifier 25 work on preventive visits, commercial rates above Medicare, and time-based codes.
-
-If you want to talk it through with a physician who uses Stream daily, book a time here: https://www.riverrecords.ai/book-demo
-
-— The team at River Records">
             <input type="hidden" name="providers" value="">
             <input type="hidden" name="visits_per_provider" value="">
             <input type="hidden" name="undercode_rate_pct" value="">
@@ -217,7 +208,12 @@ If you want to talk it through with a physician who uses Stream daily, book a ti
             </div>
             <p class="uc-capture-fine">Your inputs are sent along so the breakdown matches what you see here. We don't share your details.</p>
           </form>
-          <p class="uc-sent" id="uc-sent">Sent — check your inbox. If it hasn't arrived in a few minutes, look in spam.</p>
+          <div class="uc-sent" id="uc-sent">
+            <h2>Here it is</h2>
+            <p><strong>The Defensible Visit</strong> — how to document medical decision-making so it survives review. The 2-of-3 MDM rule, what actually counts as data, and a one-page checklist.</p>
+            <a href="/guides/the-defensible-visit/" class="btn btn-primary-lg">Read the guide</a>
+            <p class="uc-capture-fine">We've got your numbers too, and we'll be in touch if there's anything useful to add. No call unless you ask for one.</p>
+          </div>
         </div>
 
         <div class="uc-sources">
