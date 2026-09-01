@@ -122,6 +122,36 @@ design working — Loom is not loaded, and sets no cookies, for people who never
 
 ---
 
+## Test 4b — Video plays reach HubSpot
+
+Watching a walkthrough is the strongest buying signal the site produces, and it is sent
+to HubSpot directly rather than waiting on a GTM tag.
+
+1. Open `https://www.riverrecords.ai/#see-it-work`.
+2. Open **F12 → Network** and filter for `__ptq`.
+3. Play any video.
+4. A `__ptq.gif` request appears. Click it and read the **Query String Parameters**.
+
+**Pass:** `po` is `/engagement/video/huddle` (or `intake` / `scribe`).
+
+> **Look at `po`, not `pu`.** `pu` is the browser's real URL and never changes — it will
+> say `https://www.riverrecords.ai/` no matter what, which looks like a failure and is
+> not. `po` is the path HubSpot records. This cost an hour the first time; it is the only
+> non-obvious thing about verifying this feature.
+
+Confirmed on production 31 Aug 2026: a real click on the Huddle video sent
+`po=/engagement/video/huddle`.
+
+A few minutes later these appear in HubSpot under **Reports → Traffic Analytics → Pages**,
+listed among real pages. That is expected — they are recorded as page views because
+HubSpot's cleaner mechanism, Custom Behavioral Events, needs Marketing Hub Enterprise.
+They are all namespaced under `/engagement/` so they can be filtered out of page reports.
+
+Once the visitor is a known contact, the same events appear on their **contact timeline**
+— which is the entire point.
+
+---
+
 ## Test 5 — The demo booking carries its source *(after PR #35 merges)*
 
 1. Private window → `https://www.riverrecords.ai/?utm_source=linkedin&utm_medium=social&utm_campaign=x`

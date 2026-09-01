@@ -22,6 +22,13 @@
  * /engagement/ precisely so they can be recognised and filtered out. If the portal is on
  * Enterprise, switch SEND to trackCustomBehavioralEvent and the tradeoff disappears.
  *
+ * VERIFYING IT
+ * In the Network tab, filter for __ptq and read the `po` parameter — that is the path
+ * HubSpot records. Do NOT read `pu`, which is the browser's real URL and never changes.
+ * Confirmed on production 31 Aug 2026: a real video play sends
+ * po=/engagement/video/huddle, and restoring the path immediately afterwards does not
+ * clobber it, because HubSpot builds the beacon synchronously on trackPageView.
+ *
  * TO TURN OFF
  * Remove the script tag from src/layouts/Base.astro, or set ENABLED to false below.
  * Nothing else depends on this — it only reads the dataLayer, and never writes to it.
