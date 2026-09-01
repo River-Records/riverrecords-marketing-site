@@ -200,11 +200,32 @@ curl -s -o /dev/null -D - -X POST https://www.riverrecords.ai/api/calculator \
 
 | You see | Meaning |
 |---|---|
-| `hubspot:ok` | working |
-| `hubspot:skipped` | the variable is not set, or the email was malformed |
-| `hubspot:failed` | HubSpot rejected it — almost always a property name mismatch, see Step 1 |
+| `hubspot:ok` | HubSpot **accepted the POST**. It does *not* mean the custom fields landed — see below |
+| `hubspot:skipped` | the variable is not set, or the submitted email was malformed |
+| `hubspot:failed` | the request never completed — network, or a wrong portal/GUID |
 
-**2. The contact exists**, with the three properties populated.
+> ### The header cannot tell you the property names are right
+>
+> This endpoint **silently ignores field names it does not recognize** and still returns
+> `200`. Verified directly: a submission naming `this_field_does_not_exist` was accepted
+> exactly like a valid one.
+>
+> So a typo in a property name produces `hubspot:ok`, a contact created with only the
+> email, and the three numbers quietly discarded — with no error anywhere in HubSpot, in
+> Cloudflare, or in the response. Nothing looks wrong.
+>
+> **The only reliable check is step 2 below: open the contact and confirm the three
+> properties actually hold values.** Do that once, on the first real submission. If they
+> are empty, the names in Step 1 do not match the ones in `HUBSPOT_FIELD_MAP` in
+> `functions/api/calculator.js`.
+>
+> (A related trap: the endpoint also accepts an invalid email address with `200` and then
+> drops the record at processing time. So a `200` alone tells you very little.)
+
+**2. The contact exists, with the three properties populated.** This is the check that
+matters — it is the only thing that proves the property names are right, because the API
+will not tell you. Open the contact and look for `practice_providers`,
+`annual_visits_per_provider` and `undercoding_estimate`. Empty means a name mismatch.
 
 **3. The timeline shows their history.** This is the part that matters. Because the
 submission carries the `hubspotutk` cookie, HubSpot attaches everything that visitor
