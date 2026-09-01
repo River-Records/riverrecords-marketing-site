@@ -177,6 +177,52 @@ assumption and says why it does not lean on those studies.
 Verify with `scripts/verify-calculator.mjs`, which asserts each line against
 hand-computed values.
 
+## Calculator submissions (`functions/api/calculator.js`)
+The calculator posts to a Cloudflare Pages Function that fans out to HubSpot, Mandrill
+and a notification path. Everything is optional and independently gated by environment
+variables, so it degrades to exactly the previous behaviour when nothing is set.
+
+**The form must keep submitting natively. Do not convert it to `fetch()`.** HubSpot's
+Collected Forms captures these into the CRM by watching real form submissions — that
+capture already works and is the floor. Intercepting the submit would switch it off
+silently, and nothing would look broken.
+
+| Variable | Effect when absent |
+|---|---|
+| `HUBSPOT_FORM_GUID` | no CRM write from this endpoint (Collected Forms still captures) |
+| `MANDRILL_API_KEY` | no email to the visitor; the FormSubmit notification stays on |
+| `MANDRILL_FROM_EMAIL` / `MANDRILL_FROM_NAME` | defaults used |
+| `HUBSPOT_PORTAL_ID` | defaults to the portal in `Base.astro` |
+
+**There is deliberately no FormSubmit fallback.** One existed briefly and could never
+have worked: formsubmit.co answers server-side POSTs with a 403 Cloudflare bot challenge,
+because it is built for browser-originated posts. Verified against the live endpoint. It
+was redundant anyway — Collected Forms already notifies on these submissions. The
+browser-posted form on `/contact` is unaffected and still works.
+
+**Mandrill is optional.** The portal has Marketing Hub **Starter**, which includes simple
+workflows attached to forms — one per form, up to ten actions, "send a marketing email"
+among them — and a Forms API submission triggers them. So HubSpot can send the follow-up
+itself, personalized from the contact properties written here and editable without a
+deploy. Prefer that; it is one fewer vendor. Mandrill remains wired for sends that must
+be genuinely transactional, or to avoid consuming the marketing-contact allowance.
+
+**Watch the marketing-contact limit.** Starter includes 1,000 marketing contacts and the
+CRM already holds ~3,440. Only marketing contacts can receive marketing email, so
+designating the whole cold-outreach list would blow the allowance several times over.
+Calculator submitters are worth the slot; a bought prospect list generally is not.
+
+The HubSpot call uses the **unauthenticated** endpoint
+(`/submissions/v3/integration/submit/...`), which needs no token — verified by probe: it
+returns 404 for an unknown form GUID rather than 401. The `secure/` variant does require
+a bearer token. The submission passes `context.hutk` from the `hubspotutk` cookie, which
+is what retroactively attaches a visitor's prior anonymous browsing to the new contact.
+
+The handler must never throw — a person who filled in a form gets their guide whatever
+any third party is doing. Outcomes are reported in an `X-RR-Fanout` response header so a
+misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
+`scripts/verify-calculator-fanout.mjs`.
+
 ## Guides
 `/guides/the-defensible-visit/` is the asset the calculator promises. It explains the
 2021 MDM table — the 2-of-3 rule, the data categories and their counting traps, and why
