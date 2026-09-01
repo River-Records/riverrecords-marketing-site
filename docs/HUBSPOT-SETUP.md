@@ -72,11 +72,74 @@ later without a deploy.
 On the form, open the **Automation** tab (or *Follow-up* depending on your view) and
 create a simple workflow with two actions:
 
-**Action 1 — Send a marketing email.** Compose one that includes:
-- a link to `https://www.riverrecords.ai/guides/the-defensible-visit/`
-- their figures, using personalization tokens for the three properties above
-- the caveat that the estimate is a floor, not a forecast
-- a `/book-demo` link
+**Action 1 — Send a marketing email.** Draft copy below, ready to paste.
+
+**Action 1a — Before writing it**, confirm the sender. Send as **Jake, from a real
+address**, not "River Records Marketing" from `noreply@`. The audience is physicians and
+the whole argument rests on physician-to-physician credibility; a no-reply marketing
+sender undercuts it before the first line is read. Set reply-to somewhere monitored,
+because some people will reply, and that reply is a better lead than anything the form
+captured.
+
+#### Subject line
+> Your undercoding estimate, and the guide
+
+Plain and accurate. It names what they asked for. Avoid curiosity-gap subjects — this
+audience reads them as marketing and the content is not marketing.
+
+#### Body
+
+```
+Thanks for running the numbers.
+
+Here's the guide: The Defensible Visit
+https://www.riverrecords.ai/guides/the-defensible-visit/
+
+It covers the 2-of-3 MDM rule, what actually counts as data (and the two counting
+traps that catch people), why prescription drug management carries moderate risk on
+most primary care visits, and five phrases that quietly cost a level. There's a
+one-page checklist at the end.
+
+What you entered
+  Providers: {{ contact.practice_providers }}
+  Visits per provider: {{ contact.annual_visits_per_provider }}
+  Estimated annual figure: {{ contact.undercoding_estimate }}
+
+Treat that as a floor rather than a forecast. It deliberately leaves out separately
+billable problems addressed during preventive visits, commercial rates above
+Medicare, and time-based codes. The rates behind it are the CY2026 Medicare
+Physician Fee Schedule, national and non-facility, so your locality and payer mix
+will move it.
+
+One thing worth repeating from the tool: none of this is an argument for billing a
+level you didn't earn. It's an argument for documentation that can defend the level
+you already did. The gap worth closing is between the complexity of the care and the
+complexity the record can demonstrate — nothing beyond that.
+
+If it would help to talk it through, I see patients with Stream daily and I'm happy
+to walk through where the gap usually hides:
+https://www.riverrecords.ai/book-demo
+
+No follow-up from us unless you ask.
+
+— Jake Kantrowitz, MD
+```
+
+**Set a default value on every token.** In HubSpot's personalization dialog each token
+takes a fallback. If a field arrives empty and there is no default, the email renders a
+blank space where a number should be, which looks broken. Sensible fallbacks: `your
+practice` for providers, `—` for the numbers.
+
+**Keep the design plain.** Near-plain-text outperforms a heavy branded template for
+clinicians, and it reads as a person writing rather than a campaign going out. It also
+avoids the image-heavy layouts that trip spam filters.
+
+**Check the footer.** HubSpot adds the unsubscribe link automatically, but the physical
+mailing address comes from your account settings — confirm it is right, since it appears
+on every marketing send.
+
+**"No follow-up unless you ask" is a promise.** The calculator page says it too. If it
+later becomes a nurture sequence, change the copy in both places first.
 
 **Action 2 — Send an internal email notification** to yourself. This restores the
 `hello@` notification that calculator submissions had before the endpoint change.
