@@ -199,6 +199,27 @@ import Page from '../../layouts/Page.astro';
   }
 
   form.addEventListener('submit', function () {
+    /*
+     * Tell HubSpot who this browser belongs to.
+     *
+     * Until now this visitor was anonymous unless they happened to arrive from a HubSpot
+     * email. Identifying them here retroactively attaches everything they already browsed
+     * on this cookie to their contact record — so the enquiry arrives with the reading
+     * that led to it, not on its own.
+     *
+     * Sent straight to HubSpot rather than through the dataLayer on purpose: an email
+     * address in the dataLayer would flow on to GA4, and Google prohibits personal data
+     * there. HubSpot is the system that is supposed to know who people are.
+     */
+    try {
+      var email = (form.querySelector('[name="email"]') || {}).value;
+      if (email && email.indexOf('@') > 0) {
+        window._hsq = window._hsq || [];
+        window._hsq.push(['identify', { email: email }]);
+        window._hsq.push(['trackPageView']);
+      }
+    } catch (e) { /* never block the submit */ }
+
     var attr = window.rrAttribution;
     // Never block the submit: a missing attribution script must not cost us an enquiry.
     if (!attr || !attr.ready) return;

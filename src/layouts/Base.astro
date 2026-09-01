@@ -106,6 +106,13 @@ const twitterHandle = "@riverrecordshq";
   -->
   <script is:inline type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/46752060.js"></script>
 
+  <!--
+    Forwards the high-intent dataLayer events (video plays, demo CTA clicks) to HubSpot,
+    so they land on the contact timeline rather than waiting on a GTM tag that does not
+    exist yet. Reads the dataLayer; never writes to it. See public/hubspot-events.js.
+  -->
+  <script is:inline src="/hubspot-events.js"></script>
+
   <slot name="scripts" />
 </body>
 </html>
