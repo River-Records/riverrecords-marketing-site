@@ -152,6 +152,31 @@ Current pages:
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 
+## Revenue tools
+`/tools/undercoding-calculator/` estimates fee-for-service revenue an independent
+practice leaves uncaptured. All figures live in `src/config/coding-rates.ts`.
+
+**Those rates expire every January.** The Medicare Physician Fee Schedule is republished
+annually, and a calculator quoting last year's numbers is worse than none — it is wrong
+with a confident face, in front of a numerate audience. The config carries an
+`effectiveLabel` that is rendered on the page and a `reviewBy` date. Update both together
+with the citations, never one without the other.
+
+Three things on that page are not decoration and should not be trimmed:
+- the **rates-as-of stamp**, so a visitor can judge how current the numbers are
+- the **anti-upcoding guardrail**, because the audience is right to be wary and the
+  argument is about defensible documentation, not billing more
+- the **"what this leaves out" list**, which is what makes a conservative estimate
+  credible rather than promotional
+
+The undercoding-rate default is deliberately low. Published prevalence research reports
+much higher figures, but nearly all of it predates the 2021 E/M overhaul, after which
+coding shifted upward materially — so the page presents the rate as the visitor's own
+assumption and says why it does not lean on those studies.
+
+Verify with `scripts/verify-calculator.mjs`, which asserts each line against
+hand-computed values.
+
 ## Product videos (Loom)
 All video metadata lives in `src/config/videos.ts` — ids, titles, durations, thumbnails.
 Add or re-record a video there and every placement updates. Currently embedded on the

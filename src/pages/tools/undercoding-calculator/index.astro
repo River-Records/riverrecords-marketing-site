@@ -1,0 +1,326 @@
+---
+import Page from '../../../layouts/Page.astro';
+import { codingRates, levelStep } from '../../../config/coding-rates';
+
+const d = codingRates.defaults;
+const l = codingRates.limits;
+---
+<Page
+  title="Undercoding Calculator — What Invisible Complexity Costs Your Practice | Stream"
+  description="Estimate the fee-for-service revenue an independent practice leaves uncaptured through conservative E/M coding and unbilled G2211. Built on the January 2026 Medicare Physician Fee Schedule.">
+
+<style>
+.uc { padding: 64px 0 88px; }
+.uc-head { max-width: 760px; margin-bottom: 40px; }
+.uc-head h1 { font-size: clamp(2rem, 4vw, 2.9rem); color: var(--ink); margin-bottom: 16px; line-height: 1.15; }
+.uc-head h1 em { font-style: italic; color: var(--primary); }
+.uc-lede { font-size: 1.08rem; color: var(--ink-muted); line-height: 1.7; }
+.uc-stamp { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 18px; }
+
+.uc-grid { display: grid; grid-template-columns: 380px 1fr; gap: 32px; align-items: start; }
+
+/* Inputs */
+.uc-inputs { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 28px; box-shadow: var(--shadow-sm); position: sticky; top: 24px; }
+.uc-field { margin-bottom: 22px; }
+.uc-field:last-child { margin-bottom: 0; }
+.uc-field label { display: block; font-size: 0.86rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.uc-field .uc-hint { display: block; font-size: 0.78rem; color: var(--ink-faint); line-height: 1.5; margin-bottom: 10px; }
+.uc-row { display: flex; align-items: center; gap: 12px; }
+.uc-row input[type="range"] { flex: 1; accent-color: var(--primary); }
+.uc-num { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500; color: var(--primary); min-width: 74px; text-align: right; }
+.uc-field input[type="number"] { width: 100%; padding: 9px 12px; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--white); color: var(--ink); }
+.uc-field input[type="number"]:focus { outline: none; border-color: var(--primary); }
+
+/* Results */
+.uc-result { background: var(--dark); color: var(--white); border-radius: var(--r-xl); padding: 32px; margin-bottom: 24px; }
+.uc-result-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,247,240,0.55); margin-bottom: 10px; }
+.uc-total { font-family: var(--font-serif); font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1; color: var(--white); }
+.uc-total-sub { font-size: 0.92rem; color: rgba(250,247,240,0.72); margin-top: 10px; }
+
+.uc-lines { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; margin-bottom: 24px; }
+.uc-line { padding: 22px 26px; border-bottom: 1px solid var(--border); }
+.uc-line:last-child { border-bottom: none; }
+.uc-line-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.uc-line-name { font-size: 1rem; font-weight: 600; color: var(--ink); }
+.uc-line-val { font-family: var(--font-mono); font-size: 1.08rem; font-weight: 500; color: var(--primary); white-space: nowrap; }
+.uc-line-math { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint); line-height: 1.6; }
+.uc-line-note { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.6; margin-top: 8px; }
+
+/* Blocks */
+.uc-block { border-radius: var(--r-lg); padding: 22px 26px; margin-bottom: 20px; font-size: 0.9rem; line-height: 1.7; }
+.uc-block h2 { font-size: 1.05rem; margin-bottom: 10px; color: var(--ink); font-family: var(--font-sans); }
+.uc-guard { background: var(--surface-warm); border: 1px solid var(--border); color: var(--ink-muted); }
+.uc-excl { background: var(--white); border: 1px solid var(--border); color: var(--ink-muted); }
+.uc-excl ul { margin: 10px 0 0; padding-left: 20px; }
+.uc-excl li { margin-bottom: 7px; }
+
+/* Capture */
+.uc-capture { background: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--r-xl); padding: 28px; }
+.uc-capture h2 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--ink); margin-bottom: 8px; }
+.uc-capture p { font-size: 0.92rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 18px; }
+.uc-capture-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.uc-capture input[type="email"] { flex: 1; min-width: 220px; padding: 11px 14px; font-size: 0.95rem; font-family: var(--font-sans); border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--white); color: var(--ink); }
+.uc-capture input[type="email"]:focus { outline: none; border-color: var(--primary); }
+.uc-capture button { background: var(--primary-dark); color: var(--white); border: none; padding: 11px 22px; border-radius: var(--r-md); font-size: 0.92rem; font-weight: 600; font-family: var(--font-sans); cursor: pointer; }
+.uc-capture button:hover { background: var(--primary); }
+.uc-capture-fine { font-size: 0.78rem; color: var(--ink-faint); margin: 12px 0 0; }
+.uc-sent { display: none; font-size: 0.95rem; color: var(--primary-dark); font-weight: 600; }
+
+/* Sources */
+.uc-sources { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--ink-faint); line-height: 1.75; }
+.uc-sources h2 { font-size: 0.72rem; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; color: var(--ink-faint); }
+.uc-sources a { color: var(--primary); text-decoration: none; }
+.uc-sources a:hover { text-decoration: underline; }
+.uc-sources li { margin-bottom: 6px; }
+
+@media (max-width: 900px) {
+  .uc-grid { grid-template-columns: 1fr; }
+  .uc-inputs { position: static; }
+}
+</style>
+
+<section class="uc">
+  <div class="container">
+
+    <div class="uc-head">
+      <span class="section-label">Revenue Tool</span>
+      <h1>What is conservative coding <em>costing you?</em></h1>
+      <p class="uc-lede">Undercoding is rarely carelessness. It is what happens when a visit was genuinely complex, the documentation could not show it in a defensible shape, and the safe code was the lower one. This estimates the fee-for-service revenue that pattern leaves behind in a year — using published Medicare rates and your own numbers.</p>
+      <p class="uc-stamp">Rates: {codingRates.effectiveLabel} · national, non-facility</p>
+    </div>
+
+    <div class="uc-grid">
+
+      <!-- INPUTS -->
+      <form class="uc-inputs" id="uc-form" onsubmit="return false;">
+        <div class="uc-field">
+          <label for="uc-providers">Billing providers (FTE)</label>
+          <span class="uc-hint">Physicians, NPs and PAs who bill under their own visits.</span>
+          <input type="number" id="uc-providers" min="1" max={l.providersMax} step="1" value={d.providers} />
+        </div>
+
+        <div class="uc-field">
+          <label for="uc-visits">Visits per provider, per year</label>
+          <span class="uc-hint">MGMA puts primary care around 18–25 patients a day, or roughly 3,500–4,500 a year.</span>
+          <div class="uc-row">
+            <input type="range" id="uc-visits" min="500" max={l.visitsMax} step="100" value={d.visitsPerProvider} />
+            <span class="uc-num" id="uc-visits-out">{d.visitsPerProvider.toLocaleString()}</span>
+          </div>
+        </div>
+
+        <div class="uc-field">
+          <label for="uc-rate">Visits coded a level below the care delivered</label>
+          <span class="uc-hint">Your assumption, not ours. The default is deliberately conservative — see the note below on why we don't use the published research here.</span>
+          <div class="uc-row">
+            <input type="range" id="uc-rate" min="0" max={l.undercodeMax} step="1" value={d.undercodeRatePct} />
+            <span class="uc-num" id="uc-rate-out">{d.undercodeRatePct}%</span>
+          </div>
+        </div>
+
+        <div class="uc-field">
+          <label for="uc-medicare">Medicare visits <em>not</em> currently billed with G2211</label>
+          <span class="uc-hint">As a share of all visits. G2211 is a Medicare code, so start from your Medicare mix and subtract whatever you already bill — if you claim it routinely, set this to zero.</span>
+          <div class="uc-row">
+            <input type="range" id="uc-medicare" min="0" max="100" step="5" value={d.medicareSharePct} />
+            <span class="uc-num" id="uc-medicare-out">{d.medicareSharePct}%</span>
+          </div>
+        </div>
+      </form>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="uc-result">
+          <div class="uc-result-label">Estimated annual revenue not captured</div>
+          <div class="uc-total" id="uc-total">$0</div>
+          <div class="uc-total-sub" id="uc-total-sub">—</div>
+        </div>
+
+        <div class="uc-lines">
+          <div class="uc-line">
+            <div class="uc-line-top">
+              <span class="uc-line-name">E/M level, one step down</span>
+              <span class="uc-line-val" id="uc-em-val">$0</span>
+            </div>
+            <div class="uc-line-math" id="uc-em-math">—</div>
+            <p class="uc-line-note">The step from 99213 (${codingRates.em.level3.toFixed(2)}) to 99214 (${codingRates.em.level4.toFixed(2)}) is <strong>${levelStep.toFixed(2)}</strong>. Commercial plans generally pay more than Medicare, so this is a floor rather than a midpoint.</p>
+          </div>
+
+          <div class="uc-line">
+            <div class="uc-line-top">
+              <span class="uc-line-name">G2211 not billed</span>
+              <span class="uc-line-val" id="uc-g-val">$0</span>
+            </div>
+            <div class="uc-line-math" id="uc-g-math">—</div>
+            <p class="uc-line-note">G2211 is the visit-complexity add-on for a continuing care relationship — ${codingRates.g2211.toFixed(2)} on top of the base visit. In its CY2026 rule CMS noted that actual reporting came in below its own utilization estimate, which means many practices absorbed the budget-neutrality reduction that funded this code and then did not bill it. From January 2026 it also applies to home and residence visits.</p>
+          </div>
+        </div>
+
+        <div class="uc-block uc-guard">
+          <h2>This is not an argument for upcoding</h2>
+          It is an argument for documentation that can defend the level you already earned. Billing a level you did not perform is fraud, and every clinician is right to be cautious about it. The gap worth closing is between the complexity of the care delivered and the complexity the record can demonstrate — nothing beyond that.
+        </div>
+
+        <div class="uc-block uc-excl">
+          <h2>What this deliberately leaves out</h2>
+          The estimate is built to be conservative, so several real sources of uncaptured revenue are not counted:
+          <ul>
+            <li>Separately-identifiable problems addressed during a preventive visit, billable with modifier 25 — often another ${codingRates.em.level3.toFixed(0)}–${codingRates.em.level4.toFixed(0)} each</li>
+            <li>The larger step from 99214 to 99215 (${(codingRates.em.level5 - codingRates.em.level4).toFixed(2)}), counted here at the smaller level-3-to-4 rate</li>
+            <li>Commercial reimbursement above Medicare rates</li>
+            <li>Chronic care management, transitional care and other time-based codes</li>
+            <li>Denials and rework caused by documentation that could not support the claim</li>
+          </ul>
+        </div>
+
+        <!-- CAPTURE -->
+        <div class="uc-capture">
+          <h2>Send me the breakdown</h2>
+          <p>We'll email this estimate with the arithmetic written out, the codes involved, and a short guide to documenting medical decision-making so it survives review. No call unless you ask for one.</p>
+          <form id="uc-email-form" action="https://formsubmit.co/hello@riverrecords.ai" method="POST">
+            <input type="hidden" name="_next" value="https://www.riverrecords.ai/tools/undercoding-calculator/?sent=1">
+            <input type="hidden" name="_subject" value="Undercoding calculator — breakdown requested">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="providers" value="">
+            <input type="hidden" name="visits_per_provider" value="">
+            <input type="hidden" name="undercode_rate_pct" value="">
+            <input type="hidden" name="medicare_share_pct" value="">
+            <input type="hidden" name="estimate_em" value="">
+            <input type="hidden" name="estimate_g2211" value="">
+            <input type="hidden" name="estimate_total" value="">
+            <input type="hidden" name="first_source" value="">
+            <input type="hidden" name="landing_page" value="">
+            <input type="hidden" name="visitor_id" value="">
+            <div class="uc-capture-row">
+              <label for="uc-email" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Email address</label>
+              <input type="email" id="uc-email" name="email" placeholder="you@practice.com" required>
+              <button type="submit">Email me the breakdown</button>
+            </div>
+            <p class="uc-capture-fine">Your inputs are sent along so the breakdown matches what you see here. We don't share your details.</p>
+          </form>
+          <p class="uc-sent" id="uc-sent">Sent — check your inbox. If it hasn't arrived in a few minutes, look in spam.</p>
+        </div>
+
+        <div class="uc-sources">
+          <h2>Sources</h2>
+          <ul>
+            <li>Payment amounts: Medicare Physician Fee Schedule, CY2026, national non-facility. 99213 ${codingRates.em.level3.toFixed(2)} · 99214 ${codingRates.em.level4.toFixed(2)} · 99215 ${codingRates.em.level5.toFixed(2)} · G2211 ${codingRates.g2211.toFixed(2)}. <a href="https://www.cms.gov/medicare/payment/fee-schedules/physician" rel="nofollow noopener" target="_blank">CMS Physician Fee Schedule</a> · <a href="https://www.federalregister.gov/documents/2025/11/05/2025-19787/medicare-and-medicaid-programs-cy-2026-payment-policies-under-the-physician-fee-schedule-and-other" rel="nofollow noopener" target="_blank">CY2026 final rule</a></li>
+            <li>Visit volume: <a href="https://www.mgma.com/provider-comp-productivity-benchmarks" rel="nofollow noopener" target="_blank">MGMA provider productivity benchmarks</a></li>
+            <li>Modifier 25 and preventive visits: <a href="https://www.aafp.org/family-physician/practice-and-career/getting-paid/coding/evaluation-management/how-to-use-modifier-25.html" rel="nofollow noopener" target="_blank">AAFP</a></li>
+            <li><strong>On the undercoding rate:</strong> published prevalence studies report figures far higher than our default — 44% of pediatric visits in one review, 33% in a family-physician survey. We do not build on them, because almost all predate the 2021 E/M overhaul, after which level selection changed to medical decision-making or time and reported coding shifted upward materially. Those studies do not describe how anyone codes in 2026. The rate above is your assumption, and the default is set low on purpose.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ rates: codingRates, step: levelStep }}>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var providers = $('uc-providers'), visits = $('uc-visits'), rate = $('uc-rate'), medicare = $('uc-medicare');
+  if (!providers) return;
+
+  var money = function (n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  };
+  var num = function (n) { return Math.round(n).toLocaleString('en-US'); };
+
+  var state = {};
+
+  function compute() {
+    var p = Math.max(1, parseInt(providers.value, 10) || 1);
+    var v = parseInt(visits.value, 10) || 0;
+    var r = parseInt(rate.value, 10) || 0;
+    var m = parseInt(medicare.value, 10) || 0;
+
+    var totalVisits = p * v;
+    var underVisits = totalVisits * (r / 100);
+    var emValue = underVisits * step;
+
+    var medicareVisits = totalVisits * (m / 100);
+    var gValue = medicareVisits * rates.g2211;
+
+    var total = emValue + gValue;
+
+    $('uc-visits-out').textContent = num(v);
+    $('uc-rate-out').textContent = r + '%';
+    $('uc-medicare-out').textContent = m + '%';
+
+    $('uc-total').textContent = money(total);
+    $('uc-total-sub').textContent =
+      total > 0
+        ? money(total / p) + ' per provider, per year · across ' + num(totalVisits) + ' visits'
+        : 'Enter your numbers to see an estimate';
+
+    $('uc-em-val').textContent = money(emValue);
+    $('uc-em-math').textContent =
+      num(totalVisits) + ' visits × ' + r + '% = ' + num(underVisits) +
+      ' visits × $' + step.toFixed(2) + ' = ' + money(emValue);
+
+    $('uc-g-val').textContent = money(gValue);
+    $('uc-g-math').textContent =
+      num(totalVisits) + ' visits × ' + m + '% eligible and unbilled = ' + num(medicareVisits) +
+      ' visits × $' + rates.g2211.toFixed(2) + ' = ' + money(gValue);
+
+    state = {
+      providers: p, visits_per_provider: v, undercode_rate_pct: r, medicare_share_pct: m,
+      estimate_em: money(emValue), estimate_g2211: money(gValue), estimate_total: money(total)
+    };
+  }
+
+  [providers, visits, rate, medicare].forEach(function (el) {
+    el.addEventListener('input', compute);
+  });
+  compute();
+
+  // Carry the inputs and the result into the email, so the breakdown matches what the
+  // visitor is looking at — and so the enquiry arrives already qualified.
+  var form = $('uc-email-form');
+  form.addEventListener('submit', function () {
+    Object.keys(state).forEach(function (k) {
+      var el = form.querySelector('[name="' + k + '"]');
+      if (el) el.value = state[k];
+    });
+
+    var attr = window.rrAttribution;
+    if (attr && attr.ready) {
+      var first = attr.first || {};
+      var set = function (n, val) { var el = form.querySelector('[name="' + n + '"]'); if (el) el.value = val || ''; };
+      set('first_source', first.utm_source || 'direct');
+      set('landing_page', first.landing_page || '');
+      set('visitor_id', attr.vid || '');
+    }
+
+    // Identify to HubSpot directly — an email address in the dataLayer would reach GA4,
+    // where Google prohibits personal data.
+    try {
+      var email = $('uc-email').value;
+      if (email && email.indexOf('@') > 0) {
+        window._hsq = window._hsq || [];
+        window._hsq.push(['identify', { email: email }]);
+        window._hsq.push(['trackPageView']);
+      }
+    } catch (e) {}
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'calculator_submit',
+      calculator: 'undercoding',
+      estimate_total: state.estimate_total,
+      rr_vid: (attr && attr.vid) || null
+    });
+  });
+
+  // Returned from the mail relay.
+  try {
+    if (new URLSearchParams(location.search).get('sent') === '1') {
+      form.style.display = 'none';
+      $('uc-sent').style.display = 'block';
+    }
+  } catch (e) {}
+})();
+</script>
+
+</Page>
