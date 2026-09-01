@@ -175,12 +175,31 @@ const l = codingRates.limits;
         <!-- CAPTURE -->
         <div class="uc-capture">
           <h2>Send me the breakdown</h2>
-          <p>We'll email this estimate with the arithmetic written out, the codes involved, and a short guide to documenting medical decision-making so it survives review. No call unless you ask for one.</p>
+          <p>We'll email this estimate with the arithmetic written out, plus <a href="/guides/the-defensible-visit/" style="color:var(--primary);font-weight:600;">The Defensible Visit</a> — our guide to documenting medical decision-making so it survives review. No call unless you ask for one.</p>
           <form id="uc-email-form" action="https://formsubmit.co/hello@riverrecords.ai" method="POST">
             <input type="hidden" name="_next" value="https://www.riverrecords.ai/tools/undercoding-calculator/?sent=1">
             <input type="hidden" name="_subject" value="Undercoding calculator — breakdown requested">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
+            <!--
+              Without this, "we'll email this to you" is a promise only Jake can keep by
+              hand: the relay notifies hello@, the visitor gets nothing. _autoresponse
+              sends them the guide immediately, so the offer is honoured whether or not
+              anyone is at a desk.
+            -->
+            <input type="hidden" name="_autoresponse" value="Thanks for running the numbers.
+
+Here is the guide we mentioned — how to document medical decision-making so it survives review, written for independent primary care:
+
+https://www.riverrecords.ai/guides/the-defensible-visit/
+
+It covers the 2-of-3 MDM rule, what actually counts as data, why prescription drug management is the workhorse of moderate risk, and the five phrases that quietly cost you a level. There is a one-page checklist at the end.
+
+Your estimate is a floor, not a forecast — it deliberately leaves out modifier 25 work on preventive visits, commercial rates above Medicare, and time-based codes.
+
+If you want to talk it through with a physician who uses Stream daily, book a time here: https://www.riverrecords.ai/book-demo
+
+— The team at River Records">
             <input type="hidden" name="providers" value="">
             <input type="hidden" name="visits_per_provider" value="">
             <input type="hidden" name="undercode_rate_pct" value="">

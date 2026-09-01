@@ -177,6 +177,24 @@ assumption and says why it does not lean on those studies.
 Verify with `scripts/verify-calculator.mjs`, which asserts each line against
 hand-computed values.
 
+## Guides
+`/guides/the-defensible-visit/` is the asset the calculator promises. It explains the
+2021 MDM table — the 2-of-3 rule, the data categories and their counting traps, and why
+prescription drug management carries moderate risk in primary care.
+
+**It makes specific coding claims to clinicians, so accuracy outranks persuasiveness.**
+Three rules if you edit it:
+- Every criterion must trace to AMA/ACS/AAFP guidance, not to a billing vendor's blog.
+- Do not let an example qualify on a contested item. The worked example deliberately
+  reaches its level on *problems plus risk* and states that the data element does not
+  carry it — an earlier draft claimed Category 1 was satisfied by two items plus
+  patient-supplied home BP readings, which is both a miscount and a disputed item.
+- Keep the compliance disclaimer. It is educational content, not compliance advice.
+
+Delivery: the calculator's `_autoresponse` field sends the guide link automatically when
+someone submits. Without it, "we'll email this to you" is a promise only a human can
+keep — the relay notifies `hello@` and the visitor gets nothing.
+
 ## Product videos (Loom)
 All video metadata lives in `src/config/videos.ts` — ids, titles, durations, thumbnails.
 Add or re-record a video there and every placement updates. Currently embedded on the
