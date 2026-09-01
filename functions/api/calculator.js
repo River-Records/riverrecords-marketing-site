@@ -14,13 +14,21 @@
  *      `hutk` cookie in context, which retroactively attaches everything that visitor
  *      already browsed to the contact record.
  *   2. Mandrill — sends the person their own numbers plus the guide.
- *   3. FormSubmit — kept purely as the notification path *until* Mandrill is configured,
- *      so nothing regresses in the meantime. It drops out on its own once MANDRILL_API_KEY
- *      exists.
+ *   3. FormSubmit — kept purely as the notification path *until something else is
+ *      handling the submission*, so nothing regresses in the meantime. It drops out on
+ *      its own once either HUBSPOT_FORM_GUID or MANDRILL_API_KEY exists.
  *
  * Everything is optional and independently gated. With no environment variables set at
  * all, this behaves exactly as the site did before: notification out, visitor redirected
  * to the confirmation that hands over the guide.
+ *
+ * ON MANDRILL BEING OPTIONAL
+ * Marketing Hub Starter includes simple workflows attached to forms — one per form, up
+ * to ten actions, "send a marketing email" among them — and a Forms API submission
+ * triggers them. So HubSpot can send the follow-up itself, personalised from the contact
+ * properties written below, and editable without a deploy. Mandrill stays supported for
+ * when the send needs to be genuinely transactional or to sidestep the marketing-contact
+ * limit, but it is not required.
  *
  * ENVIRONMENT (Cloudflare Pages → Settings → Environment variables)
  *   MANDRILL_API_KEY     secret. Without it, no visitor email is sent.
@@ -185,10 +193,12 @@ export async function onRequestPost({ request, env }) {
     return res.ok;
   }, report);
 
-  // 3. Notification, only while Mandrill is not yet configured, so nothing regresses
-  //    during setup. Drops out by itself the moment the key exists.
+  // 3. Notification, only while NOTHING else is handling the submission, so nothing
+  //    regresses during setup. Drops out by itself once either HubSpot or Mandrill is
+  //    configured — with Marketing Hub Starter, the HubSpot form's own simple workflow
+  //    sends the follow-up, which makes this redundant as soon as the GUID is set.
   await attempt('notify', async () => {
-    if (mandrillKey) return false;
+    if (mandrillKey || formGuid) return false;
     const body = new URLSearchParams({ ...data, _subject: 'Undercoding calculator submission', _captcha: 'false' });
     const res = await fetch(FALLBACK_NOTIFY, {
       method: 'POST',

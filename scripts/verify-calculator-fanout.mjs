@@ -62,6 +62,12 @@ check('email carries their own numbers', mp?.message?.text.includes('$94,223') &
 check('email links the guide', mp?.message?.text.includes('/guides/the-defensible-visit/'));
 check('notification drops out once Mandrill is live', !calls.some(c=>c.u.includes('formsubmit')), calls.map(c=>c.u).join(' '));
 
+console.log('\nHubSpot alone is enough — Starter workflows send the follow-up');
+calls = spyFetch();
+res = await onRequestPost({ request: req(), env: { HUBSPOT_FORM_GUID:'GUID-1' } });
+check('HubSpot written', calls.some(c=>c.u.includes('hsforms')));
+check('notification also drops out with HubSpot alone', !calls.some(c=>c.u.includes('formsubmit')), res.headers.get('X-RR-Fanout'));
+
 console.log('\nFailure must never reach the visitor');
 globalThis.fetch = async () => { throw new Error('third party down'); };
 res = await onRequestPost({ request: req(), env: { HUBSPOT_FORM_GUID:'G', MANDRILL_API_KEY:'K' } });

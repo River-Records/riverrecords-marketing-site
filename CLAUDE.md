@@ -194,8 +194,21 @@ silently, and nothing would look broken.
 | `MANDRILL_FROM_EMAIL` / `MANDRILL_FROM_NAME` | defaults used |
 | `HUBSPOT_PORTAL_ID` | defaults to the portal in `Base.astro` |
 
-The FormSubmit notification is scaffolding: it fires only while `MANDRILL_API_KEY` is
-unset, so nothing regresses during setup and it removes itself once the key exists.
+The FormSubmit notification is scaffolding: it fires only while **neither**
+`HUBSPOT_FORM_GUID` nor `MANDRILL_API_KEY` is set, so nothing regresses during setup and
+it removes itself as soon as something else is handling the submission.
+
+**Mandrill is optional.** The portal has Marketing Hub **Starter**, which includes simple
+workflows attached to forms — one per form, up to ten actions, "send a marketing email"
+among them — and a Forms API submission triggers them. So HubSpot can send the follow-up
+itself, personalized from the contact properties written here and editable without a
+deploy. Prefer that; it is one fewer vendor. Mandrill remains wired for sends that must
+be genuinely transactional, or to avoid consuming the marketing-contact allowance.
+
+**Watch the marketing-contact limit.** Starter includes 1,000 marketing contacts and the
+CRM already holds ~3,440. Only marketing contacts can receive marketing email, so
+designating the whole cold-outreach list would blow the allowance several times over.
+Calculator submitters are worth the slot; a bought prospect list generally is not.
 
 The HubSpot call uses the **unauthenticated** endpoint
 (`/submissions/v3/integration/submit/...`), which needs no token — verified by probe: it
