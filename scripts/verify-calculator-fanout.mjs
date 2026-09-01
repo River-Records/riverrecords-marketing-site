@@ -36,8 +36,10 @@ let res = await onRequestPost({ request: req(), env: {} });
 check('redirects to the confirmation', res.status===303 && res.headers.get('Location').includes('?sent=1'), res.status+' → '+res.headers.get('Location'));
 check('no HubSpot call without a form GUID', !calls.some(c=>c.u.includes('hsforms')));
 check('no Mandrill call without a key', !calls.some(c=>c.u.includes('mandrill')));
-check('notification still goes out, so nothing regresses', calls.some(c=>c.u.includes('formsubmit')), calls.map(c=>c.u).join(' '));
-check('diagnostic header reports what ran', /notify:ok/.test(res.headers.get('X-RR-Fanout')), res.headers.get('X-RR-Fanout'));
+// No formsubmit fallback: it answers server-side POSTs with a 403 bot challenge, so it
+// could never work from a Function. Collected Forms already covers notification.
+check('does not call formsubmit — it 403s server-side', !calls.some(c=>c.u.includes('formsubmit')), calls.map(c=>c.u).join(' ') || 'no calls');
+check('diagnostic header reports what ran', /hubspot:skipped/.test(res.headers.get('X-RR-Fanout')), res.headers.get('X-RR-Fanout'));
 
 console.log('\nHubSpot configured');
 calls = spyFetch();
@@ -60,13 +62,13 @@ const mp = md && JSON.parse(md.body);
 check('key sent, and to the right person', mp?.key==='KEY' && mp?.message?.to?.[0]?.email==='doc@practice.com');
 check('email carries their own numbers', mp?.message?.text.includes('$94,223') && mp.message.text.includes('3500'));
 check('email links the guide', mp?.message?.text.includes('/guides/the-defensible-visit/'));
-check('notification drops out once Mandrill is live', !calls.some(c=>c.u.includes('formsubmit')), calls.map(c=>c.u).join(' '));
+check('only Mandrill is called', calls.length===1 && calls[0].u.includes('mandrill'), calls.map(c=>c.u).join(' '));
 
 console.log('\nHubSpot alone is enough — Starter workflows send the follow-up');
 calls = spyFetch();
 res = await onRequestPost({ request: req(), env: { HUBSPOT_FORM_GUID:'GUID-1' } });
 check('HubSpot written', calls.some(c=>c.u.includes('hsforms')));
-check('notification also drops out with HubSpot alone', !calls.some(c=>c.u.includes('formsubmit')), res.headers.get('X-RR-Fanout'));
+check('only HubSpot is called', calls.length===1 && calls[0].u.includes('hsforms'), res.headers.get('X-RR-Fanout'));
 
 console.log('\nFailure must never reach the visitor');
 globalThis.fetch = async () => { throw new Error('third party down'); };

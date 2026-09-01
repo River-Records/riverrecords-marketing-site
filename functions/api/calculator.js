@@ -14,13 +14,17 @@
  *      `hutk` cookie in context, which retroactively attaches everything that visitor
  *      already browsed to the contact record.
  *   2. Mandrill — sends the person their own numbers plus the guide.
- *   3. FormSubmit — kept purely as the notification path *until something else is
- *      handling the submission*, so nothing regresses in the meantime. It drops out on
- *      its own once either HUBSPOT_FORM_GUID or MANDRILL_API_KEY exists.
  *
- * Everything is optional and independently gated. With no environment variables set at
- * all, this behaves exactly as the site did before: notification out, visitor redirected
- * to the confirmation that hands over the guide.
+ * Everything is optional and independently gated. With nothing set, the visitor is
+ * still redirected to the confirmation that hands over the guide, and HubSpot's
+ * Collected Forms still captures them.
+ *
+ * WHY THERE IS NO FORMSUBMIT FALLBACK
+ * There was one, briefly. It cannot work: formsubmit.co answers server-side POSTs with a
+ * 403 Cloudflare bot challenge, because it is built for browser-originated form posts.
+ * Verified against the live endpoint rather than assumed. It was redundant anyway —
+ * Collected Forms already notifies on these submissions — so it is gone rather than
+ * replaced. The browser-posted form on /contact is unaffected; that path still works.
  *
  * ON MANDRILL BEING OPTIONAL
  * Marketing Hub Starter includes simple workflows attached to forms — one per form, up
@@ -43,7 +47,6 @@
 
 const PORTAL_ID_DEFAULT = '46752060';
 const CONFIRM_PATH = '/tools/undercoding-calculator/?sent=1';
-const FALLBACK_NOTIFY = 'https://formsubmit.co/hello@riverrecords.ai';
 
 /** Fields we accept off the form. Anything else is ignored rather than forwarded. */
 const KNOWN_FIELDS = [
@@ -189,21 +192,6 @@ export async function onRequestPost({ request, env }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key: mandrillKey, message: buildEmail(data, from) }),
-    });
-    return res.ok;
-  }, report);
-
-  // 3. Notification, only while NOTHING else is handling the submission, so nothing
-  //    regresses during setup. Drops out by itself once either HubSpot or Mandrill is
-  //    configured — with Marketing Hub Starter, the HubSpot form's own simple workflow
-  //    sends the follow-up, which makes this redundant as soon as the GUID is set.
-  await attempt('notify', async () => {
-    if (mandrillKey || formGuid) return false;
-    const body = new URLSearchParams({ ...data, _subject: 'Undercoding calculator submission', _captcha: 'false' });
-    const res = await fetch(FALLBACK_NOTIFY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString(),
     });
     return res.ok;
   }, report);

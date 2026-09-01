@@ -194,9 +194,11 @@ silently, and nothing would look broken.
 | `MANDRILL_FROM_EMAIL` / `MANDRILL_FROM_NAME` | defaults used |
 | `HUBSPOT_PORTAL_ID` | defaults to the portal in `Base.astro` |
 
-The FormSubmit notification is scaffolding: it fires only while **neither**
-`HUBSPOT_FORM_GUID` nor `MANDRILL_API_KEY` is set, so nothing regresses during setup and
-it removes itself as soon as something else is handling the submission.
+**There is deliberately no FormSubmit fallback.** One existed briefly and could never
+have worked: formsubmit.co answers server-side POSTs with a 403 Cloudflare bot challenge,
+because it is built for browser-originated posts. Verified against the live endpoint. It
+was redundant anyway — Collected Forms already notifies on these submissions. The
+browser-posted form on `/contact` is unaffected and still works.
 
 **Mandrill is optional.** The portal has Marketing Hub **Starter**, which includes simple
 workflows attached to forms — one per form, up to ten actions, "send a marketing email"
