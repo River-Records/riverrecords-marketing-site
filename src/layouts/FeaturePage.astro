@@ -32,7 +32,7 @@ const description = frontmatter.seoDescription || frontmatter.description;
       <div class="container">
         <!-- Hero -->
         <div class="feature-hero">
-          <a href="/features" class="feature-back">← All Features</a>
+          <a href="/features/" class="feature-back">← All Features</a>
           <span class="section-label">{frontmatter.name}</span>
           <h1>{frontmatter.headline || frontmatter.name}</h1>
           {frontmatter.subheadline && <p class="feature-sub">{frontmatter.subheadline}</p>}
@@ -71,7 +71,7 @@ const description = frontmatter.seoDescription || frontmatter.description;
 
       <!-- CTA -->
       <div class="container" style="padding-top:48px;padding-bottom:88px;">
-        <CtaDark secondaryHref="/book-demo" secondaryLabel="Talk to a clinician first">
+        <CtaDark secondaryHref="/book-demo/" secondaryLabel="Talk to a clinician first">
           See {frontmatter.name} in action.<br><em>Start your 30-day free trial.</em>
           <Fragment slot="body">{pricing.featureCtaBody}</Fragment>
         </CtaDark>

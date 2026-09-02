@@ -75,7 +75,7 @@ const description =
           <span class="book-hero-contrib">with Alex Butler, MD, MS; Abhinav Sharma, MD; and Wasif Bala, MD</span>
         </p>
         <div class="book-hero-actions">
-          <a href={`/book/${chapters[0].id}`} class="btn btn-primary-lg">Start reading</a>
+          <a href={`/book/${chapters[0].id}/`} class="btn btn-primary-lg">Start reading</a>
           <a href="#contents" class="btn btn-outline-white">Contents</a>
         </div>
       </div>
@@ -139,7 +139,7 @@ const description =
               <li class="book-toc-part">{row.label}</li>
             ) : (
               <li class="book-toc-chapter">
-                <a href={`/book/${row.slug}`}>
+                <a href={`/book/${row.slug}/`}>
                   <span class="book-toc-label">{row.label}</span>
                   <span class="book-toc-text">
                     <span class="book-toc-title">{row.title}</span>

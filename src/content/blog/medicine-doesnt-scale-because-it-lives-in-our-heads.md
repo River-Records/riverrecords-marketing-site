@@ -78,7 +78,7 @@ What it means instead is building infrastructure that holds the work of care, so
 
 **Reliable.** A follow-up you set doesn't depend on you remembering to look. It surfaces because the system surfaces it, whether you are on service, on vacation, or gone entirely.
 
-**Consistent.** The same information appears in the same shape across patients, across clinicians, across settings. Structure becomes invisible so attention can go to content. (This one deserves its own argument, which I've made in [*I Don't Read Charts. I Hunt Through Them.*](/blog/i-dont-read-charts-i-hunt-through-them))
+**Consistent.** The same information appears in the same shape across patients, across clinicians, across settings. Structure becomes invisible so attention can go to content. (This one deserves its own argument, which I've made in [*I Don't Read Charts. I Hunt Through Them.*](/blog/i-dont-read-charts-i-hunt-through-them/))
 
 **Persistent.** The state of care — what we're working on, what's outstanding, what's next — lives outside any single person's memory and outside any single encounter. It carries forward.
 
@@ -90,7 +90,7 @@ There's a reason this feels heavier than a workflow problem.
 
 Being the sole storage medium for your patients' care is not a neutral job description. It means the right thing happening depends on you personally holding it in mind, across weeks, across hundreds of patients, forever. Most days you manage. The days you don't are not forgettable, and they accumulate.
 
-That accumulation has a name — moral injury rather than burnout — and it deserves more than a paragraph. I've written about it separately in [*The Work Before the Work*](/blog/the-work-before-the-work).
+That accumulation has a name — moral injury rather than burnout — and it deserves more than a paragraph. I've written about it separately in [*The Work Before the Work*](/blog/the-work-before-the-work/).
 
 For now, one line: you didn't train for a decade to be the storage medium.
 

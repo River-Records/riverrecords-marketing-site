@@ -47,7 +47,7 @@ Every practice pays one of these three, on every patient, every day. The bill is
 
 The current picture shouldn't have to be rebuilt, because it should already exist.
 
-We've written elsewhere about why [organizing the record around problems instead of dates](/blog/the-chart-doesnt-know-your-patient) changes what documentation can do. Chart prep is one of the most immediate payoffs. When the record is built around active problems that persist across visits, the answer to *what's going on with this patient right now* isn't scattered across a stack of notes waiting to be assembled — it's the current state of the chart. The active problems are the active problems. What was addressed recently is visible. What's fallen out of active management surfaces on its own. The lab that came back and the loop that never closed don't have to be remembered, because they're not buried in prose; they're structurally present.
+We've written elsewhere about why [organizing the record around problems instead of dates](/blog/the-chart-doesnt-know-your-patient/) changes what documentation can do. Chart prep is one of the most immediate payoffs. When the record is built around active problems that persist across visits, the answer to *what's going on with this patient right now* isn't scattered across a stack of notes waiting to be assembled — it's the current state of the chart. The active problems are the active problems. What was addressed recently is visible. What's fallen out of active management surfaces on its own. The lab that came back and the loop that never closed don't have to be remembered, because they're not buried in prose; they're structurally present.
 
 Prep stops being excavation and becomes a glance. The picture is waiting when you open the chart, instead of being something a person has to build before the day can start. The hour of reconstruction toil across the morning schedule doesn't get faster — it stops being necessary.
 
@@ -59,7 +59,7 @@ The reconstruction toil doesn't make you know your patients better. It's not the
 
 The picture should be waiting for you. Not built by you, at 7:45 in the morning, one patient at a time.
 
-*Chart prep is the before-the-visit half of the same invisibility problem. The after-the-visit half — what happens to the care you order once it leaves the building — is [Where Referrals Go to Die](/blog/where-referrals-go-to-die).*
+*Chart prep is the before-the-visit half of the same invisibility problem. The after-the-visit half — what happens to the care you order once it leaves the building — is [Where Referrals Go to Die](/blog/where-referrals-go-to-die/).*
 
 ---
 

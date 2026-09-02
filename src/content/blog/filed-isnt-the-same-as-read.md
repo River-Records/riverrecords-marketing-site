@@ -32,7 +32,7 @@ Here's the question I've started asking other physicians instead of asking wheth
 
 If it happens during, you're doing retrieval under time pressure with the patient watching. If it happens before, you're doing it in the evening on your own time. Either way you're paying for it, and either way the cost is invisible on every dashboard in the practice.
 
-If information has to be resurfaced, it was lost. That's the same failure I've written about elsewhere as [hunting through charts rather than reading them](/blog/i-dont-read-charts-i-hunt-through-them) — the work isn't comprehension, it's locating the thing you already comprehended once.
+If information has to be resurfaced, it was lost. That's the same failure I've written about elsewhere as [hunting through charts rather than reading them](/blog/i-dont-read-charts-i-hunt-through-them/) — the work isn't comprehension, it's locating the thing you already comprehended once.
 
 ## What we built
 
@@ -52,7 +52,7 @@ Facts are extracted and classified, not composed. If a fact can't be grounded in
 
 The extractor excludes continuation of existing medications, safety-net boilerplate, plan-of-care summaries, prose rephrased as an action, and duplicate actions. Most consult letters ask you to do approximately nothing, and an empty list is a valid and common result. Three real follow-ups, not thirty plausible ones. A list short enough to trust is a list you'll actually read.
 
-Proposals stay proposals. Accept, edit, or delete, and the session commits on one Save with a conflict check. The ones you accept become tracked items rather than sentences in a document nobody will reopen, which is most of what it takes to stop [a referral loop from dying quietly](/blog/where-referrals-go-to-die).
+Proposals stay proposals. Accept, edit, or delete, and the session commits on one Save with a conflict check. The ones you accept become tracked items rather than sentences in a document nobody will reopen, which is most of what it takes to stop [a referral loop from dying quietly](/blog/where-referrals-go-to-die/).
 
 ## It reads the document. It doesn't write your note.
 
@@ -86,4 +86,4 @@ Stream remembers your patient. Stream Inlet is the part that makes that true for
 
 Stream Inlet ships August 18, 2026.
 
-[See how Stream Inlet works →](/intake)
+[See how Stream Inlet works →](/intake/)

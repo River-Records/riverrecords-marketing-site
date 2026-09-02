@@ -37,7 +37,7 @@ Here's the part worth being precise about, because it's where most of the practi
 
 You don't need full automation to stop referrals from dying silently. You need them to stop being invisible. The moment a referral becomes a tracked thing — an open item attached to the patient, with a state, that somebody can see and act on — most of the silent death stops. A referral that's visibly open is a referral someone can follow up on. A referral that lives only as a sentence in an old note is a referral nobody will.
 
-This is where the shift from a time-organized record to a structured one starts paying off immediately. When generating the referral also creates [a real tracked task](/blog/clinical-note-best-task-manager) — the letter written and ready to fax out under your own letterhead, and an open item that stays open until someone closes it — the referral stops being an event that happened and becomes a thing you're managing. It's on a list. It has a status. It doesn't disappear into a note. When the response comes back, it gets attached and the loop gets closed — by a person who can see the loop was open in the first place.
+This is where the shift from a time-organized record to a structured one starts paying off immediately. When generating the referral also creates [a real tracked task](/blog/clinical-note-best-task-manager/) — the letter written and ready to fax out under your own letterhead, and an open item that stays open until someone closes it — the referral stops being an event that happened and becomes a thing you're managing. It's on a list. It has a status. It doesn't disappear into a note. When the response comes back, it gets attached and the loop gets closed — by a person who can see the loop was open in the first place.
 
 That's the meaningful change, and it's available now: referrals you can generate in a couple of clicks, send out cleanly, and — because the follow-up is a real tracked task rather than a memory — actually see and chase, instead of losing them to the fog.
 
@@ -53,7 +53,7 @@ The reason referrals die isn't that anyone stops caring about them. It's that th
 
 The specialist visit that never happened, the result that never came back, the pathway the patient fell out of: those aren't failures of intention. They're failures of visibility. Give the loop a thread to hang on, and far fewer of them die in the fog.
 
-*Referrals are the after-the-visit half of the same invisibility problem. The before-the-visit half — rebuilding each patient's picture from scratch every morning — is [Chart Prep Shouldn't Take Your Staff an Hour Per Patient](/blog/chart-prep-shouldnt-take-an-hour).*
+*Referrals are the after-the-visit half of the same invisibility problem. The before-the-visit half — rebuilding each patient's picture from scratch every morning — is [Chart Prep Shouldn't Take Your Staff an Hour Per Patient](/blog/chart-prep-shouldnt-take-an-hour/).*
 
 ---
 
