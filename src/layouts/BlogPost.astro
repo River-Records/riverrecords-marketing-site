@@ -90,6 +90,13 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
         </div>
       </div>
     </article>
+
+    <!--
+      Measures whether the post was actually read — engaged time and scroll depth
+      against the article body, not the page. Loaded here rather than in Base.astro so
+      it runs on posts only. See public/read-tracking.js.
+    -->
+    <script is:inline src="/read-tracking.js"></script>
   </main>
   <Footer />
 </Base>
