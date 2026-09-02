@@ -18,7 +18,8 @@
 # /features now has its own page
 /how-it-works  /  301
 /clinical-specialties  /  301
-/pricing  /#pricing  301
+# /pricing is a real page now — an anchor cannot rank, and this is the highest
+# commercial-intent term in the category. Do not restore this redirect.
 /faq  /  301
 # Old Framer-site about page still lingering in Google's index
 /about-us2  /about  301

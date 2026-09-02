@@ -1,0 +1,234 @@
+---
+/**
+ * Standalone pricing page.
+ *
+ * Until now /pricing 301'd to the homepage anchor #pricing. An anchor cannot rank, so
+ * the highest-commercial-intent term in the category — "AI medical scribe pricing",
+ * "how much does an AI scribe cost" — had no page to land on. Search Console shows
+ * only 21 impressions across every pricing query in twelve months, which is not an
+ * absence of demand; it is the absence of a page.
+ *
+ * The page leads with the number because that is what the query asks for. Everything
+ * else is subordinate to answering it in the first screen.
+ *
+ * All figures come from src/config/pricing.ts. Never hardcode a price here — the
+ * homepage banner, the FAQ and this page have to agree, and they only do if they read
+ * from one place.
+ *
+ * The "what we do not charge for" section is the differentiator that matches the actual
+ * search intent: people hunting for scribe pricing are usually trying to find out
+ * whether the advertised number is the real number. Per-encounter fees, usage caps and
+ * implementation charges are what they are checking for.
+ */
+import Page from '../../layouts/Page.astro';
+import { pricing, inletPricing } from '../../config/pricing';
+import { PRICING_VERIFIED } from '../../config/competitors';
+
+const faqs = [
+  {
+    q: 'How much does Stream cost?',
+    a: `${pricing.introPrice} per clinician, or ${pricing.annualPrice} per clinician billed annually ($${pricing.annualTotal.toLocaleString()}/year). Every plan includes a ${pricing.trialDays}-day free trial with no credit card required.`,
+  },
+  {
+    q: 'Are there usage limits or per-encounter charges?',
+    a: 'No. Visits, notes and recordings are unlimited on every plan. Stream does not charge per encounter, per note, per minute of audio, or per template. The monthly figure is the whole figure.',
+  },
+  {
+    q: 'Is there a setup or implementation fee?',
+    a: 'Not for Stream Pro. There is no implementation project, no integration to configure and no onboarding charge — you sign in and record your next visit. Stream Inlet, the fax and records intake add-on, does carry a one-time setup fee because a fax number has to be provisioned for your practice.',
+  },
+  {
+    q: 'Do I need a credit card for the trial?',
+    a: `No. The ${pricing.trialDays}-day trial requires no card. If you do nothing at the end of it, nothing is charged.`,
+  },
+  {
+    q: 'What does it cost to add staff who are not clinicians?',
+    a: 'Your first non-clinician team member is free. Additional staff seats are $25/month each. Staff seats do not need their own clinician licence.',
+  },
+  {
+    q: 'How much is the fax and records intake add-on?',
+    a: `Stream Inlet is metered and sits on top of a Stream Pro subscription. Plans start at ${inletPricing.tiers[0].display}/month for ${inletPricing.tiers[0].pages.toLocaleString()} pages, with a ${inletPricing.setupFeeDisplay} one-time setup fee for provisioning your fax number. Pages beyond your allowance are $${inletPricing.overagePerPage.toFixed(2)} each, and junk faxes are filtered and never billed.`,
+  },
+  {
+    q: 'Is a BAA included?',
+    a: 'Yes, on every plan including trials, with no minimum seat count and no additional charge.',
+  },
+  {
+    q: 'Can I cancel at any time?',
+    a: 'Yes. Monthly plans can be cancelled at any time. There is no contract, no minimum term and no cancellation fee.',
+  },
+  {
+    q: 'Do I need to change EHR or set up an integration?',
+    a: 'No. Stream works alongside any EHR. The finished note copies over in one click, formatted to paste into any field. There is no integration to install, so there is also nothing to pay for or wait on.',
+  },
+];
+---
+<Page
+  title="Stream Pricing — $149/month, Flat, No Usage Caps | AI Medical Scribe"
+  description="Stream costs $149/month per clinician, or $99/month billed annually. Unlimited visits, no per-encounter charges, no implementation fee, 30-day free trial with no credit card. Full pricing including the fax intake add-on.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Stream by River Records',
+    description: 'AI medical scribe and problem-oriented longitudinal chart for independent practices.',
+    brand: { '@type': 'Brand', name: 'River Records' },
+    offers: {
+      '@type': 'Offer',
+      price: String(pricing.monthly),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: 'https://www.riverrecords.ai/pricing/',
+    },
+  })} />
+</Fragment>
+
+<style>
+.pr { padding: 60px 0 88px; }
+.pr-wrap { max-width: 860px; margin: 0 auto; }
+.pr h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 14px; }
+.pr-lede { font-size: 1.12rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 34px; max-width: 62ch; }
+.pr h2 { font-size: 1.5rem; color: var(--ink); margin: 46px 0 14px; }
+.pr h3 { font-size: 1.02rem; color: var(--ink); margin: 0 0 8px; font-family: var(--font-sans); }
+.pr p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.pr strong { color: var(--ink); }
+
+/* Headline number */
+.pr-headline { background: var(--dark); color: var(--white); border-radius: var(--r-xl); padding: 38px 40px; margin-bottom: 14px; }
+.pr-amount { font-family: var(--font-serif); font-size: clamp(2.8rem, 8vw, 4rem); line-height: 1; }
+.pr-amount span { font-size: 1.05rem; font-family: var(--font-sans); color: rgba(250,247,240,0.7); margin-left: 8px; }
+/* Specificity matters here: `.pr p` (class+element) beats a bare `.pr-alt` class, so
+   without the parent these render in dark body text on a dark card and vanish. */
+.pr-headline .pr-alt { color: rgba(250,247,240,0.86); font-size: 1rem; margin: 14px 0 0; }
+.pr-headline .pr-trial { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-light); margin: 18px 0 0; }
+
+.pr-incl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 26px; margin: 22px 0 0; padding: 0; list-style: none; }
+.pr-incl li { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.6; padding-left: 22px; position: relative; }
+.pr-incl li::before { content: '✓'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+
+/* Not charged */
+.pr-not { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px 30px; margin: 26px 0; }
+.pr-not h2 { margin-top: 0; font-size: 1.3rem; }
+.pr-not ul { margin: 0; padding-left: 20px; }
+.pr-not li { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 8px; }
+
+table.pr-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.93rem; }
+table.pr-table th { text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 14px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.pr-table td { padding: 13px 14px 13px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.6; vertical-align: top; }
+table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+.pr-faq { margin-top: 12px; }
+.pr-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.pr-faq summary { font-size: 1rem; font-weight: 600; color: var(--ink); cursor: pointer; list-style: none; }
+.pr-faq summary::-webkit-details-marker { display: none; }
+.pr-faq summary::after { content: '+'; float: right; color: var(--ink-faint); font-weight: 400; }
+.pr-faq details[open] summary::after { content: '−'; }
+.pr-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.pr-cta { background: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--r-xl); padding: 30px; margin-top: 44px; text-align: center; }
+.pr-cta h2 { margin: 0 0 8px; font-size: 1.4rem; }
+.pr-cta p { margin-bottom: 20px; }
+.pr-cta .btn { margin: 0 6px 8px; }
+
+.pr-note { font-size: 0.84rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 40px; padding-top: 20px; }
+.pr-note a { color: var(--primary); }
+
+@media (max-width: 720px) { .pr-incl { grid-template-columns: 1fr; } }
+</style>
+
+<section class="pr">
+  <div class="container">
+    <div class="pr-wrap">
+
+      <span class="section-label">Pricing</span>
+      <h1>Stream costs {pricing.introPrice} per clinician.</h1>
+      <p class="pr-lede">One flat rate. No tiers, no usage caps, no per-encounter charges, and no implementation fee. This page is the whole picture, including the one thing that does cost extra.</p>
+
+      <div class="pr-headline">
+        <div class="pr-amount">${pricing.cardAmount}<span>per clinician / month</span></div>
+        <p class="pr-alt">Or {pricing.annualPrice} per clinician billed annually — ${pricing.annualTotal.toLocaleString()} a year.</p>
+        <p class="pr-trial">{pricing.trialDays}-day free trial · no credit card · BAA included</p>
+      </div>
+
+      <ul class="pr-incl">
+        <li>Unlimited visits, notes and recordings</li>
+        <li>Problem-oriented longitudinal chart</li>
+        <li>Huddle pre-visit review</li>
+        <li>Per-problem Timeline and Recap</li>
+        <li>ICD, CPT and HCC coding support</li>
+        <li>Journal Club weekly reading</li>
+        <li>Works alongside any EHR</li>
+        <li>First non-clinician staff seat free</li>
+      </ul>
+
+      <div class="pr-not">
+        <h2>What you are not charged for</h2>
+        <p>Most pricing questions in this category are really one question: is the advertised number the real number? Here it is.</p>
+        <ul>
+          <li><strong>No per-encounter or per-note fee.</strong> Record as many visits as you see.</li>
+          <li><strong>No usage caps.</strong> No minutes of audio, no monthly note allowance, no throttling.</li>
+          <li><strong>No implementation or onboarding fee.</strong> There is no integration to configure, so there is nothing to pay for or wait on.</li>
+          <li><strong>No charge for the BAA</strong>, on any plan, including trials, with no minimum seat count.</li>
+          <li><strong>No contract or minimum term.</strong> Monthly plans cancel any time.</li>
+        </ul>
+      </div>
+
+      <h2>The one thing that costs extra</h2>
+      <p><strong>Stream Inlet</strong> — inbound fax and records intake — is metered, because processing pages has a real per-page cost. It sits on top of a Stream Pro subscription and is entirely optional; everything above works without it.</p>
+      <table class="pr-table">
+        <tr><th>Plan</th><th>Pages / month</th><th>Price</th><th>Typical fit</th></tr>
+        {inletPricing.tiers.map((t) => (
+          <tr>
+            <td>{t.name}</td>
+            <td>{t.pages.toLocaleString()}</td>
+            <td>{t.display}/mo</td>
+            <td>{t.fit}</td>
+          </tr>
+        ))}
+      </table>
+      <p>{inletPricing.includes} A one-time {inletPricing.setupFeeDisplay} setup fee covers provisioning your practice's fax number.</p>
+
+      <h2>Practices with three or more clinicians</h2>
+      <p>The Clinic plan is priced per clinician with volume discounts, and includes shared task assignment across your team. First non-clinician seat free; additional staff $25/month each. It is quoted rather than listed, because the discount depends on headcount — <a href="/contact/">tell us your size</a> and we will send a number.</p>
+
+      <h2>How that compares</h2>
+      <p>Roughly, in this category: Doximity Scribe is free, Twofold is around $49–69, Freed and Heidi sit near $99–150, and Suki is around $299–399. Stream is priced above the cheapest scribes on purpose — it is not competing to be the cheapest way to generate a note.</p>
+      <p>We have written honest head-to-head pages for each, including where they are the better choice: <a href="/comparison/heidi/">Heidi</a>, <a href="/comparison/freedai/">Freed</a>, <a href="/comparison/suki/">Suki</a>, <a href="/comparison/twofold/">Twofold</a>, <a href="/comparison/doximity-scribe/">Doximity Scribe</a>.</p>
+
+      <h2>Questions people actually ask</h2>
+      <div class="pr-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="pr-cta">
+        <h2>Thirty days, no card</h2>
+        <p>If you do nothing at the end of the trial, nothing is charged.</p>
+        <a href="https://stream.riverrecords.ai/onboard/stream-pro?utm_source=pricing&utm_medium=landing&utm_campaign=pricing-page" class="btn btn-primary-lg">Start free trial</a>
+        <a href="/book-demo/" class="btn btn-secondary-lg">Book a demo</a>
+      </div>
+
+      <p class="pr-note">
+        Stream's prices are current as of this page. Competitor prices are approximate, were checked on {PRICING_VERIFIED}, and move — the head-to-head pages above link to each company's own pricing page so you can verify rather than take our word.
+        Stream does not write back into your EHR and is not SOC 2 certified; if either is a requirement, that is worth knowing before a trial rather than after.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+</Page>
