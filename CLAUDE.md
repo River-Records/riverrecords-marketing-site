@@ -225,6 +225,26 @@ any third party is doing. Outcomes are reported in an `X-RR-Fanout` response hea
 misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
 `scripts/verify-calculator-fanout.mjs`.
 
+## Pricing page (`src/pages/pricing/`)
+`/pricing` is a real page. **Do not restore the `/pricing → /#pricing` redirect** — an
+anchor cannot rank, and this is the highest commercial-intent term in the category.
+Search Console showed 21 impressions across every pricing query in twelve months, which
+was the absence of a page rather than of demand.
+
+Every figure reads from `src/config/pricing.ts`. Never hardcode a price on the page: the
+offer banner, the homepage FAQ and this page have to agree, and they only do if they
+share a source.
+
+The "what you are not charged for" section is the one doing the SEO work. People
+searching scribe pricing are checking whether the advertised number is the real number,
+so per-encounter fees, usage caps and implementation charges are what the page must
+answer. The metered Inlet add-on is disclosed in the same breath rather than buried.
+
+Carries FAQPage and Product/Offer schema, which is what pricing queries surface in AI
+answers and rich results. Verify with `scripts/verify-pricing-page.mjs`, which asserts
+the page is reachable, that its numbers match the config, and that the schema carries
+the real price.
+
 ## Head-to-head comparison pages (`src/config/competitors.ts`)
 `/comparison/[slug]` is generated from that config; `/comparison/freedai` remains a
 bespoke page. Content is derived from the GTM battle cards in `gtm/battle-cards/`.
