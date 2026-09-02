@@ -1,0 +1,195 @@
+---
+/**
+ * Pediatric visit coding guide.
+ *
+ * WHY THIS PAGE EXISTS
+ * Keyword Planner shows a real cluster here — `cpt 99394` and `cpt code 99394` at
+ * 100–1K/month, with roughly eight more pediatric visit-code terms at 10–100. Unlike
+ * most of the volume in this space, the searchers are the buyer: pediatric clinicians
+ * and their billers. Compare `pm pediatrics billing`, which is a parent paying a bill.
+ *
+ * It is also not an orphan. The modifier 25 case below — a separately billable problem
+ * inside a preventive visit — is the pediatric form of the scenario The Undercoding Tax
+ * opens with, and the documentation standard comes from The Defensible Visit.
+ *
+ * NO AMA DESCRIPTORS ARE REPRODUCED HERE, DELIBERATELY.
+ * The code numbers are freely usable; the official CPT long descriptors are AMA
+ * copyright and licensed separately. River Records licenses CPT for use *in the
+ * product*, which is not automatically a licence to publish descriptors on an open
+ * marketing page — those are usually distinct grants with their own attribution
+ * requirements. So every code here is described in our own words and the authoritative
+ * text is linked rather than copied. If the licence is later confirmed to cover
+ * publication, descriptors and the required `CPT © AMA` attribution can be added; the
+ * page does not depend on them.
+ *
+ * ACCURACY BAR: every coding claim traces to AAP or AMA guidance. Age bands and the
+ * three-year rule were verified against AAP and AAPC sources before writing. A
+ * physician should read this before any material change.
+ */
+import Page from '../../../layouts/Page.astro';
+
+const established = [
+  { code: '99391', band: 'Infant', detail: 'Younger than 1 year' },
+  { code: '99392', band: 'Early childhood', detail: 'Ages 1 through 4' },
+  { code: '99393', band: 'Late childhood', detail: 'Ages 5 through 11' },
+  { code: '99394', band: 'Adolescent', detail: 'Ages 12 through 17' },
+  { code: '99395', band: 'Young adult', detail: 'Ages 18 through 39' },
+];
+const newPt = [
+  { code: '99381', band: 'Infant', detail: 'Younger than 1 year' },
+  { code: '99382', band: 'Early childhood', detail: 'Ages 1 through 4' },
+  { code: '99383', band: 'Late childhood', detail: 'Ages 5 through 11' },
+  { code: '99384', band: 'Adolescent', detail: 'Ages 12 through 17' },
+  { code: '99385', band: 'Young adult', detail: 'Ages 18 through 39' },
+];
+
+const faqs = [
+  {
+    q: 'What is CPT 99394?',
+    a: 'The periodic preventive medicine visit for an established patient aged 12 through 17 — the adolescent well visit. Its new-patient equivalent is 99384.',
+  },
+  {
+    q: 'What is the CPT code for a pediatric well visit?',
+    a: 'It depends on the child’s age and whether they are new or established. Established patients: 99391 (under 1), 99392 (1–4), 99393 (5–11), 99394 (12–17). New patients use 99381–99384 across the same age bands.',
+  },
+  {
+    q: 'What counts as a new versus an established patient?',
+    a: 'The standard three-year rule. A patient is new if they have not received a face-to-face service from you, or from another clinician of the same specialty in your group, within the past three years.',
+  },
+  {
+    q: 'Are preventive medicine codes selected by time?',
+    a: 'No. Unlike office visit codes since 2021, preventive medicine codes are selected by patient age and new-versus-established status, not by time or medical decision-making. Time may still be documented but does not drive the code.',
+  },
+  {
+    q: 'Can you bill a sick visit and a well visit on the same day?',
+    a: 'Yes, when the problem is significant and separately identifiable — enough additional work that it could stand alone as an office visit. The problem-oriented visit is reported alongside the preventive service with modifier 25 appended, and the documentation must support each independently, with no part of the preventive exam doing double duty.',
+  },
+];
+---
+<Page
+  title="Pediatric Visit Coding — Well Visit CPT Codes by Age, and Documenting Them Defensibly"
+  description="Which CPT code applies to a pediatric well visit at each age, new versus established, and how to document a well visit plus a same-day problem so the level survives review. Written for pediatric clinicians and their billers.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question', name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.pc { padding: 60px 0 88px; }
+.pc-wrap { max-width: 780px; margin: 0 auto; }
+.pc h1 { font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--ink); line-height: 1.16; margin-bottom: 14px; }
+.pc-lede { font-size: 1.08rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 12px; }
+.pc-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 36px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+.pc h2 { font-size: 1.45rem; color: var(--ink); margin: 44px 0 14px; line-height: 1.3; }
+.pc h3 { font-size: 1.02rem; color: var(--ink); margin: 26px 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.pc p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.pc ul { margin: 0 0 18px; padding-left: 22px; }
+.pc li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
+.pc strong { color: var(--ink); }
+.pc a { color: var(--primary); }
+
+table.pc-table { width: 100%; border-collapse: collapse; margin: 18px 0 26px; font-size: 0.94rem; }
+table.pc-table th { text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 14px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.pc-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.6; }
+table.pc-table td:first-child { font-family: var(--font-mono); color: var(--ink); font-weight: 600; }
+
+.pc-key { background: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--r-lg); padding: 24px 28px; margin: 28px 0; }
+.pc-key h2 { margin-top: 0; font-size: 1.25rem; }
+.pc-key p:last-child { margin-bottom: 0; }
+
+.pc-warn { border-left: 3px solid var(--border-strong); padding: 4px 0 4px 22px; margin: 26px 0; }
+.pc-warn p:last-child { margin-bottom: 0; }
+
+.pc-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.pc-faq summary { font-size: 1rem; font-weight: 600; color: var(--ink); cursor: pointer; list-style: none; padding-right: 24px; position: relative; }
+.pc-faq summary::-webkit-details-marker { display: none; }
+.pc-faq summary::after { content: '+'; position: absolute; right: 0; color: var(--ink-faint); font-weight: 400; }
+.pc-faq details[open] summary::after { content: '−'; }
+.pc-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.pc-cta { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px 28px; margin-top: 40px; }
+.pc-cta h2 { margin: 0 0 8px; font-size: 1.2rem; }
+.pc-cta p { font-size: 0.96rem; margin-bottom: 16px; }
+
+.pc-disclaim { font-size: 0.85rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 44px; padding-top: 22px; }
+</style>
+
+<section class="pc">
+  <div class="container">
+    <div class="pc-wrap">
+
+      <span class="section-label">Guide</span>
+      <h1>Pediatric visit coding, and how to document it so it holds up</h1>
+      <p class="pc-lede">The codes first, because that is probably why you are here. Then the part that costs practices more than picking the wrong code does — documenting the visit so the code you picked survives someone reading it later.</p>
+      <p class="pc-meta">Written for pediatric clinicians and billers · verified against AAP and AMA guidance</p>
+
+      <h2>Well visit codes by age</h2>
+      <p>Preventive medicine codes are chosen by the patient's age and whether they are new or established. They are <strong>not</strong> selected by time, and not by medical decision-making — which makes them unlike office visit codes since the 2021 changes.</p>
+
+      <h3>Established patients</h3>
+      <table class="pc-table">
+        <tr><th>Code</th><th>Age band</th><th>Ages</th></tr>
+        {established.map((c) => (<tr><td>{c.code}</td><td>{c.band}</td><td>{c.detail}</td></tr>))}
+      </table>
+
+      <h3>New patients</h3>
+      <table class="pc-table">
+        <tr><th>Code</th><th>Age band</th><th>Ages</th></tr>
+        {newPt.map((c) => (<tr><td>{c.code}</td><td>{c.band}</td><td>{c.detail}</td></tr>))}
+      </table>
+
+      <p><strong>New or established?</strong> The three-year rule. A patient is new if they have not had a face-to-face service from you, or from another clinician of the same specialty in your group, in the previous three years. Everyone else is established, including a child you have never personally met if your partner saw them last spring.</p>
+
+      <div class="pc-key">
+        <h2>The one that is most often missed</h2>
+        <p>A child comes in for a well visit. Somewhere in it, something else comes up — the eczema that has flared, the asthma that needs a step up, the headaches that have been going on for a month. You evaluate it, you change something, you move on.</p>
+        <p>That visit was two things. The preventive service, and the evaluation and management of a separate problem. When the problem is <strong>significant and separately identifiable</strong> — enough extra work that it could stand alone as an office visit — the problem-oriented visit can be reported alongside the preventive one with <strong>modifier 25</strong>.</p>
+        <p>Most of the time it is not reported, and the reason is rarely that the clinician did not know. It is that the note recorded the eczema in one sentence, and one sentence will not support a separate code.</p>
+      </div>
+
+      <h2>What the documentation has to show</h2>
+      <p>Two things have to be legible to someone reading cold, months later.</p>
+      <ul>
+        <li><strong>The preventive service, on its own terms.</strong> Age-appropriate history, exam, anticipatory guidance, screening — recognisably a well visit rather than a problem visit with a growth chart attached.</li>
+        <li><strong>The problem, on its own terms.</strong> Its own assessment and plan, its own reasoning, its own decision. No part of the preventive exam doing double duty to support it.</li>
+      </ul>
+      <p>Since 2021, the level of the problem-oriented visit is set by medical decision-making or total time — not by how much history and exam you recorded. Two of three MDM elements have to reach the level, and in practice the pair that carries most primary care visits is <em>problems addressed</em> plus <em>risk</em>. Prescription drug management, including a documented decision to continue and monitor, is what usually establishes moderate risk. <a href="/guides/the-defensible-visit/">The Defensible Visit</a> covers this in detail.</p>
+
+      <div class="pc-warn">
+        <p><strong>None of this is an argument for billing a level you did not earn.</strong> Adding modifier 25 to a preventive visit where nothing separately identifiable happened is not a coding optimisation, it is a false claim. The gap worth closing is only ever between the work you actually did and what the record can demonstrate.</p>
+      </div>
+
+      <h2>Where the money goes, in aggregate</h2>
+      <p>No single missed add-on feels like much. A separately identifiable problem alongside a preventive visit is roughly the value of an office visit — meaningful, not dramatic. It becomes significant only across a panel, across a year, across every provider in a practice.</p>
+      <p>If you want that arithmetic against your own numbers rather than in the abstract, the <a href="/tools/undercoding-calculator/">undercoding calculator</a> runs it on published Medicare rates and shows every step.</p>
+
+      <h2>Common questions</h2>
+      <div class="pc-faq">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+
+      <div class="pc-cta">
+        <h2>Where Stream fits</h2>
+        <p>Stream structures each visit by problem, so a well visit and the separately identifiable problem inside it are documented as two things rather than one paragraph — and it surfaces ICD and CPT suggestions from what you actually documented. It does not choose your codes and does not submit claims. Making the complexity visible is the part software should do; what to bill remains yours.</p>
+        <a href="/for/pediatrics/" class="btn btn-primary-lg">Stream for pediatrics</a>
+      </div>
+
+      <p class="pc-disclaim">
+        <strong>Educational, not coding or compliance advice.</strong> Code definitions and payer rules change, and the right code for a given encounter depends on facts only you have. Verify against current CPT guidance, the
+        <a href="https://downloads.aap.org/AAP/PDF/Coding%20Preventive%20Care.pdf" rel="nofollow noopener" target="_blank">AAP's preventive care coding resources</a>,
+        <a href="https://www.aafp.org/family-physician/practice-and-career/getting-paid/coding/evaluation-management/how-to-use-modifier-25.html" rel="nofollow noopener" target="_blank">AAFP guidance on modifier 25</a>,
+        and your own coding and compliance resources before changing how your practice bills. CPT is a registered trademark of the American Medical Association; code numbers are referenced here descriptively and official descriptors are not reproduced.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+</Page>
