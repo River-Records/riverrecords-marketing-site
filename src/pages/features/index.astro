@@ -95,7 +95,7 @@ const allFeatures = (await getCollection('features', ({ data }) => !data.draft))
 <section class="features-section">
   <div class="container">
     <!-- Pinned feature -->
-    <a href="/features/huddle" class="feature-card feature-card--pinned" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:36px;">
+    <a href="/features/huddle/" class="feature-card feature-card--pinned" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:36px;">
       <div>
         <div class="feature-card-tags"><span class="feature-card-tag" style="background:var(--accent);color:var(--white);">New</span><span class="feature-card-tag">pre-visit</span></div>
         <div class="feature-card-name" style="font-size:1.3rem;">Huddle</div>
@@ -110,7 +110,7 @@ const allFeatures = (await getCollection('features', ({ data }) => !data.draft))
     </a>
 
     <!-- Pinned feature -->
-    <a href="/intake" class="feature-card feature-card--pinned" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:36px;margin-top:20px;">
+    <a href="/intake/" class="feature-card feature-card--pinned" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:36px;margin-top:20px;">
       <div>
         <div class="feature-card-tags"><span class="feature-card-tag" style="background:var(--accent);color:var(--white);">New</span><span class="feature-card-tag">inbound records</span></div>
         <div class="feature-card-name" style="font-size:1.3rem;">Stream Inlet</div>
@@ -128,9 +128,9 @@ const allFeatures = (await getCollection('features', ({ data }) => !data.draft))
       {allFeatures.map((feature) => {
         const hasLink = feature.data.hasPage;
         const Tag = hasLink ? 'a' : 'div';
-        const linkProps = hasLink ? { href: `/features/${feature.data.slug}` } : {};
+        const linkProps = hasLink ? { href: `/features/${feature.data.slug}/` } : {};
         return (
-          <a href={hasLink ? `/features/${feature.data.slug}` : undefined} class="feature-card" style={!hasLink ? 'cursor:default;' : ''}>
+          <a href={hasLink ? `/features/${feature.data.slug}/` : undefined} class="feature-card" style={!hasLink ? 'cursor:default;' : ''}>
             {feature.data.tags.length > 0 && (
               <div class="feature-card-tags">
                 {feature.data.tags.slice(0, 2).map((tag: string) => (

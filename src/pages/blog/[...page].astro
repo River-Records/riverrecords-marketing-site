@@ -232,7 +232,7 @@ const featured = isFirstPage
           </div>
           <div class="blog-list">
             {group.posts.map((post: any) => (
-              <a href={`/blog/${post.id}`} class="blog-card blog-card--series">
+              <a href={`/blog/${post.id}/`} class="blog-card blog-card--series">
                 <div class="blog-card-body">
                   <span class="blog-series-part">Part {post.data.seriesPart} of {group.posts.length}</span>
                   <h2>{post.data.title}</h2>
@@ -264,7 +264,7 @@ const featured = isFirstPage
               year: 'numeric', month: 'short', day: 'numeric',
             });
             return (
-              <a href={`/blog/${post.id}`} class="blog-card">
+              <a href={`/blog/${post.id}/`} class="blog-card">
                 <div class="blog-card-body">
                   {post.data.tags.length > 0 && (
                     <div class="blog-card-tags">
@@ -302,7 +302,7 @@ const featured = isFirstPage
           year: 'numeric', month: 'short', day: 'numeric',
         });
         return (
-          <a href={`/blog/${post.id}`} class="blog-card">
+          <a href={`/blog/${post.id}/`} class="blog-card">
             <div class="blog-card-body">
               {post.data.tags.length > 0 && (
                 <div class="blog-card-tags">
@@ -331,9 +331,9 @@ const featured = isFirstPage
     </div>
 
     <div class="blog-pagination">
-      {page.url.prev && <a href={page.url.prev}>← Newer</a>}
+      {page.url.prev && <a href={page.url.prev.endsWith("/") ? page.url.prev : page.url.prev + "/"}>← Newer</a>}
       <span class="blog-pagination-info">Page {page.currentPage} of {page.lastPage}</span>
-      {page.url.next && <a href={page.url.next}>Older →</a>}
+      {page.url.next && <a href={page.url.next.endsWith("/") ? page.url.next : page.url.next + "/"}>Older →</a>}
     </div>
   </div>
 </section>

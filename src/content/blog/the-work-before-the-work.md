@@ -92,13 +92,13 @@ I'll add one thing they didn't need to say in 2018, but which is true now: this 
 
 Everything I've written over the past few weeks is really about this one idea, approached from two sides.
 
-**Externalize the system.** Every good physician builds a private operating system for managing care — half in shorthand, half in memory. It works beautifully and it doesn't transfer, doesn't survive coverage or turnover, and doesn't scale to team-based care. Building infrastructure that is reproducible, reliable, consistent, and persistent means the work of organizing care can live outside a single exhausted mind. *(More on this in [Medicine Doesn't Scale Because It Lives in Our Heads](/blog/medicine-doesnt-scale-because-it-lives-in-our-heads).)*
+**Externalize the system.** Every good physician builds a private operating system for managing care — half in shorthand, half in memory. It works beautifully and it doesn't transfer, doesn't survive coverage or turnover, and doesn't scale to team-based care. Building infrastructure that is reproducible, reliable, consistent, and persistent means the work of organizing care can live outside a single exhausted mind. *(More on this in [Medicine Doesn't Scale Because It Lives in Our Heads](/blog/medicine-doesnt-scale-because-it-lives-in-our-heads/).)*
 
-**Normalize the review surface.** Bring every note into the same form, every lab into the same form, for the purpose of review. When structure becomes predictable, structure becomes invisible, and all of your attention is freed for content. Find the thing, review it, move on. *(More on this in [I Don't Read Charts. I Hunt Through Them.](/blog/i-dont-read-charts-i-hunt-through-them))*
+**Normalize the review surface.** Bring every note into the same form, every lab into the same form, for the purpose of review. When structure becomes predictable, structure becomes invisible, and all of your attention is freed for content. Find the thing, review it, move on. *(More on this in [I Don't Read Charts. I Hunt Through Them.](/blog/i-dont-read-charts-i-hunt-through-them/))*
 
 Externalizing makes the work transferable. Normalizing makes it reviewable. Together they attack the same target from opposite ends: the enormous, unpaid, unmeasured, unglamorous labor that stands between a physician and the practice of medicine.
 
-If you want the smallest possible version of this — one clinician, one workaround, no infrastructure required — start with [Your Clinical Note Is the Best Task Manager You're Not Using](/blog/clinical-note-best-task-manager). It's where I began.
+If you want the smallest possible version of this — one clinician, one workaround, no infrastructure required — start with [Your Clinical Note Is the Best Task Manager You're Not Using](/blog/clinical-note-best-task-manager/). It's where I began.
 
 ## What's left when you take it away
 

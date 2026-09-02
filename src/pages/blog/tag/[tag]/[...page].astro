@@ -191,7 +191,7 @@ const tagLabel = tagLabels[tag as string] || tag;
           year: 'numeric', month: 'short', day: 'numeric',
         });
         return (
-          <a href={`/blog/${post.id}`} class="blog-card">
+          <a href={`/blog/${post.id}/`} class="blog-card">
             <div class="blog-card-body">
               {post.data.tags.length > 0 && (
                 <div class="blog-card-tags">
@@ -221,9 +221,9 @@ const tagLabel = tagLabels[tag as string] || tag;
 
     {page.lastPage > 1 && (
       <div class="blog-pagination">
-        {page.url.prev && <a href={page.url.prev}>← Newer</a>}
+        {page.url.prev && <a href={page.url.prev.endsWith("/") ? page.url.prev : page.url.prev + "/"}>← Newer</a>}
         <span class="blog-pagination-info">Page {page.currentPage} of {page.lastPage}</span>
-        {page.url.next && <a href={page.url.next}>Older →</a>}
+        {page.url.next && <a href={page.url.next.endsWith("/") ? page.url.next : page.url.next + "/"}>Older →</a>}
       </div>
     )}
   </div>

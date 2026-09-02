@@ -58,14 +58,14 @@ export const OFFERS: Record<OfferKey, Offer> = {
     heading: 'The Note Was Never the Point',
     body: 'A book about why the clinical note became the wrong unit for the record, and what a chart organized around problems does instead. Free to read, no email required.',
     cta: 'Start reading',
-    href: '/book',
+    href: '/book/',
   },
   demo: {
     eyebrow: 'See it working',
     heading: 'Twenty minutes with a physician who uses it daily',
     body: 'Not a sales call. Bring the awkward questions — the ones about what it gets wrong.',
     cta: 'Book a demo',
-    href: '/book-demo',
+    href: '/book-demo/',
   },
   trial: {
     eyebrow: 'Try it',

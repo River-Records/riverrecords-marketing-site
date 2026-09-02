@@ -142,7 +142,7 @@ const authorPosts = allPosts
 
 <section class="team-profile">
   <div class="container">
-    <a href="/about" class="team-back">← Back to About</a>
+    <a href="/about/" class="team-back">← Back to About</a>
     <div class="team-profile-inner">
       <img class="team-photo" src={photo} alt={name} />
       <div class="team-info">
@@ -170,7 +170,7 @@ const authorPosts = allPosts
             year: 'numeric', month: 'short', day: 'numeric',
           });
           return (
-            <a href={`/blog/${post.id}`} class="team-post-card">
+            <a href={`/blog/${post.id}/`} class="team-post-card">
               <h3>{post.data.title}</h3>
               <p>{post.data.description}</p>
               <span class="team-post-date">{dateStr}</span>

@@ -461,6 +461,23 @@ the repo, so treat the list above as unverified until checked in the console.
 - Stream is organized by medical PROBLEM, not by date/encounter
 - Brand voice: direct, clinical, physician-to-physician
 
+## Internal links must end in a slash
+Cloudflare 308s `/path` to `/path/`, the sitemap lists trailing slashes, and the canonical
+tag emits them. For months the site nonetheless linked to the no-slash form in roughly
+3,000 places, so its own internal linking contradicted every canonical signal it
+published — every click paid a redirect hop, and Google kept rediscovering URLs it was
+being told not to index.
+
+Write `/about/`, not `/about`. That includes template literals
+(`` `/blog/${post.id}/` ``), component props (`secondaryHref="/book-demo/"`), hrefs in
+`src/config/*.ts`, and markdown links in blog content. Astro's `paginate()` returns
+`page.url.prev`/`next` **without** a slash, so those are normalised at the point of use
+rather than trusted.
+
+`scripts/verify-internal-links.mjs` fails the moment one slips back in. It is static
+analysis over `dist/`, needs no browser, and runs in about a second — worth running on
+any change that adds links.
+
 ## Deployment
 Push to main → Cloudflare Pages auto-deploys.
 Build command: `npm run build`

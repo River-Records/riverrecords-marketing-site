@@ -11,14 +11,14 @@ const guides = (await getCollection('blog', ({ data }) =>
 // Curated head-to-head pages that live outside the blog collection.
 const headToHead = [
   {
-    href: '/comparison/freedai',
+    href: '/comparison/freedai/',
     title: 'Stream vs. Freed',
     description: 'A direct, feature-by-feature look at how Stream and Freed compare for primary care documentation.',
     label: 'Head-to-head',
   },
   // Generated from src/config/competitors.ts — adding a competitor there adds it here.
   ...competitors.map((c) => ({
-    href: `/comparison/${c.slug}`,
+    href: `/comparison/${c.slug}/`,
     title: c.title,
     description: c.seoDescription,
     label: 'Head-to-head',
@@ -175,7 +175,7 @@ const headToHead = [
               year: 'numeric', month: 'short', day: 'numeric',
             });
             return (
-              <a href={`/blog/${post.id}`} class="cmp-card">
+              <a href={`/blog/${post.id}/`} class="cmp-card">
                 <div class="cmp-card-body">
                   <span class="cmp-card-tag">Guide</span>
                   <h2>{post.data.title}</h2>

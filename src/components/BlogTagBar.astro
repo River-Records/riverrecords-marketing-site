@@ -33,9 +33,9 @@ const displayTags = [
 ];
 ---
 <nav class="blog-tag-bar">
-  <a href="/blog" class:list={['blog-tag-pill', { active: !activeTag }]}>All</a>
+  <a href="/blog/" class:list={['blog-tag-pill', { active: !activeTag }]}>All</a>
   {displayTags.map((tag) => (
-    <a href={`/blog/tag/${tag}`} class:list={['blog-tag-pill', { active: activeTag === tag }]}>
+    <a href={`/blog/tag/${tag}/`} class:list={['blog-tag-pill', { active: activeTag === tag }]}>
       {tagLabels[tag] || tag}
     </a>
   ))}

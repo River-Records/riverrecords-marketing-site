@@ -307,7 +307,7 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
   eyebrow="Built for Pediatrics"
   sub="Every recall report starts with the appointment book, so the only children it can see are the ones already coming. Stream starts with your panel — sweeping every active child against the Bright Futures schedule each night, and handing you the ones whose window has closed, with the evidence attached."
   primaryLabel="Start free for 30 days"
-  secondaryHref="/contact"
+  secondaryHref="/contact/"
   secondaryLabel="Send us your panel"
   trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
 >
@@ -605,14 +605,14 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
 <!-- RESEARCH LINE -->
 <section class="peds-research">
   <div class="container">
-    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research">Read the research →</a></p>
+    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research/">Read the research →</a></p>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
-    <CtaDark primaryLabel="Start free for 30 days" secondaryHref="/contact" secondaryLabel="Send us your panel">
+    <CtaDark primaryLabel="Start free for 30 days" secondaryHref="/contact/" secondaryLabel="Send us your panel">
       Send us your panel.<br><em>We'll tell you who's overdue.</em>
       <Fragment slot="body">A date of birth and a visit history is all it takes — no integration, no six-month ramp. {pricing.ctaBodyWithTrial}</Fragment>
     </CtaDark>

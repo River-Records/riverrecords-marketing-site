@@ -37,7 +37,7 @@ const canonicalUrl = `https://www.riverrecords.ai/book/${slug}/`;
     <article class="book-chapter">
       <div class="container">
         <div class="book-chapter-header">
-          <a href="/book" class="book-back">← The Note Was Never the Point</a>
+          <a href="/book/" class="book-back">← The Note Was Never the Point</a>
           <p class="book-chapter-eyebrow">
             {frontmatter.part && <span class="book-chapter-part">{frontmatter.part}</span>}
             <span class="book-chapter-label">{frontmatter.chapterLabel}</span>
@@ -52,25 +52,25 @@ const canonicalUrl = `https://www.riverrecords.ai/book/${slug}/`;
             <span class="book-related-label">This chapter draws on these essays</span>
             <ul>
               {frontmatter.relatedPosts.map((p: { slug: string; title: string }) => (
-                <li><a href={`/blog/${p.slug}`}>{p.title}</a></li>
+                <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>
               ))}
             </ul>
           </aside>
         )}
         <nav class="book-pager" aria-label="Chapter navigation">
           {prev ? (
-            <a href={`/book/${prev.slug}`} class="book-pager-link book-pager-prev">
+            <a href={`/book/${prev.slug}/`} class="book-pager-link book-pager-prev">
               <span class="book-pager-dir">← Previous</span>
               <span class="book-pager-title">{prev.title}</span>
             </a>
           ) : (
-            <a href="/book" class="book-pager-link book-pager-prev">
+            <a href="/book/" class="book-pager-link book-pager-prev">
               <span class="book-pager-dir">← Start</span>
               <span class="book-pager-title">Cover &amp; contents</span>
             </a>
           )}
           {next && (
-            <a href={`/book/${next.slug}`} class="book-pager-link book-pager-next">
+            <a href={`/book/${next.slug}/`} class="book-pager-link book-pager-next">
               <span class="book-pager-dir">Next →</span>
               <span class="book-pager-title">{next.title}</span>
             </a>

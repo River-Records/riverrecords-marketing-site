@@ -36,7 +36,7 @@ The result is a **poor signal-to-noise ratio** in the chart. The important clini
 In our peer-reviewed study of 100+ million clinical notes, we found that more than **50% of the words were duplicated** from prior documentation. It’s not just a nuisance—it’s a fundamental design flaw in how clinical notes are structured today.
 
  
- [Read the full study →](/blog/medical-record-duplicate-information-errors) 
+ [Read the full study →](/blog/medical-record-duplicate-information-errors/) 
 
 ## Why This Matters: From Burnout to Bottom Line
 

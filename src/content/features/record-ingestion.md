@@ -41,7 +41,7 @@ The body below is kept, corrected and unrendered, in case the page is restored.
 
 Every clinician knows the feeling — a new patient arrives with years of records from outside systems: scanned PDFs, faxed letters, printouts from old EHRs. You spend half the visit scrolling, searching, and summarizing before you can even begin to plan care.
 
-Stream’s **Record Ingestion** is the pipeline that fixes that. It ships as **[Stream Inlet](/intake)**, a metered add-on to Stream Pro.
+Stream’s **Record Ingestion** is the pipeline that fixes that. It ships as **[Stream Inlet](/intake/)**, a metered add-on to Stream Pro.
 
 Get a record in however it reaches you. Fax it — Stream provisions a number on Sinch, whitelisted and managed by River Records, or connects to your clinic’s own Spruce Health account if you already run one. Or upload PDFs and text files from the Documents page, or paste text straight in. Everything goes down the same pipeline from there.
 
@@ -63,4 +63,4 @@ And outside records inform the clinician — they never write the clinician’s 
 
 The next time you see the patient, you’re not digging through attachments — you’re continuing from where someone else left off.
 
-[See the full Stream Inlet page →](/intake)
+[See the full Stream Inlet page →](/intake/)
