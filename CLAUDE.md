@@ -225,6 +225,26 @@ any third party is doing. Outcomes are reported in an `X-RR-Fanout` response hea
 misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
 `scripts/verify-calculator-fanout.mjs`.
 
+## FAQs (`src/config/faqs.ts`)
+One source feeds `/faq` and the homepage FAQ section. **Do not restore the `/faq → /`
+redirect** — question-shaped queries are what AI answer engines quote, and an anchor
+could not rank for any of them.
+
+**FAQPage schema must match what the page visibly renders.** Google treats declaring
+more questions than you show as invalid markup. The homepage shows a subset, so entries
+carry an `onHomepage` flag and the homepage renders *and* declares exactly those; `/faq`
+renders and declares all of them. Both read from the config, which is the only reason
+they cannot drift — before this the homepage showed five and declared three.
+
+Two editing rules:
+- **Cost questions link to `/pricing`, they do not restate it.** Two pages competing for
+  the same query split the signal.
+- **The `limits` group answers no.** No EHR write-back, no SOC 2, no clinical decision
+  support, no form filling yet, not for health systems. Those get asked on calls anyway,
+  and this is the first place a softened answer would creep back in.
+
+Verify with `scripts/verify-faq.mjs`.
+
 ## Pricing page (`src/pages/pricing/`)
 `/pricing` is a real page. **Do not restore the `/pricing → /#pricing` redirect** — an
 anchor cannot rank, and this is the highest commercial-intent term in the category.

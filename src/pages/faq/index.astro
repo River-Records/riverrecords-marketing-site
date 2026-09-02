@@ -1,0 +1,97 @@
+---
+/**
+ * Standalone FAQ page. `/faq` previously 301'd to the homepage, so question-shaped
+ * queries had nowhere to land — and those are exactly what AI answer engines quote.
+ *
+ * Content lives in src/config/faqs.ts so the homepage schema and this page cannot drift
+ * apart. Cost questions deliberately answer in one line and link to /pricing rather
+ * than restating it; two pages competing for the same query split the signal.
+ */
+import Page from '../../layouts/Page.astro';
+import { faqGroups, allFaqs } from '../../config/faqs';
+---
+<Page
+  title="Frequently Asked Questions — Stream by River Records"
+  description="Straight answers about Stream: EHR compatibility, HIPAA and BAA terms, languages, what it costs, and a plain list of what Stream does not do — including no EHR write-back, no SOC 2, and no clinical decision support.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.fq { padding: 60px 0 88px; }
+.fq-wrap { max-width: 780px; margin: 0 auto; }
+.fq h1 { font-size: clamp(2rem, 4.2vw, 2.8rem); color: var(--ink); line-height: 1.15; margin-bottom: 14px; }
+.fq-lede { font-size: 1.08rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 8px; max-width: 60ch; }
+.fq-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 40px; padding-bottom: 26px; border-bottom: 1px solid var(--border); }
+.fq-jump a { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); border: 1px solid var(--border-strong); border-radius: var(--r-pill); padding: 6px 14px; text-decoration: none; }
+.fq-jump a:hover { border-color: var(--primary); color: var(--primary); }
+
+.fq-group { margin-bottom: 40px; scroll-margin-top: 90px; }
+.fq-group h2 { font-size: 1.4rem; color: var(--ink); margin-bottom: 8px; }
+.fq-group-blurb { font-size: 0.95rem; color: var(--ink-faint); line-height: 1.65; margin-bottom: 14px; }
+
+.fq-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.fq-item summary { font-size: 1rem; font-weight: 600; color: var(--ink); cursor: pointer; list-style: none; padding-right: 24px; position: relative; }
+.fq-item summary::-webkit-details-marker { display: none; }
+.fq-item summary::after { content: '+'; position: absolute; right: 0; color: var(--ink-faint); font-weight: 400; }
+.fq-item[open] summary::after { content: '−'; }
+.fq-item p { font-size: 0.97rem; color: var(--ink-muted); line-height: 1.75; margin: 12px 0 0; }
+.fq-item a { color: var(--primary); }
+
+/* The honest-limits group is visually distinct on purpose — it is the most useful
+   part of the page for a buyer, and burying it would defeat the point. */
+#limits .fq-item { border-bottom-color: var(--border-strong); }
+
+.fq-cta { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px 28px; margin-top: 36px; }
+.fq-cta h2 { font-size: 1.2rem; margin: 0 0 8px; color: var(--ink); }
+.fq-cta p { font-size: 0.96rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 16px; }
+</style>
+
+<section class="fq">
+  <div class="container">
+    <div class="fq-wrap">
+
+      <span class="section-label">FAQ</span>
+      <h1>Questions, answered plainly.</h1>
+      <p class="fq-lede">Including the ones with an inconvenient answer. If something here rules Stream out for you, that is better learned now than three weeks into a trial.</p>
+
+      <nav class="fq-jump" aria-label="Jump to a section">
+        {faqGroups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+      </nav>
+
+      {faqGroups.map((g) => (
+        <div class="fq-group" id={g.id}>
+          <h2>{g.title}</h2>
+          {g.blurb && <p class="fq-group-blurb">{g.blurb}</p>}
+          {g.items.map((f) => (
+            <details class="fq-item">
+              <summary>{f.q}</summary>
+              <p set:html={f.a
+                .replace('pricing page', '<a href="/pricing/">pricing page</a>')
+                .replace('security overview', '<a href="/security/">security overview</a>')
+                .replace('Journal Club delivers', '<a href="/features/journal-club/">Journal Club</a> delivers')} />
+            </details>
+          ))}
+        </div>
+      ))}
+
+      <div class="fq-cta">
+        <h2>Something not answered here?</h2>
+        <p>Ask a real question and get a real answer — including “no, we don’t do that.”</p>
+        <a href="/contact/" class="btn btn-primary-lg">Get in touch</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</Page>

@@ -20,7 +20,8 @@
 /clinical-specialties  /  301
 # /pricing is a real page now — an anchor cannot rank, and this is the highest
 # commercial-intent term in the category. Do not restore this redirect.
-/faq  /  301
+# /faq is a real page now — question-shaped queries are what AI answer engines quote,
+# and an anchor on the homepage could not rank for any of them.
 # Old Framer-site about page still lingering in Google's index
 /about-us2  /about  301
 
