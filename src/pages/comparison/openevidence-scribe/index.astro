@@ -105,7 +105,7 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
       <h2>So which one solves your problem?</h2>
       <p>It depends what the problem actually is, and those are two different problems that often get discussed as one.</p>
       <ul>
-        <li><strong>“I need to look something up mid-visit.”</strong> That is a clinical-knowledge problem. OpenEvidence is built for it. Stream does nothing here.</li>
+        <li><strong>“I need to look something up mid-visit.”</strong> That is a clinical-knowledge problem, answered at the point of care. OpenEvidence is built for it. Stream does nothing here — see Journal Club below for the one thing we do with the literature, which is a different job entirely.</li>
         <li><strong>“I am typing notes at 9pm.”</strong> That is a documentation problem. Any competent scribe helps, including theirs.</li>
         <li><strong>“I spend the first five minutes of every visit rebuilding what happened last time.”</strong> That is a chart problem, and it is the one Stream is built for. A scribe of any kind will not fix it, because a note generator has nowhere to put the accumulated context.</li>
       </ul>
@@ -123,8 +123,19 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
         <li><strong>It is organized by medical problem, not by date.</strong> Which is how clinicians think about patients, and not how encounters are usually stored.</li>
       </ul>
 
+      <h2>The one place Stream touches the literature</h2>
+      <p>Stream has a feature called <strong>Journal Club</strong>, and it is worth describing precisely, because it is adjacent to what OpenEvidence does without being the same thing at all.</p>
+      <p>Once a week it looks at the conditions you actually documented — the diagnoses, and the ages of the people you were managing them in — and assembles a short reading list from the published literature, with titles, abstracts and a link to the source. It arrives on Monday. You did not search for it.</p>
+      <p>The difference from clinical decision support is the direction and the moment:</p>
+      <ul>
+        <li><strong>OpenEvidence answers a question you have, now.</strong> You ask, at the point of care, and it responds with cited evidence. That is decision support, and it is what the tool is for.</li>
+        <li><strong>Journal Club tells you what has been published about the things you have been seeing.</strong> Nobody asks it anything. It arrives after the fact, weekly, and it is for keeping up rather than for deciding.</li>
+      </ul>
+      <p>Being plain about its limits: Journal Club is <strong>not connected to any individual patient's chart</strong>, it does not offer guidance on a specific case, and it <strong>carries no CME credit</strong>. It is lifelong learning delivered where you already work, not a second opinion. The current version is deliberately simple — a reading list, with no commenting or discussion.</p>
+      <p>It is also the reason we would not tell you to drop OpenEvidence. Reading about type 2 diabetes on Monday because you saw a lot of it last week is a genuinely different need from answering a question in front of a patient on Thursday. <a href="/blog/the-reading-should-come-to-you/">We wrote about why we built it</a>.</p>
+
       <div class="oe-limit">
-        <p><strong>What Stream does not do, plainly.</strong> There is no clinical decision support in Stream. No literature search, no differential suggestions, no answers to clinical questions. If that is what you are looking for, this is not the product and no amount of comparison will change that.</p>
+        <p><strong>What Stream does not do, plainly.</strong> There is no clinical decision support in Stream. Journal Club notwithstanding, there is no way to ask it a clinical question — no search, no differential suggestions, no guidance on a particular patient, nothing at the point of care. If that is what you are looking for, this is not the product and no amount of comparison will change that.</p>
         <p>We also do not write back into your EHR — the note copies over in one click — and we are not SOC 2 certified. If either is a requirement, that is a reason to look elsewhere.</p>
       </div>
 
