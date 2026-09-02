@@ -225,6 +225,30 @@ any third party is doing. Outcomes are reported in an `X-RR-Fanout` response hea
 misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
 `scripts/verify-calculator-fanout.mjs`.
 
+## Head-to-head comparison pages (`src/config/competitors.ts`)
+`/comparison/[slug]` is generated from that config; `/comparison/freedai` remains a
+bespoke page. Content is derived from the GTM battle cards in `gtm/battle-cards/`.
+
+**Every page names what the competitor does better, before anything about Stream.** That
+is the deck's own instruction — "conceding is what makes the rest credible" — and it is
+the only version that survives a reader who has already used the other product. Do not
+reorder those sections.
+
+**Claim rules, from the deck's guardrails page. These are not stylistic:**
+- **Never claim SOC 2.** We do not have it. It appears on these pages only as a
+  disclaimer.
+- **Never claim EHR write-back.** We do not have it and will not this year. Several
+  competitors copy-paste too, which makes it a neutral fact rather than a loss.
+- **Competitor pricing must carry `PRICING_VERIFIED` and link to their own pricing
+  page.** Prices move — Heidi's went from ~$99 to ~$150 in Feb 2026 — and a stale price
+  stated as fact is both wrong and unfair.
+
+**Deliberately absent:** Tali AI (Canada-only, natively integrated, publicly funded — the
+deck's read is not to prospect there), and Abridge/Nuance DAX (health-system sales, which
+the deck disqualifies outright). Adding either would rank us for people we cannot serve.
+
+Verify with `scripts/verify-comparison-pages.mjs`.
+
 ## What each blog post asks for (`src/config/blog-offers.ts`)
 All 88 posts used to end with the same CTA — start a 30-day trial — which is a
 bottom-funnel ask on top-of-funnel writing. 51 of them are essays on burnout, note bloat
