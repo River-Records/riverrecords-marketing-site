@@ -8,6 +8,7 @@ import TimelineRecapDemo from '../components/demos/TimelineRecapDemo.vue';
 import { pricing } from '../config/pricing';
 import { stats } from '../config/stats';
 import { productVideos } from '../config/videos';
+import { homepageFaqs } from '../config/faqs';
 import LoomEmbed from '../components/LoomEmbed.astro';
 
 // Build-time fallback only. attribution.js overrides utm_source at runtime with the
@@ -51,17 +52,15 @@ const metricItems = [
       "offers": { "@type": "Offer", "price": "149", "priceCurrency": "USD" }
     }
     </script>
-    <script type="application/ld+json" is:inline>
-    {
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "Can I use Stream with my existing EHR?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Stream works alongside any EHR. Your note copies over in one click, formatted to paste into any field, or you can use Stream as your standalone documentation layer. There is no integration to set up, no IT project, and no implementation fee." }},
-        { "@type": "Question", "name": "Is Stream HIPAA compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fully HIPAA compliant. BAA with every subscriber — on every plan, including trials, with no minimum seat count. Encrypted at rest and in transit. We never train our models on your patient data." }},
-        { "@type": "Question", "name": "What security measures does Stream have beyond HIPAA?", "acceptedAnswer": { "@type": "Answer", "text": "All data is encrypted at rest and in transit. Audit controls and access logging are in place across the platform. We sign a Business Associate Agreement (BAA) with every subscriber, and we never train our models on your patient data." }}
-      ]
-    }
-    </script>
+      mainEntity: homepageFaqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })} />
   </Fragment>
 
 <style>
@@ -678,28 +677,14 @@ const metricItems = [
   <div class="hc">
     <div class="hl">COMMON QUESTIONS</div>
     <h2>Everything you need to know.</h2>
-    <p class="home-faq-sub">Still have questions? <a href="/contact/">Reach out →</a></p>
+    <p class="home-faq-sub">More on the <a href="/faq/">full FAQ page</a>, including what Stream does not do. Still stuck? <a href="/contact/">Reach out →</a></p>
     <div class="home-faq-grid">
-      <div class="home-faq-item">
-        <button class="home-faq-q">Can I use Stream with my existing EHR?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Yes. Stream works alongside any EHR — Athena, Epic, Elation, DrChrono, and anything else. Your note copies over in one click, formatted to paste into any field, or you can use Stream as your standalone documentation layer. There is nothing to install, no interface to build, and no implementation fee.</div>
-      </div>
-      <div class="home-faq-item">
-        <button class="home-faq-q">Can I customize how my notes look?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Absolutely. Stream supports fully customizable note templates. Configure structure, sections, and formatting to match your specialty, your EHR's requirements, or your personal style.</div>
-      </div>
-      <div class="home-faq-item">
-        <button class="home-faq-q">Is Stream HIPAA compliant?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Yes. Fully HIPAA compliant. We sign a Business Associate Agreement (BAA) with every subscriber — on every plan, including trials, with no minimum seat count. All data is encrypted at rest and in transit. We never train our models on your patient data.</div>
-      </div>
-      <div class="home-faq-item">
-        <button class="home-faq-q">What security measures does Stream have beyond HIPAA?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">All data is encrypted at rest and in transit. Audit controls and access logging are in place across the platform. We sign a Business Associate Agreement (BAA) with every subscriber, and we never train our models on your patient data. <a href="/security/">Read our security overview →</a></div>
-      </div>
-      <div class="home-faq-item">
-        <button class="home-faq-q">How is Stream different from other AI scribes?<span class="home-faq-icon">+</span></button>
-        <div class="home-faq-a">Most AI scribes stop at the note. Because Stream's notes are structured per problem, every visit updates a living, problem-organized chart — six months in, you have an actual longitudinal record, not a stack of disconnected documents. Built by practicing physicians, on peer-reviewed research into exactly this problem.</div>
-      </div>
+      {homepageFaqs.map((f) => (
+        <div class="home-faq-item">
+          <button class="home-faq-q">{f.q}<span class="home-faq-icon">+</span></button>
+          <div class="home-faq-a">{f.a}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
