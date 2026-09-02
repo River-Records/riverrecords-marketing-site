@@ -317,6 +317,22 @@ Verify with `scripts/verify-read-tracking.mjs`. It is slow on purpose: it spends
 minute actually reading a post, which is the only honest way to test a 60-second bar.
 
 ## Guides
+`/guides/the-defensible-visit/` and `/guides/pediatric-visit-coding/`. Both make specific
+coding claims to clinicians, so **accuracy outranks persuasiveness** and every criterion
+must trace to AAP, AMA or AAFP guidance rather than a billing vendor's blog.
+
+**CPT descriptors are not reproduced on the site.** River Records licenses CPT for use
+*in the product*; that is not automatically a licence to publish AMA descriptors on a
+public marketing page — those are typically separate grants with their own attribution
+terms. Code numbers are referenced descriptively, official wording is linked not copied,
+and `scripts/verify-pediatric-coding.mjs` fails if descriptors reappear. If the licence is
+later confirmed to cover publication, descriptors plus the required `CPT © AMA`
+attribution can be added; nothing depends on them.
+
+That script also asserts all ten code-to-age mappings row by row, because a wrong age
+band is immediately visible to the exact audience the page is written for.
+
+
 `/guides/the-defensible-visit/` is the asset the calculator promises. It explains the
 2021 MDM table — the 2-of-3 rule, the data categories and their counting traps, and why
 prescription drug management carries moderate risk in primary care.
