@@ -225,6 +225,33 @@ any third party is doing. Outcomes are reported in an `X-RR-Fanout` response hea
 misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
 `scripts/verify-calculator-fanout.mjs`.
 
+## Read tracking (`public/read-tracking.js`)
+Loaded from `BlogPost.astro`, so it runs on the 88 posts and nowhere else. Before it, the
+blog reported only that a page loaded — a view cannot tell a bounce from a six-minute
+read, so every post looked identical and "which pages are high value" was unanswerable.
+
+Three decisions in it are load-bearing:
+
+- **Engaged time, not elapsed time.** The clock stops when the tab is hidden and after 30
+  seconds without interaction. Otherwise a post left open in a background tab overnight
+  becomes the most engaging thing on the site, and every ranking built on it is wrong.
+- **Scroll measured against the article, not the document.** The footer, CTA and series
+  nav are not the post; measuring the page would let someone who scrolled to the footer
+  look like a completed read.
+- **`post_read` fires the moment both thresholds are crossed, mid-read — never on exit.**
+  Exit is the least reliable moment to send anything, because the page may be torn down
+  before a listener runs.
+
+Thresholds (60 engaged seconds, 70% depth) are a convenience flag. Every event carries
+the raw `engaged_seconds` and `scroll_depth`, so a different definition of "read" can be
+applied later to data already collected.
+
+Only `post_read` is forwarded to HubSpot. Scroll milestones stay in the dataLayer — a
+contact timeline full of "reached 25%" is a timeline nobody reads.
+
+Verify with `scripts/verify-read-tracking.mjs`. It is slow on purpose: it spends over a
+minute actually reading a post, which is the only honest way to test a 60-second bar.
+
 ## Guides
 `/guides/the-defensible-visit/` is the asset the calculator promises. It explains the
 2021 MDM table — the 2-of-3 rule, the data categories and their counting traps, and why
@@ -416,7 +443,12 @@ has to survive a return visit days later, which is exactly what storage is for. 
 rule still stands for everything else: no storing UI state, form drafts, dismissed
 banners, or preferences — those cause stale-state bugs on a static site and are what
 the rule was written against. Permitted keys are `rr_vid`, `rr_attribution`,
-`rr_debug`. Adding a new one is a decision, not a detail.
+`rr_debug`, `rr_reader`. Adding a new one is a decision, not a detail.
+
+`rr_reader` holds which posts this browser has genuinely read — slugs and a count,
+nothing about the person. It is bounded to 60 entries so it cannot grow without limit,
+and it exists so a later offer can be shown to someone on their third post rather than
+their first pageview.
 
 **Standalone scripts.** Ahrefs and HubSpot load directly in `Base.astro`. See the
 Analytics section for the full reasoning; the short version is that identity tracking

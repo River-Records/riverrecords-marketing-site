@@ -51,6 +51,12 @@
       return { path: "/engagement/video/intake-provenance-complete",
                title: "Watched the Intake provenance demo to the end" };
     },
+    post_read: function (e) {
+      // Fires once a post has genuinely been read, not merely opened. Worth a timeline
+      // line: "read three posts on undercoding" is a call, "visited the blog" is not.
+      return { path: "/engagement/read/" + (e.post_slug || "unknown"),
+               title: "Read: " + (e.post_slug || "a post") };
+    },
     cta_click_demo: function (e) {
       return { path: "/engagement/demo-cta",
                title: "Clicked through to book a demo" + (e.cta_page ? " from " + e.cta_page : "") };
