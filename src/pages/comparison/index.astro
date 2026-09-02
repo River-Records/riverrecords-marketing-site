@@ -1,6 +1,7 @@
 ---
 import Page from '../../layouts/Page.astro';
 import { getCollection } from 'astro:content';
+import { competitors } from '../../config/competitors';
 
 // Comparison guides live in the blog collection, tagged "comparisons".
 const guides = (await getCollection('blog', ({ data }) =>
@@ -15,6 +16,13 @@ const headToHead = [
     description: 'A direct, feature-by-feature look at how Stream and Freed compare for primary care documentation.',
     label: 'Head-to-head',
   },
+  // Generated from src/config/competitors.ts — adding a competitor there adds it here.
+  ...competitors.map((c) => ({
+    href: `/comparison/${c.slug}`,
+    title: c.title,
+    description: c.seoDescription,
+    label: 'Head-to-head',
+  })),
 ];
 ---
 <Page
