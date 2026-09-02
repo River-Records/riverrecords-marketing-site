@@ -93,7 +93,11 @@ const faqs = [
 .pc ul { margin: 0 0 18px; padding-left: 22px; }
 .pc li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
 .pc strong { color: var(--ink); }
-.pc a { color: var(--primary); }
+/* :not(.btn) matters. A bare `.pc a` is class+element and outranks `.btn-primary-lg`,
+   which paints button text the same green as the button — 1.00:1, invisible. This is
+   the second time that specificity trap has bitten; scripts/verify-button-contrast.mjs
+   now measures every button on every page so it cannot happen a third time. */
+.pc a:not(.btn) { color: var(--primary); }
 
 table.pc-table { width: 100%; border-collapse: collapse; margin: 18px 0 26px; font-size: 0.94rem; }
 table.pc-table th { text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 14px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }

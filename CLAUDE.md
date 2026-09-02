@@ -401,6 +401,17 @@ rather than hotlinked so the homepage doesn't pull ~1MB of animated GIF from Loo
 
 Verify with `scripts/verify-video-embeds.mjs` after touching the component or the config.
 
+## Page-scoped link colours must exclude buttons
+Write `.page a:not(.btn)`, never a bare `.page a`. A class-plus-element selector like
+`.pc a` outranks the single class `.btn-primary-lg`, so it repaints button text in the
+link colour — which on a green button is the same green. That has shipped twice: an
+invisible price line on `/pricing/`, then a 1.00:1 button on the pediatric coding guide.
+
+Both times the build passed and every functional test passed. Only looking at the
+rendered page caught it, which is why `scripts/verify-button-contrast.mjs` now measures
+computed colours for every button on every page against WCAG. Run it after any change
+that adds a page-scoped `a { color: … }` rule.
+
 ## Design system
 
 ### Colors
