@@ -7,7 +7,11 @@
 # Old core page redirects (301 for SEO equity)
 /compare/freed-alternative  /comparison/freedai  301
 /compare/heidi-alternative  /  301
-/compare/open-evidence-alternative  /  301
+# The OpenEvidence page was pulled because it implied a competition that does not
+# exist — they are clinical decision support, we are documentation. But the URL still
+# holds 2,451 impressions at position 8, and sending that to the homepage converted
+# almost none of it. It now points at a page scoped honestly to the scribe.
+/compare/open-evidence-alternative  /comparison/openevidence-scribe/  301
 # Catch-all for any other legacy /compare URL → comparison hub
 /compare/*  /comparison  301
 /compare  /comparison  301
