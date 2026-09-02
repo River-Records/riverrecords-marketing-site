@@ -225,6 +225,26 @@ any third party is doing. Outcomes are reported in an `X-RR-Fanout` response hea
 misconfiguration can be diagnosed with `curl -I` rather than a redeploy. Verify with
 `scripts/verify-calculator-fanout.mjs`.
 
+## What each blog post asks for (`src/config/blog-offers.ts`)
+All 88 posts used to end with the same CTA — start a 30-day trial — which is a
+bottom-funnel ask on top-of-funnel writing. 51 of them are essays on burnout, note bloat
+and information chaos, where a credit card is the wrong request. The offer is now chosen
+from the post's own tags.
+
+**The rule ORDER is the design.** Posts carry two or three tags and the first match wins,
+so ordering is what makes the outcome sensible. Two orderings were tried and rejected:
+`practice-operations` high in the list (too broad at 17 posts — it put the revenue
+calculator on burnout essays), and `medical-decision-making` pointing at the calculator
+(The Defensible Visit is *literally* a guide to documenting MDM, so that tag belongs to
+the guide). The `Revenue & Coding` series override sits first because those posts must
+reach the calculator despite tags that would otherwise route them to the guide.
+
+Current spread: guide 44, book 21, calculator 13, trial 9, demo 1.
+
+Keep the offer list short. A reader gets one ask, and a fourth variant of "read this" is
+not a new ask. `blog_cta_click` carries the offer key so it stays possible to tell
+whether matching beat the single generic CTA. Verify with `scripts/verify-blog-offers.mjs`.
+
 ## Read tracking (`public/read-tracking.js`)
 Loaded from `BlogPost.astro`, so it runs on the 88 posts and nowhere else. Before it, the
 blog reported only that a page loaded — a view cannot tell a bounce from a six-minute

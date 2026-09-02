@@ -3,8 +3,12 @@ import Base from './Base.astro';
 import OfferBanner from '../components/OfferBanner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { offerFor } from '../config/blog-offers';
 
 const { frontmatter, seriesPosts = [] } = Astro.props;
+// Which ask this post ends on, chosen from its own tags. See src/config/blog-offers.ts —
+// the ordering of the rules there is the design, not an implementation detail.
+const { key: offerKey, offer } = offerFor(frontmatter);
 const title = frontmatter.seoTitle || frontmatter.title;
 const description = frontmatter.seoDescription || frontmatter.description;
 const inSeries = seriesPosts.length > 1 && frontmatter.series;
@@ -82,10 +86,16 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
           </div>
         )}
         <div class="blog-post-footer">
-          <div class="blog-cta-card">
-            <h3>Try Stream free for 30 days.</h3>
-            <p>The AI medical scribe with memory. Problem-oriented notes, automatic tasks, and a chart that gets smarter with every visit.</p>
-            <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Try it on your next visit</a>
+          <div class="blog-cta-card" data-offer={offerKey}>
+            <span class="blog-cta-eyebrow">{offer.eyebrow}</span>
+            <h3>{offer.heading}</h3>
+            <p>{offer.body}</p>
+            <a
+              href={offer.href}
+              class="btn btn-primary-lg"
+              data-offer-cta={offerKey}
+              {...(offer.external ? { rel: 'noopener' } : {})}
+            >{offer.cta}</a>
           </div>
         </div>
       </div>
@@ -97,6 +107,20 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
       it runs on posts only. See public/read-tracking.js.
     -->
     <script is:inline src="/read-tracking.js"></script>
+    <script is:inline>
+      // Which offer this reader was shown, and whether they took it. Without this we
+      // could not tell later whether topic-matching beat the single trial CTA.
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('[data-offer-cta]') : null;
+        if (!a) return;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'blog_cta_click',
+          offer: a.getAttribute('data-offer-cta'),
+          post_path: location.pathname
+        });
+      }, true);
+    </script>
   </main>
   <Footer />
 </Base>
@@ -323,6 +347,15 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
   border-radius: var(--r-xl);
   padding: 32px;
   text-align: center;
+}
+.blog-cta-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
 .blog-cta-card h3 {
   font-size: 1.3rem;
