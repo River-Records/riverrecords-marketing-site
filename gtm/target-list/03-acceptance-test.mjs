@@ -28,6 +28,13 @@ const outDir = flag('--out-dir') || OUT_DIR;
 const TIER1_BAR = 0.6;
 const TIER12_BAR = 0.85;
 
+// Tier is not the only reading, and on this customer base it is the misleading one. Tier 1
+// requires 2-10 providers, so a solo practice cannot reach it however complex its panel —
+// and much of our customer base is solo. The percentile bar asks the question the tier
+// boundary is a proxy for: do our accounts actually score as high-complexity? A seed at or
+// above the 75th percentile is where Tier 1 starts, whatever its size.
+const PCTILE_BAR = 0.6;
+
 if (!existsSync(SEEDS)) {
   console.error(`\nNo seed file at ${SEEDS}.\n\nThe acceptance test cannot run without one. See gtm/target-list/seeds/README.md\nfor the four columns it needs.\n`);
   process.exit(2);
@@ -89,6 +96,7 @@ function locate(seed) {
 const results = seeds.map((s) => ({ seed: s, ...locate(s) }));
 const placed = results.filter((r) => r.practice);
 const tier = (t) => placed.filter((r) => r.practice.tier === String(t)).length;
+const hasSegments = seeds.some((s) => (s.segment || '').trim());
 
 console.log(`\nAcceptance test — ${seeds.length} seed practice(s)\n`);
 console.log('  seed practice'.padEnd(46) + 'tier  pctile  panel   risk   matched by');
@@ -109,6 +117,33 @@ const excluded = results.filter((r) => r.drop);
 const missing = results.filter((r) => !r.practice && !r.drop);
 console.log(`\n  Tier 1: ${tier(1)}   Tier 2: ${tier(2)}   Tier 3: ${tier(3)}   excluded: ${excluded.length}   not found: ${missing.length}`);
 
+// A seed list assembled from the CRM is not homogeneous — pediatric practices and non-US
+// ones cannot appear in a Medicare list at all, and health-system practices are removed by
+// our own rules. Averaging those together with the addressable accounts hides which group
+// is failing, so report per segment whenever the seed file labels them.
+if (hasSegments) {
+  const segs = [...new Set(seeds.map((s) => (s.segment || 'unlabelled').trim()))];
+  console.log('\n  By segment' + ' '.repeat(14) + 'seeds  placed  T1  T2  T3  excluded  not found');
+  console.log('  ' + '-'.repeat(72));
+  for (const seg of segs) {
+    const rs = results.filter((r) => (r.seed.segment || 'unlabelled').trim() === seg);
+    const pl = rs.filter((r) => r.practice);
+    const t = (n) => pl.filter((r) => r.practice.tier === String(n)).length;
+    console.log(`  ${seg.padEnd(24)}${String(rs.length).padStart(3)}` +
+      `${String(pl.length).padStart(8)}${String(t(1)).padStart(4)}${String(t(2)).padStart(4)}${String(t(3)).padStart(4)}` +
+      `${String(rs.filter((r) => r.drop).length).padStart(10)}${String(rs.filter((r) => !r.practice && !r.drop).length).padStart(11)}`);
+  }
+}
+
+// The size-independent reading of the same result.
+const pctiles = placed.map((r) => Number(r.practice.risk_pctile)).filter((n) => Number.isFinite(n)).sort((a, b) => a - b);
+const median = pctiles.length ? pctiles[Math.floor(pctiles.length / 2)] : null;
+const aboveP75 = pctiles.filter((p) => p >= 75).length;
+if (pctiles.length) {
+  console.log(`\n  Risk percentile of matched seeds: median ${median.toFixed(1)}, ` +
+    `${aboveP75} of ${pctiles.length} at or above the 75th`);
+}
+
 // The informative failures. A seed that our own exclusion rules removed is a keyword list
 // that is too aggressive; a seed that is missing entirely is usually a Medicare Advantage
 // panel that source A cannot see.
@@ -126,17 +161,32 @@ if (missing.length) {
 
 let verdict;
 if (placed.length === 0) {
-  verdict = 'INCONCLUSIVE — no seed matched a practice in the list. Fix the seed file or the exclusions first.';
+  verdict = 'INCONCLUSIVE — no seed matched a practice in the list.\n' +
+    '  That is a statement about the seed file, not about the scoring. Work through the two\n' +
+    '  lists above before drawing any conclusion about risk_score_wtd.';
 } else {
   const t1 = tier(1) / placed.length;
   const t12 = (tier(1) + tier(2)) / placed.length;
-  const ok = t1 >= TIER1_BAR && t12 >= TIER12_BAR;
-  verdict = ok
-    ? `VALIDATED — ${(t1 * 100).toFixed(0)}% of matched seeds are Tier 1 and ${(t12 * 100).toFixed(0)}% are Tier 1 or 2.`
-    : `NOT VALIDATED — ${(t1 * 100).toFixed(0)}% Tier 1 (bar ${TIER1_BAR * 100}%), ${(t12 * 100).toFixed(0)}% Tier 1-2 (bar ${TIER12_BAR * 100}%).\n` +
-      '  The seeds scatter across tiers, so risk_score_wtd is not separating our best-fit accounts\n' +
-      '  from everyone else. Fix the scoring before this list goes to Bullpen — that is what this\n' +
+  const pct = pctiles.length ? aboveP75 / pctiles.length : 0;
+  const tierOk = t1 >= TIER1_BAR && t12 >= TIER12_BAR;
+  const pctOk = pct >= PCTILE_BAR;
+
+  if (tierOk && pctOk) {
+    verdict = `VALIDATED — ${(t1 * 100).toFixed(0)}% of matched seeds are Tier 1, ${(t12 * 100).toFixed(0)}% Tier 1-2, ` +
+      `and ${(pct * 100).toFixed(0)}% score at or above the 75th percentile.`;
+  } else if (pctOk) {
+    // The informative split: the scoring works, the tier definition is what excludes them.
+    verdict = `SCORING VALIDATED, TIERING DOES NOT FIT — ${(pct * 100).toFixed(0)}% of matched seeds score at or\n` +
+      `  above the 75th percentile, so risk_score_wtd does separate our accounts. But only\n` +
+      `  ${(t1 * 100).toFixed(0)}% reach Tier 1, because Tier 1 requires 2-10 providers and much of this seed set\n` +
+      '  is solo. Decide whether solo practices need a tier of their own before changing the score.';
+  } else {
+    verdict = `NOT VALIDATED — ${(t1 * 100).toFixed(0)}% Tier 1 (bar ${TIER1_BAR * 100}%), ${(t12 * 100).toFixed(0)}% Tier 1-2 (bar ${TIER12_BAR * 100}%), ` +
+      `${(pct * 100).toFixed(0)}% at or above the 75th percentile (bar ${PCTILE_BAR * 100}%).\n` +
+      '  The seeds scatter, so risk_score_wtd is not separating our best-fit accounts from\n' +
+      '  everyone else. Fix the scoring before this list goes to Bullpen — that is what this\n' +
       '  test is for.';
+  }
 }
 console.log(`\n  ${verdict}\n`);
 process.exit(verdict.startsWith('VALIDATED') ? 0 : 1);

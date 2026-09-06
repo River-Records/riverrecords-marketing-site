@@ -61,7 +61,10 @@ failure mode of a broken dedupe is not a crash — it is a plausible-looking fil
 
 **The acceptance test.** The spec calls it the whole point of building the list this way, and
 it is the only evidence the scoring means anything. Risk score is a proxy for panel
-complexity; nothing guarantees it is the proxy that predicts who buys.
+complexity; nothing guarantees it is the proxy that predicts who buys. It reports three ways —
+by tier, by segment, and by raw risk percentile — because on our current customer base the
+tier reading alone is misleading: Tier 1 requires 2–10 providers and much of that base is
+solo, so it can fail the tier bar while the *score* is working perfectly.
 
 ## Known blind spots, carried deliberately
 
