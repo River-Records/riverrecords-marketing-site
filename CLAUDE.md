@@ -289,6 +289,49 @@ the deck disqualifies outright). Adding either would rank us for people we canno
 
 Verify with `scripts/verify-comparison-pages.mjs`.
 
+## Outbound target list (`gtm/target-list/`)
+
+Builds a scored, practice-level list of independent primary care practices with
+high-complexity Medicare panels, for Bullpen outbound, from public provider-level CMS files.
+No PHI anywhere in it. Not part of the Astro build — it is a standalone Node pipeline with no
+dependencies, run by hand. Full documentation in `gtm/target-list/README.md`.
+
+**It is a scored list with tiers, not a hard filter.** Nothing that survives the exclusions is
+thrown away for scoring poorly; it lands in Tier 3. The point is to keep volume while we learn
+which tier converts, so do not turn a tier boundary into a filter.
+
+Four things in it are load-bearing:
+
+- **`drop-log.csv`.** Ownership is not in public data, so the health-system and safety-net
+  exclusions are keyword proxies over a legal business name. They over-fire and under-fire.
+  The drop log, with the exact token that matched, is what makes that a tuning problem rather
+  than an invisible one.
+- **The acceptance test** (`03-acceptance-test.mjs`). Seed the list with existing customers and
+  the Coffman-adjacent network and check where they land. Risk score is a proxy for panel
+  complexity; nothing guarantees it is the proxy that predicts who buys. If the seeds scatter
+  across tiers the scoring is wrong, and that is worth knowing before anyone dials.
+- **The volume sanity check.** Tier 1 should be in the low thousands nationally. Outside that,
+  the dedupe or the exclusions are broken — and the failure mode is not a crash, it is a
+  plausible-looking file.
+- **`dual_rate` is an output column, never a tier boundary.** It correlates with complexity
+  rather than causing it, and filtering on it pulls back in exactly the safety-net
+  organisations the exclusions remove.
+
+Two things about the sources that are easy to get wrong. The Physician & Other Practitioners
+file is **fee-for-service only** — it cannot see Medicare Advantage, so a heavy-MA practice
+looks smaller and less complex than it is, which matters when the servable-state list is
+chosen. And `bene_avg_risk_scre` reflects the diagnoses a practice actually *documented*, so
+the list has a mild bias towards practices that already code well — the ones who need us least.
+`cc_density` and `dual_rate` are the counterweights.
+
+CMS renames columns between releases, so every column is resolved through an alias list in
+`config/sources.mjs` and the chronic-condition columns are found by pattern with their scale
+detected rather than assumed. A missing required column fails loudly with the real header
+printed; `summary.json` reports what matched.
+
+Verify with `node gtm/target-list/verify-pipeline.mjs` — 54 checks against a synthetic fixture
+with hand-computed values, no network and no CMS download needed.
+
 ## What each blog post asks for (`src/config/blog-offers.ts`)
 All 88 posts used to end with the same CTA — start a 30-day trial — which is a
 bottom-funnel ask on top-of-funnel writing. 51 of them are essays on burnout, note bloat

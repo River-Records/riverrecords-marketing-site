@@ -2,3 +2,8 @@
 node_modules/
 dist/
 .astro/
+
+# Target-list build: large CMS downloads, regenerable output, and a customer seed list
+gtm/target-list/data/
+gtm/target-list/out/
+gtm/target-list/seeds/*.csv
