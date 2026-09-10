@@ -16,7 +16,7 @@ Site-wide — wire these first:
 | `rr_attribution_ready` | every page, once attribution resolves | `rr_vid`, first/last source, medium, campaign, landing page |
 | `cta_click_signup` | a signup CTA is clicked | `cta_label`, `cta_page`, `rr_vid` |
 | `cta_click_demo` | a link to `/book-demo` is clicked | `cta_label`, `cta_page`, `rr_vid` |
-| `video_play` | a product walkthrough is played | `video_key`, `video_title`, `video_context` |
+| `video_play` | a product walkthrough is played | `video_key`, `video_title`, `video_context`, `video_trigger` |
 | `contact_form_submit` | the contact form is submitted | `rr_vid`, `rr_first_source` |
 
 `/intake` only — these predate the recent work and have been firing into the void the
@@ -34,6 +34,14 @@ whole time. Lower priority, but they exist and they are free engagement data:
 > (with `video_context: "intake"`), while `intake_video_play` is the small silent
 > provenance demo further down the page. They are different things; do not merge them
 > into one GA4 event or the numbers will not mean anything.
+
+`video_trigger` distinguishes how playback started: `click` is someone on the page
+choosing to watch, `deeplink` is someone arriving at `/intake/#watch` or `/#watch-scribe`
+from outbound email, where the player opens on arrival. Both are real intent and both
+belong on a contact timeline, but they are not the same intent — a deep-linked open only
+proves the link was clicked, and the browser may have blocked autoplay. Keep them
+separable: if you build a "watched a walkthrough" audience, segment on
+`video_trigger = click`.
 
 ---
 
