@@ -15,6 +15,29 @@
  * walkthrough is one of the strongest buying signals on the site, so it is worth
  * a GTM tag and, once someone is a known contact, a line on their CRM timeline.
  * See docs/GROWTH-DATA-AUDIT.md.
+ *
+ * DEEP LINKS — `#watch` and `#watch-<key>`
+ *
+ * Cold outreach was linking prospects straight to loom.com, which is a dead end:
+ * no HubSpot tracking, so no page view and no identity stitch, and the visitor
+ * lands somewhere with no CTA. Linking to the page holding the same video fixes
+ * all of that, but only if the video is where the email promised it would be —
+ * a prospect told "here is a 3-minute video" should not have to hunt for it.
+ *
+ *   /intake/#watch            → the video on this page
+ *   /#watch-scribe            → that specific video, by key
+ *
+ * Both scroll the player into view and open it. `#watch-<key>` matches the
+ * button's own id, so the browser scrolls natively before the script runs.
+ *
+ * Playback may not actually start: browsers block unmuted autoplay without a
+ * gesture in the document, and an inbound click from an email is not one. When
+ * it is blocked the visitor gets Loom's own player, loaded and centred, one
+ * click from playing — still far better than a marketing page they must search.
+ *
+ * The event fires either way, carrying `video_trigger` ('click' | 'deeplink')
+ * so a deep-linked open stays separable from someone choosing to watch. Both
+ * are real intent; they are not the same intent.
  */
 import type { ProductVideo } from '../config/videos';
 import { videoRatio } from '../config/videos';
@@ -36,6 +59,7 @@ const { video, variant = 'card', caption = true, context = 'page' } = Astro.prop
   <button
     class="loom-frame"
     type="button"
+    id={`watch-${video.key}`}
     data-loom-id={video.id}
     data-loom-key={video.key}
     data-loom-title={video.title}
@@ -78,6 +102,12 @@ const { video, variant = 'card', caption = true, context = 'page' } = Astro.prop
   /* The button is the player surface: sized by the real video ratio so swapping
      the iframe in on click cannot shift the page. */
   .loom-frame {
+    /* Clears the 62px sticky nav when arrived at via #watch-<key>. Chrome
+       re-runs its own fragment scroll as the page lays out, so a JS-only
+       centring loses the race and the player ends up under the nav (measured
+       at y=-24). Declaring the offset here means both the browser's scroll and
+       ours land in the same place and there is nothing to race. */
+    scroll-margin-top: 86px;
     position: relative;
     display: block;
     width: 100%;
@@ -220,12 +250,8 @@ const { video, variant = 'card', caption = true, context = 'page' } = Astro.prop
 </style>
 
 <script>
-  // One delegated listener regardless of how many embeds are on the page.
-  // Astro bundles this once even when the component is used several times.
-  document.addEventListener('click', (event) => {
-    const target = event.target as HTMLElement | null;
-    const frame = target?.closest<HTMLElement>('.loom-frame');
-    if (!frame || frame.classList.contains('is-playing')) return;
+  function play(frame: HTMLElement, trigger: 'click' | 'deeplink') {
+    if (frame.classList.contains('is-playing')) return;
 
     const id = frame.dataset.loomId;
     if (!id) return;
@@ -248,6 +274,68 @@ const { video, variant = 'card', caption = true, context = 'page' } = Astro.prop
       video_title: frame.dataset.loomTitle,
       video_context: frame.dataset.loomContext,
       video_page: window.location.pathname,
+      video_trigger: trigger,
     });
+  }
+
+  // One delegated listener regardless of how many embeds are on the page.
+  // Astro bundles this once even when the component is used several times.
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const frame = target?.closest<HTMLElement>('.loom-frame');
+    if (frame) play(frame, 'click');
   });
+
+  // `#watch` opens the page's video, `#watch-<key>` a named one. Written for
+  // outbound email, where the link has already promised a specific video.
+  function openFromHash() {
+    const hash = window.location.hash;
+    if (!hash.startsWith('#watch')) return;
+
+    let frame: HTMLElement | null;
+    if (hash === '#watch') {
+      frame = document.querySelector<HTMLElement>('.loom-frame');
+    } else {
+      // getElementById rather than a built selector — no escaping to get wrong,
+      // and the class check keeps an unrelated #watch-something anchor inert.
+      const el = document.getElementById(hash.slice(1));
+      frame = el && el.classList.contains('loom-frame') ? el : null;
+    }
+    if (!frame) return;
+
+    align(frame);
+    play(frame, 'deeplink');
+
+    // A scroll position is absolute, so anything above the player that resizes
+    // after we scroll leaves it short of its margin rather than moving the page
+    // along with it — measured at 24px on /intake/, most of the 86px clearance.
+    // Waiting for `load` before scrolling at all would be worse: it blocks on
+    // every image on the page, and someone who clicked a link promising a video
+    // should see one immediately. So open now, correct once when loading ends.
+    if (document.readyState !== 'complete') {
+      let cancelled = false;
+      const cancel = () => { cancelled = true; };
+      for (const evt of ['wheel', 'touchstart', 'keydown'] as const) {
+        window.addEventListener(evt, cancel, { once: true, passive: true });
+      }
+      window.addEventListener('load', () => { if (!cancelled) align(frame!); }, { once: true });
+    }
+  }
+
+  // 'start' lands where the browser's own fragment scroll does, both offset by
+  // the scroll-margin-top in the stylesheet above.
+  //
+  // 'instant' for everyone, deliberately not smooth. shared.css sets
+  // scroll-behavior: smooth on html, which animates a journey of several
+  // thousand pixels here — and the lazy images scrolled past during it shift
+  // layout under a target that was already committed. An instant jump has no
+  // journey to invalidate, and is what someone arriving from an email wants:
+  // to be at the video, not to watch the page travel to it.
+  function align(frame: HTMLElement) {
+    frame.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }
+
+  // rAF so the aspect-ratio boxes have been laid out before we measure a scroll.
+  requestAnimationFrame(openFromHash);
+  window.addEventListener('hashchange', openFromHash);
 </script>

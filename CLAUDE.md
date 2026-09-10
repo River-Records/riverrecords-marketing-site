@@ -392,6 +392,39 @@ who never watch, and (3) the play click is measurable. It pushes `video_play` to
 dataLayer with the video key and context; watching a walkthrough is one of the strongest
 buying signals on the site.
 
+### Deep links for outbound: `#watch` and `#watch-<key>`
+
+`/intake/#watch` opens that page's video on arrival; `/#watch-scribe` opens a named one.
+**These exist for cold email and the outbound team depends on them** — Bullpen was
+linking prospects straight to loom.com, which is a dead end: no HubSpot tracking, so no
+page view and no identity stitch, no `video_play`, and the visitor lands somewhere with
+no CTA. Linking to the page carrying the same video fixes all of that, but only if the
+video is where the email promised — a prospect told "here is a 3-minute video" must not
+have to hunt for it.
+
+- Intake → `https://www.riverrecords.ai/intake/#watch`
+- Huddle → `https://www.riverrecords.ai/features/huddle/#watch`
+- Scribe → `https://www.riverrecords.ai/#watch-scribe`
+
+Two things in the implementation are load-bearing and were each arrived at by measurement:
+
+- **The jump is instant, never smooth.** `shared.css` sets `scroll-behavior: smooth` on
+  `html`, which animates a journey of several thousand pixels — and the lazy images
+  scrolled past during it shift layout under a scroll target that is already committed,
+  landing the player 24px short. An instant jump has no journey to invalidate.
+- **It opens immediately, then re-aligns once on `load`.** Waiting for `load` before
+  scrolling blocks on every image on the page; scrolling without correcting leaves the
+  player short of its `scroll-margin-top` and, on a slower page, back under the sticky
+  nav — which is the bug the feature exists to avoid. The correction is cancelled if the
+  visitor has already scrolled themselves.
+
+`video_play` carries `video_trigger` (`click` | `deeplink`) so a deep-linked open stays
+separable from someone choosing to watch. Both are real intent; they are not the same
+intent, and a deep-linked open does not prove the video played — browsers block unmuted
+autoplay without a gesture in the document, and an inbound click from an email is not one.
+When it is blocked the visitor still gets Loom's player, loaded and positioned, one click
+from playing.
+
 Sizing is built to `1280x828`, the real footage dimensions. Loom's oEmbed reports
 `1668x1251` — that is its default player box, and building to it letterboxes every video.
 
