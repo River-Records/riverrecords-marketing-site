@@ -265,6 +265,33 @@ answers and rich results. Verify with `scripts/verify-pricing-page.mjs`, which a
 the page is reachable, that its numbers match the config, and that the schema carries
 the real price.
 
+## `/clinical-documentation-automation/` — the first data-driven page
+Built from the Search Console snapshot, not a hunch. In the 28 days to 2026-09-11, seven
+closely-related queries — "clinical documentation automation", "automated clinical
+documentation", "how to automate clinical documentation", "benefits of automating
+clinical documentation" and variants — drew ~240 impressions and **zero clicks**, all
+landing on `/blog/automated-clinical-documentation-supporting-complex-care/`, a 2024 post
+about complex care management ranking accidentally at position 16.4.
+
+That post now links here, so the cluster consolidates on a page written for it. **Do not
+remove that link** — it is the mechanism, not a courtesy.
+
+The honest sections are the page's reason to exist, not a hedge. This category is full of
+vendor pages that answer "what is it" with a pitch, and the audience has already been
+pitched. Three things should not be trimmed:
+- **"What it does not automate"** — clinical judgment and the review step
+- **The evaluation questions we lose on** — no EHR write-back, no SOC 2. Same rule as the
+  comparison pages: conceding is what makes the rest credible.
+- **The five-layer table**, which is the actual reference value; nobody else lays the
+  category out plainly.
+
+FAQPage schema declares exactly the five questions rendered, from one array, for the same
+reason `faqs.ts` does it that way.
+
+Whether this worked is answerable in about three months, from the weekly snapshots in
+`data/gsc/` — compare position and clicks for those seven queries against the
+2026-09-11 baseline. That is the point of collecting them.
+
 ## Head-to-head comparison pages (`src/config/competitors.ts`)
 `/comparison/[slug]` is generated from that config; `/comparison/freedai` remains a
 bespoke page. Content is derived from the GTM battle cards in `gtm/battle-cards/`.
@@ -433,6 +460,25 @@ preview GIF (the refresh command is in the header of `videos.ts`). They are comm
 rather than hotlinked so the homepage doesn't pull ~1MB of animated GIF from Loom's CDN.
 
 Verify with `scripts/verify-video-embeds.mjs` after touching the component or the config.
+
+## `.reveal` is global now — do not add a per-page observer
+`shared.css` sets `.reveal { opacity: 0 }` and only `.reveal.visible` brings it back.
+That class used to be added by an inline `IntersectionObserver` that each page had to
+remember to include, and `CtaDark` hardcodes `reveal` — so a page that forgot one
+rendered **no visible call to action**. `/research/` shipped that way, and a new page
+using the same component reproduced it immediately.
+
+`public/reveal.js` now runs from `Base.astro` on every page, so the class cannot be a
+trap. Pages that still carry their own observer are harmless — both add the same class.
+There is also a `<noscript>` rule, because scroll-reveal is an enhancement and must not
+take the content with it when JS is off.
+
+This is the same silent family as the button-contrast bug: markup present, build green,
+links clickable, every functional test passing, and nothing visible on screen. Only a
+computed opacity catches it, which is what `scripts/verify-reveal.mjs` measures across
+every page carrying the class — no sampling. If it reports elements hidden *while they
+carry* `.visible`, the test is measuring mid-transition rather than finding a bug; the
+fade is 0.6s and `.reveal-delay-3` adds 0.3s on top.
 
 ## Page-scoped link colours must exclude buttons
 Write `.page a:not(.btn)`, never a bare `.page a`. A class-plus-element selector like
