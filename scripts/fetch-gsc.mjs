@@ -238,10 +238,23 @@ const snapshot = {
 };
 
 await mkdir(OUT_DIR, { recursive: true });
-const dated = join(OUT_DIR, `${endDate}.json`);
-await writeFile(dated, JSON.stringify(snapshot, null, 2) + '\n');
-await writeFile(join(OUT_DIR, 'latest.json'), JSON.stringify(snapshot, null, 2) + '\n');
+
+/*
+ * The window length is part of the filename, and that is not cosmetic. Keying only on
+ * endDate means a 365-day pull silently overwrites the 28-day snapshot taken the same
+ * day — which happened on 2026-09-14 and destroyed the baseline the first data-driven
+ * page was meant to be judged against. Different windows are different measurements and
+ * must not collide.
+ *
+ * `latest-<days>d.json` is a stable pointer per window, so a weekly 28-day comparison
+ * cannot accidentally end up reading a one-off annual pull.
+ */
+const dated = join(OUT_DIR, `${endDate}-${DAYS}d.json`);
+const latest = join(OUT_DIR, `latest-${DAYS}d.json`);
+const body = JSON.stringify(snapshot, null, 2) + '\n';
+await writeFile(dated, body);
+await writeFile(latest, body);
 
 console.log(`\n  ${totals.clicks} clicks, ${totals.impressions} impressions`);
 console.log(`  wrote ${dated}`);
-console.log(`  wrote ${join(OUT_DIR, 'latest.json')}`);
+console.log(`  wrote ${latest}`);

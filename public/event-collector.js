@@ -57,8 +57,9 @@
   var FIELDS = [
     // video_play
     "video_key", "video_title", "video_context", "video_trigger", "video_page",
-    // post_read and scroll milestones
+    // read tracking, for posts and for pages that opt in via the Page layout
     "post_slug", "engaged_seconds", "scroll_depth", "milestone",
+    "content_type", "posts_read_total",
     // CTAs
     "cta_label", "cta_page", "offer", "offer_key",
     // /intake

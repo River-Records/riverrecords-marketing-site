@@ -1,5 +1,5 @@
 /*
- * read-tracking.js — measures whether a post was actually read.
+ * read-tracking.js — measures whether a post or page was actually read.
  *
  * WHY
  * The blog is the largest asset on the site and, until now, reported only that a page
@@ -28,11 +28,28 @@
  * The raw numbers travel with every event, so the READ_* thresholds below are a
  * convenience flag rather than the only thing preserved — a different definition of
  * "read" can be applied later to data already collected.
+ *
+ * POSTS AND PAGES
+ * This used to load only from BlogPost.astro, so the 88 posts had engagement data and
+ * everything else — pricing, the guides, the specialty pages, the whole funnel people
+ * actually convert on — reported a page view and nothing more. "Did anyone read the new
+ * page" was unanswerable for every page that was not a post.
+ *
+ * It now runs site-wide and activates on two things: `.blog-post`, and any element
+ * carrying `data-rr-read` (set by the `readable` prop on the Page layout). Anywhere
+ * neither exists it does nothing, which is most of the site.
+ *
+ * Posts and pages emit DIFFERENT event names on purpose. `post_read` is already wired to
+ * the HubSpot timeline and feeds the rr_reader profile, and both should keep meaning
+ * "read a blog post". Pages emit `page_read` instead, carrying `content_type` so guides,
+ * pricing and specialty pages stay separable. Page reads deliberately do NOT go to
+ * HubSpot yet — time on /pricing/ is a strong buying signal, but almost nobody is an
+ * identified contact today, so it would be timeline noise now and is easy to add later.
  */
 (function () {
   "use strict";
 
-  var ARTICLE = '.blog-post, article';
+  var TARGET = '.blog-post, [data-rr-read]';
   var IDLE_AFTER = 30000;   // no interaction for this long and the clock stops
   var TICK = 1000;
   var READ_SECONDS = 60;    // engaged seconds before it counts as read
@@ -41,8 +58,14 @@
   var PROFILE_KEY = 'rr_reader';
   var PROFILE_MAX = 60;     // slugs retained; bounded so storage cannot grow forever
 
-  var article = document.querySelector(ARTICLE);
+  var article = document.querySelector(TARGET);
   if (!article) return;
+
+  // A post is the thing with the existing contract; everything else is a page, and
+  // carries the type its author declared so guides and pricing stay distinguishable.
+  var isPost = article.classList.contains('blog-post');
+  var contentType = isPost ? 'post' : (article.getAttribute('data-rr-read') || 'page');
+  var PREFIX = isPost ? 'post' : 'page';
 
   var slug = location.pathname.replace(/^\/|\/$/g, '').split('/').pop() || 'unknown';
   var engaged = 0;
@@ -53,7 +76,8 @@
 
   function dl(event, extra) {
     var payload = {
-      event: event,
+      event: PREFIX + '_' + event,
+      content_type: contentType,
       post_slug: slug,
       post_path: location.pathname,
       engaged_seconds: Math.round(engaged),
@@ -106,7 +130,7 @@
     MILESTONES.forEach(function (m) {
       if (maxDepth >= m && !hit[m]) {
         hit[m] = true;
-        dl('post_scroll', { milestone: m });
+        dl('scroll', { milestone: m });
       }
     });
     maybeRead();
@@ -129,17 +153,19 @@
     if (readFired) return;
     if (engaged < READ_SECONDS || maxDepth < READ_DEPTH) return;
     readFired = true;
-    var n = recordRead();
+    // The reader profile is about posts specifically — it exists so an offer can be
+    // shown to someone on their third post. Pages must not inflate that count.
+    var n = isPost ? recordRead() : 0;
     // The one event worth a line on someone's CRM timeline. Scroll milestones are
     // deliberately not forwarded — a timeline full of "reached 25%" is a timeline
     // nobody reads.
-    dl('post_read', { posts_read_total: n });
+    dl('read', isPost ? { posts_read_total: n } : {});
   }
 
   // Best-effort summary. The read itself has already fired by now if it qualified;
   // this is for the analysis of everything that did not.
   function summarise() {
-    if (document.visibilityState === 'hidden') dl('post_engagement');
+    if (document.visibilityState === 'hidden') dl('engagement');
   }
   document.addEventListener('visibilitychange', summarise);
 

@@ -24,6 +24,11 @@ await p.evaluate(async ()=>{ // walk down the article
   const a=document.querySelector('.blog-post');
   const end=a.getBoundingClientRect().height;
   for(let y=0;y<end;y+=300){ window.scrollTo(0,y); await new Promise(r=>setTimeout(r,25)); }
+  // Land squarely at the bottom and let the last scroll event dispatch. Browsers
+  // coalesce scroll events, so ending the loop and reading immediately can miss the
+  // 100% milestone — which flaked once as [25,50,75] and is a test artefact, not a bug.
+  window.scrollTo(0, document.documentElement.scrollHeight);
+  await new Promise(r=>setTimeout(r,250));
 });
 await p.waitForTimeout(600);
 let e = await ev(p);
@@ -54,6 +59,40 @@ check('post_read fired', !!read, read && JSON.stringify({s:read.engaged_seconds,
 check('fired once only', e.filter(x=>x.event==='post_read').length===1);
 check('carries engaged time and depth', read?.engaged_seconds>=60 && read?.scroll_depth>=70);
 check('reader profile counted it', await p.evaluate(()=>JSON.parse(localStorage.getItem('rr_reader')||'{}').count)===1);
+
+// Pages that opt in via the Page layout's `readable` prop. Before this the blog was the
+// only thing measured, so /pricing/ and the guides — the pages people actually convert
+// on — reported a view and nothing else.
+console.log('\nPages opted in with `readable` are measured too');
+const P='http://127.0.0.1:4321/pricing/';
+ctx = await b.newContext(); p = await ctx.newPage();
+await p.goto(P, {waitUntil:'domcontentloaded'});
+await p.evaluate(async ()=>{ const a=document.querySelector('[data-rr-read]');
+  const end=a.getBoundingClientRect().height;
+  for(let y=0;y<end;y+=400){ window.scrollTo(0,y); await new Promise(r=>setTimeout(r,20)); } });
+for (let i=0;i<62;i++){ await p.mouse.move(300, 200+(i%40)); await p.waitForTimeout(1000); }
+const pe = await p.evaluate(()=> (window.dataLayer||[]).filter(e=>e&&/^(page|post)_/.test(e.event||'')));
+const pread = pe.find(x=>x.event==='page_read');
+check('page_read fired on /pricing/', !!pread,
+  pread && JSON.stringify({s:pread.engaged_seconds,d:pread.scroll_depth,t:pread.content_type}));
+check('tagged with its content_type', pread?.content_type==='pricing', pread?.content_type);
+check('carries engaged time and depth', pread?.engaged_seconds>=60 && pread?.scroll_depth>=70);
+check('scroll milestones use the page prefix', pe.some(x=>x.event==='page_scroll'));
+
+// Two invariants that keep the blog's numbers meaning what they meant before.
+check('a page never emits post_* events', !pe.some(x=>/^post_/.test(x.event)),
+  pe.filter(x=>/^post_/.test(x.event)).map(x=>x.event).join(' '));
+check('a page read does NOT touch the reader profile',
+  await p.evaluate(()=>JSON.parse(localStorage.getItem('rr_reader')||'{}').count||0)===0);
+
+// And a page with nothing to read stays silent rather than reporting a fake read.
+console.log('\nA page that did not opt in is left alone');
+const q = await (await b.newContext()).newPage();
+await q.goto('http://127.0.0.1:4321/contact/', {waitUntil:'domcontentloaded'});
+await q.waitForTimeout(2500);
+const qe = await q.evaluate(()=> (window.dataLayer||[]).filter(e=>e&&/^(page|post)_/.test(e.event||'')));
+check('no read events on /contact/', qe.length===0, qe.map(x=>x.event).join(' '));
+
 await b.close();
 console.log('\n'+(fails?`${fails} CHECK(S) FAILED`:'ALL CHECKS PASSED'));
 process.exit(fails?1:0);

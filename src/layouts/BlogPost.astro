@@ -102,11 +102,11 @@ const dateStr = new Date(frontmatter.publishDate).toLocaleDateString('en-US', {
     </article>
 
     <!--
-      Measures whether the post was actually read — engaged time and scroll depth
-      against the article body, not the page. Loaded here rather than in Base.astro so
-      it runs on posts only. See public/read-tracking.js.
+      read-tracking.js used to load here so it ran on posts only. It now loads from
+      Base.astro and activates on `.blog-post` above, so posts behave exactly as before
+      while pages can opt in with the Page layout's `readable` prop. Do not add the tag
+      back here — two copies would double-count every read.
     -->
-    <script is:inline src="/read-tracking.js"></script>
     <script is:inline>
       // Which offer this reader was shown, and whether they took it. Without this we
       // could not tell later whether topic-matching beat the single trial CTA.

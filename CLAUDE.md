@@ -337,9 +337,34 @@ not a new ask. `blog_cta_click` carries the offer key so it stays possible to te
 whether matching beat the single generic CTA. Verify with `scripts/verify-blog-offers.mjs`.
 
 ## Read tracking (`public/read-tracking.js`)
-Loaded from `BlogPost.astro`, so it runs on the 88 posts and nowhere else. Before it, the
-blog reported only that a page loaded — a view cannot tell a bounce from a six-minute
-read, so every post looked identical and "which pages are high value" was unanswerable.
+Loaded from `Base.astro`, and activates on two things: `.blog-post` (every post) and any
+element carrying `data-rr-read`. Everywhere else it does nothing. Before it, the blog
+reported only that a page loaded — a view cannot tell a bounce from a six-minute read, so
+every post looked identical and "which pages are high value" was unanswerable.
+
+**Opting a page in:** pass `readable="<kind>"` to the `Page` layout — `guide`, `pricing`,
+`specialty`, `comparison`, `pillar`, `tool`. The layout puts the attribute on `<main>`, so
+scroll is measured against the content rather than the document. Currently on `/pricing/`,
+both guides, the four `/for/*` pages, all comparison pages, the calculator and the
+documentation-automation page. `/comparison/freedai/` predates the `Page` layout and wires
+`Base` itself, so its `<main>` carries the attribute directly.
+
+It used to load from `BlogPost.astro` and therefore ran on posts *only* — which meant the
+entire funnel people actually convert on was unmeasured. A new page could be shipped and
+"did anyone read it" was unanswerable.
+
+**Posts and pages emit different event names, deliberately.** Posts keep `post_read` /
+`post_scroll` / `post_engagement`; pages emit `page_*` and carry `content_type`. Two
+invariants hold and are tested: a page never emits a `post_*` event, and a page read never
+increments the `rr_reader` profile — that profile means "posts read" and an offer keyed on
+it must not be triggered by someone glancing at pricing.
+
+**Page reads are not forwarded to HubSpot yet.** Time on `/pricing/` is a strong buying
+signal, but almost nobody is an identified contact today, so it would be timeline noise
+now. Easy to add to `hubspot-events.js` later; the data accumulates in D1 either way.
+
+Only load the script once. It is in `Base.astro`; adding it back to `BlogPost.astro` would
+double-count every read.
 
 Three decisions in it are load-bearing:
 
