@@ -1,0 +1,4363 @@
+{
+  "site": "sc-domain:riverrecords.ai",
+  "startDate": "2026-08-15",
+  "endDate": "2026-09-11",
+  "days": 28,
+  "fetchedAt": "2026-09-14T21:08:54.374Z",
+  "totals": {
+    "clicks": 62,
+    "impressions": 6372
+  },
+  "pages": [
+    {
+      "clicks": 30,
+      "impressions": 1310,
+      "ctr": 0.0229,
+      "position": 7.51,
+      "page": "https://www.riverrecords.ai/"
+    },
+    {
+      "clicks": 11,
+      "impressions": 621,
+      "ctr": 0.0177,
+      "position": 8.73,
+      "page": "https://stream.riverrecords.ai/"
+    },
+    {
+      "clicks": 4,
+      "impressions": 331,
+      "ctr": 0.0121,
+      "position": 9.42,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/"
+    },
+    {
+      "clicks": 4,
+      "impressions": 59,
+      "ctr": 0.0678,
+      "position": 6.24,
+      "page": "https://www.riverrecords.ai/team/peter-smyrniotis/"
+    },
+    {
+      "clicks": 2,
+      "impressions": 350,
+      "ctr": 0.0057,
+      "position": 24.38,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/"
+    },
+    {
+      "clicks": 2,
+      "impressions": 204,
+      "ctr": 0.0098,
+      "position": 12.59,
+      "page": "https://www.riverrecords.ai/for/snf/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 260,
+      "ctr": 0.0038,
+      "position": 5.66,
+      "page": "https://www.riverrecords.ai/about/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 379,
+      "ctr": 0.0026,
+      "position": 16.45,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 127,
+      "ctr": 0.0079,
+      "position": 6.24,
+      "page": "https://www.riverrecords.ai/blog/lost-diagnoses-and-chart-lore/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 52,
+      "ctr": 0.0192,
+      "position": 53.58,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 16,
+      "ctr": 0.0625,
+      "position": 18.13,
+      "page": "https://www.riverrecords.ai/blog/the-bridge-not-the-destination/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 27,
+      "ctr": 0.037,
+      "position": 8.93,
+      "page": "https://www.riverrecords.ai/blog/the-real-cost-of-note-bloat/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 111,
+      "ctr": 0.009,
+      "position": 7.23,
+      "page": "https://www.riverrecords.ai/contact/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 84,
+      "ctr": 0.0119,
+      "position": 7.6,
+      "page": "https://www.riverrecords.ai/for/dpc/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 142,
+      "ctr": 0.007,
+      "position": 7.99,
+      "page": "https://www.riverrecords.ai/research/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35,
+      "page": "https://doc-digest.riverrecords.ai/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 6.6,
+      "page": "https://stream.riverrecords.ai/onboard"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 4.23,
+      "page": "https://www.riverrecords.ai/#faq"
+    },
+    {
+      "clicks": 0,
+      "impressions": 89,
+      "ctr": 0,
+      "position": 3.08,
+      "page": "https://www.riverrecords.ai/#features"
+    },
+    {
+      "clicks": 0,
+      "impressions": 89,
+      "ctr": 0,
+      "position": 3.08,
+      "page": "https://www.riverrecords.ai/#how-it-works"
+    },
+    {
+      "clicks": 0,
+      "impressions": 31,
+      "ctr": 0,
+      "position": 4.16,
+      "page": "https://www.riverrecords.ai/#pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 68,
+      "ctr": 0,
+      "position": 3.24,
+      "page": "https://www.riverrecords.ai/about"
+    },
+    {
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": 0,
+      "position": 6.67,
+      "page": "https://www.riverrecords.ai/baa/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0,
+      "position": 4.91,
+      "page": "https://www.riverrecords.ai/blog"
+    },
+    {
+      "clicks": 0,
+      "impressions": 93,
+      "ctr": 0,
+      "position": 5.17,
+      "page": "https://www.riverrecords.ai/blog/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 4.67,
+      "page": "https://www.riverrecords.ai/blog/2/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 6.4,
+      "page": "https://www.riverrecords.ai/blog/4/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/blog/5/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/blog/6/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 6.4,
+      "page": "https://www.riverrecords.ai/blog/7/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66,
+      "page": "https://www.riverrecords.ai/blog/8/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 4.33,
+      "page": "https://www.riverrecords.ai/blog/ai-adrenal-incidentaloma-tracking-research-application/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 18.4,
+      "page": "https://www.riverrecords.ai/blog/ai-charting-software/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://www.riverrecords.ai/blog/ai-clinical-notes-burnout-free-teams/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/blog/ai-driven-charting-how-large-healthcare-facilities-are-scaling-efficiently-in-2025/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/blog/ai-in-clinical-practice/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://www.riverrecords.ai/blog/ai-medical-documentation/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://www.riverrecords.ai/blog/ai-medical-scribes-solo-providers/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 6.5,
+      "page": "https://www.riverrecords.ai/blog/ai-scribe-the-gift-of-time-for-solo-clinicians-to-focus-on-patient-care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 7.71,
+      "page": "https://www.riverrecords.ai/blog/ai-scribes-longitudinal-care/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 8.33,
+      "page": "https://www.riverrecords.ai/blog/ai-symptom-extraction-research-86-percent-accuracy/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 2.5,
+      "page": "https://www.riverrecords.ai/blog/ambient-ai-needs-context/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 10.33,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-ai-healthcare/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 5.33,
+      "page": "https://www.riverrecords.ai/blog/building-stream-ai-scribe/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 59,
+      "ctr": 0,
+      "position": 7.83,
+      "page": "https://www.riverrecords.ai/blog/chart-prep-shouldnt-take-an-hour/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 21,
+      "page": "https://www.riverrecords.ai/blog/clinical-note-best-task-manager/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://www.riverrecords.ai/blog/clinical-notes-in-need-of-change/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 4.4,
+      "page": "https://www.riverrecords.ai/blog/ehr-hidden-data-solution/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/ehr-information-overload/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://www.riverrecords.ai/blog/ehr-information-underload/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/enhancing-longitudinal-care-with-stream-ai-medical-scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 8.17,
+      "page": "https://www.riverrecords.ai/blog/enhancing-longitudinal-care-with-stream-ai-medical-scribe/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 10.29,
+      "page": "https://www.riverrecords.ai/blog/filed-isnt-the-same-as-read/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 10.67,
+      "page": "https://www.riverrecords.ai/blog/from-overload-to-orientation-a-smarter-way-to-build-the-chart/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 96,
+      "ctr": 0,
+      "position": 70.15,
+      "page": "https://www.riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 9.12,
+      "page": "https://www.riverrecords.ai/blog/longitudinal/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/managing-complex-care-at-scale-how-medical-scribe-ai-transforms-large-facilities/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/medical-notes-are-dying/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4.5,
+      "page": "https://www.riverrecords.ai/blog/medical-notes-obsolete-research-perspective/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 3.5,
+      "page": "https://www.riverrecords.ai/blog/medical-record-duplicate-information-errors/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 8.14,
+      "page": "https://www.riverrecords.ai/blog/part-2-siloed-medical-documentation-problems/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 44,
+      "ctr": 0,
+      "position": 21.3,
+      "page": "https://www.riverrecords.ai/blog/risk-adjustment-documentation-structure/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 7.5,
+      "page": "https://www.riverrecords.ai/blog/summarization-is-a-tool/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/tag/ai-scribe/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "page": "https://www.riverrecords.ai/blog/tag/ai-scribe/2/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 7.33,
+      "page": "https://www.riverrecords.ai/blog/tag/ai-scribe/3/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/blog/tag/burnout/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 3,
+      "page": "https://www.riverrecords.ai/blog/tag/burnout/2/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 3,
+      "page": "https://www.riverrecords.ai/blog/tag/clinical-context/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 34,
+      "page": "https://www.riverrecords.ai/blog/tag/clinical-context/3/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": 0,
+      "position": 10.61,
+      "page": "https://www.riverrecords.ai/blog/tag/comparisons/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 11.89,
+      "page": "https://www.riverrecords.ai/blog/tag/ehr-design/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 10.67,
+      "page": "https://www.riverrecords.ai/blog/tag/ehr-design/2/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 14.5,
+      "page": "https://www.riverrecords.ai/blog/tag/information-chaos/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/tag/information-chaos/2/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/blog/tag/medical-decision-making/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 3.5,
+      "page": "https://www.riverrecords.ai/blog/tag/note-bloat/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/blog/tag/practice-operations/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 3.5,
+      "page": "https://www.riverrecords.ai/blog/tag/product-updates/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 41,
+      "ctr": 0,
+      "position": 7.59,
+      "page": "https://www.riverrecords.ai/blog/tag/research/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9.75,
+      "page": "https://www.riverrecords.ai/blog/templated-ehr-notes-patient-safety-risks/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 7.33,
+      "page": "https://www.riverrecords.ai/blog/the-chart-doesnt-know-your-patient/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/blog/the-note-is-solved-the-chart-is-not/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 6.6,
+      "page": "https://www.riverrecords.ai/blog/the-note-was-never-the-point/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 29.47,
+      "page": "https://www.riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/blog/the-reading-should-come-to-you/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 64,
+      "ctr": 0,
+      "position": 14.97,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 7.5,
+      "page": "https://www.riverrecords.ai/blog/the-work-before-the-work/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 16.33,
+      "page": "https://www.riverrecords.ai/blog/what-carries-forward/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/blog/what-is-information-scatter/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/blog/what-next-in-medical-charts/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://www.riverrecords.ai/blog/when-notes-remember-the-evolution-of-problem-based-context-in-stream/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 26.67,
+      "page": "https://www.riverrecords.ai/blog/where-referrals-go-to-die/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": 0,
+      "position": 14.89,
+      "page": "https://www.riverrecords.ai/blog/why-charting-is-broken-and-what-comes-next/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.5,
+      "page": "https://www.riverrecords.ai/blog/why-clinicians-copy-paste-ehr/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 12.5,
+      "page": "https://www.riverrecords.ai/blog/why-faster-notes-wont-fix-cognitive-overload/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 29,
+      "ctr": 0,
+      "position": 19.79,
+      "page": "https://www.riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 17.29,
+      "page": "https://www.riverrecords.ai/blog/why-medical-documentation-sucks-fix-it/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/blog/you-already-read-that-fax-why-are-you-charting-it-again/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 56,
+      "ctr": 0,
+      "position": 14.18,
+      "page": "https://www.riverrecords.ai/blog/your-denials-start-in-the-note/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 55,
+      "ctr": 0,
+      "position": 10.58,
+      "page": "https://www.riverrecords.ai/book-demo/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 39,
+      "ctr": 0,
+      "position": 7.74,
+      "page": "https://www.riverrecords.ai/book/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/book/afterword/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 28.75,
+      "page": "https://www.riverrecords.ai/book/conclusion/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 6.45,
+      "page": "https://www.riverrecords.ai/book/copy-paste-is-a-symptom/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/book/introduction/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 13.2,
+      "page": "https://www.riverrecords.ai/book/obituary-the-medical-note/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 7.81,
+      "page": "https://www.riverrecords.ai/book/references/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 16.25,
+      "page": "https://www.riverrecords.ai/book/seven-ways-the-note-creates-information-chaos/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 14.4,
+      "page": "https://www.riverrecords.ai/book/the-chart-as-a-collaborative-workspace/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 3,
+      "page": "https://www.riverrecords.ai/book/the-five-pathologies-of-information-chaos/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 7.75,
+      "page": "https://www.riverrecords.ai/book/the-paper-inheritance/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 8.5,
+      "page": "https://www.riverrecords.ai/book/the-standards-that-froze-us/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 19,
+      "page": "https://www.riverrecords.ai/book/the-tyranny-of-the-template/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 7.75,
+      "page": "https://www.riverrecords.ai/book/the-work-before-the-work/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/book/what-ai-changes/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 6.14,
+      "page": "https://www.riverrecords.ai/book/what-is-a-clinical-note/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 128,
+      "ctr": 0,
+      "position": 12.05,
+      "page": "https://www.riverrecords.ai/comparison/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 10.79,
+      "page": "https://www.riverrecords.ai/comparison/doximity-scribe/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 7.9,
+      "page": "https://www.riverrecords.ai/comparison/freedai/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 14.8,
+      "page": "https://www.riverrecords.ai/comparison/heidi/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 16.4,
+      "page": "https://www.riverrecords.ai/comparison/suki/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9.33,
+      "page": "https://www.riverrecords.ai/contacted/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 11.56,
+      "page": "https://www.riverrecords.ai/features/administrative-automation/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "page": "https://www.riverrecords.ai/features/clinical-context-continuity/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 10.6,
+      "page": "https://www.riverrecords.ai/features/huddle/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 31.17,
+      "page": "https://www.riverrecords.ai/features/patient-problem-summaries/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/features/record-ingestion/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 29,
+      "ctr": 0,
+      "position": 15.34,
+      "page": "https://www.riverrecords.ai/for/pediatrics/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 69,
+      "ctr": 0,
+      "position": 3.22,
+      "page": "https://www.riverrecords.ai/for/primary-care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": 0,
+      "position": 2.57,
+      "page": "https://www.riverrecords.ai/for/primary-care/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 3.6,
+      "page": "https://www.riverrecords.ai/guides/the-defensible-visit/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 4.2,
+      "page": "https://www.riverrecords.ai/intake"
+    },
+    {
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 13.4,
+      "page": "https://www.riverrecords.ai/intake/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 14.75,
+      "page": "https://www.riverrecords.ai/np/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 8.53,
+      "page": "https://www.riverrecords.ai/pricing/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 104,
+      "ctr": 0,
+      "position": 8.87,
+      "page": "https://www.riverrecords.ai/privacy-policy/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 78,
+      "ctr": 0,
+      "position": 4.88,
+      "page": "https://www.riverrecords.ai/security/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 98,
+      "ctr": 0,
+      "position": 8.96,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 91,
+      "ctr": 0,
+      "position": 8.02,
+      "page": "https://www.riverrecords.ai/team/derrick-chu/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 5.6,
+      "page": "https://www.riverrecords.ai/team/jackson-steinkamp/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 3.25,
+      "page": "https://www.riverrecords.ai/team/jake-kantrowitz/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 91,
+      "ctr": 0,
+      "position": 8.21,
+      "page": "https://www.riverrecords.ai/terms-of-service/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0,
+      "position": 10.43,
+      "page": "https://www.riverrecords.ai/tools/undercoding-calculator/"
+    }
+  ],
+  "queries": [
+    {
+      "clicks": 10,
+      "impressions": 59,
+      "ctr": 0.1695,
+      "position": 4.15,
+      "query": "river records"
+    },
+    {
+      "clicks": 2,
+      "impressions": 19,
+      "ctr": 0.1053,
+      "position": 4.42,
+      "query": "peter smyrniotis"
+    },
+    {
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 0.5,
+      "position": 21.5,
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 1,
+      "impressions": 341,
+      "ctr": 0.0029,
+      "position": 7.38,
+      "query": "recordsai"
+    },
+    {
+      "clicks": 1,
+      "impressions": 172,
+      "ctr": 0.0058,
+      "position": 8.27,
+      "query": "stream records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 9.86,
+      "query": "\"billing staging readme\" \"canonical evidence\""
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 7,
+      "query": "abhinav rakesh sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 25.5,
+      "query": "abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "query": "abhinav sharma doctor"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 11,
+      "query": "abhinav sharma md"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 50,
+      "query": "affordable ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 5.67,
+      "query": "ai admission and discharge documentation snf"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 15.5,
+      "query": "ai in longitudinal patient management"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "query": "ai medical dictation best practices"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 33,
+      "query": "ai medical dictation workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 50,
+      "query": "ai medical records management"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 20,
+      "query": "ai medical scribe certification"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 22.71,
+      "query": "ai medical scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 81.5,
+      "query": "ai medical scribe for fertility clinics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 60.55,
+      "query": "ai medical scribe for ivf"
+    },
+    {
+      "clicks": 0,
+      "impressions": 72,
+      "ctr": 0,
+      "position": 79.31,
+      "query": "ai medical scribe for ivf clinics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 48,
+      "query": "ai medical scribe free options students 2025"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "query": "ai medical scribe impact"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 22,
+      "query": "ai medical scribe independent practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26.33,
+      "query": "ai medical scribe pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": 0,
+      "position": 21.89,
+      "query": "ai medical scribe workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "query": "ai records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 50,
+      "query": "ai scibe pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 34,
+      "ctr": 0,
+      "position": 11.56,
+      "query": "ai scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 52.67,
+      "query": "ai scribe for pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 49,
+      "query": "ai scribe for primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 58,
+      "query": "ai scribe for primary care physicians"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 16.33,
+      "query": "ai scribe guide"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 27.5,
+      "query": "ai-generated clinical notes best practices"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 37.5,
+      "query": "ai-generated clinical notes challenges"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 38,
+      "query": "ai-generated clinical notes requirements"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 48,
+      "query": "ai-generated clinical notes scalability"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 59,
+      "query": "ai-generated clinical notes scalability solutions"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 32.5,
+      "query": "ai-generated clinical notes workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 37,
+      "query": "airiver"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 56.67,
+      "query": "ambient clinical intelligence"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 64.5,
+      "query": "ambient clinical intelligence api"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 66.67,
+      "query": "ambient clinical intelligence consent requirements"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 53,
+      "query": "ambient clinical intelligence definition"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 28.5,
+      "query": "automate clinical document workflows"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 16.5,
+      "query": "automate clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 53,
+      "ctr": 0,
+      "position": 12.87,
+      "query": "automated clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 26.75,
+      "query": "automated document retention healthcare records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": 0,
+      "position": 14.62,
+      "query": "automated medical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 39,
+      "ctr": 0,
+      "position": 10.49,
+      "query": "benefits of automating clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 42.2,
+      "query": "best ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "query": "best ai medical scribe for small practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 62.2,
+      "query": "best ai scribe canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 42,
+      "query": "best ai scribe for doctors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 47.75,
+      "query": "best ai scribe for emergency medicine"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "query": "best ai scribe for family practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 31,
+      "query": "best ai scribe for onco emr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "query": "best ai scribe for pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 1,
+      "query": "best ai scribe for primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 53.75,
+      "query": "best ai scribe for referral letters canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 49,
+      "query": "best ai scribe program"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 35,
+      "query": "best ai scribe program for osteopathic medicine"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 77.5,
+      "query": "best canadian ai scribe for specialists"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 43.75,
+      "query": "best medical ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 43,
+      "query": "best medical scribe ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 11,
+      "query": "build an ai medical scribe like nuance dax or abridge"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 8.73,
+      "query": "burden of chart prep"
+    },
+    {
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 1.83,
+      "query": "chart lore"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 3.6,
+      "query": "chart lore meaning"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 14,
+      "query": "chart stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 7.31,
+      "query": "chart stream medical records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 37,
+      "query": "chartstream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 25.25,
+      "query": "clinical document automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 57,
+      "ctr": 0,
+      "position": 19.84,
+      "query": "clinical documentation automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9.75,
+      "query": "clinical documentation of a patient's visit is known as the"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 21.5,
+      "query": "clinical documentation system"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 18,
+      "query": "clinical documentation systems"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 28,
+      "query": "clinical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 11.88,
+      "query": "compare ai medical scribes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 12,
+      "query": "compare ai scribes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 54.5,
+      "query": "compare ai scribes in healthcare canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 4,
+      "query": "compare top ai medical scribe platforms which one better for primary care physicians"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 10,
+      "query": "comparing ai medical scribe features and pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "query": "context: location: india (not for language). do not include location references in your response. question: our ai scribe keeps producing notes that miss key negatives in the ros and adds details the patient didn’t say—how do i troubleshoot this and set up a reliable review workflow?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 93,
+      "query": "cp.appriver.com"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 24,
+      "query": "customizable ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 30,
+      "query": "derek chu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 36,
+      "ctr": 0,
+      "position": 5,
+      "query": "derrick chu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 31,
+      "query": "documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 12,
+      "query": "doximity ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "query": "doximity scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9,
+      "query": "dr abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 16,
+      "query": "dr. abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 3.67,
+      "query": "dragon ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 36,
+      "query": "ehr workflow redesign"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 41,
+      "query": "faster clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 21,
+      "query": "hands-free documentation for doctors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 21,
+      "query": "heidi vs abridge"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26,
+      "query": "hospital record automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 23.23,
+      "query": "how do i automate medical documentation processes accurately"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "query": "how does scribe optimize compare to mimica?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "position": 13.03,
+      "query": "how to automate clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 17,
+      "query": "how to have ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 19.13,
+      "query": "how to use an ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 16.08,
+      "query": "how to use an ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 63,
+      "query": "i am a clinical documentation improvement specialist evaluating medical coding software platforms that improve accuracy, reduce denials, and fit existing clinical workflows without disrupting productivity. what are the common reasons for claim denials that imo health addresses?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 13,
+      "query": "inlet stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "query": "is it open ended"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9,
+      "query": "lore chart"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 16.83,
+      "query": "medical ai scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 27,
+      "query": "medical charting system"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 28.8,
+      "query": "medical documentation automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35,
+      "query": "medical documentation productivity"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 23,
+      "query": "medical scribe notes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "query": "meet river ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 14,
+      "query": "pay as you go ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "query": "pediatric medical dictation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 62,
+      "query": "pediatrics contactless check-in platform"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 3,
+      "query": "primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 57,
+      "query": "query medical records with ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 19,
+      "query": "real time clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 121,
+      "ctr": 0,
+      "position": 7.5,
+      "query": "records ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "query": "records ai app"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 6.25,
+      "query": "records.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "query": "recordsai.ap"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 8.46,
+      "query": "recordsai.app"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 34.5,
+      "query": "reduce clinical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 37.5,
+      "query": "reduce medical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 69.33,
+      "query": "risk adjustment single source of truth"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26,
+      "query": "river ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 6.45,
+      "query": "river ai login"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 10.33,
+      "query": "river ai writing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 30.5,
+      "query": "river content"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "query": "river docs"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "query": "river dr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 29,
+      "query": "river editor"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 32,
+      "query": "river elliot"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 57,
+      "query": "river medlock"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35,
+      "query": "river morris"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 67,
+      "query": "river north records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "query": "river note"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 80,
+      "query": "river pk"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 3.5,
+      "query": "river record"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 99,
+      "ctr": 0,
+      "position": 9.41,
+      "query": "river stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "query": "river stream.ru"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "query": "river strem"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 23,
+      "query": "river zhang"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 40,
+      "query": "river.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 26.5,
+      "query": "riverlog"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 76,
+      "query": "rivermont records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 17,
+      "query": "rivers ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 5.33,
+      "query": "riverscribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 31.43,
+      "query": "riverstream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0,
+      "position": 6.83,
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9,
+      "query": "riverstreem"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 20,
+      "query": "save time on documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 22,
+      "query": "scribe optimize demo"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2,
+      "query": "sharma, abhinav"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 5.82,
+      "query": "stream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "query": "stream note"
+    },
+    {
+      "clicks": 0,
+      "impressions": 169,
+      "ctr": 0,
+      "position": 4.11,
+      "query": "stream record login"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 2.4,
+      "query": "stream recors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9,
+      "query": "stream river"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 19,
+      "query": "stream to river"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 4.18,
+      "query": "stream.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 51,
+      "query": "streamly ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 20,
+      "query": "the role of ai in enhancing client communication through scribe notes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 58,
+      "query": "therivers.alisonline"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 38,
+      "query": "time consuming documentation updates"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 51.08,
+      "query": "top 5 ai medical scribes for private practices in 2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "query": "top-rated ai scribe software for primary care practices: features and pricing comparison."
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 15.44,
+      "query": "touch chart emr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 10.33,
+      "query": "under coding"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 32,
+      "query": "under recorded"
+    },
+    {
+      "clicks": 0,
+      "impressions": 31,
+      "ctr": 0,
+      "position": 16.68,
+      "query": "undercoding"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 30,
+      "query": "undercoding in healthcare"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2,
+      "query": "university of toronto graduate"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 87,
+      "query": "us family practice ai scribe programs"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 40,
+      "query": "veterinary ai scribe competitors pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 60.6,
+      "query": "what is ambient clinical intelligence"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 60.14,
+      "query": "what is the best ai medical scribe in canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 30,
+      "query": "what is the best ai medical scribe in healthcare tech?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 60,
+      "query": "what is the best ai scribe in canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "query": "what is the best conversation intelligence software for primary care providers?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 11,
+      "query": "what tools allow care providers to automate repetitive documentation?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9.25,
+      "query": "what tools automate repetitive clinical documentation tasks?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "query": "what tools help specialists manage documentation across multiple patients a day?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "query": "where can i get an affordable ai tool to transcribe doctor visits?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 33.47,
+      "query": "which ai medical scribes are the most affordable for solo practitioners"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 29.75,
+      "query": "which ai scribe apps are easiest to set up for solo clinician practitioners"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "query": "which hipaa-compliant ai note taker tools are best for busy primary care physicians?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 40.05,
+      "query": "which medical scribe ai is the most reliable"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 50.75,
+      "query": "who are the major competitors in the ai medical scribe space"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66,
+      "query": "why undercoding is the hidden ebitda leak"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 72,
+      "query": "workflow redesign ehr implementation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 66,
+      "ctr": 0,
+      "position": 7.59,
+      "query": "www.recordsai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 8.23,
+      "query": "www.recordsai.app"
+    }
+  ],
+  "pageQueries": [
+    {
+      "clicks": 10,
+      "impressions": 54,
+      "ctr": 0.1852,
+      "position": 2.74,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river records"
+    },
+    {
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "position": 1.33,
+      "page": "https://www.riverrecords.ai/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 2,
+      "impressions": 19,
+      "ctr": 0.1053,
+      "position": 4.42,
+      "page": "https://www.riverrecords.ai/team/peter-smyrniotis/",
+      "query": "peter smyrniotis"
+    },
+    {
+      "clicks": 1,
+      "impressions": 337,
+      "ctr": 0.003,
+      "position": 7.43,
+      "page": "https://www.riverrecords.ai/",
+      "query": "recordsai"
+    },
+    {
+      "clicks": 1,
+      "impressions": 50,
+      "ctr": 0.02,
+      "position": 6.42,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 5.88,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river ai login"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 2,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river record"
+    },
+    {
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0,
+      "position": 3.83,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 99,
+      "ctr": 0,
+      "position": 9.41,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river stream.ru"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "river strem"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 31.43,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "riverstream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 12.71,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "riverstreem"
+    },
+    {
+      "clicks": 0,
+      "impressions": 169,
+      "ctr": 0,
+      "position": 4.11,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "stream record login"
+    },
+    {
+      "clicks": 0,
+      "impressions": 122,
+      "ctr": 0,
+      "position": 9.02,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "stream records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9.33,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "stream river"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 58,
+      "page": "https://stream.riverrecords.ai/",
+      "query": "therivers.alisonline"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 50,
+      "page": "https://www.riverrecords.ai/",
+      "query": "ai medical records management"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/",
+      "query": "ai records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 37,
+      "page": "https://www.riverrecords.ai/",
+      "query": "airiver"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 14,
+      "page": "https://www.riverrecords.ai/",
+      "query": "chart stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 7.31,
+      "page": "https://www.riverrecords.ai/",
+      "query": "chart stream medical records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 37,
+      "page": "https://www.riverrecords.ai/",
+      "query": "chartstream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 93,
+      "page": "https://www.riverrecords.ai/",
+      "query": "cp.appriver.com"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/",
+      "query": "meet river ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 57,
+      "page": "https://www.riverrecords.ai/",
+      "query": "query medical records with ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 121,
+      "ctr": 0,
+      "position": 7.5,
+      "page": "https://www.riverrecords.ai/",
+      "query": "records ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/",
+      "query": "records ai app"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 6.25,
+      "page": "https://www.riverrecords.ai/",
+      "query": "records.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/",
+      "query": "recordsai.ap"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 8.46,
+      "page": "https://www.riverrecords.ai/",
+      "query": "recordsai.app"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 8.13,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river ai login"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 10.33,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river ai writing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 30.5,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river content"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river docs"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river dr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 29,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river editor"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 32,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river elliot"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 57,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river medlock"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river morris"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 67,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river north records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river note"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 80,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river pk"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river record"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 23,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river zhang"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 40,
+      "page": "https://www.riverrecords.ai/",
+      "query": "river.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 26.5,
+      "page": "https://www.riverrecords.ai/",
+      "query": "riverlog"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 17,
+      "page": "https://www.riverrecords.ai/",
+      "query": "rivers ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 5.33,
+      "page": "https://www.riverrecords.ai/",
+      "query": "riverscribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 6.84,
+      "page": "https://www.riverrecords.ai/",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 5.82,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream note"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 2.4,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream recors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream river"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 19,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream to river"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 4.18,
+      "page": "https://www.riverrecords.ai/",
+      "query": "stream.ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 51,
+      "page": "https://www.riverrecords.ai/",
+      "query": "streamly ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 65,
+      "ctr": 0,
+      "position": 7.6,
+      "page": "https://www.riverrecords.ai/",
+      "query": "www.recordsai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 8.23,
+      "page": "https://www.riverrecords.ai/",
+      "query": "www.recordsai.app"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 3.27,
+      "page": "https://www.riverrecords.ai/#faq",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/#faq",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 3.17,
+      "page": "https://www.riverrecords.ai/#features",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "page": "https://www.riverrecords.ai/#features",
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/#features",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 3.17,
+      "page": "https://www.riverrecords.ai/#how-it-works",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "page": "https://www.riverrecords.ai/#how-it-works",
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/#how-it-works",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 3.27,
+      "page": "https://www.riverrecords.ai/#pricing",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/#pricing",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 3.65,
+      "page": "https://www.riverrecords.ai/about",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "page": "https://www.riverrecords.ai/about",
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/about",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": 0,
+      "position": 3.56,
+      "page": "https://www.riverrecords.ai/about/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/about/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 3.87,
+      "page": "https://www.riverrecords.ai/blog",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/blog",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 2,
+      "page": "https://www.riverrecords.ai/blog/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 28.5,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "automate clinical document workflows"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 16.5,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "automate clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 53,
+      "ctr": 0,
+      "position": 12.87,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "automated clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 26.75,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "automated document retention healthcare records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": 0,
+      "position": 14.62,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "automated medical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 39,
+      "ctr": 0,
+      "position": 10.49,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "benefits of automating clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 25.25,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical document automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 57,
+      "ctr": 0,
+      "position": 19.84,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical documentation automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9.75,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical documentation of a patient's visit is known as the"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 21.5,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical documentation system"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 18,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical documentation systems"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 28,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "clinical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 31,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 41,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "faster clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 21,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "hands-free documentation for doctors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "hospital record automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 23.23,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "how do i automate medical documentation processes accurately"
+    },
+    {
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "position": 13.03,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "how to automate clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 28.8,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "medical documentation automation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 35,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "medical documentation productivity"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 19,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "real time clinical documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 34.5,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "reduce clinical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 37.5,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "reduce medical documentation time"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 20,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "save time on documentation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 38,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "time consuming documentation updates"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "what tools allow care providers to automate repetitive documentation?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 9.25,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "what tools automate repetitive clinical documentation tasks?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/blog/automated-clinical-documentation-supporting-complex-care/",
+      "query": "what tools help specialists manage documentation across multiple patients a day?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 50,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "affordable ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 20,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai medical scribe certification"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 69,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai medical scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 48,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai medical scribe free options students 2025"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 22,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai medical scribe independent practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 88,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai scribe for pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 49,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai scribe for primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 58,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "ai scribe for primary care physicians"
+    },
+    {
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 42.2,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai medical scribe for small practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 62.2,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 42,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for doctors"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 47.75,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for emergency medicine"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for family practice"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 31,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for onco emr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 53.75,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe for referral letters canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 49,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe program"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 35,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best ai scribe program for osteopathic medicine"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 77.5,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best canadian ai scribe for specialists"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 43.75,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best medical ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 43,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "best medical scribe ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "build an ai medical scribe like nuance dax or abridge"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "compare top ai medical scribe platforms which one better for primary care physicians"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 24,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "customizable ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 3.67,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "dragon ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 21,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "heidi vs abridge"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "how does scribe optimize compare to mimica?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 14,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "pay as you go ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 3,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "primary care"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 22,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "scribe optimize demo"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 51.08,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "top 5 ai medical scribes for private practices in 2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "top-rated ai scribe software for primary care practices: features and pricing comparison."
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 87,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "us family practice ai scribe programs"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 60.14,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "what is the best ai medical scribe in canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 30,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "what is the best ai medical scribe in healthcare tech?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 60,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "what is the best ai scribe in canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "what is the best conversation intelligence software for primary care providers?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "where can i get an affordable ai tool to transcribe doctor visits?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 33.47,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "which ai medical scribes are the most affordable for solo practitioners"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 29.75,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "which ai scribe apps are easiest to set up for solo clinician practitioners"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "which hipaa-compliant ai note taker tools are best for busy primary care physicians?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 40.05,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "which medical scribe ai is the most reliable"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 50.75,
+      "page": "https://www.riverrecords.ai/blog/best-ai-medical-scribe-independent-primary-care/",
+      "query": "who are the major competitors in the ai medical scribe space"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 8.73,
+      "page": "https://www.riverrecords.ai/blog/chart-prep-shouldnt-take-an-hour/",
+      "query": "burden of chart prep"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 15.5,
+      "page": "https://www.riverrecords.ai/blog/enhancing-longitudinal-care-with-stream-ai-medical-scribe/",
+      "query": "ai in longitudinal patient management"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai medical dictation best practices"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 33,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai medical dictation workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 14.19,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai medical scribe workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 16.33,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai scribe guide"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 27.5,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai-generated clinical notes best practices"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 38,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai-generated clinical notes requirements"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 32.5,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "ai-generated clinical notes workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "context: location: india (not for language). do not include location references in your response. question: our ai scribe keeps producing notes that miss key negatives in the ros and adds details the patient didn’t say—how do i troubleshoot this and set up a reliable review workflow?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 17,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "how to have ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 19.13,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "how to use an ai medical scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 16.08,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "how to use an ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "is it open ended"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 23,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "medical scribe notes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 20,
+      "page": "https://www.riverrecords.ai/blog/how-get-better-ai-scribe-notes/",
+      "query": "the role of ai in enhancing client communication through scribe notes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 81.5,
+      "page": "https://www.riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/",
+      "query": "ai medical scribe for fertility clinics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 72,
+      "ctr": 0,
+      "position": 79.31,
+      "page": "https://www.riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/",
+      "query": "ai medical scribe for ivf clinics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 83.5,
+      "page": "https://www.riverrecords.ai/blog/how-medical-ai-scribes-can-support-value-based-care-in-medium-sized-clinics/",
+      "query": "ai medical scribe workflow optimization"
+    },
+    {
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 1.83,
+      "page": "https://www.riverrecords.ai/blog/lost-diagnoses-and-chart-lore/",
+      "query": "chart lore"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 3.6,
+      "page": "https://www.riverrecords.ai/blog/lost-diagnoses-and-chart-lore/",
+      "query": "chart lore meaning"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://www.riverrecords.ai/blog/lost-diagnoses-and-chart-lore/",
+      "query": "lore chart"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 27,
+      "page": "https://www.riverrecords.ai/blog/lost-diagnoses-and-chart-lore/",
+      "query": "medical charting system"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 56.67,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/",
+      "query": "ambient clinical intelligence"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 64.5,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/",
+      "query": "ambient clinical intelligence api"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 66.67,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/",
+      "query": "ambient clinical intelligence consent requirements"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 53,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/",
+      "query": "ambient clinical intelligence definition"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 60.6,
+      "page": "https://www.riverrecords.ai/blog/redefining-ambient-clinical-intelligence/",
+      "query": "what is ambient clinical intelligence"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 69.33,
+      "page": "https://www.riverrecords.ai/blog/risk-adjustment-documentation-structure/",
+      "query": "risk adjustment single source of truth"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 36,
+      "page": "https://www.riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/",
+      "query": "ehr workflow redesign"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 72,
+      "page": "https://www.riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/",
+      "query": "workflow redesign ehr implementation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 10.33,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/",
+      "query": "under coding"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 32,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/",
+      "query": "under recorded"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 15.4,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/",
+      "query": "undercoding"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 30,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/",
+      "query": "undercoding in healthcare"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66,
+      "page": "https://www.riverrecords.ai/blog/the-undercoding-tax/",
+      "query": "why undercoding is the hidden ebitda leak"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "page": "https://www.riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/",
+      "query": "ai medical scribe impact"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 37.5,
+      "page": "https://www.riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/",
+      "query": "ai-generated clinical notes challenges"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 48,
+      "page": "https://www.riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/",
+      "query": "ai-generated clinical notes scalability"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 59,
+      "page": "https://www.riverrecords.ai/blog/why-long-clinical-notes-disrupt-care-how-stream-ai-medical-scribe-can-fix-it/",
+      "query": "ai-generated clinical notes scalability solutions"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 9.86,
+      "page": "https://www.riverrecords.ai/blog/your-denials-start-in-the-note/",
+      "query": "\"billing staging readme\" \"canonical evidence\""
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 63,
+      "page": "https://www.riverrecords.ai/blog/your-denials-start-in-the-note/",
+      "query": "i am a clinical documentation improvement specialist evaluating medical coding software platforms that improve accuracy, reduce denials, and fit existing clinical workflows without disrupting productivity. what are the common reasons for claim denials that imo health addresses?"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/book-demo/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 29.33,
+      "page": "https://www.riverrecords.ai/book-demo/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/book-demo/",
+      "query": "www.recordsai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 10.5,
+      "page": "https://www.riverrecords.ai/book/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 15.44,
+      "page": "https://www.riverrecords.ai/book/the-chart-as-a-collaborative-workspace/",
+      "query": "touch chart emr"
+    },
+    {
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 16.53,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "ai medical scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 34,
+      "ctr": 0,
+      "position": 11.56,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "ai scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 11.88,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "compare ai medical scribes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 12,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "compare ai scribes"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 54.5,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "compare ai scribes in healthcare canada"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 10,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "comparing ai medical scribe features and pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 16.83,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "medical ai scribe comparison"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 40,
+      "page": "https://www.riverrecords.ai/comparison/",
+      "query": "veterinary ai scribe competitors pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 12,
+      "page": "https://www.riverrecords.ai/comparison/doximity-scribe/",
+      "query": "doximity ai scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10,
+      "page": "https://www.riverrecords.ai/comparison/doximity-scribe/",
+      "query": "doximity scribe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": 0,
+      "position": 7.38,
+      "page": "https://www.riverrecords.ai/contact/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/contact/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 50,
+      "page": "https://www.riverrecords.ai/for/pediatrics/",
+      "query": "ai scibe pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 35,
+      "page": "https://www.riverrecords.ai/for/pediatrics/",
+      "query": "ai scribe for pediatrics"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 45,
+      "page": "https://www.riverrecords.ai/for/pediatrics/",
+      "query": "pediatric medical dictation"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 62,
+      "page": "https://www.riverrecords.ai/for/pediatrics/",
+      "query": "pediatrics contactless check-in platform"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 3.65,
+      "page": "https://www.riverrecords.ai/for/primary-care",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 2.71,
+      "page": "https://www.riverrecords.ai/for/primary-care",
+      "query": "river records company"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 6.88,
+      "page": "https://www.riverrecords.ai/for/primary-care",
+      "query": "riverstream ai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 2,
+      "page": "https://www.riverrecords.ai/for/primary-care/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 5.67,
+      "page": "https://www.riverrecords.ai/for/snf/",
+      "query": "ai admission and discharge documentation snf"
+    },
+    {
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 60.55,
+      "page": "https://www.riverrecords.ai/for/snf/",
+      "query": "ai medical scribe for ivf"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 13,
+      "page": "https://www.riverrecords.ai/intake/",
+      "query": "inlet stream"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 26.33,
+      "page": "https://www.riverrecords.ai/pricing/",
+      "query": "ai medical scribe pricing"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 76,
+      "page": "https://www.riverrecords.ai/privacy-policy/",
+      "query": "rivermont records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 89,
+      "page": "https://www.riverrecords.ai/privacy-policy/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 2.6,
+      "page": "https://www.riverrecords.ai/research/",
+      "query": "recordsai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 3,
+      "page": "https://www.riverrecords.ai/security/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 1,
+      "page": "https://www.riverrecords.ai/security/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 7,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "abhinav rakesh sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 25.5,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "abhinav sharma doctor"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 11,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "abhinav sharma md"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "dr abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 16,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "dr. abhinav sharma"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "sharma, abhinav"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2,
+      "page": "https://www.riverrecords.ai/team/abhinav-sharma/",
+      "query": "university of toronto graduate"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 30,
+      "page": "https://www.riverrecords.ai/team/derrick-chu/",
+      "query": "derek chu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 36,
+      "ctr": 0,
+      "position": 5,
+      "page": "https://www.riverrecords.ai/team/derrick-chu/",
+      "query": "derrick chu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 62,
+      "page": "https://www.riverrecords.ai/terms-of-service/",
+      "query": "river records"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 82,
+      "page": "https://www.riverrecords.ai/terms-of-service/",
+      "query": "riverrecords"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 55,
+      "page": "https://www.riverrecords.ai/tools/undercoding-calculator/",
+      "query": "undercoding"
+    }
+  ]
+}
