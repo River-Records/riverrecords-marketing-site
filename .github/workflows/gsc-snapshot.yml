@@ -1,0 +1,57 @@
+name: Snapshot Search Console
+
+# Commits a weekly snapshot of Search Console into data/gsc/, so the site accumulates a
+# memory of its own performance. Google only keeps 16 months; these files keep it for as
+# long as the repo exists, and make it diffable.
+#
+# One-time setup (service account + secret) is in docs/DATA-PIPELINE.md.
+on:
+  schedule:
+    # Mondays 06:00 UTC. Weekly rather than daily on purpose: Search Console finalises on
+    # a lag, weekly volumes on this site are small enough that daily deltas are mostly
+    # noise, and a daily commit would bury real changes in churn.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Window length in days (default 28)'
+        required: false
+        default: '28'
+
+permissions:
+  contents: write # commits the snapshot back to main
+
+concurrency:
+  group: gsc-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No npm ci: the script uses only node builtins, and this repo has no
+      # devDependencies to install.
+      - name: Fetch
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+        run: node scripts/fetch-gsc.mjs --days "${{ inputs.days || '28' }}"
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/gsc
+          # Nothing to do if the window produced an identical file — which happens when
+          # the job is re-run inside the same day.
+          if git diff --cached --quiet; then
+            echo "No change in this window."
+            exit 0
+          fi
+          git commit -m "Snapshot Search Console $(date -u +%Y-%m-%d)"
+          git push
