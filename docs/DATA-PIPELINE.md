@@ -158,9 +158,15 @@ D1 rather than Analytics Engine, which cannot remove an individual record at all
 
 ## Half 2 — Search Console into the repo
 
-`scripts/fetch-gsc.mjs` pulls pages, queries, and page+query pairs into `data/gsc/`, as a
-dated snapshot plus `latest.json`. `.github/workflows/gsc-snapshot.yml` runs it Mondays
-at 06:00 UTC and commits the result.
+`scripts/fetch-gsc.mjs` pulls pages, queries, and page+query pairs into `data/gsc/`.
+`.github/workflows/gsc-snapshot.yml` runs it Mondays at 06:00 UTC and commits the result.
+
+**Files are named `<endDate>-<days>d.json`, with `latest-<days>d.json` as a stable pointer
+per window.** The window length is in the name because it has to be: the first version
+keyed on `endDate` alone, and a one-off `--days 365` pull on 2026-09-14 silently
+overwrote the 28-day snapshot taken the same day — destroying the baseline the first
+data-driven page was meant to be judged against. Different windows are different
+measurements. Compare `latest-28d.json` week over week; keep the annual pull separate.
 
 Weekly, not daily: Search Console finalises on a lag, weekly volumes here are small
 enough that daily deltas are mostly noise, and a daily commit would bury real change in

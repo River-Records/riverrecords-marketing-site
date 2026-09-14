@@ -107,6 +107,14 @@ const twitterHandle = "@riverrecordshq";
   <script is:inline src="/reveal.js"></script>
 
   <!--
+    Engaged time and scroll depth. Activates on `.blog-post` (every post) and on any
+    page passing `readable` to the Page layout; does nothing anywhere else, which is
+    most of the site. It lived in BlogPost.astro until the whole funnel outside the blog
+    turned out to be unmeasurable. See public/read-tracking.js.
+  -->
+  <script is:inline src="/read-tracking.js"></script>
+
+  <!--
     HubSpot tracking (portal 46752060).
 
     Loaded directly rather than through GTM, deliberately — see the analytics note in

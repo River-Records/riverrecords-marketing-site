@@ -4,13 +4,24 @@ import OfferBanner from '../components/OfferBanner.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const { title, description, ogImage, canonicalUrl } = Astro.props;
+/*
+ * `readable` opts a page into engagement tracking — engaged seconds and scroll depth,
+ * not just a page view. Pass the kind of content it is ("guide", "pricing", "specialty",
+ * "comparison", "pillar"); it lands on the event as `content_type` so the kinds stay
+ * separable. Omit it and the page reports a view only, which is right for /contact/,
+ * the legal pages and anything else with nothing to read.
+ *
+ * Scroll is measured against <main>, so nav and footer are excluded. That includes the
+ * closing CTA, which is a fair boundary for a page even though it would have been wrong
+ * for a blog post. See public/read-tracking.js.
+ */
+const { title, description, ogImage, canonicalUrl, readable } = Astro.props;
 ---
 <Base title={title} description={description} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   <slot name="head" slot="head" />
   <OfferBanner />
   <Nav />
-  <main>
+  <main {...(readable ? { 'data-rr-read': readable } : {})}>
     <slot />
   </main>
   <Footer />

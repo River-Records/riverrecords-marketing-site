@@ -947,6 +947,11 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
 <!-- NAV -->
 <Nav />
 
+<!-- This page predates the Page layout and wires Base/Nav/Footer itself, so it
+     cannot use the `readable` prop. The attribute goes on <main> directly, which the
+     page was missing anyway. -->
+<main data-rr-read="comparison">
+
 <!-- HERO -->
 <section class="freed-hero" id="hero">
   <div class="freed-container">
@@ -1326,6 +1331,8 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <Footer />

@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { c } = Astro.props;
 const onboardUrl = `https://stream.riverrecords.ai/onboard/stream-pro?utm_source=comparison&utm_medium=landing&utm_campaign=vs-${c.slug}`;
 ---
-<Page title={c.seoTitle} description={c.seoDescription}>
+<Page readable="comparison" title={c.seoTitle} description={c.seoDescription}>
 
 <Fragment slot="head">
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
