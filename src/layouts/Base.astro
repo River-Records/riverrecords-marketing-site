@@ -113,6 +113,14 @@ const twitterHandle = "@riverrecordshq";
   -->
   <script is:inline src="/hubspot-events.js"></script>
 
+  <!--
+    Records the same dataLayer events to our own D1 store keyed by rr_vid, so anonymous
+    behaviour survives — hubspot-events.js only reaches people who are already known
+    contacts, which is nobody until they identify themselves. Degrades to nothing when
+    the database is not bound. See public/event-collector.js and docs/DATA-PIPELINE.md.
+  -->
+  <script is:inline src="/event-collector.js"></script>
+
   <slot name="scripts" />
 </body>
 </html>

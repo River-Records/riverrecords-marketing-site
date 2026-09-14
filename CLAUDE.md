@@ -488,9 +488,10 @@ Contact:      /contact (form redirects to /contacted)
 Most analytics run through Google Tag Manager (GTM-N767QFHJ).
 GTM contains: GA4, 3 Google Ads conversions, Hotjar, PostHog, login tracking.
 
-Two scripts load directly in Base.astro instead, on purpose:
+Three scripts load directly in Base.astro instead, on purpose:
 - **Ahrefs** analytics
 - **HubSpot** tracking (portal 46752060)
+- **`event-collector.js`** — our own first-party collector, see below
 
 Do not add further standalone analytics scripts — default to GTM. The HubSpot
 exception is deliberate and worth understanding before overriding it:
@@ -506,6 +507,54 @@ exception is deliberate and worth understanding before overriding it:
 See `docs/GROWTH-DATA-AUDIT.md` for the full reasoning, `docs/GTM-SETUP.md` for the
 container work this is waiting on, and `docs/VERIFY-DEPLOY.md` to confirm a deploy
 actually works.
+
+### Anonymous behaviour: `public/event-collector.js` → D1
+Setup runbook: `docs/DATA-PIPELINE.md`. Nothing is stored until the `SITE_EVENTS` D1
+binding exists on the Pages project; without it the endpoint accepts and discards, so
+this is safe to deploy ahead of the database.
+
+The gap it closes: ten dataLayer events fire and no GTM tag listens, and
+`hubspot-events.js` only reaches people who are *already* known contacts — which is
+nobody until they identify themselves. So a visitor could read three posts, watch a
+walkthrough and land on pricing, and the only durable trace was an anonymous +1 in
+Cloudflare's aggregate that could not be joined to anything. Events are now recorded
+against `rr_vid`, so the history exists **before** anyone gives us their name and
+attaches retroactively the moment they do.
+
+Four things are load-bearing:
+
+- **Props are allow-listed, not forwarded.** Only keys in `FIELDS` leave the browser. An
+  event object is whatever the pushing code decided to include, and an email address
+  alongside a durable anonymous id is how an anonymous id stops being anonymous.
+  `verify-event-collector.mjs` pushes a real email and asserts it never arrives.
+  Adding a field to that list is a decision, not a detail.
+- **`rr_vid` comes from `window.rrAttribution`, never re-derived** — same rule as every
+  other consumer. If attribution never resolves, nothing is sent, rather than an invented
+  id fragmenting one person across rows.
+- **It polls the dataLayer and never wraps `push`** — wrapping races GTM installing its
+  own, and `gtm.js` is async so the order is not knowable.
+- **The endpoint always answers 204 and the client never retries.** A page must not care
+  whether analytics succeeded, and a retry loop would turn one bad deploy into a request
+  storm against our own origin. Diagnose with the `X-RR-Events` response header.
+
+D1 rather than Cloudflare Analytics Engine, which was the other candidate: Analytics
+Engine retains 90 days, samples under load, and answers "how many plays last week"
+instead of "what did this visitor do before converting" — a row lookup, which is the
+whole point. It also cannot delete an individual record, and D1 can.
+
+### Search Console snapshots (`scripts/fetch-gsc.mjs` → `data/gsc/`)
+A scheduled Action commits pages, queries and page+query pairs weekly. Search Console is
+the one rich per-page historical dataset the site already has, and it was reachable only
+by logging in and clicking around; committed snapshots make it diffable and outlive
+Google's 16-month window. The query window ends three days back because Search Console
+finalises on a lag, and a partial final day reads as a cliff in anything built on it.
+
+Collection only, on purpose. Detectors that read these snapshots and propose fixes are a
+separate piece of work — collection has to be trustworthy first. When that gets built:
+it proposes rather than pushes, and the `limits` FAQs, competitor claim rules, clinical
+criteria in both guides, and the calculator's anti-upcoding guardrail are off limits to
+it. A metric-optimising process has every reason to soften a "no", and those noes are
+why the site is credible to the people it sells to.
 
 ### High-intent events go straight to HubSpot
 `public/hubspot-events.js` forwards a short list of dataLayer events — `video_play`,
@@ -591,10 +640,10 @@ Node version: 22
 - Do not use browser storage for page state or UI behaviour — **except** the
   named acquisition-attribution keys below
 - Do not add cookie consent banners without checking with Jake
-- Do not add standalone analytics scripts — **except** the two already documented
-  (Ahrefs, HubSpot); default to GTM for anything new
+- Do not add standalone analytics scripts — **except** the three already documented
+  (Ahrefs, HubSpot, and our own first-party collector); default to GTM for anything new
 
-### The two storage/analytics exceptions, and why
+### The storage/analytics exceptions, and why
 These rules used to be absolute. Both now carry a deliberate exception, so that the
 list matches the code rather than quietly contradicting it.
 
@@ -611,11 +660,16 @@ nothing about the person. It is bounded to 60 entries so it cannot grow without 
 and it exists so a later offer can be shown to someone on their third post rather than
 their first pageview.
 
-**Standalone scripts.** Ahrefs and HubSpot load directly in `Base.astro`. See the
-Analytics section for the full reasoning; the short version is that identity tracking
-has to run on every page to work at all, and the GTM container has had no owner since
-Jay left, so logic placed there has no reviewer, no history, and no version control.
-Keep the container thin and the repo authoritative.
+**Standalone scripts.** Ahrefs, HubSpot and `event-collector.js` load directly in
+`Base.astro`. See the Analytics section for the full reasoning; the short version is that
+identity tracking has to run on every page to work at all, and the GTM container has had
+no owner since Jay left, so logic placed there has no reviewer, no history, and no
+version control. Keep the container thin and the repo authoritative.
+
+`event-collector.js` is the third and it is not a third-party tag at all — it posts to
+our own `/api/events` and stores in our own database. Routing it through GTM would put
+the one piece of collection we fully control into the one place nobody owns, which is
+backwards. It is in the repo, diffable, and verified by a script.
 
 
 ## Acquisition attribution (`public/attribution.js`)
