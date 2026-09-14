@@ -17,7 +17,9 @@ Nowadays, doctors face unprecedented pressures—not only from the clinical dema
 
 ## The Role of Automation in Clinical Documentation
 
-Automated clinical documentation is transforming healthcare by streamlining administrative tasks through advanced technology. Integrated with existing electronic health records, these solutions leverage AI and natural language processing to capture and organize clinical data with remarkable efficiency. Automated documentation systems, like *Stream*, can record key information from patient visits in real-time, reducing the need for manual entry, minimizing the risk of errors and missed information , and helping providers meet regulatory and insurance standards.
+*For a full breakdown of the category — the five layers it covers, how to roll it out, and what it does not automate — see [Clinical Documentation Automation](/clinical-documentation-automation/).*
+
+Automated clinical documentation is transforming healthcare by streamlining administrative tasks through advanced technology. Working alongside existing electronic health records, these solutions leverage AI and natural language processing to capture and organize clinical data with remarkable efficiency. Automated documentation systems, like *Stream*, can record key information from patient visits in real-time, reducing the need for manual entry, minimizing the risk of errors and missed information , and helping providers meet regulatory and insurance standards.
 
 For healthcare organizations, automation is not only about increasing efficiency but also about enhancing care quality. By using automated documentation tools, healthcare providers can focus on outcomes and long-term patient health rather than data entry, unlocking valuable time for clinicians and ultimately elevating the patient experience.
 

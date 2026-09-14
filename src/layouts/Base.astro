@@ -81,6 +81,13 @@ const twitterHandle = "@riverrecordshq";
       max-width: 100vw;
     }
   </style>
+
+  <!-- Scroll-reveal is an enhancement; with JS off it must not hide the page. -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -91,6 +98,13 @@ const twitterHandle = "@riverrecordshq";
   <!-- Acquisition attribution: must run before any CTA can be clicked. -->
   <script is:inline src="/attribution.js"></script>
   <script is:inline src="/ui-widgets.js"></script>
+
+  <!--
+    `.reveal` is opacity:0 until something adds `.visible`. That used to be a per-page
+    inline observer, so any page that forgot one rendered the element invisible —
+    /research/ shipped a CTA nobody could see. Global now. See public/reveal.js.
+  -->
+  <script is:inline src="/reveal.js"></script>
 
   <!--
     HubSpot tracking (portal 46752060).
