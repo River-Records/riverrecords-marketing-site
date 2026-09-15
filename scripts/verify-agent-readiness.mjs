@@ -121,11 +121,11 @@ check('homepage returns a Link header', !!link, link || 'none');
 check('advertises rel="describedby"', /rel="?describedby"?/.test(link), link);
 check('points at /organization.jsonld', link.includes('/organization.jsonld'), link);
 
-// Early Hints sends a SEPARATE Link header with the font preconnects and replays it as
-// a 103. `link` here is every Link header joined, so both should be present. If the
-// preconnects vanish, Early Hints has stopped — visitors lose a round trip on first
-// paint and nothing else would notice.
-check('Early Hints preconnects still present alongside describedby',
+// Setting Link in _headers replaces the header Early Hints would synthesise, so ours
+// has to carry the font preconnects or the 103 stops entirely — measured both ways.
+// Losing it costs real visitors a round trip on first paint and nothing else would
+// notice, which is precisely why it is asserted here.
+check('font preconnects ride along, keeping Early Hints alive',
   link.includes('fonts.googleapis.com') && link.includes('fonts.gstatic.com'), link);
 
 // The header is worthless if the target 404s, and a Link header pointing at nothing is
