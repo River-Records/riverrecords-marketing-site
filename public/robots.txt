@@ -1,4 +1,27 @@
+# Content Signals — https://contentsignals.org
+#
+# A preference, not an enforcement mechanism. Crawlers may ignore it; blocking is a
+# separate concern handled at the edge.
+#
+#   search=yes     index us and show links and short excerpts
+#   ai-input=yes   use our pages to ground AI answers — RAG, AI Overviews, assistants
+#   ai-train=no    do not train or fine-tune models on this content
+#
+# ai-input is deliberately YES, which is the opposite of the common default.
+# This site is written to be quoted: /faq exists because question-shaped queries are what
+# answer engines pull from, and the pricing and comparison pages carry schema for the same
+# reason. Asking not to be used as AI input would switch off a channel we built for.
+#
+# The usual argument for ai-input=no is that AI answers cannibalise clicks. That applies
+# to sites monetised by pageviews. Here, search sends ~60 clicks a month and the goal is
+# that a clinician learns Stream exists — a cited answer is worth more than the visit it
+# replaces. Revisit if that stops being true.
+#
+# ai-train is NO because there is no return to us in it, and unlike ai-input it does not
+# put our name in front of anyone.
+
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 Sitemap: https://www.riverrecords.ai/sitemap-index.xml
