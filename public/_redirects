@@ -5,13 +5,30 @@
 /sitemap.xml  /sitemap-index.xml  301
 
 # Old core page redirects (301 for SEO equity)
+#
+# Every specific rule below is listed in BOTH slash forms. Cloudflare normally 308s
+# /path to /path/, but a matching _redirects rule wins first — so the no-slash form goes
+# where it should while the slash form falls through to the /compare/* catch-all and
+# lands on the generic hub instead of the page built for it. Google has the no-slash
+# form indexed today, but it indexed both variants of ~85 other URLs on this site, so
+# assuming it only ever sees one is not safe.
 /compare/freed-alternative  /comparison/freedai  301
+/compare/freed-alternative/  /comparison/freedai  301
 /compare/heidi-alternative  /  301
+/compare/heidi-alternative/  /  301
 # The OpenEvidence page was pulled because it implied a competition that does not
 # exist — they are clinical decision support, we are documentation. But the URL still
 # holds 2,451 impressions at position 8, and sending that to the homepage converted
 # almost none of it. It now points at a page scoped honestly to the scribe.
+#
+# That interim homepage redirect cost the ranking. Google treats a 301 from a specific
+# page to the homepage as a soft 404 and drops the URL rather than transferring it, and
+# the annual data shows exactly that: 2,451 impressions across the year, and **zero in
+# the 28 days** to 2026-09-11. The rule below is correct now, but the position has to be
+# re-earned rather than restored. Never point a ranking URL at the homepage again —
+# redirect to the closest equivalent page or leave it 404ing.
 /compare/open-evidence-alternative  /comparison/openevidence-scribe/  301
+/compare/open-evidence-alternative/  /comparison/openevidence-scribe/  301
 # Catch-all for any other legacy /compare URL → comparison hub
 /compare/*  /comparison  301
 /compare  /comparison  301
