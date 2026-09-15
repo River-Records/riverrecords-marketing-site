@@ -26,8 +26,27 @@ const check = (name, cond, detail) => {
   if (!cond) fails++;
 };
 
+/*
+ * Markdown for Agents is a setting on the riverrecords.ai ZONE. A *.pages.dev preview is
+ * a different zone entirely and will never have it, so running the whole script against
+ * a preview reported seventeen failures for a configuration that was working perfectly.
+ * A check that cries wolf on previews is worse than no check, because the next person
+ * learns to ignore it.
+ *
+ * The Link header and robots.txt ARE in the build, so those still run everywhere — which
+ * is what makes a preview run useful at all.
+ */
+const ZONE_ONLY = /(^|\.)riverrecords\.ai$/.test(new URL(BASE).hostname);
+
 /* ------------------------------------------------------ markdown negotiation */
 
+if (!ZONE_ONLY) {
+  console.log(`\nMarkdown for Agents — SKIPPED`);
+  console.log(`  ${BASE} is not on the riverrecords.ai zone, and the feature is a zone`);
+  console.log(`  setting. Run without BASE to check production.`);
+}
+
+if (ZONE_ONLY) {
 console.log(`\nMarkdown for Agents — ${BASE}`);
 
 // One page of each kind: a config-driven page, the FAQ, a built pillar page, and a post
@@ -74,6 +93,7 @@ check('frontmatter present', md.trimStart().startsWith('---'), md.slice(0, 40));
 for (const fact of ['149', '99', '1,188']) {
   check(`price "${fact}" survives conversion`, md.includes(fact));
 }
+} // end ZONE_ONLY
 
 /* ----------------------------------------------------------- content signals */
 
