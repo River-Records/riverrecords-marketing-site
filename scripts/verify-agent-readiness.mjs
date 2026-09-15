@@ -91,5 +91,46 @@ check('ai-train=no', /ai-train\s*=\s*no/.test(signal));
 check('crawling still allowed', /^Allow:\s*\/$/m.test(robots));
 check('no Disallow rules crept in', !/^Disallow:\s*\S/m.test(robots));
 
+/* ---------------------------------------------- RFC 8288 Link header discovery */
+
+console.log('\nLink header on the homepage');
+const home = await fetch(BASE + '/', { redirect: 'follow' });
+const link = home.headers.get('link') || '';
+
+check('homepage returns a Link header', !!link, link || 'none');
+check('advertises rel="describedby"', /rel="?describedby"?/.test(link), link);
+check('points at /organization.jsonld', link.includes('/organization.jsonld'), link);
+
+// The header is worthless if the target 404s, and a Link header pointing at nothing is
+// worse than no Link header — an agent spends a request to learn we lied.
+const doc = await fetch(BASE + '/organization.jsonld');
+check('the target actually resolves', doc.ok, `HTTP ${doc.status}`);
+check('served as JSON-LD, not a download',
+  (doc.headers.get('content-type') || '').includes('application/ld+json'),
+  `content-type: ${doc.headers.get('content-type')}`);
+
+let parsed = null;
+try {
+  parsed = JSON.parse(await doc.text());
+} catch (err) {
+  check('the target is valid JSON', false, err.message);
+}
+if (parsed) {
+  check('the target is valid JSON', true);
+  check('describes this organization',
+    parsed['@type'] === 'Organization' && parsed.name === 'River Records',
+    `${parsed['@type']} / ${parsed.name}`);
+  // The standalone document must not be a worse answer than parsing the page.
+  check('is a superset of the inline schema, not a different shape',
+    !!parsed.description && !!parsed.url && !!parsed.makesOffer);
+}
+
+// Deliberately absent, and asserted so nobody adds them to chase a scorecard. All three
+// describe APIs; this site has none, and an empty catalogue is a broken promise.
+console.log('\nAPI relation types stay unclaimed (no public API exists)');
+for (const rel of ['api-catalog', 'service-desc', 'service-doc']) {
+  check(`does not advertise rel="${rel}"`, !link.includes(rel), link);
+}
+
 console.log('\n' + (fails ? `${fails} CHECK(S) FAILED` : 'ALL CHECKS PASSED'));
 process.exit(fails ? 1 : 0);

@@ -1,0 +1,21 @@
+# Cloudflare Pages _headers
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Syntax is whitespace-sensitive: a path on its own line, then each header indented
+# beneath it. A malformed file is ignored in full rather than partially, so verify the
+# served response rather than assuming.
+
+# RFC 8288 Link header for agent discovery. `describedby` means "a resource providing
+# information about the link's context", which is exactly what /organization.jsonld is.
+#
+# Only this one relation is published. Scanners also ask for api-catalog, service-desc
+# and service-doc — all three describe APIs, and this site has no public API. An empty
+# /.well-known/api-catalog would give an agent that followed it nothing at all, which is
+# worse than not advertising one.
+/
+  Link: </organization.jsonld>; rel="describedby"; type="application/ld+json"
+
+# Cloudflare types static files from their extension and does not know `.jsonld`, so
+# without this the description is served as a download rather than as JSON-LD.
+/organization.jsonld
+  Content-Type: application/ld+json; charset=utf-8
