@@ -673,6 +673,45 @@ an outbound click rather than on a completed booking or signup, so they measure 
 rather than outcome. See `docs/GROWTH-DATA-AUDIT.md`. The container is not visible from
 the repo, so treat the list above as unverified until checked in the console.
 
+## Agent-facing surface: markdown negotiation and content signals
+
+**Markdown for Agents is a Cloudflare feature, not code in this repo.** A request with
+`Accept: text/markdown` gets markdown converted at the edge — YAML frontmatter, JSON-LD
+preserved, footer stripped — while browsers still get HTML. Measured saving is 52–72%
+of tokens per page.
+
+**It requires a Pro (or above) zone plan, ~$25/month.** That is the one thing that can
+switch it off, and it would do so silently: nothing in the build would notice, because
+there is nothing here to break. Enabled under **AI Crawl Control** in the Cloudflare
+dashboard. If it ever stops working, check the plan before anything else.
+
+The nav is *not* stripped, contrary to Cloudflare's docs — roughly 12% of each page's
+markdown is the menu. `Nav.astro` is already a semantic `<nav>`, so that is the
+converter's behaviour, not our markup. **Do not wrap the nav in a `<header>` to force
+it.** The nav is `position: sticky`, and a sticky element only sticks within its
+parent's box, so that wrapper would break the sticky nav on every page for real
+visitors — a bad trade for agent token efficiency.
+
+**Content signals** (`public/robots.txt`) declare `search=yes, ai-input=yes,
+ai-train=no`. `ai-input` is deliberately **yes**, which inverts the common default: it
+governs whether pages may ground AI answers, and this site is written to be quoted —
+`/faq` exists because question-shaped queries are what answer engines pull from, and
+`/pricing` carries Product/Offer schema for the same reason. The usual case for `no` is
+that AI answers cannibalise clicks, which applies to sites monetised by pageviews; search
+sends this one ~60 clicks a month and a citation is worth more than the visit it
+replaces. The reasoning is in the file — revisit it deliberately rather than flipping it.
+
+`scripts/verify-agent-readiness.mjs` checks both. **It is the only verify script that
+tests production rather than `dist/`**, because neither thing lives in the build: one is
+a billing state at the edge, and the other can be overridden by Cloudflare's managed
+robots.txt injecting a second block. It asserts the prices survive conversion, since a
+mangled number quoted by an agent is worse than no markdown at all.
+
+Not worth chasing: the agent-readiness scanners also test for `mcpServerCard`,
+`a2aAgentCard`, `oauthDiscovery`, `apiCatalog` and `webMcp`. Those are for sites exposing
+an agent-callable API. This one has none, and adding them to turn a scorecard green would
+be building things with no user.
+
 ## Tone & copy rules
 - DO NOT use the word "narrative" in any copy
 - DO NOT say Stream "thinks like a clinician" — it is "organized like clinicians think"
