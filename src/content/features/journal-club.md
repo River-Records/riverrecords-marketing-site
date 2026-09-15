@@ -62,7 +62,7 @@ You do not decide what to read. You do not decide when to look.
 
 This matters more than the feature description, because the space next door to this one is full of products doing something quite different.
 
-**It is not clinical decision support.** Decision support answers a question you have, about a patient in front of you, while you are with them. Journal Club asks you nothing, arrives after the fact, and never comments on an individual case. Stream has no clinical decision support: no search, no differential suggestions, no guidance on a particular patient. If that is what you need, tools built for it exist and are good, and many clinicians will sensibly use one alongside Stream.
+**It is not clinical decision support.** Decision support answers a question you have, about a patient in front of you, while you are with them. Journal Club asks you nothing, arrives after the fact, and never comments on an individual case. Stream has no clinical decision support: no search, no differential suggestions, no guidance on a particular patient. If that is what you need, tools built for it exist and are good, and many clinicians will sensibly use one alongside Stream — we wrote about [how Stream and OpenEvidence's scribe fit together](/comparison/openevidence-scribe/), since they solve different halves of the problem.
 
 **It is not accredited.** There is no CME credit. This is keeping up with your field, not documenting that you did.
 

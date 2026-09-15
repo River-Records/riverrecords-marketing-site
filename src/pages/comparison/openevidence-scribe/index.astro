@@ -22,8 +22,13 @@
  * the failure that PR #27 cleaned up.
  */
 import Page from '../../../layouts/Page.astro';
+import { pricing } from '../../../config/pricing';
 
 const VERIFIED = '2 September 2026';
+/* Their scribe is free, ours is not. Checked separately and more recently than the rest
+   of the page, because it is the single fact most likely to move and the one a reader
+   will discover in thirty seconds whether we mention it or not. */
+const PRICING_VERIFIED = '14 September 2026';
 const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source=comparison&utm_medium=landing&utm_campaign=vs-openevidence-scribe';
 ---
 <Page
@@ -115,6 +120,12 @@ const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source
         <p>This is not a diplomatic hedge. The tools do genuinely different jobs, and a physician who looks things up during visits and also wants a chart that accumulates is well served by having both open.</p>
         <p>If OpenEvidence's scribe already handles your notes and you are content with where they land, you do not need us. That is a real answer, and we would rather say it here than take a trial from someone who will cancel in a month.</p>
       </div>
+
+      <h2>Theirs is free. Ours is not.</h2>
+      <p>This is the first thing you will find out anyway, so it should not come from anyone else. OpenEvidence's scribe is <strong>free to verified US clinicians</strong> — NPI verification, and the product is funded by pharmaceutical advertising rather than subscriptions. Stream is {pricing.pricePhrase}</p>
+      <p>If cost is what decides it, that is a real answer and theirs wins. We are not going to construct a reason why free is secretly expensive.</p>
+      <p>What the subscription buys is the second half of the problem: the record that accumulates, the faxes and outside documents read and filed under the problems they concern, and a chart organized by problem instead of by date. If the note is the whole of your problem, a free scribe that writes a good note has solved it.</p>
+      <p class="oe-stamp">Pricing checked {PRICING_VERIFIED} · <a href="https://www.openevidence.com" rel="nofollow noopener" target="_blank">openevidence.com</a> · <a href="/pricing/">our pricing</a></p>
 
       <h2>Where Stream is genuinely different</h2>
       <ul>
