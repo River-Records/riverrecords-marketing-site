@@ -101,6 +101,12 @@ check('homepage returns a Link header', !!link, link || 'none');
 check('advertises rel="describedby"', /rel="?describedby"?/.test(link), link);
 check('points at /organization.jsonld', link.includes('/organization.jsonld'), link);
 
+// Setting Link in _headers REPLACES Cloudflare's Early Hints header rather than adding
+// to it, so the font preconnects have to be carried explicitly. Dropping them costs real
+// visitors a round trip on first paint and nothing else would notice.
+check('font preconnects survive alongside describedby',
+  link.includes('fonts.googleapis.com') && link.includes('fonts.gstatic.com'), link);
+
 // The header is worthless if the target 404s, and a Link header pointing at nothing is
 // worse than no Link header — an agent spends a request to learn we lied.
 const doc = await fetch(BASE + '/organization.jsonld');
