@@ -24,6 +24,15 @@
  * RUN
  *   GSC_SERVICE_ACCOUNT_JSON="$(cat key.json)" node scripts/fetch-gsc.mjs
  *   node scripts/fetch-gsc.mjs --days 90 --out data/gsc
+ *   node scripts/fetch-gsc.mjs --series --days 480    (daily time series, see below)
+ *
+ * SERIES MODE
+ * The default snapshot aggregates the whole window, so it can say what ranked but not
+ * *when*. `--series` writes a second file keyed by day — site totals, per-page and the
+ * brand queries — over as much history as Google still holds (16 months). It answers
+ * "when did that happen": a brand-search lift, a page falling out of the index, the
+ * weeks a campaign was running. The regular snapshot cannot, however many are kept,
+ * because each one covers a window rather than a day.
  */
 
 import { createSign } from 'node:crypto';
@@ -47,6 +56,7 @@ const arg = (name, fallback) => {
 };
 
 const DAYS = Number(arg('days', '28'));
+const SERIES = process.argv.includes('--series');
 const OUT_DIR = arg('out', 'data/gsc');
 const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:riverrecords.ai';
 
@@ -115,7 +125,7 @@ async function listSites(token) {
  * so anything beyond that needs startRow — worth doing properly, because page+query is
  * the dimension pair that actually exceeds it and it is also the most useful one.
  */
-async function query(token, { startDate, endDate, dimensions, limit }) {
+async function query(token, { startDate, endDate, dimensions, limit, filters }) {
   const rows = [];
   const PAGE = 25000;
 
@@ -132,6 +142,7 @@ async function query(token, { startDate, endDate, dimensions, limit }) {
           startDate,
           endDate,
           dimensions,
+          ...(filters ? { dimensionFilterGroups: [{ filters }] } : {}),
           rowLimit: Math.min(PAGE, limit - rows.length),
           startRow: rows.length,
           dataState: 'final',
@@ -203,6 +214,44 @@ console.log(`Search Console: ${SITE_URL}`);
 console.log(`Window: ${startDate} to ${endDate} (${DAYS} days, ending ${LAG_DAYS} days back)\n`);
 
 const token = await accessToken(sa);
+
+if (SERIES) {
+  // Daily rows. Brand is any query containing the company name — the lift a campaign
+  // produces shows up here first, because people who saw an ad search the name later.
+  const daily = await query(token, { startDate, endDate, dimensions: ['date'], limit: 5000 });
+  console.log(`  days         ${daily.length}`);
+  const brand = await query(token, {
+    startDate,
+    endDate,
+    dimensions: ['date'],
+    limit: 5000,
+    filters: [{ dimension: 'query', operator: 'contains', expression: 'river records' }],
+  });
+  console.log(`  brand days   ${brand.length}`);
+  const datePages = await query(token, {
+    startDate,
+    endDate,
+    dimensions: ['date', 'page'],
+    limit: 100000,
+  });
+  console.log(`  date+page    ${datePages.length}`);
+
+  const series = {
+    site: SITE_URL,
+    startDate,
+    endDate,
+    days: DAYS,
+    fetchedAt: new Date().toISOString(),
+    daily,
+    brand,
+    datePages,
+  };
+  await mkdir(OUT_DIR, { recursive: true });
+  const out = join(OUT_DIR, `series-${endDate}-${DAYS}d.json`);
+  await writeFile(out, JSON.stringify(series, null, 2) + '\n');
+  console.log(`\n  wrote ${out}`);
+  process.exit(0);
+}
 
 // Sequential rather than parallel: Search Console rate-limits per property, and three
 // requests finishing a second later is not worth a 429 that fails the whole run.

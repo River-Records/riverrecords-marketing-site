@@ -17,6 +17,10 @@ on:
         description: 'Window length in days (default 28)'
         required: false
         default: '28'
+      series:
+        description: 'Write a daily time series instead of a window snapshot (true/false)'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write # commits the snapshot back to main
@@ -40,7 +44,7 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
-        run: node scripts/fetch-gsc.mjs --days "${{ inputs.days || '28' }}"
+        run: node scripts/fetch-gsc.mjs --days "${{ inputs.days || '28' }}" ${{ inputs.series == 'true' && '--series' || '' }}
 
       - name: Commit
         run: |
