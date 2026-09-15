@@ -101,10 +101,11 @@ check('homepage returns a Link header', !!link, link || 'none');
 check('advertises rel="describedby"', /rel="?describedby"?/.test(link), link);
 check('points at /organization.jsonld', link.includes('/organization.jsonld'), link);
 
-// Setting Link in _headers REPLACES Cloudflare's Early Hints header rather than adding
-// to it, so the font preconnects have to be carried explicitly. Dropping them costs real
-// visitors a round trip on first paint and nothing else would notice.
-check('font preconnects survive alongside describedby',
+// Early Hints sends a SEPARATE Link header with the font preconnects and replays it as
+// a 103. `link` here is every Link header joined, so both should be present. If the
+// preconnects vanish, Early Hints has stopped — visitors lose a round trip on first
+// paint and nothing else would notice.
+check('Early Hints preconnects still present alongside describedby',
   link.includes('fonts.googleapis.com') && link.includes('fonts.gstatic.com'), link);
 
 // The header is worthless if the target 404s, and a Link header pointing at nothing is

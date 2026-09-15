@@ -13,17 +13,17 @@
 # /.well-known/api-catalog would give an agent that followed it nothing at all, which is
 # worse than not advertising one.
 #
-# THE PRECONNECTS ARE NOT OPTIONAL PADDING. Cloudflare Early Hints synthesises a Link
-# header from the page's <link rel="preconnect"> tags and replays it as a 103, so the
-# browser opens font connections before the HTML arrives. Setting Link here REPLACES
-# that header rather than appending to it — measured on a deployed preview, where adding
-# describedby alone silently dropped the preconnects. Comma-separated values are valid
-# per RFC 8288, so both ship together.
+# Cloudflare Early Hints emits its OWN Link header carrying the font preconnects,
+# synthesised from the <link rel="preconnect"> tags in Base.astro, and replays it as a
+# 103 before the HTML arrives. Setting Link here does NOT replace it — both headers are
+# sent, which RFC 8288 allows.
 #
-# If the preconnect tags in Base.astro ever change, change these to match. They are the
-# one piece of duplication in this file and nothing will catch the drift.
+# Worth stating because the first measurement said otherwise: on a fresh deploy only
+# this header appeared, and the preconnects looked dropped. That was a cold Early Hints
+# cache, not a replacement. Duplicating the preconnects here to "restore" them was
+# unnecessary and added a copy that would drift from Base.astro.
 /
-  Link: </organization.jsonld>; rel="describedby"; type="application/ld+json", <https://fonts.googleapis.com>; rel="preconnect", <https://fonts.gstatic.com>; rel="preconnect"; crossorigin
+  Link: </organization.jsonld>; rel="describedby"; type="application/ld+json"
 
 # Cloudflare types static files from their extension and does not know `.jsonld`, so
 # without this the description is served as a download rather than as JSON-LD.
