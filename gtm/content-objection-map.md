@@ -96,6 +96,7 @@
 | [Part 2: Siloed Documentation in a Collaborative World](https://riverrecords.ai/blog/part-2-siloed-medical-documentation-problems/) | 4 — operations | physician owner | heavy |
 | [Not All Problems Need AI](https://riverrecords.ai/blog/not-all-problems-need-ai/) ⭐ | 5 — AI skepticism | scribe-skeptic | light |
 | [Summarization Is a Tool, Not a Default](https://riverrecords.ai/blog/summarization-is-a-tool/) | 5 — AI skepticism | scribe-skeptic | heavy |
+| [You Shouldn't Have to Trust the AI Scribe. You Should Be Able to Check It.](https://riverrecords.ai/blog/how-reliable-are-ai-medical-scribes/) ⭐ | 5 — AI skepticism | scribe-skeptic, has-a-scribe | heavy |
 | [The Bridge, Not the Destination](https://riverrecords.ai/blog/the-bridge-not-the-destination/) ⭐ | 6 — no new system | physician owner | light |
 | [Why EHRs Actively Constrain Ideal Clinical Workflows](https://riverrecords.ai/blog/the-ehr-straightjacket/) | 6 — no new system | physician owner | light |
 | [The Problem with EHR Workflows](https://riverrecords.ai/blog/the-problem-with-ehr-workflows-why-its-time-for-a-redesign/) | 6 — no new system | physician owner | light |
@@ -663,6 +664,13 @@
 - **Snippet:** "Everyone asks why Stream won't just summarize the chart — this is our founder's honest answer: summaries hide their omissions, and there's a better way to get what you actually want: [link]"
 - **Weight:** heavy — engaged skeptics; it's the most substantive trust-builder we have on AI limits.
 
+### ⭐ You Shouldn't Have to Trust the AI Scribe. You Should Be Able to Check It.
+- **URL:** https://riverrecords.ai/blog/how-reliable-are-ai-medical-scribes/
+- **Persona:** scribe-skeptic (asks "how accurate is it?"), also has-a-scribe physicians who have been burned by a quiet error
+- **Send this when…** they ask for an accuracy number, say they don't trust AI with the chart, or describe catching a wrong dose / wrong side / invented exam finding in a scribe note.
+- **Snippet:** "You asked how reliable it is — honest answer from our founder is that the accuracy number can't help you, and here's what can: the seven quiet errors every scribe makes (ours included), how to review a note in ninety seconds, and the five questions to ask any vendor: [link]"
+- **Weight:** heavy — but the ninety-second review checklist and the vendor questions stand alone, so it also works cold for the "show me you're honest" prospect. Names our own limitations (no write-back, no CDS, no SOC 2) in print.
+
 ---
 
 ## Category 6 — "We don't want another system"
@@ -787,9 +795,7 @@
 Where the library is thin relative to the objections reps actually hear, ranked by sales impact:
 
 1. **Revenue / coding (category 3) — ✅ COVERED (July 2026).** The Revenue & Coding trilogy shipped, exactly as scoped: *The Undercoding Tax* (part 1, new ⭐ top pick), *Your Denials Start in the Note* (part 2), and *Risk Adjustment Is a Documentation-Structure Problem* (part 3). All three are heavy — Ch. 8 remains the cold-prospect send for this category.
-2. **AI skepticism (category 5) — only two posts,** though both are strong. Missing: an honest piece on failure modes and guardrails, which is what the burned-by-hype prospect actually wants to read. Suggested titles:
-   - *"Where AI Genuinely Helps in Clinic — and Where It Shouldn't Be Trusted Yet"*
-   - *"You Shouldn't Have to Trust the AI. You Should Be Able to Check It."*
+2. **AI skepticism (category 5) — ✅ COVERED (September 2026).** *You Shouldn't Have to Trust the AI Scribe. You Should Be Able to Check It.* shipped as the failure-modes-and-guardrails piece (new ⭐ pick for the "how accurate is it?" prospect). Still open if more is wanted: *"Where AI Genuinely Helps in Clinic — and Where It Shouldn't Be Trusted Yet"*, a lighter map of where AI earns its place.
 3. **"Already on a scribe" switcher post (category 1).** We argue the concept well but have no post depicting the concrete outcome: what a chart looks like after two years of fast, unstructured notes. This would be the single most sendable post for Freed-user prospects. Suggested title:
    - *"Two Years and 10,000 Fast Notes Later: What Your Chart Looks Like"*
 4. **Operations (category 4) — 🟡 PARTIALLY COVERED (July 2026).** Both suggested posts shipped: *Chart Prep Shouldn't Take Your Staff an Hour Per Patient* (new ⭐ top pick) and *Where Referrals Go to Die*. Both are heavy, so the category still lacks light/cold sends beyond the fax post — more operations content could follow (e.g. phone/inbox load, staff turnover and onboarding, or a scheduling-workflow piece in the same visceral-and-specific formula).
