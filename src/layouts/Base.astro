@@ -1,4 +1,6 @@
 ---
+import { organization } from '../config/organization';
+
 const {
   title,
   description,
@@ -56,18 +58,12 @@ const twitterHandle = "@riverrecordshq";
   <!-- Ahrefs Web Analytics -->
   <script is:inline src="https://analytics.ahrefs.com/analytics.js" data-key="F7/Aj1fzD4F4SgdhtZjN8A" async></script>
 
-  <!-- Organization Schema -->
-  <script type="application/ld+json" is:inline>
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "River Records",
-    "url": "https://www.riverrecords.ai",
-    "description": "Stream is an AI medical scribe with memory that generates problem-based clinical notes.",
-    "foundingDate": "2019",
-    "sameAs": ["https://linkedin.com/company/riverrecordshq/"]
-  }
-  </script>
+  <!--
+    Organization Schema — from src/config/organization.ts, which is also the source for
+    the standalone /organization.jsonld that the homepage Link header points at. Two
+    hand-maintained copies of "what is River Records" would drift.
+  -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
 
   <link rel="stylesheet" href="/brand-extract.css">
   <link rel="stylesheet" href="/shared.css">

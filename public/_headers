@@ -1,0 +1,38 @@
+# Cloudflare Pages _headers
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Syntax is whitespace-sensitive: a path on its own line, then each header indented
+# beneath it. A malformed file is ignored in full rather than partially, so verify the
+# served response rather than assuming.
+
+# RFC 8288 Link header for agent discovery. `describedby` means "a resource providing
+# information about the link's context", which is exactly what /organization.jsonld is.
+#
+# Only this one relation is published. Scanners also ask for api-catalog, service-desc
+# and service-doc — all three describe APIs, and this site has no public API. An empty
+# /.well-known/api-catalog would give an agent that followed it nothing at all, which is
+# worse than not advertising one.
+#
+# THE PRECONNECTS ARE LOAD-BEARING. Do not "tidy" them away.
+#
+# Cloudflare Early Hints replays preconnect hints as a 103 before the HTML arrives, so
+# the browser opens font connections early. Setting Link here REPLACES the header Early
+# Hints would otherwise synthesise from Base.astro's <link rel="preconnect"> tags, so if
+# ours does not carry them, there is nothing left to replay. Measured both ways on a
+# deployed preview:
+#
+#   our Link header WITH preconnects     2 Link headers,  103 issued
+#   our Link header WITHOUT them         1 Link header,   no 103 at all
+#
+# Comma-separated values are valid per RFC 8288, so both ship in one header.
+#
+# This is the one piece of duplication in this file: if the preconnect tags in
+# Base.astro change, change these to match. Nothing will catch the drift automatically,
+# though verify-agent-readiness.mjs will catch the preconnects disappearing entirely.
+/
+  Link: </organization.jsonld>; rel="describedby"; type="application/ld+json", <https://fonts.googleapis.com>; rel="preconnect", <https://fonts.gstatic.com>; rel="preconnect"; crossorigin
+
+# Cloudflare types static files from their extension and does not know `.jsonld`, so
+# without this the description is served as a download rather than as JSON-LD.
+/organization.jsonld
+  Content-Type: application/ld+json; charset=utf-8
