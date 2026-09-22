@@ -39,13 +39,13 @@
  * dies goes red without anybody remembering. This date is still worth keeping: CI tells
  * you a URL resolves, not that it still leads to the interview it used to.
  *
- * KNOWN GAP, 22 September 2026: Jake confirmed these are the two appearances, but their
- * URLs were taken from search results rather than fetched — the environment they were
- * added from could not reach podcasts.apple.com or offcall.com. Titles, outlet, host and
- * date come from those results. The first green run of the CI job, or one local
- * `node scripts/verify-press.mjs --live`, is what makes this date real.
+ * Both URLs answered 200 from CI on 22 September 2026, so they resolve and neither
+ * publisher blocks the runner. The remaining gap is narrower but real: the titles, outlet,
+ * host and date below were taken from search results rather than read off the pages, and
+ * a 200 cannot tell you an outlet has re-titled or replaced a piece at the same URL. Read
+ * both once and drop this paragraph.
  */
-export const PRESS_VERIFIED = '22 September 2026 (see known gap above)';
+export const PRESS_VERIFIED = '22 September 2026 (URLs resolve; metadata unread — see above)';
 
 export type PressItem = {
   /** Stable key. Used by the verify script and safe to reference from analytics later. */
