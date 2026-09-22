@@ -451,7 +451,13 @@ const jsonLd = {
 <script is:inline>
 document.addEventListener('DOMContentLoaded', function() {
   // Complex-chronic dataset — overrides the widgets' single-problem adult defaults.
-  // These codes are read closely by this audience; verify before changing them.
+  //
+  // CODES REVIEWED BY JAKE KANTROWITZ, MD, 22 SEPTEMBER 2026. Same convention as
+  // PRICING_VERIFIED and PRESS_VERIFIED: a clinical claim on this site carries the date a
+  // clinician last checked it. This audience reads these closely, and ICD-10 is
+  // republished every October — so re-check on any edit, and on the annual update, rather
+  // than inheriting this line. Q79.62 (hEDS) and G90.A (POTS) are both recent additions
+  // and the most likely to move.
   StreamWidgets.ProblemListWidget('#cc-problems', {
     unitLabel: "visits",
     problems: [

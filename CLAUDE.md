@@ -195,8 +195,11 @@ the thing they gave up a salary for. The page argues Stream protects the time sp
 hours a day" line belongs on it.
 
 The demo widget data is clinical — problem names, ICD-10 codes, the mediator workup — and
-this audience reads it closely. Verify before changing it; a wrong code costs more
-credibility than the widget earns.
+this audience reads it closely. **Codes reviewed by Jake Kantrowitz, MD, 22 September
+2026**, and the page carries that date the way `PRICING_VERIFIED` and `PRESS_VERIFIED` do.
+ICD-10 is republished every October, so re-check on the annual update rather than
+inheriting the line — Q79.62 (hEDS) and G90.A (POTS) are recent additions and the most
+likely to move. A wrong code costs more credibility than the widget earns.
 
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
