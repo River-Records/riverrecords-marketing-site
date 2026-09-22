@@ -1,8 +1,14 @@
 ---
 import Page from './Page.astro';
 import { getCollection } from 'astro:content';
+import { pressBy, KIND_LABEL } from '../config/press';
 
 const { name, role, photo, linkedin, bio = '', authorMatch } = Astro.props;
+
+// Interviews this person gave, matched on the same names as their posts. A profile is
+// where a sceptical visitor lands, so the outside sources belong here as well as on
+// /about/ — and reusing authorMatch means there is no second list to keep in sync.
+const appearances = pressBy(authorMatch);
 
 // Find blog posts by this author (fuzzy match on name)
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -71,6 +77,81 @@ const authorPosts = allPosts
   margin-bottom: 32px;
 }
 .team-back:hover { text-decoration: underline; }
+
+/* Appearances — same card as the posts grid, single column because the list is short
+   and a two-across grid of two items reads as a gap. */
+.team-talks {
+  padding: 48px 0 40px;
+  border-top: 1px solid var(--border);
+}
+.team-talks-header { margin-bottom: 24px; }
+.team-talks-header h2 {
+  font-size: 1.4rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+  font-family: var(--font-sans);
+}
+.team-talks-header p {
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+}
+.team-talk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 720px;
+}
+.team-talk-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.team-talk-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.team-talk-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+/* --dark on --accent-light, never --accent-dark on it. That pair measures 2.11:1 against
+   WCAG's 4.5 for text this size; this one measures 6.27:1. Same pairing on every badge
+   of this shape — /about/ research cards, /about/ interviews, /research/, team profiles. */
+.team-talk-kind {
+  background: var(--accent-light);
+  color: var(--dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: var(--r-sm);
+}
+.team-talk-outlet {
+  font-weight: 600;
+  color: var(--ink);
+}
+.team-talk-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.team-talk-go {
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+.team-talk-card:hover .team-talk-go { text-decoration: underline; }
 
 /* Posts section */
 .team-posts {
@@ -156,6 +237,31 @@ const authorPosts = allPosts
     </div>
   </div>
 </section>
+
+{appearances.length > 0 && (
+  <section class="team-talks">
+    <div class="container">
+      <div class="team-talks-header">
+        <h2>Interviews</h2>
+        <p>Hosted elsewhere — each link opens on the publisher's site.</p>
+      </div>
+      <div class="team-talk-list">
+        {appearances.map((item) => (
+          <a href={item.url} target="_blank" rel="noopener" class="team-talk-card">
+            <div class="team-talk-meta">
+              <span class="team-talk-kind">{KIND_LABEL[item.kind]}</span>
+              <span class="team-talk-outlet">{item.outlet}</span>
+              {item.host && <span>with {item.host}</span>}
+              {item.duration && <span>· {item.duration}</span>}
+            </div>
+            <div class="team-talk-title">{item.title}</div>
+            <span class="team-talk-go">{item.kind === 'podcast' ? 'Listen' : 'Read'} on {item.outlet} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
 
 {authorPosts.length > 0 && (
   <section class="team-posts">

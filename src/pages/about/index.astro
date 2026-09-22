@@ -2,6 +2,12 @@
 import Page from '../../layouts/Page.astro';
 import PhilBlock from '../../components/PhilBlock.astro';
 import CtaDark from '../../components/CtaDark.astro';
+import { pressNewestFirst, KIND_LABEL } from '../../config/press';
+
+const fmt = (iso: string) =>
+  new Date(iso + 'T00:00:00Z').toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', timeZone: 'UTC',
+  });
 ---
 <Page
   title="About — Stream by River Records"
@@ -128,10 +134,13 @@ a.team-name:hover {
   border-radius: var(--r-lg);
   padding: 24px;
 }
+/* --dark on --accent-light, never --accent-dark on it. That pair measures 2.11:1 against
+   WCAG's 4.5 for text this size; this one measures 6.27:1. Same pairing on every badge
+   of this shape — /about/ research cards, /about/ interviews, /research/, team profiles. */
 .paper-journal {
   display: inline-block;
   background: var(--accent-light);
-  color: var(--accent-dark);
+  color: var(--dark);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -165,6 +174,88 @@ a.team-name:hover {
   font-weight: 500;
 }
 .paper-link:hover { text-decoration: underline; }
+
+/* Interviews — deliberately lighter than the paper cards. The research is the stronger
+   proof and should stay the stronger visual; these are a short list of places to go and
+   check us, not a badge wall. */
+.talks { padding: 72px 0 8px; }
+.talks-header { max-width: 640px; margin-bottom: 32px; }
+.talks-header h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.talks-header p {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+}
+.talk-list {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.talk-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.talk-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.talk-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+/* --dark on --accent-light, never --accent-dark on it. That pair measures 2.11:1 against
+   WCAG's 4.5 for text this size; this one measures 6.27:1. Same pairing on every badge
+   of this shape — /about/ research cards, /about/ interviews, /research/, team profiles. */
+.talk-kind {
+  background: var(--accent-light);
+  color: var(--dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: var(--r-sm);
+}
+.talk-outlet {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.talk-detail {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+.talk-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.talk-note {
+  font-size: 0.855rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.talk-go {
+  font-size: 0.84rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+.talk-card:hover .talk-go { text-decoration: underline; }
 
 /* CTA */
 .about-cta { padding: 72px 0 88px; }
@@ -303,6 +394,35 @@ a.team-name:hover {
     </div>
   </div>
 </section>
+
+<!-- INTERVIEWS -->
+{pressNewestFirst.length > 0 && (
+<section class="talks">
+  <div class="container">
+    <div class="talks-header reveal">
+      <span class="section-label">Interviews</span>
+      <h2>Where we've said all this out loud.</h2>
+      <p>Long-form conversations about the research and the product, hosted by people who are not us. Each one opens on the publisher's own site.</p>
+    </div>
+    <div class="talk-list reveal">
+      {pressNewestFirst.map((item) => (
+        <a href={item.url} target="_blank" rel="noopener" class="talk-card">
+          <div class="talk-meta">
+            <span class="talk-kind">{KIND_LABEL[item.kind]}</span>
+            <span class="talk-outlet">{item.outlet}</span>
+            {item.host && <span class="talk-detail">with {item.host}</span>}
+            {item.date && <span class="talk-detail">· {fmt(item.date)}</span>}
+            {item.duration && <span class="talk-detail">· {item.duration}</span>}
+          </div>
+          <div class="talk-title">{item.title}</div>
+          <div class="talk-note">{item.note}</div>
+          <span class="talk-go">{item.kind === 'podcast' ? 'Listen' : 'Read'} on {item.outlet} →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+)}
 
 <!-- FINAL CTA -->
 <section class="about-cta">

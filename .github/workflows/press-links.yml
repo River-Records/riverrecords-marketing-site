@@ -1,0 +1,68 @@
+name: Check interview links
+
+# Turns red when one of the interview links on /about/ stops resolving.
+#
+# WHY IT IS ITS OWN JOB
+# The interviews are the only claims on the site a visitor can check without trusting us,
+# which makes a dead one worse than no section at all — the person who clicks is the
+# person who was checking. Nothing else would notice: verify-internal-links.mjs only
+# reads hrefs beginning with "/", so an external URL can rot for a year behind a green
+# pipeline.
+#
+# WHY WEEKLY RATHER THAN ON EVERY PUSH
+# Link rot happens over months, and a pipeline that needs two third parties to be up on
+# every commit is a pipeline people learn to ignore. Pull requests that touch the list or
+# the checker still run it, because that is when a URL is most likely to be wrong.
+#
+# KNOWN RISK, worth reading before trusting a red run: these publishers may bot-challenge
+# a datacentre IP. The probe already sends a browser user-agent, falls back to a ranged
+# GET, and retries, and it reports "gone" only for a 404/410 — so a block shows up as a
+# distinct 403 message rather than as "this link is gone". If a publisher blocks the
+# runner permanently, fix it by excluding that host, not by softening the check.
+on:
+  schedule:
+    # Mondays 07:00 UTC, an hour after the Search Console snapshot so the two do not
+    # land together.
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/config/press.ts'
+      - 'scripts/verify-press.mjs'
+      - 'scripts/verify-link-probe.mjs'
+      - 'scripts/lib/link-probe.mjs'
+      - 'src/pages/about/index.astro'
+      - 'src/layouts/TeamMember.astro'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: press-links-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The probe's own behaviour first, against a local server. If this fails, a red or
+      # green result from the step below means nothing, so it runs before the network is
+      # involved at all.
+      - name: Check the link checker
+        run: node scripts/verify-link-probe.mjs
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Without --live this asserts that the config, both pages and the JSON-LD agree.
+      # With it, every URL is opened as well.
+      - name: Check the interview links
+        run: node scripts/verify-press.mjs --live
