@@ -14,10 +14,15 @@
  *  - **No EHR write-back claim.** We do not have it and will not this year. Copy-paste
  *    is the honest description, and several competitors are in the same position — which
  *    makes it a neutral fact rather than a loss.
- *  - **Competitor pricing is dated and sourced.** It was verified 19 August 2026 from
- *    public pricing pages. Prices move; Heidi's went from ~$99 to ~$150 in Feb 2026. Any
- *    page quoting a competitor's price must show the date and link to their own page so
- *    a reader can check rather than take our word.
+ *  - **Competitor pricing is dated and sourced.** See PRICING_VERIFIED below. Any page
+ *    quoting a competitor's price must show that date and link to the vendor's own page
+ *    so a reader can check rather than take our word.
+ *
+ *    A link is not a substitute for checking. The 22 September 2026 pass found two dead
+ *    sources — twofold.health did not resolve at all (they are on trytwofold.com) and
+ *    suki.ai/pricing returned 404 — plus a Twofold entry tier that no longer exists and a
+ *    free plan we had recorded as "No". A stale link reads as diligence while being
+ *    exactly as wrong as no link. Re-fetch every source, do not just eyeball the dates.
  *
  * WHO IS DELIBERATELY ABSENT
  *  - **Tali AI** — Canada only, natively integrated with Canadian EMRs and publicly
@@ -26,7 +31,9 @@
  *  - **Abridge and Nuance DAX** — health-system sales. The deck disqualifies
  *    system-owned practices outright, so ranking for those terms would draw people we
  *    cannot serve.
- *  - **Freed** already has a bespoke page at `/comparison/freedai`.
+ *  - **Freed** and **OpenEvidence** have bespoke pages rather than generated ones, but
+ *    their facts still live here — see EXTRA_ROWS at the bottom, which feeds the
+ *    reference table on /comparison/ so it has one source rather than six.
  */
 
 export type Competitor = {
@@ -41,11 +48,24 @@ export type Competitor = {
   pricing: {
     them: string;
     themNote?: string;
-    /** Their own pricing page, so a reader can check rather than trust us. */
-    source: string;
+    /**
+     * Their own pricing page, so a reader can check rather than trust us.
+     * `null` means the vendor publishes no public pricing — which must then be stated
+     * on the page rather than papered over with a link to something that is not a
+     * pricing page. A dead or wrong link fails this rule as badly as no link.
+     */
+    source: string | null;
     freeTier: string;
     ehr: string;
   };
+  /**
+   * A NEUTRAL description of what the product produces, for the reference table on
+   * /comparison/. Not an argument. `whereStreamDiffers` was used here first and read as
+   * a pitch in a table that claims to be alphabetical and unranked — Suki's row said
+   * "Price. Stream Pro is roughly half." Facts only; the argument belongs on the
+   * head-to-head page where the reader knows they are reading one.
+   */
+  noteStructure: string;
   /** Named first on the page, on purpose. */
   betterAtIt: string[];
   /** Where Stream differs. Category argument, not feature tennis. */
@@ -58,7 +78,7 @@ export type Competitor = {
 };
 
 /** Verified from public pricing pages on this date. Re-check before editing any price. */
-export const PRICING_VERIFIED = '19 August 2026';
+export const PRICING_VERIFIED = '22 September 2026';
 
 export const competitors: Competitor[] = [
   {
@@ -76,6 +96,8 @@ export const competitors: Competitor[] = [
       freeTier: 'Yes — a real one',
       ehr: 'Not on the Free or Clinician plans',
     },
+    noteStructure:
+      'Template-driven notes, customisable, with a genuinely free tier and broad language support.',
     betterAtIt: [
       'A real free tier, with unlimited basic consults and dictation. Not a trial that expires.',
       'Template flexibility, and a more polished product surface than ours.',
@@ -102,11 +124,14 @@ export const competitors: Competitor[] = [
       'Suki offers EHR integrations and voice commands at roughly $299–$399/month. Stream is about half that and organized around problems rather than encounters. An honest comparison.',
     lede: 'Suki is the one comparison where Stream is the lower-priced option — roughly half. That is worth saying plainly, and it is not the main argument.',
     pricing: {
-      them: 'Around $299–$399+/month',
-      source: 'https://www.suki.ai/pricing/',
+      them: 'Around $299–$399+/month, not published',
+      themNote: 'Suki publishes no pricing; their /pricing/ URL now 404s and access runs through a sales conversation. This range comes from third-party reports, not from Suki, and is a planning benchmark rather than a quote.',
+      source: null,
       freeTier: 'No',
       ehr: 'Yes — integrations available',
     },
+    noteStructure:
+      'Voice-first notes plus voice commands for driving the EHR, with real integrations.',
     betterAtIt: [
       'Real EHR integrations, which we do not have and are not promising this year.',
       'A voice command surface for driving the EHR by speech.',
@@ -139,6 +164,8 @@ export const competitors: Competitor[] = [
       freeTier: 'Entirely free',
       ehr: 'None — copy and paste',
     },
+    noteStructure:
+      'One note per visit. The recording is discarded once the summary is produced. English only.',
     betterAtIt: [
       'Free, with no procurement, no new vendor and no card. The friction is close to zero.',
       'A brand you already trust and an account you already have.',
@@ -162,16 +189,19 @@ export const competitors: Competitor[] = [
     title: 'Stream vs. Twofold',
     seoTitle: 'Stream vs. Twofold — Cheapest Scribe, or a Chart?',
     seoDescription:
-      'Twofold is around $49–$69/month with coding bundled. Stream is priced like a chart because that is what it is. An honest comparison for independent practices.',
-    lede: 'Twofold targets exactly the practices we do, at roughly a third of our price, with coding bundled. If you want the cheapest good scribe, it is probably them.',
+      'Twofold is $69/month with coding bundled.  Stream is priced like a chart because that is what it is. An honest comparison for independent practices.',
+    lede: 'Twofold targets exactly the practices we do, at under half our price, with coding bundled. If you want the cheapest good scribe, it is probably them.',
     pricing: {
-      them: 'Around $49–$69/month',
-      source: 'https://www.twofold.health/pricing',
-      freeTier: 'No',
+      them: '$69/month billed annually',
+      themNote: 'Introductory $19 for the first month. The $49 figure we previously quoted is no longer on their pricing page.',
+      source: 'https://www.trytwofold.com/pricing',
+      freeTier: 'A $0 plan giving 7 days of full access, no card',
       ehr: 'Claims integration available',
     },
+    noteStructure:
+      'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',
     betterAtIt: [
-      'Price, straightforwardly. $49 against $149, and CPT/ICD-10 coding is included.',
+      'Price, straightforwardly. $69 against $149, and CPT/ICD-10 coding is included.',
       'No audio retained, which is a clean answer for privacy-cautious buyers.',
       'They claim EHR integration. We have none.',
     ],
@@ -189,3 +219,56 @@ export const competitors: Competitor[] = [
 ];
 
 export const bySlug = (slug: string) => competitors.find((c) => c.slug === slug);
+
+/**
+ * Rows for the reference table on /comparison/.
+ *
+ * Freed and OpenEvidence have bespoke pages rather than generated ones — Freed because
+ * its comparison predates the template, OpenEvidence because it is a different category
+ * with a scribe attached. But their *facts* belong here with everyone else's, so the
+ * table has one source rather than six.
+ *
+ * Verified alongside everything else on PRICING_VERIFIED. Freed's tiers were re-checked
+ * that day: Starter $39 is capped at 40 notes a month, which is the kind of detail a
+ * price alone hides and a reader comparing on price needs.
+ */
+export type ReferenceRow = {
+  name: string;
+  href: string;
+  price: string;
+  freeTier: string;
+  ehr: string;
+  structure: string;
+};
+
+const EXTRA_ROWS: ReferenceRow[] = [
+  {
+    name: 'Freed',
+    href: '/comparison/freedai/',
+    price: '$39 – $119',
+    freeTier: '7-day trial, no card',
+    ehr: 'Copy and paste',
+    structure: 'One note per visit. Starter is capped at 40 notes a month.',
+  },
+  {
+    name: "OpenEvidence Visits",
+    href: '/comparison/openevidence-scribe/',
+    price: 'Free',
+    freeTier: 'Free to verified US clinicians',
+    ehr: 'Copy and paste',
+    structure: 'One note per visit, with guideline references in the assessment and plan.',
+  },
+];
+
+/** Every product in the reference table, ours last so the page is not a ranking. */
+export const referenceRows: ReferenceRow[] = [
+  ...competitors.map((c) => ({
+    name: c.name,
+    href: `/comparison/${c.slug}/`,
+    price: c.pricing.them,
+    freeTier: c.pricing.freeTier,
+    ehr: c.pricing.ehr,
+    structure: c.noteStructure,
+  })),
+  ...EXTRA_ROWS,
+].sort((a, b) => a.name.localeCompare(b.name));

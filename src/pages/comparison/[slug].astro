@@ -129,10 +129,25 @@ table.vs-table td:first-child { color: var(--ink); font-weight: 600; white-space
         </div>
       </div>
 
+      {/*
+        A vendor with no public pricing gets a different sentence, not a link to
+        nothing. Suki's /pricing/ URL 404s and they quote through sales only — saying
+        "check it yourself" under a dead link is worse than admitting we cannot show one.
+      */}
       <p class="vs-price-note">
         {c.pricing.themNote ? c.pricing.themNote + ' ' : ''}
-        Pricing for {c.name} was taken from their public pricing page on {PRICING_VERIFIED} and may since have changed —
-        <a href={c.pricing.source} rel="nofollow noopener" target="_blank">check it yourself</a> before deciding.
+        {c.pricing.source ? (
+          <Fragment>
+            Pricing for {c.name} was taken from their public pricing page on {PRICING_VERIFIED} and may since have changed —
+            <Fragment> </Fragment>
+            <a href={c.pricing.source} rel="nofollow noopener" target="_blank">check it yourself</a> before deciding.
+          </Fragment>
+        ) : (
+          <Fragment>
+            {c.name} publishes no pricing page, so there is nothing for you to check and nothing for us to
+            cite. Treat any figure here as a planning benchmark and get a quote from them directly.
+          </Fragment>
+        )}
         Stream does not offer EHR write-back and is not SOC 2 certified; if either is a requirement for you, that is a
         reason to look elsewhere and we would rather say so here than on a call.
       </p>

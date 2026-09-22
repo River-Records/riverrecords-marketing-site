@@ -13,6 +13,24 @@
 //   CHROME_PATH=... node scripts/verify-comparison-pages.mjs
 
 import { chromium } from 'playwright';
+import { readFileSync } from 'node:fs';
+
+/*
+ * The config is TypeScript and this is plain node, so read it as text — the same trick
+ * verify-pricing-page.mjs uses. Deriving these from the file means re-verifying prices
+ * cannot break the test, which is what a hardcoded '19 August 2026' did here.
+ */
+const CONFIG = readFileSync(
+  (process.env.REPO_ROOT || new URL('..', import.meta.url).pathname) + '/src/config/competitors.ts',
+  'utf8',
+);
+const PRICING_VERIFIED = CONFIG.match(/PRICING_VERIFIED\s*=\s*'([^']+)'/)?.[1];
+/** Slugs whose vendor publishes no pricing page, so the page must say so instead of linking. */
+const NO_PUBLIC_PRICING = new Set(
+  [...CONFIG.matchAll(/slug:\s*'([^']+)'[\s\S]*?source:\s*(null|')/g)]
+    .filter((m) => m[2] === 'null')
+    .map((m) => m[1]),
+);
 const B = process.env.BASE || 'http://127.0.0.1:4321';
 const SLUGS = ['heidi', 'suki', 'doximity-scribe', 'twofold'];
 let fails = 0;
@@ -38,8 +56,22 @@ for (const slug of SLUGS) {
   // Claim rules from the battle-card guardrails.
   check('no SOC 2 claim', !/(?<!not )SOC 2 certified/.test(text), 'must only ever appear as a disclaimer');
   check('discloses no SOC 2 and no write-back', /not SOC 2 certified/.test(text) && /does not offer EHR write-back/.test(text));
-  check('competitor pricing is dated', /19 August 2026/.test(text));
-  check('links to the competitor pricing page', (await p.locator('.vs-price-note a[href^="http"]').count()) === 1);
+  // Read the date from config rather than hardcoding it. The literal '19 August 2026'
+  // sat here and failed every page the moment prices were re-verified — a test that
+  // breaks on the correct action trains people to edit the test.
+  check('competitor pricing carries the verification date', text.includes(PRICING_VERIFIED),
+    `expected "${PRICING_VERIFIED}"`);
+
+  // A vendor may genuinely publish no pricing page. Suki's 404s and they quote through
+  // sales, so the honest page says so instead of linking to nothing. Requiring a link
+  // unconditionally would push us back toward citing a dead URL.
+  const links = await p.locator('.vs-price-note a[href^="http"]').count();
+  if (NO_PUBLIC_PRICING.has(slug)) {
+    check('states plainly that the vendor publishes no pricing', /publishes no pricing page/.test(text), text.slice(0, 120));
+    check('and does not link to a pricing page that does not exist', links === 0, `${links} link(s)`);
+  } else {
+    check('links to the competitor pricing page', links === 1, `${links} link(s)`);
+  }
 
   // House style.
   check('uses "works alongside any EHR"', !/works with any EHR/i.test(text));

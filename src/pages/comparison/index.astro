@@ -1,7 +1,26 @@
 ---
+/*
+ * This page owns the "compare" cluster and, until now, contained no comparison.
+ *
+ * Search Console, 28 days to 2026-09-18: 74 non-brand impressions across eight queries,
+ * all at position 5–16, zero clicks — "ai scribe comparison", "compare ai medical
+ * scribes", and, at position 5.3, "comparing ai medical scribe features and pricing".
+ * That last one is a reader asking for a table of features and pricing, landing on a
+ * 308-word page of links to other pages.
+ *
+ * The table below is generated from src/config/competitors.ts, which is also what the
+ * head-to-head pages render. There is no second copy of any price to drift, and every
+ * figure carries the same PRICING_VERIFIED date as everywhere else.
+ *
+ * It deliberately does NOT rank anything. A vendor-published ranking with the vendor at
+ * the top is the format this whole section exists not to be — /blog/best-ai-medical-
+ * scribe-independent-primary-care/ makes the recommendations, with reasons and
+ * concessions. This is the reference table.
+ */
 import Page from '../../layouts/Page.astro';
 import { getCollection } from 'astro:content';
-import { competitors } from '../../config/competitors';
+import { competitors, referenceRows, PRICING_VERIFIED } from '../../config/competitors';
+import { pricing } from '../../config/pricing';
 
 // Comparison guides live in the blog collection, tagged "comparisons".
 const guides = (await getCollection('blog', ({ data }) =>
@@ -114,6 +133,27 @@ const headToHead = [
   margin-bottom: 14px;
   flex: 1;
 }
+/* Reference table. Wrapped in its own scroller so a 5-column table can be wide on
+   desktop without the page body scrolling sideways on a phone. */
+.cmp-table-wrap { padding: 0 0 56px; }
+.cmp-table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--white); }
+table.cmp-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 720px; }
+table.cmp-table th {
+  text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-faint); font-weight: 500;
+  padding: 14px 16px; border-bottom: 1px solid var(--border-strong); white-space: nowrap;
+}
+table.cmp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.55; vertical-align: top; }
+table.cmp-table tr:last-child td { border-bottom: 0; }
+table.cmp-table td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+table.cmp-table td:nth-child(2) { white-space: nowrap; }
+/* Class-plus-element beats .btn, so exclude buttons — see CLAUDE.md. */
+.cmp-table-wrap a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+tr.cmp-row-ours td { background: var(--primary-light); }
+tr.cmp-row-ours td:first-child { color: var(--primary); }
+.cmp-table-note { font-size: 0.82rem; color: var(--ink-faint); line-height: 1.6; margin-top: 14px; max-width: 720px; }
+.cmp-table-wrap h2 { font-size: 1.5rem; color: var(--ink); margin-bottom: 8px; }
+.cmp-table-lede { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.6; max-width: 640px; margin-bottom: 20px; }
 .cmp-card-meta {
   font-size: 0.76rem;
   color: var(--ink-faint);
@@ -149,6 +189,59 @@ const headToHead = [
     <span class="section-label">Comparisons</span>
     <h1>AI scribe comparisons & buying guides.</h1>
     <p>Honest, practitioner-focused comparisons of the AI medical scribes built for independent primary care — by price, note structure, EHR handoff, and workflow fit. We make Stream, and we'll tell you where a competitor is the better choice.</p>
+  </div>
+</section>
+
+<section class="cmp-table-wrap">
+  <div class="container">
+    <h2>Features and pricing, side by side</h2>
+    <p class="cmp-table-lede">
+      Alphabetical, not ranked. We make one of these, so a league table from us would be worth
+      exactly what you'd expect — the <a href="/blog/best-ai-medical-scribe-independent-primary-care/">buying
+      guide</a> makes actual recommendations, with the reasons and the cases where we lose.
+    </p>
+
+    <div class="cmp-table-scroll">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price / month</th>
+            <th>Free tier</th>
+            <th>EHR handoff</th>
+            <th>What you get</th>
+          </tr>
+        </thead>
+        <tbody>
+          {referenceRows.map((r) => (
+            <tr>
+              <td><a href={r.href}>{r.name}</a></td>
+              <td>{r.price}</td>
+              <td>{r.freeTier}</td>
+              <td>{r.ehr}</td>
+              <td>{r.structure}</td>
+            </tr>
+          ))}
+          {/* Ours last and visually marked, so nobody has to wonder who wrote the table. */}
+          <tr class="cmp-row-ours">
+            <td><a href="/pricing/">Stream (River Records)</a></td>
+            <td>{pricing.introPrice}</td>
+            <td>{pricing.trialDays}-day trial, no card</td>
+            <td>Copy and paste</td>
+            <td>Subjective/Objective/A&amp;P split per problem, filed to a chart organised by problem rather than by date.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="cmp-table-note">
+      Competitor pricing checked on {PRICING_VERIFIED}; each name links to our full comparison, which
+      links to that vendor's own pricing page so you can check rather than trust us. Prices move —
+      Heidi's went from roughly $99 to around $150 in February 2026, and Twofold's entry tier is no
+      longer listed. Suki publishes no pricing at all, so that figure comes from third-party reports
+      rather than from Suki. Stream does not offer EHR write-back and is not SOC 2 certified; if
+      either is a requirement, that rules us out and we would rather say so here.
+    </p>
   </div>
 </section>
 
