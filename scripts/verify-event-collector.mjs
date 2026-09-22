@@ -113,6 +113,42 @@ const play = vpBatches.flatMap((b) => b.events || []).find((e) => e.event === 'v
 check('video_play collected', !!play, JSON.stringify(play?.props));
 check('carries key and trigger', play?.props?.video_key === 'intake' && play?.props?.video_trigger === 'deeplink');
 
+/*
+ * Telling people from machines. The server-side `bot` column reads the user agent and
+ * misses anything that runs JavaScript behind a browser-like UA — 40% of week-one rows
+ * marked bot=0 were automated. `human_signal` is the positive test: emitted once when a
+ * visitor does something a page-fetcher has no reason to do.
+ */
+console.log('\nhuman_signal: absent until someone actually does something');
+const quiet = await ctx.newPage();
+const quietBatches = await collect(quiet);
+await quiet.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+await quiet.waitForTimeout(2500);
+const quietEvents = quietBatches.flatMap((b) => b.events || []);
+check('page_view arrives without interaction', quietEvents.some((e) => e.event === 'page_view'));
+check('but human_signal does NOT', !quietEvents.some((e) => e.event === 'human_signal'),
+  quietEvents.map((e) => e.event).join(' '));
+
+// Playwright sets navigator.webdriver, which is the point — this run IS automation.
+const firstView = quietEvents.find((e) => e.event === 'page_view');
+check('automation is flagged via navigator.webdriver', firstView?.props?.webdriver === true,
+  JSON.stringify(firstView?.props));
+
+console.log('\nhuman_signal: fires once, on real input');
+await quiet.mouse.move(400, 300);
+await quiet.mouse.down();
+await quiet.mouse.up();
+await quiet.mouse.wheel(0, 400);
+await quiet.keyboard.press('ArrowDown');
+await quiet.waitForTimeout(2200);
+const afterInput = quietBatches.flatMap((b) => b.events || []);
+const signals = afterInput.filter((e) => e.event === 'human_signal');
+check('human_signal fired', signals.length >= 1, `${signals.length}`);
+// Listeners remove themselves — a reader who scrolls for ten minutes must cost one
+// event, not thousands.
+check('and only once, despite five separate inputs', signals.length === 1, `${signals.length} signals`);
+await quiet.close();
+
 console.log('\nA failing endpoint must not break the page');
 const broken = await ctx.newPage();
 const errors = [];

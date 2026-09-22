@@ -613,6 +613,25 @@ Engine retains 90 days, samples under load, and answers "how many plays last wee
 instead of "what did this visitor do before converting" — a row lookup, which is the
 whole point. It also cannot delete an individual record, and D1 can.
 
+**Query `human_events`, never the raw `events` table, for anything you would call
+traffic.** The `bot` column reads the user agent only. In the first week, 40% of rows
+marked `bot = 0` were automated — 225 visitors loading `/baa/` once each, no referrer, two
+events apiece. They execute JavaScript, so the collector fired and the UA looked like a
+browser.
+
+The fix is a **positive** signal, not a blocklist: `human_signal` fires once when someone
+does something a page-fetcher has no reason to do. Absence is not proof of a bot — a
+person can land, read and leave — but presence is strong evidence of a person, and that
+asymmetry is the point. **Do not add country, path or shape filters.** Filtering by
+country drops real clinicians abroad, and any enumerated pattern is one a scraper can stop
+matching.
+
+Classification lives in a view (`migrations/0002`) rather than a column because whether
+someone is a person is not knowable when their first event arrives — it only becomes
+knowable from what they do next. Keeping raw rows also means the definition can be revised
+against data already collected. The views are forward-looking and empty for rows predating
+21 September 2026; `docs/DATA-PIPELINE.md` has the historical query.
+
 ### Search Console snapshots (`scripts/fetch-gsc.mjs` → `data/gsc/`)
 A scheduled Action commits pages, queries and page+query pairs weekly. Search Console is
 the one rich per-page historical dataset the site already has, and it was reachable only
