@@ -155,22 +155,35 @@ Current pages:
 **`/for/complex-chronic/` is a referral page, not an SEO page, and is shaped differently
 on purpose.** The whole segment draws about a dozen impressions a year in Search Console.
 It exists because the first client in it arrived by physician-to-physician referral through
-a clinical group, across two unrelated specialties — so it is built to be pasted into a
-thread by a peer and understood in thirty seconds. Judge it on whether a clinician
-forwards it, not on position.
+a clinical group — so it is built to be pasted into a thread by a peer and understood in
+thirty seconds. Judge it on whether a clinician forwards it, not on position.
 
-Three things in it are load-bearing:
-- **External record ingestion leads.** For this segment the intake *is* the work — the
-  patient arrives with hundreds of pages from clinicians who each saw one system. Every
-  other `/for/*` page treats ingestion as a feature-grid bullet; here it is step one. Do
-  not reorder it to match the others, or the page becomes /for/dpc with new nouns.
+**The segment is integrative medicine, in adults *and* children.** This was initially read
+as two unrelated specialties that happened to share a practice shape, which was wrong. Both
+the referring and the receiving practice are integrative (ABOIM certification, the Andrew
+Weil Center fellowship) and both treat MCAS, PANS/PANDAS and long COVID. That shared
+training is a real network with its own boards, pipeline and conferences, which is why a
+referral crossed from paediatrics in Oregon to adult practice in New York unremarkably.
+**Keep the copy true to both halves** — written only in adult nouns it loses the paediatric
+side, which is where the referral started.
+
+Four things in it are load-bearing:
+- **External record ingestion leads.** For this segment the intake *is* the work — a dozen
+  subspecialists who each saw one system, or a decade of neuropsych evaluations, school
+  reports and therapy notes. Every other `/for/*` page treats ingestion as a feature-grid
+  bullet; here it is step one. Do not reorder it to match the others, or the page becomes
+  /for/dpc with new nouns.
 - **The limits section.** Same rule as the comparison pages: this audience has been sold
   to by every functional-medicine vendor in the market. It also makes the honest point
   that "no EHR write-back" costs less here — these practices run MDHQ, Cerbo, Charm and
   Elation, and no scribe writes back into those either.
-- **No testimonials.** Every other specialty page carries three; this one carries none,
-  because there is no consented quote from the segment yet and an off-segment quote from
-  an academic health system would be worse than silence. Add one when it exists.
+- **One testimonial, not three.** The Kirchoff quote is already published on the homepage,
+  `/for/pediatrics/`, `/for/snf/` and `/comparison/freedai/`, comes from inside the
+  segment, and states the page's argument better than the surrounding copy. Do not pad it
+  to three with an academic health system this audience does not identify with.
+- **The new-partner argument.** A clinician joining an established practice inherits
+  patients carried for years; the problem list is how they pick one up without reading the
+  whole chart. Small line, real pain, and nobody else in the category makes it.
 
 The demo widget data is clinical — problem names, ICD-10 codes, the mediator workup — and
 this audience reads it closely. Verify before changing it; a wrong code costs more
