@@ -135,6 +135,12 @@ table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space
 .pr-faq details[open] summary::after { content: '−'; }
 .pr-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
 
+/* Customer quote — the support relationship, which is part of what the price buys */
+.pr-quote { border-left: 3px solid var(--primary); padding: 4px 0 4px 24px; margin: 44px 0 0; }
+.pr-quote blockquote { font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.5; color: var(--ink); margin: 0 0 14px; }
+.pr-quote figcaption { font-size: 0.9rem; color: var(--ink-muted); }
+.pr-quote figcaption strong { color: var(--ink); }
+
 .pr-cta { background: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--r-xl); padding: 30px; margin-top: 44px; text-align: center; }
 .pr-cta h2 { margin: 0 0 8px; font-size: 1.4rem; }
 .pr-cta p { margin-bottom: 20px; }
@@ -214,6 +220,11 @@ table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space
           </details>
         ))}
       </div>
+
+      <figure class="pr-quote">
+        <blockquote>"I tell everyone I can about you. It's the rapid response, the quick fixes, the troubleshooting, the request for feedback — and the fact that you are clinically active."</blockquote>
+        <figcaption><strong>Yvonne Joy</strong> · Owner &amp; CEO, Freedom Primary Care</figcaption>
+      </figure>
 
       <div class="pr-cta">
         <h2>Thirty days, no card</h2>
