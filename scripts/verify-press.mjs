@@ -11,9 +11,15 @@
 // Static analysis over dist/, no browser, runs in about a second:
 //   npm run build && node scripts/verify-press.mjs
 //
-// The link-rot check needs the network and is therefore opt-in, so this stays runnable
-// in a sandbox or on a plane:
+// The link-rot check needs the network and is therefore opt-in here, so this script
+// stays runnable in a sandbox or on a plane:
 //   npm run build && node scripts/verify-press.mjs --live
+//
+// CI runs it with --live weekly and on any pull request touching src/config/press.ts
+// (.github/workflows/press-links.yml), so a link that dies goes red without anybody
+// remembering to look. Weekly rather than on every push: link rot happens over months,
+// and a pipeline that depends on two third parties being up on every commit is a
+// pipeline people learn to ignore.
 //
 // What it asserts, and why each one has a way of going wrong:
 //   - every configured appearance renders on /about/            (config edited, page not)
@@ -24,6 +30,7 @@
 //   - /organization.jsonld declares exactly the same URLs       (two lists, one source)
 
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { probe, TRIES } from './lib/link-probe.mjs';
 import { join } from 'node:path';
 
 const DIST = 'dist';
@@ -34,6 +41,8 @@ const check = (n, c, d) => {
   console.log((c ? '  PASS  ' : '  FAIL  ') + n + (d ? '\n          ' + d : ''));
   if (!c) fails++;
 };
+
+const short = (u) => (u.length > 58 ? u.slice(0, 58) + '\u2026' : u);
 
 if (!existsSync(join(DIST, 'about', 'index.html'))) {
   console.error('dist/ not built — run `npm run build` first.');
@@ -118,21 +127,24 @@ check('no appearance claims us as publisher',
 if (LIVE) {
   console.log('\nEvery link still resolves (--live)');
   for (const i of items) {
-    let status = 'no response';
-    try {
-      // Some publishers 405 a HEAD. Fall back to a ranged GET rather than reporting a
-      // dead link that is merely fussy about verbs.
-      let r = await fetch(i.url, { method: 'HEAD', redirect: 'follow' });
-      if (r.status === 405 || r.status === 403) r = await fetch(i.url, { headers: { Range: 'bytes=0-1024' } });
-      status = String(r.status);
-      check(`${i.key} — ${i.url.slice(0, 56)}…`, r.ok, `HTTP ${r.status}`);
-    } catch (e) {
-      check(`${i.key} — ${i.url.slice(0, 56)}…`, false, `${status}: ${e.message}`);
+    const r = await probe(i.url);
+    if (r.ok) {
+      check(`${i.key} — ${short(i.url)}`, true, `HTTP ${r.status}`);
+    } else if (r.gone) {
+      check(`${i.key} — ${short(i.url)}`, false,
+        `HTTP ${r.status} — this link is gone. Replace the URL or remove the entry; ` +
+        'link rot is the failure this check exists for.');
+    } else {
+      check(`${i.key} — ${short(i.url)}`, false,
+        `${r.status} after ${TRIES} attempts — no 2xx. This can also be the publisher ` +
+        'refusing a datacentre IP rather than a dead page, so open it in a browser ' +
+        'before editing the config.');
     }
   }
 } else {
-  console.log('\nSkipped the link-rot check. Re-run with --live from a machine with open egress;');
-  console.log('a link nobody has opened is a link that is probably wrong.');
+  console.log('\nSkipped the link-rot check — it needs the network, so it is opt-in and');
+  console.log('this script still runs on a plane. It runs weekly in CI (press-links.yml),');
+  console.log('and on any pull request touching src/config/press.ts.');
 }
 
 console.log('\n' + (fails ? `${fails} CHECK(S) FAILED` : 'ALL CHECKS PASSED'));

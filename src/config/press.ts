@@ -32,14 +32,18 @@
  */
 
 /**
- * Last checked by clicking every URL in this file. Re-check when editing, and update
- * this date — a link list nobody has opened is a link list that is probably wrong.
+ * Last checked by opening every URL in this file. Re-check when editing, and update this
+ * date — a link list nobody has opened is a link list that is probably wrong.
  *
- * KNOWN GAP, 22 September 2026: the two entries below were sourced from search results
- * rather than fetched, because the environment they were added from could not reach
- * podcasts.apple.com or offcall.com. Titles, outlets, host and date come from those
- * results. Run `node scripts/verify-press.mjs --live` from somewhere with open egress
- * before treating this date as a real check.
+ * The weekly CI job (.github/workflows/press-links.yml) opens them too, so a link that
+ * dies goes red without anybody remembering. This date is still worth keeping: CI tells
+ * you a URL resolves, not that it still leads to the interview it used to.
+ *
+ * KNOWN GAP, 22 September 2026: Jake confirmed these are the two appearances, but their
+ * URLs were taken from search results rather than fetched — the environment they were
+ * added from could not reach podcasts.apple.com or offcall.com. Titles, outlet, host and
+ * date come from those results. The first green run of the CI job, or one local
+ * `node scripts/verify-press.mjs --live`, is what makes this date real.
  */
 export const PRESS_VERIFIED = '22 September 2026 (see known gap above)';
 

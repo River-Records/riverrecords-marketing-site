@@ -123,10 +123,9 @@ const authorPosts = allPosts
   font-size: 0.78rem;
   color: var(--ink-faint);
 }
-/* --dark on --accent-light, not the --accent-dark the research badges next to it use.
-   That pair measures 2.10:1 against WCAG's 4.5 for text this size; this one measures
-   6.27:1. The two badges therefore do not match exactly, and that is deliberate — do not
-   "fix" the difference by copying the paper badge back in. */
+/* --dark on --accent-light, never --accent-dark on it. That pair measures 2.11:1 against
+   WCAG's 4.5 for text this size; this one measures 6.27:1. Same pairing on every badge
+   of this shape — /about/ research cards, /about/ interviews, /research/, team profiles. */
 .team-talk-kind {
   background: var(--accent-light);
   color: var(--dark);

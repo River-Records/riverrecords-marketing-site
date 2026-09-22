@@ -343,8 +343,22 @@ published *about* us, which is the one kind of corroboration an answer engine ca
 differently from our own copy.
 
 Verify with `scripts/verify-press.mjs` (static, ~1s). The link-rot check needs the network
-and is opt-in: `node scripts/verify-press.mjs --live`. Run that after editing, and update
-`PRESS_VERIFIED`.
+and is opt-in locally: `node scripts/verify-press.mjs --live`. Run that after editing, and
+update `PRESS_VERIFIED`.
+
+**CI turns red when a link dies.** `.github/workflows/press-links.yml` runs the live check
+weekly and on any PR touching the list, the pages or the checker. Weekly rather than on
+every push because link rot happens over months, and a pipeline that needs two third
+parties up on every commit is one people learn to ignore.
+
+The probe (`scripts/lib/link-probe.mjs`) is deliberately conservative, and its own
+behaviour is asserted by `scripts/verify-link-probe.mjs` against a local server — no
+network, a few seconds. **A check that cries wolf gets ignored, and then the genuinely
+dead link sits on /about/ behind a green tick**, so: a browser user-agent, HEAD with a
+ranged-GET fallback for hosts that refuse it, retries on timeouts and 5xx, and `gone`
+reported *only* for a 404/410 confirmed by a GET. A publisher blocking the runner
+therefore reads as a distinct 403 message, not as "this link is gone". If one blocks it
+permanently, exclude that host — do not soften the check.
 
 ## What each blog post asks for (`src/config/blog-offers.ts`)
 All 88 posts used to end with the same CTA — start a 30-day trial — which is a
@@ -545,6 +559,15 @@ Both times the build passed and every functional test passed. Only looking at th
 rendered page caught it, which is why `scripts/verify-button-contrast.mjs` now measures
 computed colours for every button on every page against WCAG. Run it after any change
 that adds a page-scoped `a { color: … }` rule.
+
+### Accent badges are `--dark` on `--accent-light`, never `--accent-dark` on it
+Same family of bug, found the same way. The little coral pills — journal names on
+`/about/` and `/research/`, the kind badge on each interview card — were
+`--accent-dark` on `--accent-light`, which measures **2.11:1** against WCAG's 4.5 for
+text that size. They are now `--dark` on `--accent-light`, **6.27:1**, and all four
+render identically. Nothing flagged it: the build was green, the markup was right, and
+the text was on screen. Only a computed measurement of the rendered page says which of
+two brand tokens you can actually read.
 
 ## Design system
 

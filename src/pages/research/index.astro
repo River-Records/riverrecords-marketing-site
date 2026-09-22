@@ -273,10 +273,13 @@ const jsonLd = {
   border-radius: var(--r-lg);
   padding: 20px 22px;
 }
+/* --dark on --accent-light, never --accent-dark on it. That pair measures 2.11:1 against
+   WCAG's 4.5 for text this size; this one measures 6.27:1. Same pairing on every badge
+   of this shape — /about/ research cards, /about/ interviews, /research/, team profiles. */
 .rsch-paper-journal {
   display: inline-block;
   background: var(--accent-light);
-  color: var(--accent-dark);
+  color: var(--dark);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
