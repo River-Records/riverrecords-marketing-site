@@ -1,0 +1,441 @@
+---
+/**
+ * /for/complex-chronic/ — the referral landing page, not an SEO page.
+ *
+ * WHY THIS EXISTS, AND WHY IT IS NOT SHAPED LIKE THE OTHERS
+ * The other /for/* pages were written for search. This one was not: the whole segment
+ * draws about a dozen impressions a year in Search Console ("can these ai scribes handle
+ * complex chronic conditions efficiently", position 6.8, zero clicks). It exists because
+ * the referral that produced this segment's first client travelled physician-to-physician
+ * through a clinical group, across two completely unrelated specialties. So the page is
+ * built to be *pasted into a thread by a peer* and understood in thirty seconds, not to
+ * rank. Judge it on whether a clinician forwards it, not on position.
+ *
+ * WHO IT IS FOR
+ * Independent, low-volume, high-complexity practices: mast cell disease, dysautonomia,
+ * tick-borne illness, autoimmunity, long COVID, environmental illness. Usually cash-pay,
+ * usually the fourth or twelfth clinician the patient has seen, always drowning in
+ * outside records. The defining feature is not the diagnosis — it is that the patient
+ * arrives with hundreds of pages from people who each looked at one system.
+ *
+ * WHAT MAKES IT DIFFERENT FROM /for/dpc/
+ * DPC shares the longitudinal argument, so the two would read the same if this page led
+ * with continuity. It does not. External record ingestion is the hero here and the first
+ * how-it-works step, because the intake *is* the work. Do not reorder that to match the
+ * other pages.
+ *
+ * THE CONCESSION THAT IS ACTUALLY AN ADVANTAGE
+ * "No EHR write-back" costs far less in this segment than in primary care, because these
+ * practices run MDHQ, Cerbo, Charm and similar — and no scribe integrates with those
+ * either. The limits section says so plainly. That is not spin; it is the reason a
+ * careful buyer here can discount an objection that is real everywhere else.
+ *
+ * NO TESTIMONIALS, DELIBERATELY
+ * Every other /for/* page carries three. This one carries none, because there is no
+ * consented quote from this segment yet and an off-segment quote from an academic health
+ * system would be worse than silence in front of this audience. When a real one exists,
+ * add it here — that single quote will do more than anything else on the page.
+ *
+ * THE DEMO DATA IS CLINICAL AND THIS AUDIENCE READS IT CLOSELY.
+ * Problem names, ICD-10 codes and the mediator workup below are the first thing a mast
+ * cell specialist will check. Keep them correct or remove them; a wrong code here costs
+ * more credibility than the widget earns.
+ */
+import Page from '../../../layouts/Page.astro';
+import HeroSection from '../../../components/HeroSection.astro';
+import ProofStrip from '../../../components/ProofStrip.astro';
+import PainCard from '../../../components/PainCard.astro';
+import PhilBlock from '../../../components/PhilBlock.astro';
+import StepMock from '../../../components/StepMock.astro';
+import FeatureCell from '../../../components/FeatureCell.astro';
+import CtaDark from '../../../components/CtaDark.astro';
+import { pricing } from '../../../config/pricing';
+
+const faqs = [
+  {
+    q: "Is Stream a good fit for a complex chronic or integrative practice?",
+    a: "Yes, and for a specific reason: Stream files every visit's Assessment & Plan under the medical problem it belongs to, rather than producing one note per encounter. A patient with mast cell disease, dysautonomia and a tick-borne history is not one problem with one plan, and a workup that runs for months is not recoverable from a stack of dated documents.",
+  },
+  {
+    q: "What happens to the records a new patient brings with them?",
+    a: "Upload a consult PDF, paste free text, or take in a fax. Stream summarizes it and files the relevant pieces under the right problem. A 300-page stack from a dozen prior clinicians becomes a problem list you can actually read before the first visit.",
+  },
+  {
+    q: "Does Stream work with MDHQ, Cerbo, Charm or Elation?",
+    a: "Stream pastes into any of them, and can also work as a standalone documentation layer. To be direct: it does not write back into your EHR, and neither does any other AI scribe for these systems. There is no integration to set up and nothing for your EHR vendor to approve.",
+  },
+  {
+    q: "Does Stream interpret labs or suggest diagnoses?",
+    a: "No. Stream organizes what you wrote and what you received. It does not read a mediator panel and tell you what it means, it is not clinical decision support, and it has no opinion on your differential. In a field where plenty of software oversells exactly that, this is a deliberate line.",
+  },
+  {
+    q: "Is my patient data used to train AI models?",
+    a: "No. Stream is HIPAA compliant, signs a BAA with every subscriber, and encrypts data in transit and at rest. It never trains models on your patient data. Stream is not SOC 2 certified.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "name": "AI Medical Scribe for Complex Chronic and Integrative Practice",
+      "description": "Stream is an AI medical scribe built for practices treating complex, multi-system chronic illness. It files every visit under the medical problem it belongs to and turns inbound outside records into a readable problem list.",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Clinician",
+        "healthCondition": { "@type": "MedicalCondition", "name": "Complex Chronic Illness Documentation" }
+      }
+    },
+    {
+      // Declares exactly the questions rendered below, from the same array — same rule as
+      // faqs.ts and the pillar page. Declaring more than the page shows is invalid markup.
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    }
+  ]
+};
+---
+<Page readable="specialty"
+  title="AI Medical Scribe for Complex Chronic Illness — Stream"
+  description="Stream is the AI scribe for practices treating complex, multi-system chronic illness. It turns the records a new patient arrives with into a problem list, and keeps a months-long workup visible instead of scattered across dated notes. 30-day free trial.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</Fragment>
+
+<style>
+/* Pain section */
+.pain { padding: 72px 0 60px; }
+.pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
+.pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 640px; line-height: 1.65; margin-bottom: 36px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* How it works */
+.how { padding: 88px 0 72px; }
+.how-header { max-width: 700px; margin-bottom: 56px; }
+.how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
+.how-header h2 em { font-style: italic; color: var(--primary); }
+.how-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
+.how-steps { display: flex; flex-direction: column; }
+.how-step { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 60px 0; border-top: 1px solid var(--border); }
+.how-step:last-child { border-bottom: 1px solid var(--border); }
+.how-step.reverse .how-step-visual { order: -1; }
+.how-step-num { font-family: var(--font-serif); font-size: 0.82rem; color: var(--primary); margin-bottom: 12px; letter-spacing: 0.02em; }
+.how-step h3 { font-size: clamp(1.45rem, 2.4vw, 1.85rem); color: var(--ink); margin-bottom: 12px; }
+.how-step p { font-size: 0.975rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 16px; }
+.how-step-aside { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; padding-left: 14px; border-left: 2px solid var(--border-strong); line-height: 1.55; }
+
+/* Limits — the section that makes the rest believable to this audience. */
+.limits { padding: 72px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.limits-inner { max-width: 760px; }
+.limits h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 12px; }
+.limits-lead { font-size: 1rem; color: var(--ink-muted); line-height: 1.68; margin-bottom: 32px; }
+.limits-list { display: flex; flex-direction: column; gap: 20px; }
+.limit-item { padding-left: 18px; border-left: 2px solid var(--border-strong); }
+.limit-item h3 { font-size: 0.98rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; font-family: var(--font-sans); }
+.limit-item p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.68; }
+
+/* Pricing callout */
+.pricing-callout { padding: 64px 0; }
+.pricing-card { background: var(--white); border: 1.5px solid rgba(15,26,20,0.2); border-radius: var(--r-xl); padding: 40px; max-width: 480px; margin: 0 auto; box-shadow: var(--shadow-md); text-align: center; position: relative; overflow: hidden; }
+.pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+.pricing-card h2 { font-size: 2rem; color: var(--ink); margin-bottom: 10px; }
+.pricing-card p { font-size: 1rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 24px; }
+.pricing-card .btn-primary-lg { max-width: 360px; width: 100%; display: block; margin: 0 auto; text-align: center; }
+.pricing-small { font-size: 0.78rem; color: var(--ink-faint); margin-top: 12px; }
+.pricing-clinic { font-size: 0.85rem; color: var(--ink-muted); text-align: center; max-width: 480px; margin: 18px auto 0; line-height: 1.6; }
+
+/* FAQ */
+.cc-faq { padding: 64px 0; }
+.cc-faq-inner { max-width: 760px; }
+.cc-faq h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 28px; }
+.faq-item { border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin-bottom: 10px; overflow: hidden; }
+.faq-item[open] { border-left: 3px solid var(--primary); }
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 1.45;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover { background: var(--surface); }
+.faq-q:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.faq-icon {
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.faq-item[open] .faq-icon { background: var(--primary-light); color: var(--primary); }
+.faq-icon::after { content: '+'; }
+.faq-item[open] .faq-icon::after { content: '\2212'; }
+.faq-a { padding: 0 22px 18px; font-size: 0.92rem; line-height: 1.7; color: var(--ink-muted); }
+
+/* Research line */
+.cc-research { padding: 48px 0 8px; text-align: center; }
+.cc-research p { font-size: 0.92rem; color: var(--ink-faint); }
+.cc-research a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.cc-research a:hover { text-decoration: underline; }
+
+/* Final CTA */
+.final-cta { padding: 56px 0 88px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pain-cards { grid-template-columns: 1fr; }
+  .how-step { grid-template-columns: 1fr; gap: 28px; }
+  .how-step.reverse .how-step-visual { order: 0; }
+}
+</style>
+
+<!-- HERO -->
+<HeroSection
+  eyebrow="Built for complex chronic & integrative practice"
+  sub="Mast cell disease, dysautonomia, tick-borne illness, autoimmunity, long COVID. Patients reach you after years and a dozen clinicians, carrying records to match. Stream files all of it by medical problem, so the thread you are following stays visible across a workup that runs for months."
+  primaryLabel="Start free for 30 days"
+  secondaryHref="/book-demo/"
+  secondaryLabel="Talk to a clinician first"
+  trustItems={[pricing.trustNoCc, pricing.trustTrial, pricing.trustIntro, pricing.trustHipaa]}
+>
+  The scribe for patients whose<br><em>chart arrives before they do.</em>
+</HeroSection>
+
+<!-- PROOF STRIP -->
+<ProofStrip items={["Built by practicing physicians", "Works alongside any EHR", "Published in JAMA Network Open", "HIPAA Compliant"]} />
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <span class="section-label reveal">Why this work breaks ordinary scribes</span>
+    <h2 class="reveal">Most AI scribes are built for<br>a patient with one problem.</h2>
+    <p class="pain-lead reveal">Record the visit, generate the note, move on. That assumes the visit is the unit of work. In complex chronic illness it is not — the unit is a multi-system picture assembled over months, from your own visits and from everything the patient brought with them.</p>
+    <div class="pain-cards reveal">
+      <PainCard icon="📦" title="The intake is a records project" body="Before the first visit you read hundreds of pages from clinicians who each saw one system. The synthesis exists nowhere but in your head, and you rebuild it from scratch every time the patient comes back." />
+      <PainCard icon="🧵" title="The workup outlives your memory of it" body="A differential narrowed over eight months. Treatments tried, escalated, abandoned. The one result that moved things. In a stack of dated notes the reasoning is gone, and re-deriving it becomes the visit." />
+      <PainCard icon="🕸️" title="Multi-system means the note fights you" body="Mast cell disease, dysautonomia and a tick-borne history are not one problem with one plan. A scribe that writes a single note per encounter flattens exactly the structure you need to keep." />
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 56px 0;">
+  <div class="container">
+    <PhilBlock label="The idea behind Stream" name="Jake Kantrowitz, MD" title="Practicing Internist · Co-Founder, River Records">
+      "The note isn't the problem. The note as the only organizational unit for clinical knowledge — that's the problem. Every patient is a longitudinal project. Stream is built to manage it."
+    </PhilBlock>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Designed around the <em>records</em>, not the encounter.</h2>
+      <p>Because in this work, the reading is most of the job.</p>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 01 — Before the first visit</div>
+          <h3>Turn the box of records into a problem list.</h3>
+          <p>Upload the consult PDFs, paste the free text, take in the fax. Stream summarizes what arrived and files the relevant pieces under the problem each one belongs to. The stack from a dozen prior clinicians becomes something you can read before the patient sits down — two lines instead of twenty pages, per problem.</p>
+          <p class="how-step-aside">The intake is the work. This is the step the other specialty pages treat as a footnote.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem List" flush>
+            <div id="cc-problems"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reverse reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 02 — Across the workup</div>
+          <h3>See one problem across the whole workup.</h3>
+          <p>Open any problem and view every Assessment &amp; Plan you have written for it, in order, plus an on-demand recap of how it evolved. What you tried, what you ruled out, and why you moved on — recoverable in seconds rather than reconstructed from memory at the start of every visit.</p>
+          <p class="how-step-aside">Pastes into MDHQ, Cerbo, Charm, Elation — or works on its own. No integration to set up.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Problem Summary" flush>
+            <div id="cc-summary"></div>
+          </StepMock>
+        </div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-step-copy">
+          <div class="how-step-num">Step 03 — Between visits</div>
+          <h3>Nothing falls through a long interval.</h3>
+          <p>Pending labs, timed collections, records you requested from an outside clinician and follow-ups you set months out are extracted from each visit and tied to the problem they belong to. When visits are eight weeks apart, the gap is where things get lost.</p>
+          <p class="how-step-aside">Coding when you want it: ICD and CPT capture suggestions at the point of care, ignorable if you do not bill insurance.</p>
+        </div>
+        <div class="how-step-visual">
+          <StepMock header="Auto-Generated Tasks" flush>
+            <div id="cc-tasks"></div>
+          </StepMock>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">How Stream fits this practice</span>
+      <h2>Ordered by what this work actually demands.</h2>
+    </div>
+    <div class="features-grid reveal">
+      <FeatureCell icon="📁" title="External Record Ingestion" body="Upload a consult PDF, paste free text, or take in a fax. Stream summarizes it and files the relevant pieces under the right problem. For a patient arriving with years of outside workup, this is the feature that matters most." />
+      <FeatureCell icon="🗂️" title="Problem-Oriented Chart" body="Every visit's Assessment & Plan is filed under the medical problem it belongs to. A multi-system patient keeps a multi-system structure instead of being flattened into one document per visit." />
+      <FeatureCell icon="📈" title="Timeline + Recap" body="Open any problem and see every A&P you've written for it over time, plus an on-demand recap. The reasoning behind a months-long workup stays recoverable." />
+      <FeatureCell icon="🔭" title="Pre-Visit Huddle" body="Five minutes before a visit, Huddle surfaces what's active, what's been falling off your radar, and what's still pending — drawn from the whole history, not just the last note." />
+      <FeatureCell icon="✅" title="Automatic Task Tracking" body="Pending labs, timed collections, outside records you requested and long-dated follow-ups are pulled from each visit and tied to their problem — so an eight-week interval doesn't swallow them." />
+      <FeatureCell icon="💻" title="Coding When You Want It" body="ICD and CPT capture suggestions at the point of care. Useful for the visits you do bill, and entirely ignorable in a cash-pay practice." />
+    </div>
+  </div>
+</section>
+
+<!--
+  LIMITS — do not trim this section. Same rule as the comparison pages and the `limits`
+  FAQs: this audience has been sold to by every functional-medicine vendor in the market,
+  and conceding plainly is what makes the rest of the page believable.
+-->
+<section class="limits">
+  <div class="container">
+    <div class="limits-inner reveal">
+      <span class="section-label">Before you try it</span>
+      <h2>What Stream does not do.</h2>
+      <p class="limits-lead">You will find this out in the trial anyway, so here it is first.</p>
+      <div class="limits-list">
+        <div class="limit-item">
+          <h3>It does not write back into your EHR.</h3>
+          <p>Stream produces the note and you paste it. Worth knowing what that costs you here specifically: practices in this field typically run MDHQ, Cerbo, Charm or Elation, and no AI scribe writes back into those either. It is a real limitation and a smaller one than it would be in a hospital-owned primary care clinic.</p>
+        </div>
+        <div class="limit-item">
+          <h3>It does not interpret results or suggest diagnoses.</h3>
+          <p>Stream organizes what you wrote and what you received. It will not read a mediator panel and tell you what it means. It is not clinical decision support and has no opinion on your differential — a deliberate line in a field where a great deal of software claims otherwise.</p>
+        </div>
+        <div class="limit-item">
+          <h3>It is not SOC 2 certified.</h3>
+          <p>Stream is HIPAA compliant, signs a <a href="/baa/">BAA</a> with every subscriber, encrypts data in transit and at rest, and never trains models on your patient data. It does not hold SOC 2, and we will not imply a date for it. More detail on <a href="/security/">security</a>.</p>
+        </div>
+        <div class="limit-item">
+          <h3>It does not know your field's frameworks.</h3>
+          <p>Stream has no built-in consensus criteria for mast cell activation, no scoring for dysautonomia, no protocol library. It structures your reasoning; the reasoning is yours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING CALLOUT -->
+<section class="pricing-callout">
+  <div class="container">
+    <div class="pricing-card reveal">
+      <h2>{pricing.calloutHeadline}</h2>
+      <p>{pricing.calloutBody}</p>
+      <a href="https://stream.riverrecords.ai/onboard/stream-pro" class="btn btn-primary-lg">Start free for 30 days</a>
+      <div class="pricing-small">{pricing.calloutSmall}</div>
+    </div>
+    <p class="pricing-clinic reveal">Multi-provider practices can ask about per-seat Clinic pricing with volume discounts.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="cc-faq">
+  <div class="container">
+    <div class="cc-faq-inner reveal">
+      <h2>Frequently asked questions</h2>
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-q">{faq.q}<span class="faq-icon"></span></summary>
+          <div class="faq-a">{faq.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH LINE -->
+<section class="cc-research">
+  <div class="container">
+    <p>Built by practicing physicians. Published in JAMA Network Open. <a href="/research/">Read the research →</a></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo/" secondaryLabel="Talk to a clinician first">
+      Built for the patients<br><em>nobody else could organize.</em>
+      <Fragment slot="body">{pricing.ctaBodyWithTrial}</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', function() {
+  // Complex-chronic dataset — overrides the widgets' single-problem adult defaults.
+  // These codes are read closely by this audience; verify before changing them.
+  StreamWidgets.ProblemListWidget('#cc-problems', {
+    unitLabel: "visits",
+    problems: [
+      { name: "Mast Cell Activation Syndrome", status: "Active", encounters: 11, icd: "D89.42" },
+      { name: "Postural Orthostatic Tachycardia Syndrome", status: "Active", encounters: 8, icd: "G90.A" },
+      { name: "Hypermobile Ehlers-Danlos Syndrome", status: "Active", encounters: 4, icd: "Q79.62" },
+      { name: "Hashimoto Thyroiditis", status: "Stable", encounters: 6, icd: "E06.3" },
+      { name: "Lyme Disease", status: "Stable", encounters: 5, icd: "A69.20" },
+    ],
+  });
+
+  StreamWidgets.ProblemSummaryCard('#cc-summary', {
+    data: {
+      title: "Mast Cell Activation Syndrome",
+      status: "Active",
+      icd: "D89.42",
+      summary: "Referred after four years and six clinicians, with flushing, abdominal pain and near-syncope following meals and heat exposure. Outside records reviewed at intake: two negative endoscopies, a normal cortisol axis, prior carcinoid workup negative. Baseline tryptase drawn off-flare; 24-hour mediator collection pending. H1/H2 blockade escalated with partial response; cromolyn added and titrating.",
+      medications: [
+        { name: "Cetirizine 10 mg BID", status: "Active" },
+        { name: "Famotidine 20 mg BID", status: "Active" },
+        { name: "Cromolyn sodium oral, titrating", status: "New" },
+        { name: "Montelukast 10 mg nightly", status: "Active" },
+        { name: "Diphenhydramine PRN", status: "Hold" },
+      ],
+      lastUpdated: "6 days ago",
+    },
+  });
+
+  StreamWidgets.TaskListWidget('#cc-tasks', {
+    tasks: [
+      { text: "24-hour urine mediators — confirm collection kept cold", due: "Ongoing", tag: "Urgent", done: false },
+      { text: "Repeat baseline serum tryptase — at least 24h after last flare", due: "Nov 14", tag: "Routine", done: false },
+      { text: "Chase allergy/immunology records — requested 3 weeks ago", due: "Nov 8", tag: "Urgent", done: false },
+      { text: "Reassess cromolyn tolerance at next visit", due: "Dec 2", tag: "Routine", done: false },
+      { text: "Reconcile supplements against prior clinician's list", due: "Oct 30", tag: "Routine", done: true },
+    ],
+  });
+});
+</script>
+
+</Page>

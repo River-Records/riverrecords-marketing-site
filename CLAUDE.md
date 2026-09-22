@@ -147,7 +147,34 @@ Hero → Pain cards → Philosophy → How it works (with widgets) → Features 
 
 Current pages:
 - /for/primary-care — primary care & family medicine
+- /for/dpc — direct primary care / membership practices
+- /for/pediatrics — pediatrics, built around well-visit recall
 - /for/snf — SNF, LTC, post-acute care (primary CTA is Book a Demo)
+- /for/complex-chronic — complex chronic & integrative practice (see below)
+
+**`/for/complex-chronic/` is a referral page, not an SEO page, and is shaped differently
+on purpose.** The whole segment draws about a dozen impressions a year in Search Console.
+It exists because the first client in it arrived by physician-to-physician referral through
+a clinical group, across two unrelated specialties — so it is built to be pasted into a
+thread by a peer and understood in thirty seconds. Judge it on whether a clinician
+forwards it, not on position.
+
+Three things in it are load-bearing:
+- **External record ingestion leads.** For this segment the intake *is* the work — the
+  patient arrives with hundreds of pages from clinicians who each saw one system. Every
+  other `/for/*` page treats ingestion as a feature-grid bullet; here it is step one. Do
+  not reorder it to match the others, or the page becomes /for/dpc with new nouns.
+- **The limits section.** Same rule as the comparison pages: this audience has been sold
+  to by every functional-medicine vendor in the market. It also makes the honest point
+  that "no EHR write-back" costs less here — these practices run MDHQ, Cerbo, Charm and
+  Elation, and no scribe writes back into those either.
+- **No testimonials.** Every other specialty page carries three; this one carries none,
+  because there is no consented quote from the segment yet and an off-segment quote from
+  an academic health system would be worse than silence. Add one when it exists.
+
+The demo widget data is clinical — problem names, ICD-10 codes, the mediator workup — and
+this audience reads it closely. Verify before changing it; a wrong code costs more
+credibility than the widget earns.
 
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
