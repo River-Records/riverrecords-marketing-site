@@ -185,6 +185,15 @@ Four things in it are load-bearing:
   patients carried for years; the problem list is how they pick one up without reading the
   whole chart. Small line, real pain, and nobody else in the category makes it.
 
+**Never pitch time saved on this page.** It is the rule most likely to be broken, because
+every competitor and most of our own copy elsewhere opens with hours back. Both practices
+in this network were founded to protect time *with* patients — one physician was reprimanded
+for spending too long with them, the other left to put the relationship ahead of a large
+system's administrative demands. An offer to shorten their visits reads as an offer to undo
+the thing they gave up a salary for. The page argues Stream protects the time spent
+**thinking** — re-reading, re-deriving, hunting for a decision already made. No "save two
+hours a day" line belongs on it.
+
 The demo widget data is clinical — problem names, ICD-10 codes, the mediator workup — and
 this audience reads it closely. Verify before changing it; a wrong code costs more
 credibility than the widget earns.
