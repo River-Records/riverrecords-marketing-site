@@ -38,13 +38,13 @@ There is no single "best" AI scribe. The right pick depends on whether you want 
 |**[Doximity Scribe](https://www.doximity.com/scribe)**|Lowest-friction free option|**Free** (verified US clinicians)|Pastes into any EHR|Single ambient note per visit|
 |**[Freed](https://www.getfreed.ai/pricing)**|Simple fast ambient notes, solo clinicians|From ~$39 (tiered)       |Pastes into any EHR   |Single ambient note per visit                                                |
 |**[Heidi Health](https://www.heidihealth.com/pricing)**|Flexibility + free tier      |Free tier; ~$150 paid    |Pastes into any EHR   |Template-driven, customizable                                                |
-|**[Twofold Health](https://www.twofold.health/pricing)**|Budget self-serve           |~$49–69                  |Copy/paste (clipboard)|Customizable templates, broad note types                                     |
+|**[Twofold Health](https://www.trytwofold.com/pricing)**|Budget self-serve           |$69 (annual)             |Copy/paste (clipboard)|Customizable templates, broad note types                                     |
 |**PatientNotes**               |Many specialty templates on a budget      |~$50–70                  |Clipboard / any EHR   |30+ specialty templates                                                      |
-|**[Suki](https://www.suki.ai/pricing/)**|Voice-first, ambient plus dictation|~$299–399+       |Varies by integration |Voice-first, structured                                                      |
+|**Suki**|Voice-first, ambient plus dictation|~$299–399+ (not published)|Varies by integration |Voice-first, structured                                                      |
 |**Abridge**                    |Large Epic-based health systems           |Enterprise (~$200–1,200+)|Deep Epic integration |Structured, EHR-embedded                                                     |
 |**Nuance DAX / Dragon Copilot**|Enterprise, Dragon-compatible EHRs        |Enterprise               |Deep integration      |Voice-first, structured                                                      |
 
-*Competitor pricing verified 14 September 2026 from each vendor's own pricing page, linked above. Prices move — Heidi's went from roughly $99 to around $150 in February 2026 — so check the vendor's page rather than taking ours on trust.
+*Competitor pricing verified 22 September 2026 from each vendor's own pricing page, linked above. Prices move — Heidi's went from roughly $99 to around $150 in February 2026 — so check the vendor's page rather than taking ours on trust.
 
 ## How to choose: what actually matters for independent primary care
 
@@ -131,7 +131,7 @@ PatientNotes is a value option for solo and small clinics that need a wide range
 Suki sits at the premium end for an independent practice, roughly $299–$399+ per month, and earns some of it: it offers genuine EHR integrations and a voice command surface for driving the EHR by speech. Stream has neither, and is not promising them this year.
 
 - **Best for:** Practices where EHR write-back is a hard requirement and the budget supports it.
-- **Pricing:** Around $299–$399+/mo.
+- **Pricing:** Around $299–$399+/mo, from third-party reports — Suki publishes no pricing page.
 - **Watch-outs:** Roughly double Stream and six to eight times the budget tools. The note still lands in the EHR organized by date.
 
 [Full comparison with Stream](/comparison/suki/).
@@ -216,7 +216,7 @@ Primary care visits are multi-problem and longitudinal. The documentation challe
 
 ## Methodology and disclosure
 
-This comparison is based on publicly available product information and the selection criteria that matter most to independent practices: self-serve access, multi-problem handling, longitudinal usefulness, EHR handoff, and data/compliance practices. Competitor pricing was verified on 14 September 2026 from each vendor's own pricing page, which is linked in the comparison table so you can check rather than trust us. Plans change frequently — Heidi's rose from roughly $99 to around $150 in February 2026.
+This comparison is based on publicly available product information and the selection criteria that matter most to independent practices: self-serve access, multi-problem handling, longitudinal usefulness, EHR handoff, and data/compliance practices. Competitor pricing was verified on 22 September 2026 from each vendor's own pricing page, which is linked in the comparison table so you can check rather than trust us. Plans change frequently, and that pass found real drift: Twofold's entry tier is gone and their site had moved domain, and Suki publishes no pricing page at all, so the figure here comes from third-party reports rather than from Suki.
 
 Two things we will not tell you: which tool is most accurate, because no independent benchmark exists and accuracy varies by specialty and recording conditions; and that any tool here is bad. They are not. The differences that matter are about structure and price, not quality of transcription.
 
