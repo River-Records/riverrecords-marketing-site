@@ -316,6 +316,36 @@ the deck disqualifies outright). Adding either would rank us for people we canno
 
 Verify with `scripts/verify-comparison-pages.mjs`.
 
+## Interviews and appearances (`src/config/press.ts`)
+
+Third-party interviews, rendered on `/about/` and on the speaker's `/team/*` profile from
+one list. Everything else on the site is the company describing the company — the weakest
+evidence there is, and every competitor has the same amount of it. These are the only
+claims a visitor can check without trusting us first, which is why they link **out** to
+the publisher rather than being embedded, re-hosted or paraphrased.
+
+Four rules, and the last one is the one that bites:
+
+- **`kind` is the truth, not the flattering version.** It drives a visible badge, and a
+  written Q&A is badged a written Q&A. Calling it a podcast is a lie one click disproves.
+- **No logo wall.** Two appearances shown as two appearances reads as true; two dressed as
+  "featured in" reads as padding, to an audience that has been sold to all year. Same
+  reasoning as the comparison pages and the `limits` FAQs.
+- **`date` is optional so it can be omitted rather than guessed.**
+- **External links rot and the build cannot tell.** `verify-internal-links.mjs` only reads
+  hrefs starting with `/`, so a dead interview link survives a green pipeline
+  indefinitely — and the visitor who clicks it is precisely the one who was checking.
+
+Each entry's `people` are matched against the team profile's existing `authorMatch`, so
+an appearance reaches its speaker's page without a second list to keep in sync. The
+entries are also emitted into `/organization.jsonld` as `subjectOf` — work somebody else
+published *about* us, which is the one kind of corroboration an answer engine can weigh
+differently from our own copy.
+
+Verify with `scripts/verify-press.mjs` (static, ~1s). The link-rot check needs the network
+and is opt-in: `node scripts/verify-press.mjs --live`. Run that after editing, and update
+`PRESS_VERIFIED`.
+
 ## What each blog post asks for (`src/config/blog-offers.ts`)
 All 88 posts used to end with the same CTA — start a 30-day trial — which is a
 bottom-funnel ask on top-of-funnel writing. 51 of them are essays on burnout, note bloat

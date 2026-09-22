@@ -15,6 +15,8 @@
  * "thinks like a clinician"; "works alongside any EHR", never "works with".
  */
 
+import { press } from './press';
+
 export const organization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -54,5 +56,17 @@ export const organizationDocument = {
     { '@type': 'WebPage', name: 'Pricing', url: 'https://www.riverrecords.ai/pricing/' },
     { '@type': 'WebPage', name: 'FAQ', url: 'https://www.riverrecords.ai/faq/' },
     { '@type': 'WebPage', name: 'About', url: 'https://www.riverrecords.ai/about/' },
+    // Third-party interviews, from src/config/press.ts — the same list /about/ renders.
+    // `subjectOf` is the right relation for them: these are works about this organization
+    // that this organization did not publish, which is the only kind of corroboration an
+    // answer engine can weigh differently from our own copy. Generated rather than
+    // retyped, so the document and the page cannot disagree about what exists.
+    ...press.map((item) => ({
+      '@type': item.kind === 'podcast' ? 'PodcastEpisode' : 'Article',
+      name: item.title,
+      url: item.url,
+      publisher: { '@type': 'Organization', name: item.outlet },
+      ...(item.date ? { datePublished: item.date } : {}),
+    })),
   ],
 } as const;
