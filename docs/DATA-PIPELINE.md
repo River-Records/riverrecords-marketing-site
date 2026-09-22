@@ -96,6 +96,49 @@ The server never stores the user agent — it reads it to set the `bot` flag and
 it — and `ts` is server time, because device clocks are wrong often enough to poison any
 ordering built on them.
 
+### Telling people from machines — query `human_events`, not `events`
+
+**The `bot` column is not enough, and the raw table will mislead you.** It reads the user
+agent, which catches crawlers that announce themselves. In the first week of collection,
+**40% of rows marked `bot = 0` were automated**: 225 visitors, each loading `/baa/` exactly
+once, no referrer, two events apiece, then gone — 348 events from one country. They run
+JavaScript, so the collector fired normally and the user agent looked like a browser.
+
+Migration `0002` adds two views. Use them for anything you would describe as traffic:
+
+| view | what it is |
+|---|---|
+| `human_events` | rows from visitors who showed a positive sign of being a person |
+| `human_visitors` | one row per person: first/last seen, pages, days active, country |
+
+The test is **positive, not a blocklist**. `human_signal` is emitted once when a visitor
+does something a page-fetcher has no reason to do — pointer, key, touch, wheel or scroll.
+Its absence is not proof of a bot; a person can land, read what is on screen and leave. Its
+presence is strong evidence of a person, and that asymmetry is the whole point. We would
+rather undercount humans than report bots as traffic.
+
+**Do not "improve" this by filtering on country, path or request shape.** Filtering by
+country drops real clinicians abroad, and any pattern enumerated here is one a scraper can
+stop matching. Enumerating bots is a race lost by playing it.
+
+`navigator.webdriver` is also recorded, but only when true, so it stays a rare marker
+rather than a field on every row. Trivially spoofable; worth having because plenty of
+automation does not bother.
+
+**These views are forward-looking.** Nothing collected before the signal shipped
+(21 September 2026) can satisfy it, so they are empty for earlier rows by construction.
+For the historical period, the cruder heuristic is:
+
+```sql
+-- Approximate humans before human_signal existed: more than one page, or any
+-- interaction event at all. Use only for rows before 2026-09-21.
+SELECT COUNT(DISTINCT rr_vid) FROM events
+WHERE bot = 0
+  AND rr_vid IN (
+    SELECT rr_vid FROM events GROUP BY rr_vid HAVING COUNT(DISTINCT path) > 1
+  );
+```
+
 ### Questions it can now answer
 
 ```bash
@@ -105,8 +148,8 @@ q() { npx wrangler d1 execute riverrecords-site-events --remote --command "$1"; 
 One visitor's whole journey — the query the table exists for:
 
 ```sql
-SELECT ts, event, path, props FROM events
-WHERE rr_vid = '<id>' AND bot = 0 ORDER BY ts;
+SELECT ts, event, path, props FROM human_events
+WHERE rr_vid = '<id>' ORDER BY ts;
 ```
 
 Which posts are genuinely read, not merely opened:
@@ -114,7 +157,7 @@ Which posts are genuinely read, not merely opened:
 ```sql
 SELECT path, COUNT(*) reads,
        ROUND(AVG(json_extract(props,'$.engaged_seconds'))) avg_seconds
-FROM events WHERE event = 'post_read' AND bot = 0
+FROM human_events WHERE event = 'post_read'
 GROUP BY path ORDER BY reads DESC LIMIT 20;
 ```
 
@@ -122,11 +165,14 @@ Visitors who came back on a different day — the strongest anonymous intent sig
 
 ```sql
 SELECT rr_vid, COUNT(DISTINCT date(ts/1000,'unixepoch')) days, COUNT(*) events
-FROM events WHERE bot = 0
+FROM human_events
 GROUP BY rr_vid HAVING days > 1 ORDER BY events DESC LIMIT 20;
 ```
 
-What people did before they converted — paste an `rr_vid` from a HubSpot contact:
+What people did before they converted — paste an `rr_vid` from a HubSpot contact.
+**Deliberately queries `events`, not `human_events`:** someone who filled in a form is a
+person by definition, and you want their complete history including the visit before they
+ever moved the mouse.
 
 ```sql
 SELECT path, event, ts FROM events
@@ -138,7 +184,7 @@ Chose to watch versus arrived on a deep link:
 ```sql
 SELECT json_extract(props,'$.video_trigger') trigger,
        json_extract(props,'$.video_key') video, COUNT(*) n
-FROM events WHERE event = 'video_play' AND bot = 0 GROUP BY trigger, video;
+FROM human_events WHERE event = 'video_play' GROUP BY trigger, video;
 ```
 
 ### Housekeeping

@@ -68,8 +68,37 @@
     "rr_first_source", "rr_first_medium", "rr_first_campaign",
     "rr_last_source", "rr_last_medium", "landing_page",
     // synthesised by this script
-    "referrer_host", "title"
+    "referrer_host", "title", "webdriver"
   ];
+
+  /*
+   * TELLING PEOPLE FROM MACHINES — a positive signal, not a blocklist.
+   *
+   * The server-side `bot` column reads the user agent, which catches crawlers that
+   * announce themselves and nothing else. In the first week of collection, 40% of rows
+   * marked bot=0 were automated: 225 visitors, each loading /baa/ exactly once, no
+   * referrer, two events apiece, then gone. They run JavaScript, so this collector fired
+   * normally and the user agent looked like a browser.
+   *
+   * The instinct is to add rules — that country, that path, that shape. Don't. Filtering
+   * by country would drop real clinicians abroad, and any pattern we enumerate is one a
+   * scraper can stop matching. Enumerating bots is a race we lose by playing.
+   *
+   * So we record the opposite: `human_signal`, emitted once when someone does something
+   * a page-fetcher has no reason to do. Absence of it is not proof of a bot — a person
+   * can land, read what is on screen and leave — but presence of it is strong evidence
+   * of a person, and that asymmetry is what makes it useful.
+   *
+   * `webdriver` is `navigator.webdriver`, the flag automation tools are specified to set.
+   * It is sent only when true, so it is a rare marker rather than a field on every row.
+   * Trivially spoofable, and worth having anyway because plenty of automation does not
+   * bother.
+   *
+   * Neither is fingerprinting. No screen size, no timezone, no language list, no hardware
+   * counts — those identify a person across sites, which is exactly what rr_vid is
+   * designed not to do.
+   */
+  var HUMAN_EVENTS = ["pointerdown", "keydown", "touchstart", "wheel", "scroll"];
 
   /* GTM's own lifecycle events. Noise in this table; GTM has its own reporting. */
   function isInternal(name) {
@@ -173,10 +202,34 @@
       if (document.referrer) referrerHost = new URL(document.referrer).hostname;
     } catch (e) { /* malformed referrer */ }
 
+    var automated = false;
+    try {
+      automated = navigator.webdriver === true;
+    } catch (e) { /* not all browsers expose it */ }
+
     enqueue("page_view", {
       title: document.title ? document.title.slice(0, 200) : undefined,
-      referrer_host: referrerHost || undefined
+      referrer_host: referrerHost || undefined,
+      // Only when true, so the column stays a marker rather than a field on every row.
+      webdriver: automated ? true : undefined
     });
+
+    // Fires at most once per page. Listeners remove themselves, so a reader who scrolls
+    // for ten minutes costs one event, not thousands.
+    var signalled = false;
+    function onHuman() {
+      if (signalled) return;
+      signalled = true;
+      for (var j = 0; j < HUMAN_EVENTS.length; j++) {
+        try { window.removeEventListener(HUMAN_EVENTS[j], onHuman, true); } catch (e) {}
+      }
+      enqueue("human_signal");
+    }
+    for (var i = 0; i < HUMAN_EVENTS.length; i++) {
+      try {
+        window.addEventListener(HUMAN_EVENTS[i], onHuman, { passive: true, capture: true });
+      } catch (e) { /* never break the page */ }
+    }
 
     drain();
     setInterval(drain, 500);
