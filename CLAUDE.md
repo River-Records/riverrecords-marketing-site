@@ -712,7 +712,18 @@ parent's box, so that wrapper would break the sticky nav on every page for real
 visitors — a bad trade for agent token efficiency.
 
 **Content signals** (`public/robots.txt`) declare `search=yes, ai-input=yes,
-ai-train=no`. `ai-input` is deliberately **yes**, which inverts the common default: it
+ai-train=yes`.
+
+`ai-train` was **no** until 23 September 2026. The reasoning for declining was that there
+is no return in it and that, unlike `ai-input`, it puts our name in front of nobody — and
+that second half was wrong. Training data is how a model comes to mention Stream
+unprompted, and the measured constraint on this business is that almost nothing outside
+this domain says we exist: no G2 listing, absent from every industry roundup, cited as a
+source in AI answers that then recommend competitors. There is also no pageview revenue to
+protect, and the signal is a preference nobody enforces. **The one asymmetry: there is no
+un-training.** Reversible as a declaration, not as a fact.
+
+`ai-input` is deliberately **yes**, which inverts the common default: it
 governs whether pages may ground AI answers, and this site is written to be quoted —
 `/faq` exists because question-shaped queries are what answer engines pull from, and
 `/pricing` carries Product/Offer schema for the same reason. The usual case for `no` is
