@@ -817,13 +817,37 @@ parent's box, so that wrapper would break the sticky nav on every page for real
 visitors — a bad trade for agent token efficiency.
 
 **Content signals** (`public/robots.txt`) declare `search=yes, ai-input=yes,
-ai-train=no`. `ai-input` is deliberately **yes**, which inverts the common default: it
+ai-train=yes`.
+
+`ai-train` was **no** until 23 September 2026. The reasoning for declining was that there
+is no return in it and that, unlike `ai-input`, it puts our name in front of nobody — and
+that second half was wrong. Training data is how a model comes to mention Stream
+unprompted, and the measured constraint on this business is that almost nothing outside
+this domain says we exist: no G2 listing, absent from every industry roundup, cited as a
+source in AI answers that then recommend competitors. There is also no pageview revenue to
+protect, and the signal is a preference nobody enforces. **The one asymmetry: there is no
+un-training.** Reversible as a declaration, not as a fact.
+
+`ai-input` is deliberately **yes**, which inverts the common default: it
 governs whether pages may ground AI answers, and this site is written to be quoted —
 `/faq` exists because question-shaped queries are what answer engines pull from, and
 `/pricing` carries Product/Offer schema for the same reason. The usual case for `no` is
 that AI answers cannibalise clicks, which applies to sites monetised by pageviews; search
 sends this one ~60 clicks a month and a citation is worth more than the visit it
 replaces. The reasoning is in the file — revisit it deliberately rather than flipping it.
+
+**Cloudflare emits its own `content-signal` response header on converted markdown, and it
+can contradict robots.txt.** On 23 September 2026 it said `ai-train=yes` while robots.txt
+said `ai-train=no` — two opposite declarations of the same preference, with the
+contradiction served to exactly the audience the signal exists for. The setting lives in
+the Cloudflare dashboard under AI Crawl Control, separate from the file in this repo.
+Whichever a crawler believes, one of them is a lie. `verify-agent-readiness.mjs` now fails
+if the two disagree.
+
+Related: `x-markdown-tokens` and `x-original-tokens` are Cloudflare's **optional**
+diagnostic headers and disappeared the same day while conversion kept working. They are
+reported, never asserted — a check that calls a healthy feature broken gets ignored and
+then deleted.
 
 `scripts/verify-agent-readiness.mjs` checks both. **It is the only verify script that
 tests production rather than `dist/`**, because neither thing lives in the build: one is

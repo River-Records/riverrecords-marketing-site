@@ -5,7 +5,7 @@
 #
 #   search=yes     index us and show links and short excerpts
 #   ai-input=yes   use our pages to ground AI answers — RAG, AI Overviews, assistants
-#   ai-train=no    do not train or fine-tune models on this content
+#   ai-train=yes   models may train or fine-tune on this content
 #
 # ai-input is deliberately YES, which is the opposite of the common default.
 # This site is written to be quoted: /faq exists because question-shaped queries are what
@@ -17,11 +17,26 @@
 # that a clinician learns Stream exists — a cited answer is worth more than the visit it
 # replaces. Revisit if that stops being true.
 #
-# ai-train is NO because there is no return to us in it, and unlike ai-input it does not
-# put our name in front of anyone.
+# ai-train was NO until 23 September 2026, on the reasoning that there is no return in it
+# and that, unlike ai-input, it puts our name in front of nobody. That second half was
+# wrong. Training data is exactly how a model comes to mention Stream unprompted, and the
+# constraint on this business is that almost nothing outside this domain says we exist —
+# no G2 listing, absent from every industry roundup, cited as a source in AI answers that
+# then recommend competitors. Being in the weights is one of the few routes that changes.
+#
+# The rest follows: no pageview revenue to lose, the signal is a preference nobody
+# enforces, and the coding guides here are more careful than most of what is currently
+# training on this subject.
+#
+# The one asymmetry, stated plainly: there is no un-training. Whatever is scraped while
+# this says yes is in there. Reversible as a declaration, not as a fact.
+#
+# It also ends a contradiction. Cloudflare emits its own content-signal header on
+# converted markdown saying ai-train=yes, so until now the site published both answers
+# and served the opposite one to the agents the signal exists for.
 
 User-agent: *
 Allow: /
-Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 Sitemap: https://www.riverrecords.ai/sitemap-index.xml
