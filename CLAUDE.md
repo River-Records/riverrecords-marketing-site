@@ -720,6 +720,19 @@ that AI answers cannibalise clicks, which applies to sites monetised by pageview
 sends this one ~60 clicks a month and a citation is worth more than the visit it
 replaces. The reasoning is in the file — revisit it deliberately rather than flipping it.
 
+**Cloudflare emits its own `content-signal` response header on converted markdown, and it
+can contradict robots.txt.** On 23 September 2026 it said `ai-train=yes` while robots.txt
+said `ai-train=no` — two opposite declarations of the same preference, with the
+contradiction served to exactly the audience the signal exists for. The setting lives in
+the Cloudflare dashboard under AI Crawl Control, separate from the file in this repo.
+Whichever a crawler believes, one of them is a lie. `verify-agent-readiness.mjs` now fails
+if the two disagree.
+
+Related: `x-markdown-tokens` and `x-original-tokens` are Cloudflare's **optional**
+diagnostic headers and disappeared the same day while conversion kept working. They are
+reported, never asserted — a check that calls a healthy feature broken gets ignored and
+then deleted.
+
 `scripts/verify-agent-readiness.mjs` checks both. **It is the only verify script that
 tests production rather than `dist/`**, because neither thing lives in the build: one is
 a billing state at the edge, and the other can be overridden by Cloudflare's managed

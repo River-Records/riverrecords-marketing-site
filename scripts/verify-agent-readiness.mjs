@@ -70,13 +70,44 @@ for (const path of PAGES) {
 
   check(`${path} returns markdown`, type.includes('text/markdown'), `content-type: ${type}`);
   check(`${path} is not HTML`, !body.trimStart().startsWith('<'), body.slice(0, 60));
-  check(`${path} reports token counts`, mdTokens > 0 && htmlTokens > 0,
-    mdTokens && htmlTokens ? `${htmlTokens} → ${mdTokens} tokens, ${saved}% saved` : 'headers missing');
+  // x-markdown-tokens / x-original-tokens are Cloudflare's OPTIONAL diagnostic headers.
+  // They vanished on 23 September 2026 while conversion carried on working perfectly, so
+  // asserting on them failed all four pages over a vendor dropping a nice-to-have. A
+  // check that reports a healthy feature as broken gets ignored, then gets deleted.
+  // Reported, never failed.
+  console.log(mdTokens && htmlTokens
+    ? `  note    ${path} ${htmlTokens} → ${mdTokens} tokens, ${saved}% saved`
+    : `  note    ${path} token-count headers absent (informational; conversion still works)`);
   // Without Vary, an edge or intermediary cache can hand a markdown response to a
   // browser. That is the failure mode that would be visible to real people.
   check(`${path} sets Vary: Accept`,
     (res.headers.get('vary') || '').toLowerCase().includes('accept'),
     `vary: ${res.headers.get('vary')}`);
+}
+
+/*
+ * Cloudflare emits its own `content-signal` response header on converted markdown, and
+ * on 23 September 2026 it said `ai-train=yes` while robots.txt said `ai-train=no`. Two
+ * contradictory declarations of the same preference, with the contradiction served
+ * precisely to the audience the signal exists for. Whichever one a crawler believes, one
+ * of them is a lie we are telling.
+ */
+console.log('\nThe edge must not contradict robots.txt');
+{
+  const mdRes = await fetch(BASE + '/pricing/', { headers: { Accept: 'text/markdown' } });
+  const hdr = (mdRes.headers.get('content-signal') || '').toLowerCase();
+  if (!hdr) {
+    console.log('  note    no content-signal response header (robots.txt is the only declaration)');
+  } else {
+    const robotsAhead = (await (await fetch(BASE + '/robots.txt')).text())
+      .split('\n').find((l) => /^Content-Signal:/i.test(l.trim())) || '';
+    for (const key of ['ai-train', 'search', 'ai-input']) {
+      const inHeader = hdr.match(new RegExp(key + '\\s*=\\s*(yes|no)'))?.[1];
+      const inRobots = robotsAhead.toLowerCase().match(new RegExp(key + '\\s*=\\s*(yes|no)'))?.[1];
+      check(`${key} agrees between the header and robots.txt`, inHeader === inRobots,
+        `header says ${inHeader}, robots.txt says ${inRobots}`);
+    }
+  }
 }
 
 console.log('\nHTML is still the default for browsers');
