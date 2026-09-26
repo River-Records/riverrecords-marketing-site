@@ -201,6 +201,15 @@ ICD-10 is republished every October, so re-check on the annual update rather tha
 inheriting the line — Q79.62 (hEDS) and G90.A (POTS) are recent additions and the most
 likely to move. A wrong code costs more credibility than the widget earns.
 
+## `/connect/` — Stream Connect (fax on the practice's own Spruce number)
+Short on purpose: the reader already faxes on Spruce and needs what changes, what it
+costs, and what they do themselves. Product depth lives on `/intake/` (Stream Inlet, the
+River-number path) — link there rather than repeating it. Prices read from
+`connectPricing` in `src/config/pricing.ts`. Keep the "Is Connect the right path?"
+section: Connect is the lowest up-front option but not always cheaper once Spruce's own
+fee is counted, and the page says so next to the price. First-month metering, founding
+terms and the ROI table stay in the quote, same as Inlet.
+
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 

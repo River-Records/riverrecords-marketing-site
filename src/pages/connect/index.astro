@@ -1,0 +1,207 @@
+---
+/**
+ * /connect/ — Stream Connect: Stream's fax processing on a practice's own Spruce number.
+ *
+ * WHO IT IS FOR
+ * Practices already running Spruce Health. The full fax product, with the number River
+ * Records provisions and the setup work we do, is /intake/ (Stream Inlet). This page is
+ * deliberately short: the reader already has a fax workflow on Spruce and needs to know
+ * what changes, what it costs, and what they do themselves. The product depth lives on
+ * /intake/, so link there rather than repeating it.
+ *
+ * KEEP THE "IS THIS THE RIGHT PATH" SECTION
+ * Connect is the lowest up-front option, and once Spruce's own fee is counted it is not
+ * always cheaper month to month — and the setup is theirs rather than ours. Saying so is
+ * what makes the price credible, same rule as the comparison pages.
+ *
+ * Every figure reads from `connectPricing` in src/config/pricing.ts.
+ */
+import Page from '../../layouts/Page.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import CtaDark from '../../components/CtaDark.astro';
+import { connectPricing, inletPricing } from '../../config/pricing';
+
+const demoHref = '/book-demo/';
+
+const steps = [
+  { title: 'Arrives digitally', body: 'Nothing to print, scan or shred.' },
+  { title: 'Patient identified', body: 'Matched to the right chart.' },
+  { title: 'Summary written', body: 'Read a paragraph, not six pages.' },
+  { title: 'Medications and tasks extracted', body: 'Proposed for your review.' },
+  { title: 'Filed under the problem', body: 'Clinical content lands under the problem it is about — accept it into the chart or ignore it.' },
+  { title: 'Routed to the right queue', body: 'The clinician it belongs to sees it.' },
+];
+---
+<Page
+  title="Stream Connect — Your Spruce faxes, already read | River Records"
+  description={`Stream Connect processes the faxes arriving on your practice's Spruce Health number: patient identified, summarized, medications and tasks extracted, filed under the right problem. From ${connectPricing.fromDisplay}/month, ${connectPricing.setupFeeDisplay} setup.`}
+  readable="product"
+>
+
+<style>
+.cn-section { padding: 64px 0; }
+.cn-section.alt { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.cn-head { max-width: 640px; margin: 0 auto 36px; text-align: center; }
+.cn-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--ink); margin-bottom: 12px; }
+.cn-head p { color: var(--ink-muted); line-height: 1.65; }
+
+/* What happens to every fax */
+.cn-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 900px; margin: 0 auto; }
+.cn-step { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px 22px; }
+.cn-step-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--primary); margin-bottom: 6px; }
+.cn-step h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.cn-step p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.55; }
+.cn-note { max-width: 640px; margin: 28px auto 0; text-align: center; font-size: 0.95rem; color: var(--ink-muted); line-height: 1.6; }
+.cn-note strong { color: var(--ink); }
+
+/* Setup */
+.cn-setup { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.cn-setup h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.cn-setup p { font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6; }
+
+/* Pricing */
+.cn-price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 900px; margin: 0 auto; }
+.cn-price { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; text-align: center; }
+.cn-price--mid { border-color: var(--primary-border); box-shadow: var(--shadow-sm); }
+.cn-price-name { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.cn-price-amt { font-family: var(--font-serif); font-size: 2.4rem; color: var(--ink); line-height: 1.1; margin-top: 8px; }
+.cn-price-per { font-size: 0.82rem; color: var(--ink-faint); }
+.cn-price-pages { font-weight: 600; color: var(--ink); margin-top: 14px; font-size: 0.95rem; }
+.cn-price-fit { font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; line-height: 1.5; }
+.cn-price-facts { max-width: 700px; margin: 24px auto 0; text-align: center; font-size: 0.9rem; color: var(--ink-muted); line-height: 1.65; }
+.cn-price-facts strong { color: var(--ink); }
+
+/* Fit */
+.cn-fit { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 900px; margin: 0 auto; }
+.cn-fit-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px 26px; }
+.cn-fit-card h3 { font-family: var(--font-sans); font-size: 1.02rem; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.cn-fit-card ul { padding-left: 18px; }
+.cn-fit-card li { font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 6px; }
+.cn-fit-card a:not(.btn) { color: var(--primary); font-weight: 500; }
+
+.cn-cta { padding: 16px 0 88px; }
+
+@media (max-width: 800px) {
+  .cn-steps, .cn-setup, .cn-price-grid, .cn-fit { grid-template-columns: 1fr; }
+  .cn-section { padding: 48px 0; }
+}
+</style>
+
+<HeroSection
+  eyebrow="Stream Connect · For practices on Spruce Health"
+  sub="Keep your Spruce number. Stream reads every fax that arrives on it — patient identified, summarized, medications and tasks pulled out, clinical content filed under the right problem. No scanning, no indexing, no stack by the machine."
+  primaryHref={demoHref}
+  primaryLabel="Book a demo"
+  secondaryHref="/contact/"
+  secondaryLabel="Ask about your fax volume"
+  trustItems={[`${connectPricing.setupFeeDisplay} setup`, `From ${connectPricing.fromDisplay}/month`, 'HIPAA compliant', 'BAA provided']}
+>
+  Your Spruce faxes,<br><em>already read.</em>
+</HeroSection>
+
+<!-- WHAT HAPPENS TO EVERY FAX -->
+<section class="cn-section alt">
+  <div class="container">
+    <div class="cn-head reveal">
+      <span class="section-label">What happens to every fax</span>
+      <h2>Six things, before anyone opens it.</h2>
+    </div>
+    <div class="cn-steps reveal">
+      {steps.map((s, i) => (
+        <div class="cn-step">
+          <div class="cn-step-num">{String(i + 1).padStart(2, '0')}</div>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </div>
+      ))}
+    </div>
+    <p class="cn-note reveal"><strong>Nothing files itself without you.</strong> Every extraction is proposed for review; what you accept becomes part of the record, attached to the problem it belongs to. <a href="/intake/">See it in detail →</a></p>
+  </div>
+</section>
+
+<!-- SETUP -->
+<section class="cn-section">
+  <div class="container">
+    <div class="cn-head reveal">
+      <span class="section-label">Getting started</span>
+      <h2>Nothing changes for your senders.</h2>
+      <p>The faxes already come to your Spruce number, so there is nothing to port and no one to notify.</p>
+    </div>
+    <div class="cn-setup reveal">
+      <div>
+        <h3>1 · You connect Spruce</h3>
+        <p>You link your own Spruce account to Stream. The number stays on your Spruce account, managed by your clinic. Credentials are write-only — never displayed again after entry.</p>
+      </div>
+      <div>
+        <h3>2 · Stream processes from that number</h3>
+        <p>Faxes arriving on it are read, matched and filed as above. A carrier retry never creates a duplicate.</p>
+      </div>
+      <div>
+        <h3>3 · Paper still has a way in</h3>
+        <p>Anything that arrives on paper or another line can be uploaded as a PDF and goes through the same pipeline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="cn-section alt" id="pricing">
+  <div class="container">
+    <div class="cn-head reveal">
+      <span class="section-label">Pricing</span>
+      <h2>Priced by the page. {connectPricing.setupFeeDisplay} setup.</h2>
+      <p>Pick by roughly how many faxes you get. If you land in the wrong plan, we'll move you.</p>
+    </div>
+    <div class="cn-price-grid reveal">
+      {connectPricing.tiers.map((tier, i) => (
+        <div class={`cn-price${i === 1 ? ' cn-price--mid' : ''}`}>
+          <div class="cn-price-name">{tier.name}</div>
+          <div class="cn-price-amt">{tier.display}</div>
+          <div class="cn-price-per">per month</div>
+          <div class="cn-price-pages">{tier.pages.toLocaleString()} pages</div>
+          <div class="cn-price-fit">{tier.fit}</div>
+        </div>
+      ))}
+    </div>
+    <p class="cn-price-facts reveal"><strong>{connectPricing.spruceNote}</strong> {connectPricing.includes} Stream Connect sits on top of your Stream Pro subscription.</p>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="cn-section">
+  <div class="container">
+    <div class="cn-head reveal">
+      <span class="section-label">Is Connect the right path?</span>
+      <h2>Lowest up-front. Not always cheapest.</h2>
+    </div>
+    <div class="cn-fit reveal">
+      <div class="cn-fit-card">
+        <h3>Choose Connect if</h3>
+        <ul>
+          <li>You already run Spruce and fax on it.</li>
+          <li>You want no setup fee.</li>
+          <li>You're comfortable managing the Spruce side yourself.</li>
+        </ul>
+      </div>
+      <div class="cn-fit-card">
+        <h3>Choose a River number if</h3>
+        <ul>
+          <li>You're not on Spruce — once its own fee is counted, Connect isn't always cheaper month to month.</li>
+          <li>You'd rather we did the work: routing, testing, a staff walkthrough, and calling your highest-volume senders.</li>
+          <li>That path is {inletPricing.setupFeeDisplay} setup, from {inletPricing.tiers[0].display}/month with the fax line included. <a href="/intake/">See Stream Inlet →</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cn-cta">
+  <div class="container">
+    <CtaDark primaryHref={demoHref} primaryLabel="Book a demo" secondaryHref="/contact/" secondaryLabel="Ask about your fax volume">
+      Stop sorting the fax queue.<br><em>Start reading it.</em>
+      <Fragment slot="body">{connectPricing.setupFeeDisplay} setup. From {connectPricing.fromDisplay}/month on your own Spruce number. Works alongside any EHR.</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+</Page>
