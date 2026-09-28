@@ -47,6 +47,14 @@ check('survives unserialisable props', normalise(circular, meta)?.props === null
 
 check('bot flag is stored as an integer', normalise({ rr_vid: 'v1', event: 'x' }, { ...meta, bot: true }).bot === 1);
 
+// `ms` is a relative offset from page load, so anything negative or absurd is a broken
+// client, not a long visit. Storing it would poison every dwell figure built on it.
+check('keeps a sane ms offset', normalise({ rr_vid: 'v1', event: 'x', ms: 4321 }, meta).ms === 4321);
+check('floors a negative ms at 0', normalise({ rr_vid: 'v1', event: 'x', ms: -50 }, meta).ms === 0);
+check('caps an absurd ms at 24h', normalise({ rr_vid: 'v1', event: 'x', ms: 9e12 }, meta).ms === 86_400_000);
+check('ms is null when absent', normalise({ rr_vid: 'v1', event: 'x' }, meta).ms === null);
+check('ms is null when not a number', normalise({ rr_vid: 'v1', event: 'x', ms: 'soon' }, meta).ms === null);
+
 /* ------------------------------------------------------------------ the browser */
 
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH });
@@ -133,6 +141,36 @@ check('but human_signal does NOT', !quietEvents.some((e) => e.event === 'human_s
 const firstView = quietEvents.find((e) => e.event === 'page_view');
 check('automation is flagged via navigator.webdriver', firstView?.props?.webdriver === true,
   JSON.stringify(firstView?.props));
+
+/*
+ * The signal must not fire for scrolling the page does to itself. The #watch deep links
+ * call scrollIntoView on arrival, and while "scroll" was a trigger that manufactured a
+ * human signal with no human present — 40 of 99 signals in week one fired within a
+ * second of page view.
+ */
+console.log('\nhuman_signal: a programmatic scroll is not a human');
+const auto = await ctx.newPage();
+const autoBatches = await collect(auto);
+await auto.goto(BASE + '/intake/#watch', { waitUntil: 'load' });
+await auto.waitForTimeout(2600);
+const autoEvents = autoBatches.flatMap((b) => b.events || []);
+check('the deep link scrolled the page', autoEvents.some((e) => e.event === 'video_play'),
+  'video_play is the proof the scroll-and-open ran');
+check('but no human_signal was emitted', !autoEvents.some((e) => e.event === 'human_signal'),
+  autoEvents.map((e) => e.event).join(' '));
+await auto.close();
+
+console.log('\nEvents carry a client-side offset, not just server arrival time');
+{
+  const t = await ctx.newPage();
+  const tb = await collect(t);
+  await t.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await t.waitForTimeout(2500);
+  const first = tb.flatMap((b) => b.events || []).find((e) => e.event === 'page_view');
+  check('page_view carries ms', typeof first?.ms === 'number', `ms=${first?.ms}`);
+  check('and it is small on the first event', first?.ms >= 0 && first?.ms < 20000, `ms=${first?.ms}`);
+  await t.close();
+}
 
 console.log('\nhuman_signal: fires once, on real input');
 await quiet.mouse.move(400, 300);

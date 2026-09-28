@@ -725,7 +725,15 @@ events apiece. They execute JavaScript, so the collector fired and the UA looked
 browser.
 
 The fix is a **positive** signal, not a blocklist: `human_signal` fires once when someone
-does something a page-fetcher has no reason to do. Absence is not proof of a bot — a
+does something a page-fetcher has no reason to do — pointer, key, touch or wheel.
+**Never add `scroll` back to that list**: it fires programmatically, and the `#watch` deep
+links call `scrollIntoView`, so including it had our own feature manufacturing human
+signals with no human present. Every real scrolling gesture raises one of the other four
+first, so nothing is lost.
+
+**`ts` is batch-arrival time, not event time** — the collector debounces 1500ms, so
+anything about dwell or reaction computed from `ts` is fiction. Use `ms`, the offset from
+`performance.now()` added in migration 0003. Absence is not proof of a bot — a
 person can land, read and leave — but presence is strong evidence of a person, and that
 asymmetry is the point. **Do not add country, path or shape filters.** Filtering by
 country drops real clinicians abroad, and any enumerated pattern is one a scraper can stop
