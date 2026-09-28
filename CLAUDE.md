@@ -1033,6 +1033,16 @@ that init breaks, the booking box renders **empty** rather than merely unattribu
 `scripts/verify-conversion-attribution.mjs` checks the widget actually renders first,
 before it checks any UTM.
 
-**Not yet done:** the app does not yet read `rr_vid` — that needs a column on
-`tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
-The privacy policy now names the cookie.
+**Not yet done:** the app does not yet read `rr_vid`. The site has been *sending* it on
+every `/onboard*` link all along — verified against production 28 September 2026 — and
+the app drops it. `tenant` already stores `utm_source` and `utm_campaign`, so this is one
+nullable column and one more field read from parameters already being parsed.
+
+Written up for the `ai-scribe` repo in `docs/APP-RR-VID-TICKET.md`, including the exact
+parameter and cookie names, why the cookie fallback matters (the query string is lost
+whenever someone does not click straight through, which is precisely the slow considered
+signup worth understanding), and why the column must be written once and never updated.
+
+Until it lands, matching a customer to their visits means lining up timestamps by hand —
+which worked for the two September signups only because both converted within minutes and
+nobody else clicked that day.
