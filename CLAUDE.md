@@ -849,6 +849,13 @@ diagnostic headers and disappeared the same day while conversion kept working. T
 reported, never asserted — a check that calls a healthy feature broken gets ignored and
 then deleted.
 
+**Cloudflare's Email Address Obfuscation was on until 23 September 2026** and rewrote the
+contact address into a link to `/cdn-cgi/l/email-protection`, which 404s. Crawlers that do
+not run the decoder followed it, so Ahrefs counted a broken link on roughly half the pages
+and none of them ever saw the address. Turned off at the zone — a dashboard setting, so
+nothing here prevents it returning, which is why the production check guards it. Agents
+using markdown negotiation were unaffected: Cloudflare's converter decodes it.
+
 `scripts/verify-agent-readiness.mjs` checks both. **It is the only verify script that
 tests production rather than `dist/`**, because neither thing lives in the build: one is
 a billing state at the edge, and the other can be overridden by Cloudflare's managed
