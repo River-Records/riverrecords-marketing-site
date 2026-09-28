@@ -98,7 +98,21 @@
    * counts — those identify a person across sites, which is exactly what rr_vid is
    * designed not to do.
    */
-  var HUMAN_EVENTS = ["pointerdown", "keydown", "touchstart", "wheel", "scroll"];
+  /*
+   * NOTE "scroll" IS ABSENT, AND MUST STAY ABSENT.
+   *
+   * It fires for programmatic scrolling as well as human scrolling, and this site scrolls
+   * programmatically: the #watch deep links call scrollIntoView on arrival. So including
+   * it meant our own feature manufactured a human signal with no human present. In the
+   * first week, 40 of 99 signals fired within a second of page view, which is what that
+   * looks like in the data.
+   *
+   * Nothing is lost by dropping it. Every way a person actually scrolls raises one of
+   * the others first: mouse wheel and trackpad fire "wheel", touch fires "touchstart",
+   * dragging the scrollbar fires "pointerdown", arrow keys and space fire "keydown".
+   * "scroll" was the redundant one and the only false-positive source.
+   */
+  var HUMAN_EVENTS = ["pointerdown", "keydown", "touchstart", "wheel"];
 
   /* GTM's own lifecycle events. Noise in this table; GTM has its own reporting. */
   function isInternal(name) {
@@ -108,6 +122,15 @@
   var queue = [];
   var timer = null;
   var vid = null;
+
+  /** Milliseconds since page load, integer. 0 if the browser lacks performance.now(). */
+  function nowMs() {
+    try {
+      return Math.round(performance.now());
+    } catch (e) {
+      return 0;
+    }
+  }
 
   function pick(source) {
     var out = {};
@@ -130,6 +153,18 @@
       rr_vid: vid,
       event: name,
       path: location.pathname,
+      /*
+       * Milliseconds since this page started loading — a RELATIVE offset, deliberately
+       * not a clock reading. The server assigns `ts` because device clocks are wrong
+       * often enough to poison ordering, but that means `ts` records when the batch
+       * arrived, not when the thing happened. Events are batched on a 1500ms debounce,
+       * so two actions a minute apart can land with timestamps a second apart, and
+       * anything computed from them about dwell or reaction time is fiction.
+       *
+       * performance.now() is monotonic and immune to clock skew, so this stays honest
+       * while `ts` stays authoritative for ordering across visitors.
+       */
+      ms: nowMs(),
       props: props || undefined
     });
     if (queue.length >= MAX_QUEUE) flush();
