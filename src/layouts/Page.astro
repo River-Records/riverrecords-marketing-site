@@ -15,9 +15,9 @@ import Footer from '../components/Footer.astro';
  * closing CTA, which is a fair boundary for a page even though it would have been wrong
  * for a blog post. See public/read-tracking.js.
  */
-const { title, description, ogImage, canonicalUrl, readable } = Astro.props;
+const { title, description, ogImage, canonicalUrl, readable, noindex } = Astro.props;
 ---
-<Base title={title} description={description} ogImage={ogImage} canonicalUrl={canonicalUrl}>
+<Base title={title} description={description} ogImage={ogImage} canonicalUrl={canonicalUrl} noindex={noindex}>
   <slot name="head" slot="head" />
   <OfferBanner />
   <Nav />

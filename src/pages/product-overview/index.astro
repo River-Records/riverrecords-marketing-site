@@ -1,0 +1,171 @@
+---
+/*
+ * /product-overview/ — the print source for the product PDF uploaded to Elion and sent
+ * to buyers who ask for "documentation".
+ *
+ * WHY IT IS A PAGE AND NOT A HAND-BUILT PDF
+ * Every number here reads from src/config/pricing.ts. A PDF assembled by hand goes stale
+ * the first time pricing moves and nobody remembers it exists — which is precisely how
+ * the Elion listing came to advertise "starting at 30" against a real price of $149.
+ * Regenerate with `node scripts/build-product-pdf.mjs` after any pricing change.
+ *
+ * NOINDEX, AND OUT OF THE SITEMAP
+ * It restates /pricing/ almost entirely. Two pages competing for cost queries split the
+ * signal, and /pricing/ is the one built to win them. This is a document that happens to
+ * be served over HTTP, not a page we want ranked.
+ *
+ * CLAIM RULES APPLY HERE AS ANYWHERE: no SOC 2, no EHR write-back. Both appear only as
+ * limitations, and the limitations section is the reason a sceptical buyer reads the
+ * rest.
+ */
+import Base from '../../layouts/Base.astro';
+import { pricing, inletPricing } from '../../config/pricing';
+
+const today = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+---
+<Base
+  title="Stream by River Records — Product Overview"
+  description="Product overview for Stream: problem-oriented AI clinical documentation for independent practices. Features, pricing, security, and limitations."
+  noindex={true}>
+
+<style>
+  :global(body) { background: #fff; }
+
+  .doc { max-width: 760px; margin: 0 auto; padding: 48px 40px 64px; color: var(--ink); }
+
+  .doc-head { border-bottom: 3px solid var(--primary); padding-bottom: 18px; margin-bottom: 8px; }
+  .doc-head h1 { font-size: 2rem; line-height: 1.15; margin: 0 0 6px; color: var(--ink); }
+  .doc-head .sub { font-size: 1.02rem; color: var(--ink-muted); line-height: 1.5; margin: 0; }
+  .doc-meta { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 10px 0 34px; }
+
+  .doc h2 { font-size: 1.22rem; color: var(--ink); margin: 34px 0 10px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border); break-after: avoid; }
+  .doc h3 { font-size: 0.98rem; font-family: var(--font-sans); font-weight: 600;
+    color: var(--ink); margin: 18px 0 5px; break-after: avoid; }
+  .doc p { font-size: 0.93rem; line-height: 1.65; color: var(--ink-muted); margin: 0 0 12px; }
+  .doc strong { color: var(--ink); }
+  .doc ul { margin: 0 0 14px; padding-left: 20px; }
+  .doc li { font-size: 0.93rem; line-height: 1.62; color: var(--ink-muted); margin-bottom: 6px; }
+
+  table.doc-t { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 0.88rem;
+    break-inside: avoid; }
+  table.doc-t th { text-align: left; font-family: var(--font-mono); font-size: 0.62rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500;
+    padding: 0 12px 7px 0; border-bottom: 1px solid var(--border-strong); }
+  table.doc-t td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border);
+    color: var(--ink-muted); vertical-align: top; line-height: 1.5; }
+  table.doc-t td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+  .doc-box { background: var(--surface-warm); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 18px 22px; margin: 16px 0; break-inside: avoid; }
+  .doc-box p:last-child { margin-bottom: 0; }
+  .doc-box h3 { margin-top: 0; }
+
+  .doc-limits { border-left: 3px solid var(--accent-dark); padding: 2px 0 2px 18px; margin: 16px 0; }
+  .doc-limits p { margin-bottom: 9px; }
+  .doc-limits p:last-child { margin-bottom: 0; }
+
+  .doc-foot { margin-top: 38px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--ink-faint); line-height: 1.6; }
+  .doc-foot a { color: var(--primary); }
+
+  /* Page breaks that fall in sensible places when this is printed to PDF. */
+  @media print {
+    .doc { padding: 0; max-width: none; }
+    .doc h2 { break-after: avoid; }
+    .doc-box, .doc-limits, table.doc-t { break-inside: avoid; }
+  }
+</style>
+
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>Stream by River Records</h1>
+    <p class="sub">Problem-oriented AI clinical documentation for independent practices.</p>
+  </div>
+  <p class="doc-meta">Product overview · {today} · River Records, Inc., Boston MA · Founded 2019</p>
+
+  <h2>What it is</h2>
+  <p>Stream is an AI medical scribe and documentation platform for ambulatory practice. It captures the visit — live or from an uploaded recording — and produces a structured note. What separates it from most scribes is what happens next: every visit is <strong>organized by medical problem</strong> and filed to a chart that persists, so context accumulates instead of being discarded once the note is written.</p>
+  <p>Most ambient scribes treat the note as the deliverable. Some delete audio and context within 48 hours. That is a reasonable design if the note is the job. It is the wrong design if the chart is.</p>
+
+  <h2>How the structure works</h2>
+  <p>Each visit produces a separate Subjective, Objective, and Assessment &amp; Plan <em>per problem</em>, and each block is filed to that problem's thread. Six months in, a clinician opens a patient and sees hypertension as one continuous line of reasoning rather than eleven notes to read in order.</p>
+
+  <div class="doc-box">
+    <h3>Why this matters on the hardest visit type</h3>
+    <p>An annual is two documents pretending to be one: a rigidly templated preventive block — immunizations, screenings, anticipatory guidance — and several untemplated chronic conditions that each need their own reasoning.</p>
+    <p>Template-driven tools produce a clean preventive section and compress three problems into one paragraph. Free-form tools capture the reasoning and lose the structure. Problem-oriented capture keeps both, which is why Stream is used in practices where visits run long and patients carry many active problems.</p>
+  </div>
+
+  <h2>Capabilities</h2>
+  <table class="doc-t">
+    <tbody>
+      <tr><td>Capture</td><td>Real-time ambient recording or uploaded audio. Transcribe, dictate and instruct workflows. 22 languages. Unlimited recordings.</td></tr>
+      <tr><td>Note structure</td><td>Subjective / Objective / A&amp;P split per medical problem, filed to a longitudinal problem-oriented chart. Fully customizable templates.</td></tr>
+      <tr><td>Document intake</td><td>Stream Inlet reads inbound faxes, referral letters, PDFs and outside records, and files their clinical content under the problems it concerns. Every extracted fact links back to its source page. Nothing enters the chart without clinician review.</td></tr>
+      <tr><td>Pre-visit review</td><td>Huddle surfaces what is active across recent visits and what has been falling off attention, before the patient is in the room.</td></tr>
+      <tr><td>Coding support</td><td>ICD-10, E/M level and HCC capture opportunities surfaced at the point of care.</td></tr>
+      <tr><td>Drafting</td><td>Referral letters, patient instructions, visit summaries and supporting documentation. Tasks generated from the encounter.</td></tr>
+      <tr><td>Keeping current</td><td>Journal Club delivers a weekly reading list drawn from the conditions actually documented that week. Not connected to any individual chart. No CME credit.</td></tr>
+      <tr><td>EHR handoff</td><td>Works alongside any EHR. The finished note copies over in one click and pastes into any field.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Pricing</h2>
+  <table class="doc-t">
+    <thead><tr><th>Plan</th><th>Price</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Stream Pro</td><td>{pricing.introPrice} per clinician</td><td>Unlimited visits. No per-encounter charges, no usage caps, no implementation fee.</td></tr>
+      <tr><td>Annual billing</td><td>{pricing.annualPrice} per clinician</td><td>${pricing.annualTotal.toLocaleString()} per year.</td></tr>
+      <tr><td>Trial</td><td>Free, {pricing.trialDays} days</td><td>No credit card. Nothing is charged if you do nothing at the end of it.</td></tr>
+      <tr><td>Staff seats</td><td>First one free, then $25/month</td><td>Non-clinician team members.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Stream Inlet — document intake add-on</h3>
+  <p>{inletPricing.addOnNote} Setup {inletPricing.setupFeeDisplay}.</p>
+  <table class="doc-t">
+    <thead><tr><th>Tier</th><th>Pages / month</th><th>Price</th><th>Typical fit</th></tr></thead>
+    <tbody>
+      {inletPricing.tiers.map((t) => (
+        <tr><td>{t.name}</td><td>{t.pages.toLocaleString()}</td><td>{t.display}/mo</td><td>{t.fit}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>{inletPricing.includes}</p>
+
+  <h2>Security and compliance</h2>
+  <ul>
+    <li><strong>HIPAA compliant.</strong> A Business Associate Agreement is signed with every subscriber, on every plan including trials, with no minimum seat count and no extra charge.</li>
+    <li><strong>Encrypted at rest and in transit</strong>, with audit controls and access logging across the platform.</li>
+    <li><strong>Patient data is never used to train our models.</strong></li>
+    <li>Multi-tenant SaaS. Data residency: United States and Canada.</li>
+  </ul>
+
+  <h2>What Stream does not do</h2>
+  <p>Stated here so it is not discovered on a call.</p>
+  <div class="doc-limits">
+    <p><strong>No bidirectional EHR write-back.</strong> None is planned this year. The note copies to the clipboard in one click and pastes into any field. If automatic write-back is a hard requirement, that is a genuine reason to choose a different product.</p>
+    <p><strong>Not SOC 2 certified.</strong> Stream is HIPAA compliant and signs a BAA, but is not SOC 2 certified. If your organization requires SOC 2 to sign, we cannot meet that today.</p>
+    <p><strong>No clinical decision support.</strong> No literature search you can query, no differential suggestions, no guidance on an individual patient, nothing at the point of care. Many clinicians sensibly use a decision-support tool alongside Stream.</p>
+    <p><strong>No structured form filling yet.</strong> Stream drafts documents, but completing structured forms — school physicals, FMLA, prior authorization — is in development and not available today.</p>
+    <p><strong>Not built for health systems.</strong> Stream is built for independent practices, typically one to twenty clinicians. Health systems generally need EHR-integrated enterprise products, and there are good ones.</p>
+  </div>
+
+  <h2>Implementation and support</h2>
+  <p>There is no integration to configure, no software to install and no implementation project. A clinician signs in, opens a patient, and records the next visit. Self-onboarding takes minutes.</p>
+  <p>Onboarding and custom templating are available at no charge with a physician on our team. Support is provided by that same physician team, by email and phone.</p>
+
+  <h2>Why the product is shaped this way</h2>
+  <p>Stream's founders published a peer-reviewed study in <em>JAMA Network Open</em> (Steinkamp, Kantrowitz et al., 2022) finding that roughly half the text in a typical EHR note is copied verbatim from prior documentation. Stream was built to answer that finding rather than to accelerate it — which is why the unit of organization is the problem rather than the encounter.</p>
+
+  <div class="doc-foot">
+    <p><strong>River Records, Inc.</strong> · Boston, Massachusetts · Founded 2019<br />
+    <a href="https://www.riverrecords.ai/">www.riverrecords.ai</a> · <a href="mailto:hello@riverrecords.ai">hello@riverrecords.ai</a></p>
+    <p>Pricing and capabilities current as of {today}. Confirm current pricing at riverrecords.ai/pricing before making a decision.</p>
+  </div>
+
+</div>
+</Base>

@@ -5,7 +5,13 @@ const {
   title,
   description,
   ogImage = "/og-default.png",
-  canonicalUrl = Astro.url.href
+  canonicalUrl = Astro.url.href,
+  /*
+   * Keep a page out of search. Used by /product-overview/, which is a print source for
+   * a PDF rather than a page anyone should land on from Google — it restates /pricing/
+   * and would split that page's signal. Excluded from the sitemap too, in astro.config.
+   */
+  noindex = false,
 } = Astro.props;
 
 // og:image and twitter:image must be absolute — several scrapers (LinkedIn and
@@ -53,7 +59,7 @@ const twitterHandle = "@riverrecordshq";
   <meta name="twitter:image" content={ogImageUrl} />
 
   <!-- Indexing -->
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
 
   <!-- Ahrefs Web Analytics -->
   <script is:inline src="https://analytics.ahrefs.com/analytics.js" data-key="F7/Aj1fzD4F4SgdhtZjN8A" async></script>
