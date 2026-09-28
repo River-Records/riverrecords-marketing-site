@@ -340,6 +340,16 @@ const metricItems = [
 <!-- NAV -->
 <Nav />
 
+<!--
+  The homepage produces 60% of site clicks and every signup we have traced, and until
+  now recorded nothing but a page view — /pricing/, both guides, the /for/* pages and
+  every comparison page had scroll depth and dwell, and the one page that converts did
+  not. It wires Base directly rather than using the Page layout, so it never picked up
+  the `readable` prop; the attribute goes on <main> instead, as /comparison/freedai/
+  does. The element was missing anyway.
+-->
+<main data-rr-read="homepage">
+
 <!-- HERO -->
 <section class="home-hero">
   <div class="hc">
@@ -707,6 +717,8 @@ const metricItems = [
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <Footer />
