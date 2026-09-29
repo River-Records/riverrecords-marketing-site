@@ -40,6 +40,10 @@ def main():
     OUT_AUDIO.mkdir(parents=True, exist_ok=True)
     OUT_TIMING.parent.mkdir(parents=True, exist_ok=True)
 
+    if not timing_only and config.get("narrator") == "recorded":
+        sys.exit("narration.json says the takes are recorded; refusing to overwrite them with TTS.\n"
+                 "Run with --timing-only after replacing a take, or set \"narrator\": \"tts\" to regenerate.")
+
     if not timing_only:
         from kokoro_onnx import Kokoro
 

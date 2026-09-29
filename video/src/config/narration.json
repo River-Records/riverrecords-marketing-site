@@ -1,4 +1,6 @@
 {
+  "narrator": "recorded",
+  "_narrator_note": "'recorded' means public/narration/*.wav are human takes (Jacob Kantrowitz, MD, PhD, recorded 2026-09-29). `npm run narrate` refuses to overwrite them; set to 'tts' to go back to the placeholder voice.",
   "voice": "af_heart",
   "speed": 0.95,
   "lines": [
