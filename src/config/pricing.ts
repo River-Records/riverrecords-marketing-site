@@ -65,8 +65,9 @@ export const pricing = {
 /**
  * Stream Inlet — metered fax and records intake, added on top of a Stream Pro
  * subscription. Page allowances are per month. Bespoke and founding-customer
- * terms (first-month metering, setup waivers, the Spruce-path rate) are
- * deliberately not here: they belong in a quote, not on the public page.
+ * terms (first-month metering, setup waivers) are deliberately not here: they
+ * belong in a quote, not on the public page. The Spruce-path rate is public now
+ * and lives in `connectPricing` below.
  */
 export const inletPricing = {
   setupFee: 299,
@@ -79,4 +80,27 @@ export const inletPricing = {
   ],
   includes: 'Every plan includes your fax number, unlimited users, and processing of every page in your plan. Extra pages $0.14. We notify you at 80% of your allowance. Junk faxes are filtered and never billed.',
   addOnNote: 'Stream Inlet is metered, and sits on top of your Stream Pro subscription.',
+} as const;
+
+/**
+ * Stream Connect — the same fax processing, run on the practice's own Spruce
+ * Health number instead of one River Records provisions. Rendered on /connect/.
+ *
+ * Cheaper per page than Inlet because the fax line is Spruce's, not ours — and
+ * Spruce bills its own subscription separately. The page says so next to the
+ * price, because "from $59" without it is the cheaper-looking number that isn't
+ * always cheaper. First-month metering and founding terms stay in the quote.
+ */
+export const connectPricing = {
+  setupFee: 0,
+  setupFeeDisplay: '$0',
+  overagePerPage: 0.08,
+  fromDisplay: '$59',
+  tiers: [
+    { name: 'Starter',   pages: 500,   monthly: 59,  display: '$59',  fit: 'Roughly 8 faxes a day' },
+    { name: 'Practice',  pages: 1500,  monthly: 119, display: '$119', fit: 'Roughly 19 a day — where most two-clinician practices land' },
+    { name: 'Practice+', pages: 3000,  monthly: 199, display: '$199', fit: 'Roughly 38 a day — heavy referral, imaging and records' },
+  ],
+  includes: 'Every plan includes processing of every page in your plan and unlimited users. Extra pages $0.08. We notify you at 80% of your allowance. Junk faxes are filtered and never billed.',
+  spruceNote: 'Your Spruce subscription is separate and billed by Spruce.',
 } as const;
