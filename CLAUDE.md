@@ -734,7 +734,15 @@ events apiece. They execute JavaScript, so the collector fired and the UA looked
 browser.
 
 The fix is a **positive** signal, not a blocklist: `human_signal` fires once when someone
-does something a page-fetcher has no reason to do. Absence is not proof of a bot — a
+does something a page-fetcher has no reason to do — pointer, key, touch or wheel.
+**Never add `scroll` back to that list**: it fires programmatically, and the `#watch` deep
+links call `scrollIntoView`, so including it had our own feature manufacturing human
+signals with no human present. Every real scrolling gesture raises one of the other four
+first, so nothing is lost.
+
+**`ts` is batch-arrival time, not event time** — the collector debounces 1500ms, so
+anything about dwell or reaction computed from `ts` is fiction. Use `ms`, the offset from
+`performance.now()` added in migration 0003. Absence is not proof of a bot — a
 person can land, read and leave — but presence is strong evidence of a person, and that
 asymmetry is the point. **Do not add country, path or shape filters.** Filtering by
 country drops real clinicians abroad, and any enumerated pattern is one a scraper can stop
@@ -857,6 +865,13 @@ Related: `x-markdown-tokens` and `x-original-tokens` are Cloudflare's **optional
 diagnostic headers and disappeared the same day while conversion kept working. They are
 reported, never asserted — a check that calls a healthy feature broken gets ignored and
 then deleted.
+
+**Cloudflare's Email Address Obfuscation was on until 23 September 2026** and rewrote the
+contact address into a link to `/cdn-cgi/l/email-protection`, which 404s. Crawlers that do
+not run the decoder followed it, so Ahrefs counted a broken link on roughly half the pages
+and none of them ever saw the address. Turned off at the zone — a dashboard setting, so
+nothing here prevents it returning, which is why the production check guards it. Agents
+using markdown negotiation were unaffected: Cloudflare's converter decodes it.
 
 `scripts/verify-agent-readiness.mjs` checks both. **It is the only verify script that
 tests production rather than `dist/`**, because neither thing lives in the build: one is
@@ -1027,6 +1042,16 @@ that init breaks, the booking box renders **empty** rather than merely unattribu
 `scripts/verify-conversion-attribution.mjs` checks the widget actually renders first,
 before it checks any UTM.
 
-**Not yet done:** the app does not yet read `rr_vid` — that needs a column on
-`tenant` in the `ai-scribe` repo before visitor-level journeys can be joined.
-The privacy policy now names the cookie.
+**Not yet done:** the app does not yet read `rr_vid`. The site has been *sending* it on
+every `/onboard*` link all along — verified against production 28 September 2026 — and
+the app drops it. `tenant` already stores `utm_source` and `utm_campaign`, so this is one
+nullable column and one more field read from parameters already being parsed.
+
+Written up for the `ai-scribe` repo in `docs/APP-RR-VID-TICKET.md`, including the exact
+parameter and cookie names, why the cookie fallback matters (the query string is lost
+whenever someone does not click straight through, which is precisely the slow considered
+signup worth understanding), and why the column must be written once and never updated.
+
+Until it lands, matching a customer to their visits means lining up timestamps by hand —
+which worked for the two September signups only because both converted within minutes and
+nobody else clicked that day.

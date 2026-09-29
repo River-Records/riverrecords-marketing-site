@@ -30,10 +30,37 @@ function pages(dir = 'dist', out = []) {
   return [...new Set(out)];
 }
 
-const lum = (c) => {
+/**
+ * Parse a CSS colour to [r, g, b, a]. Alpha defaults to 1.
+ *
+ * This used to drop alpha and read the first three numbers, which silently flattered
+ * every translucent element it measured: `rgba(255,255,255,0.5)` on a near-black ground
+ * scored 17.8:1 when the composited truth is about 5.3:1. Half-opacity white text is
+ * common in this codebase — the dark CTA's trust line is exactly that — so the check
+ * most relied on for "is this readable" was the one least able to judge it.
+ */
+const parse = (c) => {
   const m = (c.match(/[\d.]+/g) || []).map(Number);
-  const [r, g, b] = m.slice(0, 3).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return [m[0] || 0, m[1] || 0, m[2] || 0, m.length > 3 ? m[3] : 1];
+};
+
+/** Composite a possibly-translucent foreground over an opaque background. */
+const over = (fg, bg) => {
+  const [r, g, b, a] = parse(fg);
+  const [br, bgc, bb] = parse(bg);
+  return [a * r + (1 - a) * br, a * g + (1 - a) * bgc, a * b + (1 - a) * bb];
+};
+
+const lumOf = ([r, g, b]) => {
+  const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+
+/** Contrast of possibly-translucent text against its background. */
+const contrast = (fg, bg) => {
+  const L1 = lumOf(over(fg, bg));
+  const L2 = lumOf(parse(bg).slice(0, 3));
+  return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
 };
 
 const all = pages();
@@ -55,8 +82,7 @@ for (const path of all) {
   );
   for (const b of btns) {
     checked++;
-    const l1 = lum(b.color), l2 = lum(b.bg);
-    const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+    const ratio = contrast(b.color, b.bg);
     if (ratio < AA_LARGE) failures.push({ path, ...b, ratio });
   }
 }

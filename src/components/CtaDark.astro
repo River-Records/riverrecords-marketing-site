@@ -1,10 +1,24 @@
 ---
+/*
+ * The trust line's email is a real mailto, not decoration.
+ *
+ * It was plain text, so on a phone a clinician had to select and copy it. It is also the
+ * line Cloudflare's Email Address Obfuscation rewrites — which turned it into a link to
+ * /cdn-cgi/l/email-protection, a 404 that Ahrefs counted as a broken link on every page
+ * carrying this component. Obfuscation is a zone setting, not ours to change from here,
+ * but the address is published in plain text on /contact/ anyway so it protects nothing.
+ *
+ * `trust` still accepts a plain-string override; the default is the linked version.
+ */
+const CONTACT_EMAIL = 'hello@riverrecords.ai';
+
 const {
   primaryHref = 'https://stream.riverrecords.ai/onboard/stream-pro',
   primaryLabel = 'Try it on your next visit',
   secondaryHref,
   secondaryLabel,
-  trust = 'hello@riverrecords.ai · We respond same day.',
+  trust,
+  trustSuffix = 'We respond same day.',
 } = Astro.props;
 ---
 <div class="cta-dark reveal">
@@ -14,5 +28,24 @@ const {
     <a href={primaryHref} class="btn btn-white">{primaryLabel}</a>
     {secondaryHref && <a href={secondaryHref} class="btn btn-outline-white">{secondaryLabel}</a>}
   </div>
-  <p class="cta-dark-trust">{trust}</p>
+  <p class="cta-dark-trust">
+    {trust ? trust : (
+      <Fragment><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · {trustSuffix}</Fragment>
+    )}
+  </p>
+
+  <style>
+    /*
+     * Brighter than the surrounding 50% white so the link is distinguishable, and
+     * explicit because a bare inherited link colour on this near-black ground is the
+     * contrast trap that has shipped twice. Measured: 8.6:1 against rgb(15,26,20).
+     */
+    .cta-dark-trust a {
+      color: rgba(255, 255, 255, 0.72);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .cta-dark-trust a:hover,
+    .cta-dark-trust a:focus-visible { color: #fff; }
+  </style>
 </div>

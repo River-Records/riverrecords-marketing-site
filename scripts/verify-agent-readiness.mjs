@@ -110,6 +110,24 @@ console.log('\nThe edge must not contradict robots.txt');
   }
 }
 
+/*
+ * Cloudflare's Email Address Obfuscation rewrites any email in the HTML into a link to
+ * /cdn-cgi/l/email-protection, which 404s. Crawlers that do not run the decoder script
+ * follow it, so Ahrefs counted a broken link on every page carrying the dark CTA and
+ * none of them ever saw the contact address. Turned off at the zone on 23 September
+ * 2026 — a dashboard setting, so nothing in this repo prevents it coming back.
+ */
+console.log('\nEmail addresses reach crawlers unobfuscated');
+{
+  const page = await (await fetch(BASE + '/research/')).text();
+  check('no /cdn-cgi/l/email-protection link', !page.includes('cdn-cgi/l/email-protection'),
+    'Email Address Obfuscation is on again at the zone');
+  check('the contact address is in the HTML as plain text',
+    page.includes('hello@riverrecords.ai'));
+  check('and it is a mailto a clinician can tap',
+    page.includes('mailto:hello@riverrecords.ai'));
+}
+
 console.log('\nHTML is still the default for browsers');
 const html = await fetch(BASE + '/pricing/', { headers: { Accept: BROWSER_ACCEPT } });
 check('a browser Accept header gets HTML',
@@ -135,10 +153,18 @@ const lines = robots.split('\n').filter((l) => /^Content-Signal:/i.test(l.trim()
 check('exactly one Content-Signal line', lines.length === 1,
   lines.length ? lines.join(' | ') : 'none found');
 const signal = lines[0] || '';
-check('search=yes', /search\s*=\s*yes/.test(signal));
-// Deliberately yes — this site is written to be quoted. See the reasoning in robots.txt.
-check('ai-input=yes', /ai-input\s*=\s*yes/.test(signal), signal);
-check('ai-train=no', /ai-train\s*=\s*no/.test(signal));
+/*
+ * Structural, not a hardcoded policy. `ai-train=no` was asserted here and went stale the
+ * day the decision changed — the same trap as the pricing date, in the script written to
+ * avoid it. What each signal SAYS is a business call that lives in robots.txt with its
+ * reasoning, and an unintended change to a repo file shows up in a diff. What needs
+ * guarding is the edge, which is not in the repo — and the agreement check above does it.
+ */
+for (const key of ['search', 'ai-input', 'ai-train']) {
+  const value = signal.match(new RegExp(key + '\\s*=\\s*(yes|no)'))?.[1];
+  check(`${key} declared with a valid value`, !!value, `got "${value}"`);
+}
+console.log(`  note    current policy: ${signal.replace(/^Content-Signal:\s*/i, '')}`);
 check('crawling still allowed', /^Allow:\s*\/$/m.test(robots));
 check('no Disallow rules crept in', !/^Disallow:\s*\S/m.test(robots));
 

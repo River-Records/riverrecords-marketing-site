@@ -96,6 +96,13 @@ The server never stores the user agent — it reads it to set the `bot` flag and
 it — and `ts` is server time, because device clocks are wrong often enough to poison any
 ordering built on them.
 
+**Use `ms`, not `ts`, for anything about time within a visit.** `ts` records when the
+*batch* arrived, and the collector batches on a 1500ms debounce, so two actions a minute
+apart can land a second apart. Every dwell or reaction figure derived from `ts` is
+fiction — a read of "this visitor clicked the CTA 652ms after landing" was exactly that.
+`ms` is milliseconds since page load from `performance.now()`: monotonic, immune to clock
+skew, and NULL for anything collected before 28 September 2026.
+
 ### Telling people from machines — query `human_events`, not `events`
 
 **The `bot` column is not enough, and the raw table will mislead you.** It reads the user
@@ -112,7 +119,14 @@ Migration `0002` adds two views. Use them for anything you would describe as tra
 | `human_visitors` | one row per person: first/last seen, pages, days active, country |
 
 The test is **positive, not a blocklist**. `human_signal` is emitted once when a visitor
-does something a page-fetcher has no reason to do — pointer, key, touch, wheel or scroll.
+does something a page-fetcher has no reason to do — pointer, key, touch or wheel.
+
+**`scroll` is deliberately not a trigger.** It fires for programmatic scrolling too, and
+this site scrolls itself: the `#watch` deep links call `scrollIntoView` on arrival. While
+it was included, our own feature manufactured human signals with no human present — 40 of
+99 signals in the first week fired within a second of page view. Nothing is lost by
+dropping it, because every way a person actually scrolls raises one of the others first
+(wheel, touchstart, pointerdown, keydown).
 Its absence is not proof of a bot; a person can land, read what is on screen and leave. Its
 presence is strong evidence of a person, and that asymmetry is the whole point. We would
 rather undercount humans than report bots as traffic.

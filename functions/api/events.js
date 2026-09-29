@@ -64,11 +64,22 @@ export function normalise(raw, { ts, country, bot }) {
     }
   }
 
+  /*
+   * Milliseconds since page load, from the client. Bounded at 24h and floored at 0 —
+   * it is a relative offset, so a negative or absurd value is a broken client rather
+   * than a long visit, and storing it would poison any dwell calculation built on it.
+   */
+  let ms = null;
+  if (typeof raw.ms === 'number' && Number.isFinite(raw.ms)) {
+    ms = Math.min(Math.max(Math.round(raw.ms), 0), 86_400_000);
+  }
+
   return {
     rr_vid: rrVid,
     event,
     path: clip(raw.path),
     ts,
+    ms,
     country,
     bot: bot ? 1 : 0,
     props,
@@ -105,10 +116,10 @@ export async function onRequestPost(context) {
 
     // One prepared statement, many bindings — D1 runs the batch in a single round trip.
     const stmt = db.prepare(
-      'INSERT INTO events (rr_vid, event, path, ts, country, bot, props) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO events (rr_vid, event, path, ts, ms, country, bot, props) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     );
     await db.batch(
-      rows.map((r) => stmt.bind(r.rr_vid, r.event, r.path, r.ts, r.country, r.bot, r.props)),
+      rows.map((r) => stmt.bind(r.rr_vid, r.event, r.path, r.ts, r.ms, r.country, r.bot, r.props)),
     );
 
     outcome = `stored:${rows.length}`;

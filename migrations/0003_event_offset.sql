@@ -1,0 +1,15 @@
+-- Milliseconds since page load, recorded by the client.
+--
+-- `ts` is assigned by the server because device clocks are wrong often enough to poison
+-- ordering. The cost of that choice, unnoticed until the first week of real data was
+-- analysed: `ts` records when the BATCH ARRIVED, not when the thing happened. The
+-- collector batches on a 1500ms debounce, so two actions a minute apart can land with
+-- timestamps a second apart — and every dwell or reaction figure derived from them is
+-- fiction. A read of "this visitor clicked the CTA 652ms after landing" was exactly that.
+--
+-- `ms` is a relative offset from performance.now(), which is monotonic and immune to
+-- clock skew. `ts` stays authoritative for ordering across visitors; `ms` is the only
+-- honest basis for anything about time spent within a visit.
+--
+-- NULL for every row collected before 28 September 2026.
+ALTER TABLE events ADD COLUMN ms INTEGER;

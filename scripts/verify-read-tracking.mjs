@@ -85,6 +85,22 @@ check('a page never emits post_* events', !pe.some(x=>/^post_/.test(x.event)),
 check('a page read does NOT touch the reader profile',
   await p.evaluate(()=>JSON.parse(localStorage.getItem('rr_reader')||'{}').count||0)===0);
 
+/*
+ * The homepage specifically. It produces most of the site's clicks and every signup we
+ * have traced, and it went un-instrumented for weeks because it wires Base directly and
+ * so never picked up the Page layout's `readable` prop — the one page that converts was
+ * the one page reporting nothing but a view. Asserted by name rather than left to a
+ * general rule, because that is exactly how it was missed.
+ */
+console.log('\nThe homepage is instrumented');
+const home = await (await b.newContext()).newPage();
+await home.goto('http://127.0.0.1:4321/', {waitUntil:'domcontentloaded'});
+check('carries data-rr-read', await home.locator('[data-rr-read]').count() === 1,
+  'the homepage must report scroll and dwell, not just a page view');
+check('typed as "homepage"',
+  await home.getAttribute('[data-rr-read]', 'data-rr-read') === 'homepage');
+await home.close();
+
 // And a page with nothing to read stays silent rather than reporting a fake read.
 console.log('\nA page that did not opt in is left alone');
 const q = await (await b.newContext()).newPage();
