@@ -1,0 +1,43 @@
+{
+  "voice": "af_heart",
+  "speed": 0.95,
+  "lines": [
+    {
+      "id": "drowning",
+      "text": "Primary care physicians spend more than half the workday inside the EHR. Much of that time isn't care. It's hunting — for what was decided, and why."
+    },
+    {
+      "id": "inheritance",
+      "text": "The EHR digitized paper without questioning it. One note per visit, the whole story retold every time. In a study of 104 million notes, half the text had been written before.",
+      "say": "The EHR digitized paper without questioning it. One note per visit, the whole story retold every time. In a study of a hundred and four million notes, half the text had been written before."
+    },
+    {
+      "id": "unit",
+      "text": "But visits are administrative events. Problems are what medicine is about. When the record follows the problem, each visit adds only what changed."
+    },
+    {
+      "id": "aside",
+      "text": "An AI scribe that writes the same note faster just fills a broken library faster."
+    },
+    {
+      "id": "stream",
+      "text": "Stream is organized like clinicians think: by problem, across every visit. The note was never the point."
+    },
+    {
+      "id": "cta-trial",
+      "text": "Try Stream free for 30 days. No credit card required.",
+      "say": "Try Stream free for thirty days. No credit card required."
+    },
+    {
+      "id": "cta-book",
+      "text": "Read the book, free, at riverrecords.ai.",
+      "say": "Read the book, free, at River Records dot AI."
+    },
+    {
+      "id": "cta-demo",
+      "text": "See it on your own patients. Book a demo at riverrecords.ai.",
+      "say": "See it on your own patients. Book a demo at River Records dot AI."
+    }
+  ],
+  "_note": "'text' is what the captions show; 'say', when present, is what the narrator speaks. Re-run `npm run narrate` after editing either."
+}
