@@ -17,6 +17,10 @@ npm run studio   # preview and scrub in the browser
 npm run render   # → out/note-was-never-the-point.mp4
 ```
 
+`render` finishes with a loudness pass (`npm run loudness`, -16 LUFS, -1.5 dBTP —
+the usual web/social target). Without it the TTS voice lands around -26 dB and is
+easy to mistake for no audio at all on a player that opens quiet or muted.
+
 In a cloud session or CI, point Remotion at the preinstalled Chromium:
 `REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`.
 

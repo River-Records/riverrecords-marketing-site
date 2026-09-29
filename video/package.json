@@ -6,7 +6,8 @@
     "tokens": "node scripts/extract-tokens.mjs",
     "narrate": "python3 scripts/narrate.py",
     "studio": "npm run tokens && remotion studio",
-    "render": "npm run tokens && remotion render NoteWasNeverThePoint out/note-was-never-the-point.mp4"
+    "render": "npm run tokens && remotion render NoteWasNeverThePoint out/.raw.mp4 && npm run loudness",
+    "loudness": "remotion ffmpeg -y -loglevel error -i out/.raw.mp4 -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -movflags +faststart out/note-was-never-the-point.mp4"
   },
   "dependencies": {
     "@fontsource/fraunces": "^5.3.0",

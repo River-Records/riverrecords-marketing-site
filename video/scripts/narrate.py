@@ -4,7 +4,8 @@ Writes public/narration/<id>.wav and src/generated/narration-timing.json
 (seconds per line), which the composition reads to time each scene.
 
 To swap in a human narrator: record one file per line id, save it over
-public/narration/<id>.wav, and run with --timing-only to re-measure.
+public/narration/<id>.wav, and run with --timing-only to re-measure. Recordings
+are used as-is, so master them to roughly the same level first.
 
 Needs kokoro-onnx + soundfile, and the Kokoro model files in $KOKORO_DIR:
   kokoro-v1.0.onnx, voices-v1.0.bin
@@ -15,12 +16,22 @@ import os
 import sys
 from pathlib import Path
 
+import numpy as np
 import soundfile as sf
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "src/config/narration.json"
 OUT_AUDIO = ROOT / "public/narration"
 OUT_TIMING = ROOT / "src/generated/narration-timing.json"
+
+# Every line leaves at the same peak, so the voice sits at one steady, audible
+# level: TTS output arrives quiet (~-22 dBFS RMS), and most players start low.
+PEAK_DBFS = -1.5
+
+
+def normalize(samples):
+    peak = np.abs(samples).max()
+    return samples if peak == 0 else samples * (10 ** (PEAK_DBFS / 20) / peak)
 
 
 def main():
@@ -38,7 +49,7 @@ def main():
             samples, rate = kokoro.create(
                 line.get("say", line["text"]), voice=config["voice"], speed=config["speed"], lang="en-us"
             )
-            sf.write(OUT_AUDIO / f"{line['id']}.wav", samples, rate)
+            sf.write(OUT_AUDIO / f"{line['id']}.wav", normalize(samples), rate)
             print(f"  {line['id']}: {len(samples) / rate:.2f}s")
 
     timing = {}
