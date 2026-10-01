@@ -1,0 +1,40 @@
+{
+  "narrator": "tts",
+  "_narrator_note": "'tts' = placeholder Kokoro voice. Once real takes replace public/narration/<slug>/*.wav, set this to 'recorded' so `npm run narrate` leaves them alone.",
+  "voice": "af_heart",
+  "speed": 0.95,
+  "lines": [
+    {
+      "id": "summary",
+      "text": "Five minutes before a visit, most AI tools hand you eighteen months of chart — compressed, paraphrased, and hard to trust."
+    },
+    {
+      "id": "active",
+      "text": "Huddle shows three things instead. What you've been working on: each problem from your last three visits, with the plan you wrote."
+    },
+    {
+      "id": "falling",
+      "text": "What's falling off: problems untouched for ten months or more, and where you left them."
+    },
+    {
+      "id": "hcc",
+      "text": "And HCCs not yet captured this year, so nothing clinically real slips past documentation.",
+      "say": "And H C C's not yet captured this year, so nothing clinically real slips past documentation."
+    },
+    {
+      "id": "close",
+      "text": "Your own words, not an AI paraphrase. Huddle comes with every Stream subscription."
+    },
+    {
+      "id": "cta-trial",
+      "text": "Try Stream free for 30 days. No credit card required.",
+      "say": "Try Stream free for thirty days. No credit card required."
+    },
+    {
+      "id": "cta-demo",
+      "text": "See it on your own patients. Book a demo at riverrecords.ai.",
+      "say": "See it on your own patients. Book a demo at River Records dot AI."
+    }
+  ],
+  "_note": "'text' is what the captions show; 'say', when present, is what the narrator speaks. Re-run `npm run narrate` after editing either."
+}

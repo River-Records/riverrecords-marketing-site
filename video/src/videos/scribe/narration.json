@@ -1,0 +1,40 @@
+{
+  "narrator": "tts",
+  "_narrator_note": "'tts' = placeholder Kokoro voice. Once real takes replace public/narration/<slug>/*.wav, set this to 'recorded' so `npm run narrate` leaves them alone.",
+  "voice": "af_heart",
+  "speed": 0.95,
+  "lines": [
+    {
+      "id": "pile",
+      "text": "Every AI scribe can write a note. It lands in the chart, and at the next visit, you start over."
+    },
+    {
+      "id": "structure",
+      "text": "Stream writes the visit the way you'd chart it with time to spare: subjective and objective, then assessment and plan, split out by problem."
+    },
+    {
+      "id": "thread",
+      "text": "Each plan joins its problem's thread. Next visit, you see what you decided, and update only what changed."
+    },
+    {
+      "id": "tasks",
+      "text": "Follow-ups you say out loud, like “recheck the A1c in three months,” become tasks under that problem. No second entry.",
+      "say": "Follow-ups you say out loud, like, recheck the A1c in three months, become tasks under that problem. No second entry."
+    },
+    {
+      "id": "close",
+      "text": "A scribe that builds the chart, not just the note."
+    },
+    {
+      "id": "cta-trial",
+      "text": "Try Stream free for 30 days. No credit card required.",
+      "say": "Try Stream free for thirty days. No credit card required."
+    },
+    {
+      "id": "cta-demo",
+      "text": "See it on your own patients. Book a demo at riverrecords.ai.",
+      "say": "See it on your own patients. Book a demo at River Records dot AI."
+    }
+  ],
+  "_note": "'text' is what the captions show; 'say', when present, is what the narrator speaks. Re-run `npm run narrate` after editing either."
+}

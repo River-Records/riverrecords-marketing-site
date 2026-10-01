@@ -1,0 +1,30 @@
+{
+  "narrator": "tts",
+  "_narrator_note": "'tts' = placeholder Kokoro voice. Once real takes replace public/narration/<slug>/*.wav, set this to 'recorded' so `npm run narrate` leaves them alone.",
+  "voice": "af_heart",
+  "speed": 0.95,
+  "lines": [
+    {
+      "id": "fax",
+      "text": "A fax arrives. Someone prints it, scans it, files it. The A1c from the cardiology consult never reaches the diabetes plan. Everyone did their job, and the information is still gone."
+    },
+    {
+      "id": "read",
+      "text": "Stream Inlet reads every page that arrives, by fax or upload, and proposes the patient. A person confirms."
+    },
+    {
+      "id": "fanout",
+      "text": "Then the clinical content lands where it belongs. One discharge summary, three problems, three excerpts."
+    },
+    {
+      "id": "provenance",
+      "text": "Every fact is one click from the sentence it came from, and nothing is filed without a human decision."
+    },
+    {
+      "id": "cta-demo",
+      "text": "Keep your fax number. See Inlet on your own documents.",
+      "say": "Keep your fax number. See Inlet on your own documents."
+    }
+  ],
+  "_note": "'text' is what the captions show; 'say', when present, is what the narrator speaks. Re-run `npm run narrate` after editing either."
+}
