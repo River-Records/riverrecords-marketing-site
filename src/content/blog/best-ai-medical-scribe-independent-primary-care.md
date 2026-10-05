@@ -71,6 +71,8 @@ It's worth knowing the provenance: Stream's founders authored a peer-reviewed JA
 - **Compliance:** HIPAA compliant, BAA with every subscriber, encrypted in transit and at rest, and does not train models on patient data.
 - **Watch-outs:** Higher monthly price than the simplest ambient tools; handoff is paste-into-EHR rather than deep bidirectional write-back; a newer, smaller company than the enterprise incumbents.
 
+**If you are a pediatrician,** the relevant difference is not the note. Stream sweeps your whole active panel against the Bright Futures schedule nightly and surfaces the children whose well-visit window has closed — including the family that stopped coming, which a recall report built from the appointment book cannot see because there is no appointment to notice the absence of. That is covered properly on [Stream for pediatrics](/for/pediatrics/), along with how [visit coding](/guides/pediatric-visit-coding/) works for well visits with a problem addressed alongside.
+
 ### Freed — best for simple, fast ambient notes
 
 Freed is the doctor-built, set-up-in-minutes pick. It does one thing well: ambient listening that produces a clean note you paste into your EHR. For a solo clinician who wants speed and minimal setup, it's one of the most recommended options for primary care.
