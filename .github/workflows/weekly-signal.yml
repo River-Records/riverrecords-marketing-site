@@ -1,0 +1,78 @@
+name: Weekly signal
+
+# Opens a Monday issue with the week's search numbers, already corrected for the traps in
+# docs/READING-THE-SIGNAL.md, and asks @claude to interpret it.
+#
+# Two layers on purpose. The script is deterministic and free: it computes the numbers the
+# same way every week so nobody has to remember that brand and non-brand must be split, or
+# that two-thirds of clicks are anonymised. The @claude comment is the judgement layer —
+# one model call a week, on a report of a few hundred words, which is the whole cost.
+#
+# It reports and interprets. It does not change the site. Anything worth doing comes back
+# as a suggestion in a comment that a person decides on.
+on:
+  schedule:
+    # 07:00 UTC Monday — half an hour after gsc-snapshot.yml commits the new window.
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: weekly-signal
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No npm ci — the script uses only node builtins and reads committed JSON.
+      - name: Build the report
+        id: report
+        run: |
+          node scripts/weekly-signal.mjs --markdown > /tmp/signal.md
+          echo "Report:"; cat /tmp/signal.md
+
+      - name: Open the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          WEEK=$(date -u +%Y-%m-%d)
+          {
+            echo "@claude — this week's search signal is below, already corrected for the"
+            echo "traps in \`docs/READING-THE-SIGNAL.md\`. Please read that file first, then"
+            echo "comment on this issue with:"
+            echo
+            echo "1. **What actually changed**, in three lines or fewer. Lead with anything"
+            echo "   that regressed. If nothing moved, say so plainly rather than finding"
+            echo "   something to say — a quiet week is a real result."
+            echo "2. **Your best reading of why**, and how confident you are. Name the"
+            echo "   alternative explanation when there is one."
+            echo "3. **One thing worth doing**, or explicitly nothing. At this traffic level"
+            echo "   most weeks will not justify an action, and inventing one is worse than"
+            echo "   saying so."
+            echo
+            echo "Rules:"
+            echo "- Do not edit the site, open a PR, or change \`READING-THE-SIGNAL.md\`."
+            echo "  If a correction in it now looks wrong, say so here and let a human decide."
+            echo "- Check a zero-click page is not a brand sitelink before calling it a problem."
+            echo "- Never quote a 12-month figure without its last-28-day counterpart."
+            echo "- The ceiling on ranking work in the documentation category is low and"
+            echo "  known. Be sceptical of any suggestion whose payoff is \"rank better\"."
+            echo
+            echo "---"
+            echo
+            cat /tmp/signal.md
+          } > /tmp/issue.md
+          gh issue create \
+            --title "Weekly signal — $WEEK" \
+            --label "signal" \
+            --body-file /tmp/issue.md \
+            --repo "${{ github.repository }}"

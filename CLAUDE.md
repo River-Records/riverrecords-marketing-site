@@ -754,6 +754,26 @@ knowable from what they do next. Keeping raw rows also means the definition can 
 against data already collected. The views are forward-looking and empty for rows predating
 21 September 2026; `docs/DATA-PIPELINE.md` has the historical query.
 
+### Reading the data: `docs/READING-THE-SIGNAL.md`
+**Read that before drawing any conclusion from `data/gsc/`.** Collection is automated and
+has been since September 2026; interpretation is not, and the data misleads in at least
+seven specific ways that were each got wrong first — brand and wrong-brand traffic mixed
+in with real demand, two-thirds of clicks anonymised by Google, sitelinks that look
+exactly like broken pages, annual figures for rankings that have already collapsed,
+page-average position confounded by a changing query mix.
+
+The headline finding, and the reason to distrust any plan whose payoff is "rank better":
+**non-brand impressions rose 62% over five weeks while clicks stayed flat**, and non-brand
+queries ranked at position ≤2 earning zero clicks went from 8 to 26. That is AI Overview
+absorption, confirmed directly — an AI answer cited riverrecords.ai as a source while
+recommending Freed, Heidi and Doximity by name.
+
+`scripts/weekly-signal.mjs` applies the mechanical corrections; `weekly-signal.yml` runs
+it every Monday at 07:00 UTC, opens an issue, and asks `@claude` to interpret it. That
+comment may propose changes to the playbook but must never apply them — analysis
+instructions that rewrite themselves drift silently, which is the failure the playbook
+exists to prevent.
+
 ### Search Console snapshots (`scripts/fetch-gsc.mjs` → `data/gsc/`)
 A scheduled Action commits pages, queries and page+query pairs weekly. Search Console is
 the one rich per-page historical dataset the site already has, and it was reachable only
