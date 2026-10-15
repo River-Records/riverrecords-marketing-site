@@ -1,0 +1,191 @@
+---
+/**
+ * FMLA and disability paperwork — the adult counterpart to the school physicals guide.
+ *
+ * WHY THIS PAGE EXISTS
+ * Same play: target the job, not the tool. "AI form filler" has no search volume because
+ * the category does not exist yet; "FMLA paperwork" is what a physician actually types.
+ * When form completion ships, this page is already ranking and only the closing section
+ * changes. Do not pre-announce the feature here.
+ *
+ * THE SPINE IS THE FREQUENCY AND DURATION ESTIMATE, NOT FMLA LAW.
+ * An earlier draft tried to be an FMLA reference. That was the wrong page for two
+ * reasons: the regulatory thresholds in 29 CFR 825.115 could not be verified from the
+ * DOL fact sheet during drafting, and an HR site will always out-rank us on the law.
+ * What we can say that nobody else can is clinical: the hardest field on the form is the
+ * intermittent-leave estimate, the only defensible basis for it is the patient's own
+ * history of flares, and that history is the thing practices cannot retrieve. That is
+ * the adult version of the school-form retrieval ratio.
+ *
+ * ACCURACY BAR, AND WHAT IS DELIBERATELY ABSENT
+ * No numeric thresholds are stated — not days of incapacity, visit counts, or time
+ * windows. They exist, they are in the regulation, and they are linked rather than
+ * paraphrased. Getting one wrong on a page aimed at physicians completing a legal
+ * document is a worse failure than being less specific. The six categories are named
+ * because the DOL fact sheet names them.
+ *
+ * Disability paperwork is mentioned as the same shape but not detailed, because every
+ * carrier uses its own form and a generic page about them would say nothing useful.
+ */
+import Page from '../../../layouts/Page.astro';
+
+const faqs = [
+  {
+    q: 'Can a practice charge a fee for completing FMLA paperwork?',
+    a: 'Generally yes. Certification is paperwork for an employer, not a covered medical service, and many practices charge a flat form fee. It is worth having one written policy rather than deciding per request, and telling patients the fee before the form arrives. Check your payer contracts first — a few restrict what you can charge an enrolled patient.',
+  },
+  {
+    q: 'What makes the intermittent-leave section so hard to complete?',
+    a: 'It asks for a prediction: how often the employee will be unable to work, and for how long each time. There is no clinical finding that answers it. The only defensible basis is the patient’s own record — how many flares in the past year, how long each lasted, how many were severe enough to stop them working. Most practices cannot retrieve that quickly, so the estimate gets guessed, and a guess is what gets challenged.',
+  },
+  {
+    q: 'What counts as a serious health condition under FMLA?',
+    a: 'The Department of Labor defines it as a condition involving either inpatient care or continuing treatment by a health care provider, across six categories including chronic conditions and conditions requiring multiple treatments. The specific thresholds — days of incapacity, visit counts, time windows — are set out in the regulation and are revised from time to time, so check the current text rather than relying on a summary, including this one.',
+  },
+  {
+    q: 'How much of the form can come from the existing chart?',
+    a: 'The diagnosis, the date of onset, the treatment regimen, the visit history and the pattern of past episodes are all already documented. What genuinely requires judgement today is the prognosis and the frequency and duration estimate. The constraint is not that the information is missing — it is that it is spread across years of notes rather than gathered in one place.',
+  },
+  {
+    q: 'Can Stream complete FMLA or disability forms?',
+    a: 'Not today. Stream organises the record by medical problem, so a condition’s history is one thread rather than years of dated notes to read through — which is the part that makes these forms slow. Filling structured forms is in development and not available yet, and we would rather say so than imply otherwise.',
+  },
+];
+---
+<Page
+  readable="guide"
+  title="FMLA & Disability Paperwork: What Makes It Slow | Stream"
+  description="Why FMLA certification takes longer than the visit it describes, how to approach the intermittent-leave estimate defensibly, what the chart already answers, and whether you can charge for it.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'FMLA and disability paperwork: what makes it slow',
+    description: 'A practical guide for primary care practices to FMLA certification, the intermittent-leave estimate, and which fields the existing record already answers.',
+    author: { '@type': 'Organization', name: 'River Records' },
+    publisher: { '@type': 'Organization', name: 'River Records' },
+  })} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  })} />
+</Fragment>
+
+<style>
+.fm { padding: 64px 0 88px; }
+.fm-wrap { max-width: 760px; margin: 0 auto; }
+.fm h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 18px; }
+.fm h1 em { font-style: italic; color: var(--primary); }
+.fm-lede { font-size: 1.1rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 14px; }
+.fm-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.fm h2 { font-size: 1.55rem; color: var(--ink); margin: 44px 0 14px; line-height: 1.25; }
+.fm h3 { font-size: 1.08rem; color: var(--ink); margin: 28px 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.fm p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.fm strong { color: var(--ink); }
+.fm ul, .fm ol { margin: 0 0 18px; padding-left: 22px; }
+.fm li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
+.fm a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+table.fm-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 0.9rem; }
+table.fm-table th { text-align: left; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 12px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.fm-table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.6; vertical-align: top; }
+table.fm-table td:first-child { color: var(--ink); font-weight: 600; }
+
+.fm-note { border-left: 3px solid var(--border-strong); padding: 4px 0 4px 20px; margin: 24px 0; }
+.fm-note p:last-child { margin-bottom: 0; }
+.fm-box { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px 26px; margin: 26px 0; }
+.fm-box h3 { margin-top: 0; }
+.fm-box p:last-child { margin-bottom: 0; }
+
+.fm-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.fm-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.fm-faq summary::-webkit-details-marker { display: none; }
+.fm-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.fm-faq details[open] summary::after { content: '\2212'; }
+.fm-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.fm-fit { background: var(--dark); color: var(--white); border-radius: var(--r-xl); padding: 32px; margin: 44px 0 0; }
+.fm-fit h2 { color: var(--white); margin-top: 0; font-size: 1.4rem; }
+.fm-fit p { color: rgba(250,247,240,0.86); }
+.fm-fit a:not(.btn) { color: var(--accent-light); }
+.fm-disclaim { font-size: 0.85rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 44px; padding-top: 22px; }
+</style>
+
+<section class="fm">
+  <div class="container">
+    <div class="fm-wrap">
+
+      <span class="section-label">Guide</span>
+      <h1>FMLA paperwork: <em>what makes it slow</em></h1>
+      <p class="fm-lede">The form is not hard to understand. It is slow because one field asks you to predict the future, and the only honest basis for that prediction is buried in three years of notes.</p>
+      <p class="fm-meta">Written for primary care · Physician-authored · Educational, not legal advice</p>
+
+      <h2>The field that costs the time</h2>
+      <p>Most of a certification is transcription. Diagnosis, date of onset, treatment regimen, whether the condition is ongoing — all of it is already in the chart somewhere.</p>
+      <p>Then there is the intermittent-leave section, which asks <strong>how often the employee will be unable to work, and for how long each time.</strong></p>
+      <p>There is no examination finding that answers that. It is a prediction, and the only defensible basis for it is the patient's own history: how many flares in the past twelve months, how long each one lasted, how many were severe enough to stop them working.</p>
+
+      <div class="fm-note">
+        <p>That history exists. It is in the notes from every visit where the condition came up — spread across a year or three, in whatever order the appointments happened. Assembling it takes long enough that the estimate usually gets made from memory instead.</p>
+        <p><strong>An estimate made from memory is the one that gets challenged</strong>, and the clinician has nothing to point to when it is.</p>
+      </div>
+
+      <h2>What the form asks, and where the answer lives</h2>
+      <table class="fm-table">
+        <thead><tr><th>Section</th><th>Where the answer actually is</th></tr></thead>
+        <tbody>
+          <tr><td>Diagnosis and onset</td><td>The problem list, and the visit where it was first documented</td></tr>
+          <tr><td>Treatment regimen</td><td>The current medication list and the plan from recent visits</td></tr>
+          <tr><td>Visit frequency</td><td>The encounter history, counted</td></tr>
+          <tr><td>Whether it is ongoing</td><td>Clinical judgement, informed by the trajectory</td></tr>
+          <tr><td>Episode frequency and duration</td><td><strong>Every prior flare, across years of notes</strong></td></tr>
+          <tr><td>Prognosis</td><td>Judgement, today</td></tr>
+        </tbody>
+      </table>
+      <p>Five of six are retrieval. The expensive one is the row in bold, because unlike the others it cannot be answered from the most recent note — it needs the whole thread.</p>
+
+      <h2>The categories, and why we are not summarising the thresholds</h2>
+      <p>The Department of Labor defines a serious health condition as one involving either inpatient care or continuing treatment by a health care provider, across six categories — including chronic conditions and conditions requiring multiple treatments.</p>
+      <p>The specific thresholds attached to those categories — days of incapacity, numbers of visits, the windows they fall in — are set out in the regulation and revised periodically. <strong>We are deliberately not restating them here.</strong> A summary that is one revision out of date, on a page read by a physician completing a legal document, is worse than no summary. Read them at first hand:</p>
+      <ul>
+        <li><a href="https://www.dol.gov/agencies/whd/fact-sheets/28g-fmla-serious-health-condition" rel="nofollow noopener" target="_blank">DOL Fact Sheet 28G — medical certification</a></li>
+        <li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-C/part-825" rel="nofollow noopener" target="_blank">29 CFR Part 825 — the FMLA regulations</a></li>
+      </ul>
+
+      <h2>Charging for it</h2>
+      <p>Certification is paperwork completed for an employer, not a covered medical service, and most practices may charge a form fee. Two things make this smoother: a single written policy rather than a decision per request, and telling the patient the fee when the form arrives rather than after it is done. Check your payer contracts first — a few restrict what can be charged to an enrolled patient.</p>
+
+      <h2>What can be reused, and what has to be verified</h2>
+      <div class="fm-box">
+        <h3>Safe to carry forward</h3>
+        <p>Anything your practice documented: the diagnosis, your visit history, medications you prescribed, episodes recorded at the time they happened. Contemporaneous notes are the strongest evidence available, which is exactly why they are worth assembling rather than approximating.</p>
+      </div>
+      <div class="fm-box">
+        <h3>Verify before it goes on the form</h3>
+        <p>Anything from an outside source — records from a prior practice, a specialist letter, the patient's own account of episodes you did not see. Knowing where a fact came from is not the same as knowing it is true, and this form carries more weight than most. It may be read by an employer, a third-party administrator, and occasionally a court.</p>
+      </div>
+
+      <div class="fm-note">
+        <p><strong>Disability paperwork is the same shape.</strong> Short-term, long-term and SSDI forms ask the same underlying questions — what the condition is, what it prevents, and for how long — with every carrier using its own layout. The retrieval problem is identical; only the boxes move.</p>
+      </div>
+
+      <h2>Common questions</h2>
+      <div class="fm-faq">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+
+      <div class="fm-fit">
+        <h2>Where Stream fits</h2>
+        <p>Stream does not complete FMLA or disability forms. That is in development and not available today, and we would rather say so here than let you find out on a call.</p>
+        <p>What it changes is the retrieval. Every visit is filed by medical problem rather than by date, so a condition's history is one continuous thread — every flare, every treatment change, every time it was severe enough to matter — instead of three years of notes to read in order. That is the thread the intermittent-leave estimate should be built on.</p>
+        <p>Related: <a href="/guides/the-defensible-visit/">The Defensible Visit</a> on documenting medical decision-making so it survives review, and <a href="/guides/school-sports-physicals/">school and sports physicals</a>, which is the same problem in pediatrics.</p>
+      </div>
+
+      <p class="fm-disclaim">This guide is educational and reflects general Department of Labor guidance as of October 2026. It is not legal, employment or compliance advice. FMLA regulations and payer policies change — verify against the current regulation and your own contracts before relying on any of it.</p>
+
+    </div>
+  </div>
+</section>
+</Page>
