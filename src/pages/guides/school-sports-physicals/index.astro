@@ -1,0 +1,209 @@
+---
+/**
+ * School and sports physicals — the paperwork, the coding, and what the chart can reuse.
+ *
+ * WHY THIS PAGE EXISTS
+ * Two reasons, and the second is the real one.
+ *
+ * 1. It targets the JOB, not the tool. Search volume for "AI form filler" will read as
+ *    zero because the category does not exist yet — nobody searched "ambient AI scribe"
+ *    before scribes existed either. What pediatricians search is the task: school
+ *    physical forms, sports physical requirements, whether a physical can be billed
+ *    alongside a well visit. This is the same play as
+ *    /clinical-documentation-automation/, which went from nothing to position 4–15 in
+ *    three weeks by being an honest reference rather than a pitch.
+ *
+ * 2. It is the landing place for form filling when that ships. The FAQ currently lists
+ *    form completion under `limits` — "not yet, in development". When it ships, this
+ *    page is already ranking and the "where Stream fits" section changes; the rest
+ *    stands on its own either way. Do not pre-announce it here as available.
+ *
+ * SCOPE: school and sports physicals only. Prior authorisation is a crowded, well-funded
+ * category (Innovaccer, Prosper, InsightHealth and others); school forms are barely
+ * served. Adding prior auth here would put us in a fight we have no reason to pick.
+ *
+ * NO AMA DESCRIPTORS ARE REPRODUCED, same rule as the pediatric coding guide: code
+ * numbers are ours to reference, the official long descriptors are AMA copyright and
+ * licensed separately from product use.
+ *
+ * ACCURACY BAR: this makes coding and clinical claims to pediatricians. Everything here
+ * traces to AAP or AMA guidance, and where practice genuinely varies — payer coverage of
+ * sports physicals, state form requirements — the page says it varies rather than
+ * picking an answer. A physician should read this before any material change.
+ */
+import Page from '../../../layouts/Page.astro';
+
+/* Rendered below AND declared in FAQPage schema, from this one array. Google treats
+   declaring more questions than the page shows as invalid. */
+const faqs = [
+  {
+    q: 'Can you bill a sports physical and a well-child visit at the same appointment?',
+    a: 'Often yes, but it depends on the payer and on what you actually did. The preventive visit is the billable service; the sports clearance form is paperwork attached to it. Some payers cover a separate pre-participation evaluation, many do not and the family pays cash. Where a distinct problem is addressed at the same visit, that is a separate matter and is covered in our pediatric visit coding guide.',
+  },
+  {
+    q: 'Does a sports physical count as a well-child visit?',
+    a: 'Not automatically. A pre-participation evaluation is narrower than a Bright Futures well visit — it is focused on cardiovascular risk, musculoskeletal history and clearance to play. If you perform a full preventive visit and complete the sports form from it, you did a well visit with paperwork attached. If you only did the clearance exam, you did not do a well visit, and the well visit is still due.',
+  },
+  {
+    q: 'How much of a school physical form can come from the existing chart?',
+    a: 'More than most practices use. Immunisation history, growth measurements, chronic conditions, current medications and allergies are already documented — the limiting factor is that they are scattered across visits, the state registry and the growth chart rather than being in one place. What genuinely requires today is the physical examination, the clearance decision and the signature.',
+  },
+  {
+    q: 'Do school physical forms differ by state?',
+    a: 'Yes, substantially. Many states publish a mandatory form; others let districts set their own. Sports clearance often uses a separate form again, frequently based on the AAP and AMSSM pre-participation evaluation monograph. Check your state health department and athletic association rather than assuming last year’s form is current.',
+  },
+  {
+    q: 'Can Stream fill in school physical forms?',
+    a: 'Not today. Stream keeps the underlying information in one place — immunisations, growth, problems and medications organised per problem rather than scattered across dated notes — which is the part that makes form completion slow. Filling structured forms is in development and not available yet, and we would rather say so than imply otherwise.',
+  },
+];
+---
+<Page
+  readable="guide"
+  title="School & Sports Physicals: Paperwork, Coding, and Reuse | Stream"
+  description="What a school or sports physical form actually requires, how it is coded alongside a well-child visit, and how much of it the chart already holds. Written for pediatric practices.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'School and sports physicals: paperwork, coding, and what the chart can reuse',
+    description: 'A practical guide for pediatric practices to school and sports physical forms, the coding questions around them, and which fields the existing record already answers.',
+    author: { '@type': 'Organization', name: 'River Records' },
+    publisher: { '@type': 'Organization', name: 'River Records' },
+  })} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.sp { padding: 64px 0 88px; }
+.sp-wrap { max-width: 760px; margin: 0 auto; }
+.sp h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 18px; }
+.sp h1 em { font-style: italic; color: var(--primary); }
+.sp-lede { font-size: 1.1rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 14px; }
+.sp-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.sp h2 { font-size: 1.55rem; color: var(--ink); margin: 44px 0 14px; line-height: 1.25; }
+.sp h3 { font-size: 1.08rem; color: var(--ink); margin: 28px 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.sp p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.sp strong { color: var(--ink); }
+.sp ul, .sp ol { margin: 0 0 18px; padding-left: 22px; }
+.sp li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
+/* Not a bare `.sp a` — class-plus-element outranks .btn and repaints button text. */
+.sp a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+table.sp-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 0.9rem; }
+table.sp-table th { text-align: left; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 12px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.sp-table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.6; vertical-align: top; }
+table.sp-table td:first-child { color: var(--ink); font-weight: 600; }
+
+.sp-note { border-left: 3px solid var(--border-strong); padding: 4px 0 4px 20px; margin: 24px 0; }
+.sp-note p:last-child { margin-bottom: 0; }
+.sp-box { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px 26px; margin: 26px 0; }
+.sp-box h3 { margin-top: 0; }
+.sp-box p:last-child { margin-bottom: 0; }
+
+.sp-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.sp-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.sp-faq summary::-webkit-details-marker { display: none; }
+.sp-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.sp-faq details[open] summary::after { content: '\2212'; }
+.sp-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.sp-fit { background: var(--dark); color: var(--white); border-radius: var(--r-xl); padding: 32px; margin: 44px 0 0; }
+.sp-fit h2 { color: var(--white); margin-top: 0; font-size: 1.4rem; }
+.sp-fit p { color: rgba(250,247,240,0.86); }
+.sp-fit a:not(.btn) { color: var(--accent-light); }
+
+.sp-disclaim { font-size: 0.85rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 44px; padding-top: 22px; }
+</style>
+
+<section class="sp">
+  <div class="container">
+    <div class="sp-wrap">
+
+      <span class="section-label">Guide</span>
+      <h1>School and sports physicals: <em>the paperwork</em></h1>
+      <p class="sp-lede">The exam takes ten minutes. The form takes longer, and not because it is difficult — because the answers are scattered across four places and none of them is the form.</p>
+      <p class="sp-meta">Written for pediatric practices · Physician-authored · Educational, not compliance advice</p>
+
+      <h2>Why the form is slower than the visit</h2>
+      <p>Almost nothing a school or sports form asks for is unknown to the practice. The problem is where the answers live.</p>
+
+      <table class="sp-table">
+        <thead>
+          <tr><th>What the form asks</th><th>Where the answer actually is</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Immunisation record</td><td>The state registry, and sometimes a different one if the family moved</td></tr>
+          <tr><td>Height, weight, BMI percentile</td><td>Today's vitals, plus the growth chart for trajectory</td></tr>
+          <tr><td>Chronic conditions</td><td>Spread across whichever visits they came up in</td></tr>
+          <tr><td>Current medications and allergies</td><td>The med list, if it has been reconciled recently</td></tr>
+          <tr><td>Prior injury, concussion, cardiac history</td><td>A note from two years ago that someone has to find</td></tr>
+          <tr><td>Vision and hearing screening</td><td>A previous well visit, if it was done there</td></tr>
+          <tr><td>Exam findings and clearance</td><td>Today, and only today</td></tr>
+        </tbody>
+      </table>
+
+      <p>Six of those seven are retrieval. One is clinical work. That ratio is why the paperwork outlasts the appointment, and why it lands in the evening — the exam is done in the room, and the form is finished later when someone has time to go looking.</p>
+
+      <h2>The coding question</h2>
+      <p>This is where practices lose money quietly, and where the answer genuinely depends on what happened.</p>
+
+      <h3>A preventive visit with a form attached</h3>
+      <p>If you performed a full preventive visit and completed the sports form from it, the billable service is the preventive visit — coded by age and by whether the patient is new or established. The form is paperwork arising from it, not a separate service. Age bands and the codes are in our <a href="/guides/pediatric-visit-coding/">pediatric visit coding guide</a>.</p>
+
+      <h3>A clearance exam on its own</h3>
+      <p>A pre-participation evaluation is narrower than a Bright Futures well visit — focused on cardiovascular risk, musculoskeletal history and fitness to play. Coverage varies considerably: some payers reimburse a separate pre-participation evaluation, many do not, and a cash fee is common. <strong>Check your own payer mix rather than assuming.</strong></p>
+
+      <div class="sp-note">
+        <p><strong>The part that is most often missed:</strong> a clearance exam is not a well visit. If a teenager comes in for sports clearance in August and that is all that happens, the well visit is still due — and in most practices nothing will surface that fact until the following year. That is a documentation and recall problem rather than a coding one.</p>
+      </div>
+
+      <h3>When a real problem comes up during the visit</h3>
+      <p>Asthma that needs a changed plan before the season, a knee that has not recovered, a new murmur. That is a separately identifiable problem addressed alongside a preventive service, and it is coded as such — the same scenario the <a href="/guides/pediatric-visit-coding/">coding guide</a> covers in detail, with the documentation standard set out in <a href="/guides/the-defensible-visit/">The Defensible Visit</a>.</p>
+
+      <h2>State and sport variation</h2>
+      <p>There is no single national form. Many states publish a mandatory school health form; others leave it to districts. Sports clearance is frequently a separate form again, commonly derived from the AAP and AMSSM pre-participation evaluation monograph, which is the reference most state athletic associations build on.</p>
+      <p>Two practical consequences: the form you used last August may have been revised, and a family with children in two districts may hand you two different forms for the same information.</p>
+
+      <h2>What can be reused, and what cannot</h2>
+      <div class="sp-box">
+        <h3>Safe to carry forward</h3>
+        <p>Immunisation history from the state registry, growth measurements you recorded, documented chronic conditions, prior injuries noted in your own charts. These are facts your practice either recorded or retrieved from an authoritative source.</p>
+      </div>
+      <div class="sp-box">
+        <h3>Verify before it goes on a form</h3>
+        <p>Anything taken from an outside document — a referral letter, records from a previous practice, a parent's recollection. An outside medication list can be months stale and an allergy can be missing entirely. Knowing <em>where</em> a fact came from is not the same as knowing it is <em>true</em>, and a form leaves the building with a signature on it.</p>
+      </div>
+
+      <h2>Common questions</h2>
+      <div class="sp-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="sp-fit">
+        <h2>Where Stream fits</h2>
+        <p>Stream does not fill in forms. That is in development and not available today, and we would rather say so here than let you find out on a call.</p>
+        <p>What it does do is remove the retrieval. Every visit is organised by medical problem rather than by date, so the asthma history is one thread instead of six notes to read in order, and inbound documents — outside records, specialist letters, prior immunisation records — are read and filed under the problems they concern, each extracted fact linked back to the page it came from.</p>
+        <p>For well-visit recall specifically, <a href="/for/pediatrics/">Stream for pediatrics</a> sweeps the whole active panel against the Bright Futures schedule nightly, which is what surfaces the teenager who came in for sports clearance in August and never had the well visit.</p>
+      </div>
+
+      <p class="sp-disclaim">This guide is educational and reflects general AAP, AMA and AMSSM guidance as of October 2026. It is not coding, billing or compliance advice. Payer policy, state requirements and form versions change — verify against your own payers, your state health department and your state athletic association before relying on any of it.</p>
+
+    </div>
+  </div>
+</section>
+</Page>

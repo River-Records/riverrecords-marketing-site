@@ -5,8 +5,15 @@ name: Weekly signal
 #
 # Two layers on purpose. The script is deterministic and free: it computes the numbers the
 # same way every week so nobody has to remember that brand and non-brand must be split, or
-# that two-thirds of clicks are anonymised. The @claude comment is the judgement layer —
-# one model call a week, on a report of a few hundred words, which is the whole cost.
+# that two-thirds of clicks are anonymised. The Claude step is the judgement layer — one
+# model call a week, on a report of a few hundred words, which is the whole cost.
+#
+# The judgement step runs HERE rather than relying on claude.yml's @claude trigger.
+# GitHub deliberately does not fire workflows from events created with the default
+# GITHUB_TOKEN, so an issue opened by this job never triggered it — verified on
+# 13 October 2026, when the issue was created and claude.yml was not invoked at all.
+# Calling the action directly also removes a cross-workflow dependency that would fail
+# silently once a week.
 #
 # It reports and interprets. It does not change the site. Anything worth doing comes back
 # as a suggestion in a comment that a person decides on.
@@ -19,6 +26,7 @@ on:
 permissions:
   contents: read
   issues: write
+  id-token: write   # required by claude-code-action
 
 concurrency:
   group: weekly-signal
@@ -41,6 +49,7 @@ jobs:
           echo "Report:"; cat /tmp/signal.md
 
       - name: Open the issue
+        id: issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -71,8 +80,42 @@ jobs:
             echo
             cat /tmp/signal.md
           } > /tmp/issue.md
-          gh issue create \
+          URL=$(gh issue create \
             --title "Weekly signal — $WEEK" \
             --label "signal" \
             --body-file /tmp/issue.md \
-            --repo "${{ github.repository }}"
+            --repo "${{ github.repository }}")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
+          echo "Opened $URL"
+
+      # The judgement layer. Reads the playbook, interprets the report, comments once.
+      # Deliberately given no ability to change the site: the prompt forbids it and the
+      # job's contents permission is read-only.
+      - name: Interpret
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Read docs/READING-THE-SIGNAL.md first — it explains corrections that are not
+            obvious and that were each got wrong before being written down.
+
+            Then read issue #${{ steps.issue.outputs.number }} in this repository, which
+            contains this week's search report, and post ONE comment on it covering:
+
+            1. What actually changed, in three lines or fewer. Lead with anything that
+               regressed. If nothing moved, say so plainly rather than finding something
+               to say — a quiet week is a real result.
+            2. Your best reading of why, and how confident you are. Name the alternative
+               explanation when there is one.
+            3. One thing worth doing, or explicitly nothing. At this traffic level most
+               weeks will not justify an action, and inventing one is worse than saying so.
+
+            Rules:
+            - Do not edit the site, open a pull request, or change READING-THE-SIGNAL.md.
+              If a correction in it now looks wrong, say so in the comment and let a human
+              decide.
+            - Check a zero-click page is not a brand sitelink before calling it a problem.
+            - Never quote a 12-month figure without its last-28-day counterpart.
+            - The ceiling on ranking work in the documentation category is low and known.
+              Be sceptical of any suggestion whose payoff is "rank better".

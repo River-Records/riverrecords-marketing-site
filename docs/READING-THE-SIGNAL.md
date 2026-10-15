@@ -105,8 +105,13 @@ whether AI answers start naming Stream, never by its referral traffic.**
 | | |
 |---|---|
 | Monday 06:30 UTC | `gsc-snapshot.yml` fetches and commits a 28-day snapshot |
-| Monday 07:00 UTC | `weekly-signal.yml` runs the script and opens an issue |
-| then | the issue mentions `@claude`, so `claude.yml` fires and adds interpretation |
+| Monday 07:00 UTC | `weekly-signal.yml` runs the script, opens an issue, and calls Claude to comment on it |
+
+The interpretation step runs **inside** `weekly-signal.yml` rather than relying on
+`claude.yml`'s `@claude` trigger. GitHub deliberately does not fire workflows from events
+created with the default `GITHUB_TOKEN`, so an issue opened by a job never triggers one —
+verified on 13 October 2026, when the issue was created and `claude.yml` was not invoked
+at all. Anything else that wants to chain off an automated issue will hit the same wall.
 
 Run it by hand any time:
 
