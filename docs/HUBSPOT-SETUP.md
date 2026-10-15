@@ -247,3 +247,45 @@ just emailing ourselves.
 - **Mandrill stays optional.** With the workflow above, HubSpot sends the follow-up and
   Mandrill is not needed. It remains wired for sends that must be transactional, or to
   avoid spending the marketing-contact allowance.
+
+
+---
+
+## Form completion waitlist (`/api/forms-waitlist`)
+
+Early-access capture at the foot of the two paperwork guides. It exists to answer a
+question search cannot: whether anyone wants form completion, and **which** forms. The
+`forms_wanted` field matters more than the email — if most people tick prior
+authorisation rather than school physicals, that changes what gets built first.
+
+### Setup
+
+1. In HubSpot, create a form with three fields:
+
+   | field | internal name | type |
+   |---|---|---|
+   | Email | `email` | email (built-in) |
+   | Forms wanted | `forms_wanted` | multi-line text or multi-checkbox |
+   | Role | `practice_role` | single-line text (optional, not yet collected) |
+
+2. Copy the form GUID into the Pages project as **`HUBSPOT_WAITLIST_FORM_GUID`**
+   (Settings → Variables, Production and Preview).
+
+3. Confirm:
+
+   ```bash
+   curl -i -X POST https://www.riverrecords.ai/api/forms-waitlist \
+     -d 'email=test@example.com&forms_wanted=school&return_to=/guides/school-sports-physicals/'
+   ```
+
+   Read **`X-RR-Waitlist`**: `hubspot:ok`, `hubspot:unconfigured` (GUID not set),
+   `hubspot:<status>`, or `parse:error`. The response is always a 303 back to the guide —
+   someone who asked to be told when a feature ships gets their confirmation whatever
+   HubSpot is doing.
+
+**HubSpot returns 200 for unknown field names and silently drops them**, so `hubspot:ok`
+does not prove the properties exist. Check the contact record after the first real
+submission. This caught us once already on the calculator.
+
+Degrades to nothing with the GUID unset: the redirect still works, and Collected Forms
+still captures the submission because the form posts natively.

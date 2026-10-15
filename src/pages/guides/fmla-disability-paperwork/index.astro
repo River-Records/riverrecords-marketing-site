@@ -28,6 +28,7 @@
  * carrier uses its own form and a generic page about them would say nothing useful.
  */
 import Page from '../../../layouts/Page.astro';
+import FormsWaitlist from '../../../components/FormsWaitlist.astro';
 
 const faqs = [
   {
@@ -182,6 +183,8 @@ table.fm-table td:first-child { color: var(--ink); font-weight: 600; }
         <p>What it changes is the retrieval. Every visit is filed by medical problem rather than by date, so a condition's history is one continuous thread — every flare, every treatment change, every time it was severe enough to matter — instead of three years of notes to read in order. That is the thread the intermittent-leave estimate should be built on.</p>
         <p>Related: <a href="/guides/the-defensible-visit/">The Defensible Visit</a> on documenting medical decision-making so it survives review, and <a href="/guides/school-sports-physicals/">school and sports physicals</a>, which is the same problem in pediatrics.</p>
       </div>
+
+      <FormsWaitlist returnTo="/guides/fmla-disability-paperwork/" preselect="fmla" />
 
       <p class="fm-disclaim">This guide is educational and reflects general Department of Labor guidance as of October 2026. It is not legal, employment or compliance advice. FMLA regulations and payer policies change — verify against the current regulation and your own contracts before relying on any of it.</p>
 

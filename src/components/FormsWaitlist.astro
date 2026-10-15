@@ -1,0 +1,127 @@
+---
+/*
+ * Early-access capture for form completion, used at the foot of the two paperwork
+ * guides.
+ *
+ * WHY IT LIVES ON THE GUIDES AND NOT ON A "COMING SOON" PAGE
+ * All eighteen feature pages together earned 30 non-brand impressions in twelve months.
+ * A dedicated page would be a page nobody finds. The guides reach the right person at
+ * the moment the problem is in front of them, and both already say — in their own voice
+ * — that Stream does not do this yet. Following an honest limitation with "want to know
+ * when we do?" is the one place the offer is obviously welcome.
+ *
+ * IT MUST STAY QUIET. These guides work because they do not sell; that is why they rank
+ * and why a clinician finishes them. No interstitial, no scroll trigger, no email gate
+ * on the content. A block at the end, after the limitation, or it damages the thing it
+ * is attached to.
+ *
+ * `forms` is the field that matters more than the email. Search cannot tell us whether
+ * anyone wants this — the category does not exist, so volume reads zero either way. If
+ * most people tick prior authorisation rather than school physicals, that changes what
+ * gets built first, and nothing else would have told us.
+ *
+ * The form posts NATIVELY. Do not convert it to fetch: HubSpot's Collected Forms
+ * captures real submissions by watching them, and intercepting the submit switches that
+ * off silently with nothing appearing broken. Same rule as the calculator.
+ */
+interface Props {
+  /** Which guide this sits on — sent back so the redirect returns here. */
+  returnTo: string;
+  /** Pre-ticked option matching the page's subject. */
+  preselect: 'school' | 'fmla';
+}
+const { returnTo, preselect } = Astro.props;
+
+const OPTIONS = [
+  { value: 'school', label: 'School and sports physicals' },
+  { value: 'fmla', label: 'FMLA and disability' },
+  { value: 'prior-auth', label: 'Prior authorisation' },
+  { value: 'other', label: 'Something else' },
+];
+---
+<section class="fw" id="early-access">
+  <h2>Want to know when it ships?</h2>
+  <p>
+    Form completion is in development. If you tell us which paperwork actually costs you
+    the most time, it changes what we build first — that is the useful part, more than
+    the email address.
+  </p>
+
+  <form class="fw-form" action="/api/forms-waitlist" method="POST">
+    <input type="hidden" name="return_to" value={returnTo} />
+
+    <fieldset class="fw-set">
+      <legend>Which forms?</legend>
+      <div class="fw-opts">
+        {OPTIONS.map((o) => (
+          <label class="fw-opt">
+            <input type="checkbox" name="forms_wanted" value={o.value} checked={o.value === preselect} />
+            <span>{o.label}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <div class="fw-row">
+      <label for="fw-email" class="fw-sr">Email address</label>
+      <input type="email" id="fw-email" name="email" placeholder="you@practice.com" required />
+      <button type="submit" class="btn btn-primary-lg">Tell me when it ships</button>
+    </div>
+
+    <p class="fw-fine">
+      One message when it ships, and nothing else. We will not add you to a mailing list.
+    </p>
+  </form>
+
+  <!--
+    Shown when the endpoint redirects back with ?waitlist=1. Deliberately not an inbox
+    promise — the calculator shipped one that silently never fired for every visitor,
+    because FormSubmit disables its autoresponse when _captcha is false.
+  -->
+  <div class="fw-done" id="fw-done" hidden>
+    <p><strong>Noted — thank you.</strong> We will send one message when form completion ships, and nothing in between.</p>
+  </div>
+</section>
+
+<style>
+  .fw { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px 28px; margin: 36px 0 0; }
+  .fw h2 { font-size: 1.25rem; color: var(--ink); margin: 0 0 8px; }
+  .fw > p { font-size: 0.96rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 18px; }
+
+  .fw-set { border: 0; padding: 0; margin: 0 0 16px; }
+  .fw-set legend { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); padding: 0; margin-bottom: 10px; }
+  .fw-opts { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .fw-opt { display: flex; align-items: center; gap: 7px; font-size: 0.92rem; color: var(--ink-muted); cursor: pointer; }
+  .fw-opt input { accent-color: var(--primary); width: 16px; height: 16px; }
+
+  .fw-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fw-row input[type="email"] { flex: 1 1 240px; min-width: 0; padding: 11px 14px; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--white); border: 1px solid var(--border-strong); border-radius: var(--r-sm); }
+  .fw-row input[type="email"]:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .fw-row button { flex: 0 0 auto; }
+
+  .fw-fine { font-size: 0.8rem; color: var(--ink-faint); line-height: 1.6; margin: 12px 0 0; }
+  .fw-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .fw-done p { font-size: 0.96rem; color: var(--ink-muted); line-height: 1.65; margin: 0; }
+  .fw-done strong { color: var(--ink); }
+
+  @media (max-width: 560px) {
+    .fw-row button { width: 100%; }
+  }
+</style>
+
+<script is:inline>
+  // Swap the form for the confirmation when the endpoint redirects back. Reads the URL
+  // rather than intercepting the submit, so the native post — and Collected Forms —
+  // stay intact.
+  (function () {
+    try {
+      if (new URLSearchParams(location.search).get('waitlist') !== '1') return;
+      var form = document.querySelector('.fw-form');
+      var done = document.getElementById('fw-done');
+      if (!form || !done) return;
+      form.hidden = true;
+      done.hidden = false;
+      document.getElementById('early-access').scrollIntoView({ behavior: 'instant', block: 'center' });
+    } catch (e) { /* never break the page */ }
+  })();
+</script>
