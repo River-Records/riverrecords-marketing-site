@@ -105,7 +105,15 @@ whether AI answers start naming Stream, never by its referral traffic.**
 | | |
 |---|---|
 | Monday 06:30 UTC | `gsc-snapshot.yml` fetches and commits a 28-day snapshot |
-| Monday 07:00 UTC | `weekly-signal.yml` runs the script, opens an issue, and calls Claude to comment on it |
+| Monday 07:00 UTC | `weekly-signal.yml` runs the script, opens an issue, has Claude write an interpretation, and posts it as a comment |
+
+**Claude writes a file; a separate step posts it.** It does not post the comment itself.
+On 15 October the action ran correctly in agent mode — five turns, $0.15 — and produced
+no comment, with `permission_denials_count: 3`. The documentation says comment tools are
+part of the always-available base set; in agent mode on a `workflow_dispatch` event they
+are evidently not granted. Writing a file needs only the file tools, and the posting step
+reuses the token that already opens the issue, so neither half depends on behaviour we
+cannot see.
 
 The interpretation step runs **inside** `weekly-signal.yml` rather than relying on
 `claude.yml`'s `@claude` trigger. GitHub deliberately does not fire workflows from events

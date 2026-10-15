@@ -45,8 +45,8 @@ jobs:
       - name: Build the report
         id: report
         run: |
-          node scripts/weekly-signal.mjs --markdown > /tmp/signal.md
-          echo "Report:"; cat /tmp/signal.md
+          node scripts/weekly-signal.mjs --markdown > signal-report.md
+          echo "Report:"; cat signal-report.md
 
       - name: Open the issue
         id: issue
@@ -78,7 +78,7 @@ jobs:
             echo
             echo "---"
             echo
-            cat /tmp/signal.md
+            cat signal-report.md
           } > /tmp/issue.md
           URL=$(gh issue create \
             --title "Weekly signal — $WEEK" \
@@ -89,33 +89,63 @@ jobs:
           echo "number=${URL##*/}" >> "$GITHUB_OUTPUT"
           echo "Opened $URL"
 
-      # The judgement layer. Reads the playbook, interprets the report, comments once.
-      # Deliberately given no ability to change the site: the prompt forbids it and the
-      # job's contents permission is read-only.
+      # The judgement layer.
+      #
+      # Claude WRITES A FILE; the next step posts it. It does not post the comment
+      # itself, and that is deliberate rather than stylistic. On 15 October the action
+      # ran correctly in agent mode — "Mode: agent", "Trigger result: true", five turns,
+      # $0.15 — and produced no comment, with permission_denials_count: 3. The docs say
+      # comment tools are part of the always-available base set, but in agent mode on a
+      # workflow_dispatch event they evidently are not granted. Writing a file needs only
+      # the file tools, and the posting step uses the same GITHUB_TOKEN that already
+      # opens the issue a few lines above, so neither half depends on a behaviour we
+      # cannot see or control.
       - name: Interpret
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write"
           prompt: |
-            Read docs/READING-THE-SIGNAL.md first — it explains corrections that are not
-            obvious and that were each got wrong before being written down.
+            Two files in the working directory: docs/READING-THE-SIGNAL.md, which explains
+            corrections to this data that are not obvious and were each got wrong before
+            being written down, and signal-report.md, this week's numbers.
 
-            Then read issue #${{ steps.issue.outputs.number }} in this repository, which
-            contains this week's search report, and post ONE comment on it covering:
+            Read the playbook first. Then write your interpretation to a new file called
+            interpretation.md in the working directory. Write nothing else, change no
+            other file, and do not commit anything.
+
+            The file should be short — comment-length, not a report — and cover:
 
             1. What actually changed, in three lines or fewer. Lead with anything that
                regressed. If nothing moved, say so plainly rather than finding something
-               to say — a quiet week is a real result.
+               to say; a quiet week is a real result and padding it makes the next one
+               harder to read.
             2. Your best reading of why, and how confident you are. Name the alternative
                explanation when there is one.
             3. One thing worth doing, or explicitly nothing. At this traffic level most
                weeks will not justify an action, and inventing one is worse than saying so.
 
-            Rules:
-            - Do not edit the site, open a pull request, or change READING-THE-SIGNAL.md.
-              If a correction in it now looks wrong, say so in the comment and let a human
-              decide.
+            Constraints:
+            - Do not propose edits to the site, and do not rewrite the playbook. If a
+              correction in it now looks wrong, say so in the file and let a human decide.
             - Check a zero-click page is not a brand sitelink before calling it a problem.
             - Never quote a 12-month figure without its last-28-day counterpart.
-            - The ceiling on ranking work in the documentation category is low and known.
-              Be sceptical of any suggestion whose payoff is "rank better".
+            - The ceiling on ranking work in the documentation category is measured and
+              low. Be sceptical of any suggestion whose payoff is "rank better".
+
+      - name: Post the interpretation
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -s interpretation.md ]; then
+            echo "No interpretation produced — leaving the report to stand on its own."
+            gh issue comment "${{ steps.issue.outputs.number }}" \
+              --repo "${{ github.repository }}" \
+              --body "_The interpretation step produced nothing this week. The numbers above are still correct; only the commentary is missing._"
+            exit 0
+          fi
+          gh issue comment "${{ steps.issue.outputs.number }}" \
+            --repo "${{ github.repository }}" \
+            --body-file interpretation.md
+          echo "Commented on issue #${{ steps.issue.outputs.number }}"
