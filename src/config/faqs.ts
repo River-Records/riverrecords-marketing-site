@@ -90,8 +90,13 @@ export const faqGroups: FaqGroup[] = [
         a: 'Yes. We sign a Business Associate Agreement with every subscriber — on every plan, including trials, with no minimum seat count and no extra charge. Data is encrypted at rest and in transit.',
       },
       {
+        q: 'Does Stream store the audio of my visits?',
+        onHomepage: true,
+        a: 'No. Visit audio is not stored. Stream keeps the transcript and a problem-oriented record, because that is what makes the work after the visit possible. If you would rather keep nothing, a Quick Encounter is deleted after 48 hours. Our data page explains what is kept and why.',
+      },
+      {
         q: 'Do you train models on patient data?',
-        a: 'No. We never train our models on your patient data.',
+        a: 'No. We never train models on your patients\u2019 data. Frontier models are already good at the language work a visit needs; what we build is the clinical harness around them.',
       },
       {
         q: 'What security controls are in place beyond HIPAA?',

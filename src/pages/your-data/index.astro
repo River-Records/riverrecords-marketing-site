@@ -1,0 +1,198 @@
+---
+/*
+ * /your-data/ — what Stream keeps, what it does not, and why.
+ *
+ * Written for the clinician, before the legal documents. The four facts in the
+ * at-a-glance grid are the page; everything below explains them. If any of them changes
+ * in the product, change it here first — this page, /security/ and the `security`
+ * group in src/config/faqs.ts must say the same thing, and this is the one a clinician
+ * is sent to.
+ *
+ * Do not soften the trade-off into a pitch. Stream keeps more than most scribes on
+ * purpose, and the page earns trust by saying so plainly and offering Quick Encounter
+ * for the visits where keeping it is not wanted.
+ *
+ * FAQPage schema declares exactly the questions rendered, from one array — same reason
+ * faqs.ts does it that way.
+ */
+import Page from '../../layouts/Page.astro';
+import CtaDark from '../../components/CtaDark.astro';
+import { pricing } from '../../config/pricing';
+
+const faqs = [
+  {
+    q: 'Does Stream store the audio of my visits?',
+    a: 'No. Stream does not store visit audio. The visit is transcribed, and the transcript is what is kept.',
+  },
+  {
+    q: 'Does Stream train AI models on patient data?',
+    a: 'No. We do not train models on your patients’ data. Frontier models are already good at the language work a visit needs; what we build is the clinical harness around them.',
+  },
+  {
+    q: 'How long does Stream keep encounter data?',
+    a: 'A standard encounter is kept as part of the patient’s record for as long as your account is active. A Quick Encounter is deleted after 48 hours.',
+  },
+  {
+    q: 'Why does Stream keep the transcript at all?',
+    a: 'Because what was actually said is worth being able to find later. “I think I mentioned this thing with my knee last time” becomes a question with an answer, rather than a memory test for you and the patient.',
+  },
+];
+---
+<Page readable="pillar"
+  title="What Happens to Your Data | Stream by River Records"
+  description="What Stream keeps and what it does not, in plain language: no audio stored, transcripts kept, no model training on patient data, and Quick Encounters deleted after 48 hours.">
+
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.yd { padding: 64px 0 88px; }
+.yd-wrap { max-width: 760px; margin: 0 auto; }
+
+.yd h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 18px; }
+.yd h1 em { font-style: italic; color: var(--primary); }
+.yd-lede { font-size: 1.1rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 36px; }
+
+.yd h2 { font-size: 1.55rem; color: var(--ink); margin: 48px 0 14px; line-height: 1.25; }
+.yd p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.yd strong { color: var(--ink); }
+.yd ul { margin: 0 0 18px; padding-left: 22px; }
+.yd li { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 9px; }
+
+/* Not a bare `.yd a` — a class-plus-element selector outranks .btn-primary-lg and
+   repaints button text in the link colour. That has shipped twice. */
+.yd a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+.yd-glance { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 0 0 12px; }
+.yd-fact { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px 24px; }
+.yd-fact-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+.yd-fact-answer { font-family: var(--font-serif); font-size: 1.7rem; color: var(--ink); line-height: 1.15; margin-bottom: 8px; }
+.yd-fact p { font-size: 0.92rem; line-height: 1.6; margin-bottom: 0; }
+
+.yd-quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; margin: 24px 0; }
+.yd-quote p { font-family: var(--font-serif); font-size: 1.3rem; color: var(--ink); line-height: 1.45; margin-bottom: 0; }
+
+.yd-uses { list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin: 20px 0 24px; }
+.yd-uses li { border-top: 1px solid var(--border); padding-top: 10px; margin-bottom: 0; font-size: 0.95rem; }
+.yd-uses li strong { display: block; }
+
+.yd-option { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px 28px; margin: 24px 0; }
+.yd-option p:last-child { margin-bottom: 0; }
+
+.yd-faq { margin-top: 12px; }
+.yd-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.yd-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.yd-faq summary::-webkit-details-marker { display: none; }
+.yd-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.yd-faq details[open] summary::after { content: '\2212'; }
+.yd-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.yd-cta { margin-top: 64px; }
+
+@media (max-width: 640px) {
+  .yd-glance, .yd-uses { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="yd">
+  <div class="container">
+    <div class="yd-wrap">
+
+      <span class="section-label">Your data</span>
+      <h1>What happens to <em>your data</em></h1>
+      <p class="yd-lede">You are trusting us with your patients' visits. Here is what Stream keeps, what it does not, and why, in plain language and before the legal documents.</p>
+
+      <div class="yd-glance">
+        <div class="yd-fact">
+          <div class="yd-fact-label">Visit audio</div>
+          <div class="yd-fact-answer">Not stored</div>
+          <p>The visit is transcribed. The audio is not kept.</p>
+        </div>
+        <div class="yd-fact">
+          <div class="yd-fact-label">Transcript</div>
+          <div class="yd-fact-answer">Kept</div>
+          <p>Stored with the encounter, so what was actually said stays findable.</p>
+        </div>
+        <div class="yd-fact">
+          <div class="yd-fact-label">Model training</div>
+          <div class="yd-fact-answer">Never</div>
+          <p>We do not train models on your patients' data.</p>
+        </div>
+        <div class="yd-fact">
+          <div class="yd-fact-label">Quick Encounter</div>
+          <div class="yd-fact-answer">Deleted in 48 hours</div>
+          <p>For the visits where you want the note and nothing kept.</p>
+        </div>
+      </div>
+
+      <h2>Why we keep the transcript</h2>
+      <div class="yd-quote">
+        <p>“I think I mentioned last time, Doc, this thing with my knee.”</p>
+      </div>
+      <p>Without the transcript, that sentence is a memory test for the patient and for you. With it, it is a question with an answer: what was said, when, and what was decided.</p>
+      <p>A note is a summary, and summaries leave things out by design. The transcript is the source, so it is worth keeping. We think that matters to clinicians now and may come to matter to patients too.</p>
+
+      <h2>Why we keep the record at all</h2>
+      <p>Epic's superpower has always been the data. Everything about a patient lives in one place, and a large system can put it to work.</p>
+      <p>Independent practices, direct primary care, and physician- and clinician-owned groups produce the same data and mostly cannot use it. It sits in notes nobody has time to reread. We want smaller practices to get the most out of their own data, and that means making it usable for everything generative AI can now do with it.</p>
+      <p>So Stream keeps a <strong>problem-oriented record</strong>, organized by medical problem rather than by date, and builds it as you go. That record is what the work after the visit draws on:</p>
+      <ul class="yd-uses">
+        <li><strong>After the visit</strong>The note, the follow-up, the referral letter.</li>
+        <li><strong>Between visits</strong>What is still open, and what changed since last time.</li>
+        <li><strong>Paperwork</strong>Supporting documentation drafted from what is already known.</li>
+        <li><strong>Patient messages</strong>Replies written with the history in front of you.</li>
+      </ul>
+      <p>You should not have to spend your time on paperwork. Stream has your patient's context ready when you need it, not just your notes.</p>
+
+      <h2>Why we don't train on it</h2>
+      <p>We don't need to. Frontier models are already very good at the language work a visit needs. What they lack is the clinical context and the workflow around them.</p>
+      <p>That is what we build: the <strong>clinical harness</strong>, meaning which part of the chart a model sees, in what order, for which task, and what you review before anything leaves Stream. Your patients' data is used to do your work. It is not used to build training datasets.</p>
+
+      <h2>When you don't want it kept</h2>
+      <div class="yd-option">
+        <p><strong>Quick Encounter</strong> deletes the encounter after 48 hours. That is long enough to finish the note and copy it into your EHR, and nothing from it is kept after that.</p>
+        <p>Most clinicians use the standard encounter most of the time, because the record is the point. Quick Encounter is there for the visits where you would rather have the note and nothing else.</p>
+      </div>
+
+      <h2>What we don't do</h2>
+      <ul>
+        <li>We don't store visit audio.</li>
+        <li>We don't train models on your patients' data.</li>
+        <li>We don't sell or trade your data to anyone.</li>
+        <li>We don't hold the BAA back for an enterprise plan. We sign one with every subscriber on every plan, including trials.</li>
+      </ul>
+
+      <h2>The rest, in detail</h2>
+      <p>Encryption at rest and in transit, audit controls and access logging are covered on the <a href="/security/">security page</a>. The contractual terms are in the <a href="/baa/">Business Associate Agreement</a>, the <a href="/privacy-policy/">Privacy Policy</a> and the <a href="/terms-of-service/">Terms of Service</a>. If your practice needs something answered that isn't here, <a href="/contact/">ask us</a>. A clinician will answer.</p>
+
+      <h2>Common questions</h2>
+      <div class="yd-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="yd-cta">
+        <CtaDark secondaryHref="/book-demo/" secondaryLabel="Talk to a clinician">
+          Your patient's context, <em>ready when you are</em>
+          <Fragment slot="body">Not just your notes. {pricing.trialLine}</Fragment>
+        </CtaDark>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</Page>
