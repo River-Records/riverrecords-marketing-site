@@ -15,11 +15,14 @@ const isFirstPage = page.currentPage === 1;
 
 // Build the series showcase (first page only): group posts that share a
 // `series` name and order them by `seriesPart`, independent of publishDate.
+// Groups come from every published post, not `page.data` — page 1 holds only
+// the 12 newest, so older parts fell off the block as new posts shipped
+// (The Work Before the Work rendered as "Part 5 of 4").
 type SeriesGroup = { name: string; posts: any[] };
 let seriesGroups: SeriesGroup[] = [];
 if (isFirstPage) {
   const byName = new Map<string, any[]>();
-  for (const post of page.data) {
+  for (const post of await getCollection('blog', ({ data }) => !data.draft)) {
     if (!post.data.series) continue;
     const list = byName.get(post.data.series) ?? [];
     list.push(post);
