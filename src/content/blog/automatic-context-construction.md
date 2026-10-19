@@ -5,6 +5,8 @@ seoTitle: "Automatic Context Construction: Clinical Context Should Depend on the
 seoDescription: "Clinicians spend much of their EHR time rebuilding the context a lab result, patient message or colleague's question needs. Why a static bundle of notes and labs fails, and how a clinical knowledge graph can construct context from the input itself."
 author: "Jacob Kantrowitz MD, PhD"
 publishDate: "2026-10-19"
+series: "The Work Before the Work"
+seriesPart: 6
 tags: ["clinical-context", "ehr-design"]
 readTime: "7"
 draft: false

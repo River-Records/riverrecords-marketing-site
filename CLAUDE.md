@@ -117,7 +117,7 @@ seriesPart: 2                # 1-based order within the series
   automatically; X counts published (non-draft) parts, so it grows as parts ship
 - The blog index groups series parts and orders them by `seriesPart`,
   independent of `publishDate`
-- Existing series: "The Work Before the Work" (5 parts), "Revenue & Coding" (3 parts)
+- Existing series: "The Work Before the Work" (6 parts), "Revenue & Coding" (3 parts)
 
 ### When opening a blog PR (e.g. via the @claude Action)
 Always include the Cloudflare preview link at the TOP of the PR description so it
