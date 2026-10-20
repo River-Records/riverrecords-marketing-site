@@ -172,7 +172,7 @@ export const competitors: Competitor[] = [
     ],
     whereStreamDiffers: [
       'Doximity copies and pastes into your EHR too, so on the EHR question the two are level — this is not a point against Stream.',
-      'The recording is discarded once the summary is produced. Nothing accumulates between visits.',
+      'The recording is discarded once the summary is produced, and nothing accumulates between visits. Stream does not keep audio either; the difference is that it keeps the transcript and the record.',
       'Stream keeps what it heard as a problem-based chart, so the third visit is easier than the first.',
       'Inbound faxes and outside records are read and filed under the problems they concern.',
       'Doximity Scribe is English only.',
@@ -202,7 +202,6 @@ export const competitors: Competitor[] = [
       'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',
     betterAtIt: [
       'Price, straightforwardly. $69 against $149, and CPT/ICD-10 coding is included.',
-      'No audio retained, which is a clean answer for privacy-cautious buyers.',
       'They claim EHR integration. We have none.',
     ],
     whereStreamDiffers: [
