@@ -36,6 +36,8 @@
  *    reference table on /comparison/ so it has one source rather than six.
  */
 
+import { litePricing } from './pricing';
+
 export type Competitor = {
   slug: string;
   name: string;
@@ -189,8 +191,8 @@ export const competitors: Competitor[] = [
     title: 'Stream vs. Twofold',
     seoTitle: 'Stream vs. Twofold — Cheapest Scribe, or a Chart?',
     seoDescription:
-      'Twofold is $69/month with coding bundled.  Stream is priced like a chart because that is what it is. An honest comparison for independent practices.',
-    lede: 'Twofold targets exactly the practices we do, at under half our price, with coding bundled. If you want the cheapest good scribe, it is probably them.',
+      'Twofold is $69/month with coding bundled. Stream Pro is priced like a chart because that is what it is. An honest comparison for independent practices.',
+    lede: 'Twofold targets exactly the practices we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding and EHR integration included, it is probably them.',
     pricing: {
       them: '$69/month billed annually',
       themNote: 'Introductory $19 for the first month. The $49 figure we previously quoted is no longer on their pricing page.',
@@ -201,16 +203,17 @@ export const competitors: Competitor[] = [
     noteStructure:
       'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',
     betterAtIt: [
-      'Price, straightforwardly. $69 against $149, and CPT/ICD-10 coding is included.',
+      'Price, against Stream Pro. $69 against $149, and CPT/ICD-10 coding is included.',
       'No audio retained, which is a clean answer for privacy-cautious buyers.',
       'They claim EHR integration. We have none.',
     ],
     whereStreamDiffers: [
       'Twofold is a very good, very cheap note generator. That is the whole product.',
       'There is no problem-based chart underneath, no document pipeline, and no care-gap or HCC surface.',
-      'We are not trying to be a cheaper scribe. Stream is priced like a chart because that is what it is, and you can do the arithmetic on whether that is worth it.',
+      'Stream Pro is not trying to be a cheaper scribe. It is priced like a chart because that is what it is, and you can do the arithmetic on whether that is worth it.',
+      `If you only want the note, Stream Lite is $${litePricing.monthly} and keeps nothing past ${litePricing.retentionHours} hours — the transcript and the note as well as the audio. It has no chart behind it either, which is the whole difference above.`,
     ],
-    question: 'At forty-nine dollars unlimited, what happens to the notes after they are written?',
+    question: 'At sixty-nine dollars, what happens to the notes after they are written?',
     chooseThemIf:
       'The note is the whole job and price is the deciding factor. We would not try to talk you out of that.',
     chooseStreamIf:
