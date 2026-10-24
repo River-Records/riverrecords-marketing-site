@@ -122,6 +122,10 @@ export const faqGroups: FaqGroup[] = [
         a: 'Not yet. Form Filler — which fills structured forms such as FMLA certifications, disability and school forms from the chart — is coming to Stream Pro but is not available today. There is an early-access list at /form-filler/. Stream can already generate documents such as referral summaries, patient instructions and supporting documentation.',
       },
       {
+        q: 'Does Stream Lite keep my notes?',
+        a: 'No. Stream Lite, the scribe-only plan, keeps nothing from a visit past 48 hours — not the audio, the transcript or the note — so each note needs copying into your EHR within that window. It is also why Lite has no problem list over time: there is nothing kept to build one from. Stream Pro keeps the chart, which is what it is for.',
+      },
+      {
         q: 'Is Stream right for a large health system?',
         a: 'Probably not. Stream is built for independent practices, typically one to twenty clinicians, and is sold and supported accordingly. Health systems generally need EHR-integrated enterprise products, and there are good ones.',
       },

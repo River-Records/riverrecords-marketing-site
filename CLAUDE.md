@@ -352,6 +352,22 @@ answers and rich results. Verify with `scripts/verify-pricing-page.mjs`, which a
 the page is reachable, that its numbers match the config, and that the schema carries
 the real price.
 
+### Stream Lite (`litePricing` in `src/config/pricing.ts`)
+The scribe on its own, $59/month: the problem-oriented note with nothing kept past 48
+hours, and therefore no chart. **It appears in three places only** — a card on
+`/pricing/` below the Pro headline, one line on `/comparison/twofold/`, and a `limits`
+FAQ. No landing page, not in the offer banner: it exists so a price comparison is
+honest, not as a second thing to sell. Its Pro-only exclusions (Form Filler, Inlet,
+Connect, Huddle, Timeline/Recap) are stated next to its price.
+
+**The 48-hour claim is literal** — audio, transcript, note, edits and confirmed problem
+titles, including at our transcription/AI providers and in backups — and carries
+`RETENTION_CONFIRMED` the way competitor prices carry `PRICING_VERIFIED`. Twofold already
+says "no audio retained", so the claim is stronger, not unique; do not write it as if no
+one else makes one. Trial, staff seats, coding support and self-serve signup are not
+stated because they have not been decided — the CTA is `/contact/` until they are.
+Schema `Offer` stays the Pro price. Verified by `scripts/verify-pricing-page.mjs`.
+
 ## `/clinical-documentation-automation/` — the first data-driven page
 Built from the Search Console snapshot, not a hunch. In the 28 days to 2026-09-11, seven
 closely-related queries — "clinical documentation automation", "automated clinical

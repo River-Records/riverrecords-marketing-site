@@ -63,6 +63,30 @@ export const pricing = {
 } as const;
 
 /**
+ * Stream Lite — the scribe on its own, with nothing kept. Rendered on /pricing/ and
+ * named on the comparison pages; deliberately not marketed anywhere else (no landing
+ * page, not in the offer banner). Form Filler, Inlet and Connect are Pro-only.
+ *
+ * THE RETENTION CLAIM IS LITERAL AND MUST STAY THAT WAY. Nothing from a Lite visit —
+ * audio, transcript, note, edits, confirmed problem titles — is kept past 48 hours,
+ * including at our transcription and AI providers and in backups. Confirmed by Jake
+ * Kantrowitz on RETENTION_CONFIRMED. If any of that stops being true (a new vendor, a
+ * backup policy, a debugging log), the copy is wrong the same day — re-confirm before
+ * changing infrastructure, not after.
+ *
+ * Only what is confirmed is stated. Whether Lite has a trial, staff seats, coding
+ * support or a self-serve signup is not on the page because it has not been decided
+ * here — the CTA goes to /contact/ until it is.
+ */
+export const litePricing = {
+  monthly: 59,
+  display: '$59/month',
+  retentionHours: 48,
+  retentionLine: 'Nothing from a Lite visit is kept past 48 hours — not the audio, the transcript or the note.',
+  RETENTION_CONFIRMED: '24 October 2026',
+} as const;
+
+/**
  * Stream Inlet — metered fax and records intake, added on top of a Stream Pro
  * subscription. Page allowances are per month. Bespoke and founding-customer
  * terms (first-month metering, setup waivers) are deliberately not here: they

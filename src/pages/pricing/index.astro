@@ -21,21 +21,25 @@
  * implementation charges are what they are checking for.
  */
 import Page from '../../layouts/Page.astro';
-import { pricing, inletPricing } from '../../config/pricing';
+import { pricing, inletPricing, litePricing } from '../../config/pricing';
 import { PRICING_VERIFIED } from '../../config/competitors';
 
 const faqs = [
   {
     q: 'How much does Stream cost?',
-    a: `${pricing.introPrice} per clinician, or ${pricing.annualPrice} per clinician billed annually ($${pricing.annualTotal.toLocaleString()}/year). Every plan includes a ${pricing.trialDays}-day free trial with no credit card required.`,
+    a: `${pricing.introPrice} per clinician, or ${pricing.annualPrice} per clinician billed annually ($${pricing.annualTotal.toLocaleString()}/year). Stream Pro includes a ${pricing.trialDays}-day free trial with no credit card required.`,
   },
   {
     q: 'Are there usage limits or per-encounter charges?',
-    a: 'No. Visits, notes and recordings are unlimited on every plan. Stream does not charge per encounter, per note, per minute of audio, or per template. The monthly figure is the whole figure.',
+    a: 'No. Visits, notes and recordings are unlimited on Stream Pro. Stream does not charge per encounter, per note, per minute of audio, or per template. The monthly figure is the whole figure.',
   },
   {
     q: 'Is there a setup or implementation fee?',
     a: 'Not for Stream Pro. There is no implementation project, no integration to configure and no onboarding charge — you sign in and record your next visit. Stream Inlet, the fax and records intake add-on, does carry a one-time setup fee because a fax number has to be provisioned for your practice.',
+  },
+  {
+    q: 'Is there a cheaper plan?',
+    a: `Yes: Stream Lite, at ${litePricing.display}, is the scribe on its own — the same problem-oriented note, with nothing kept past ${litePricing.retentionHours} hours and therefore no chart behind it. It suits a practice that wants the note and nothing else. Stream Pro is the plan that remembers the patient.`,
   },
   {
     q: 'Do I need a credit card for the trial?',
@@ -149,6 +153,11 @@ table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space
 .pr-note { font-size: 0.84rem; color: var(--ink-faint); line-height: 1.7; border-top: 1px solid var(--border); margin-top: 40px; padding-top: 20px; }
 .pr-note a { color: var(--primary); }
 
+/* Lite sits below Pro on purpose: a plain bordered card, not a second headline. */
+.pr-lite { border: 1px solid var(--border-strong); border-radius: var(--r-lg); padding: 26px 30px; margin: 18px 0 8px; }
+.pr-lite-amount { font-family: var(--font-serif); font-size: 2rem; color: var(--ink); line-height: 1; margin-bottom: 14px; }
+.pr-lite .btn { margin-top: 4px; }
+
 @media (max-width: 720px) { .pr-incl { grid-template-columns: 1fr; } }
 </style>
 
@@ -158,7 +167,7 @@ table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space
 
       <span class="section-label">Pricing</span>
       <h1>Stream costs {pricing.introPrice} per clinician.</h1>
-      <p class="pr-lede">One flat rate. No tiers, no usage caps, no per-encounter charges, and no implementation fee. This page is the whole picture, including the one thing that does cost extra.</p>
+      <p class="pr-lede">One flat rate for Stream Pro: no usage caps, no per-encounter charges, and no implementation fee. This page is the whole picture, including the one thing that does cost extra and the scribe-only plan for practices that want the note alone.</p>
 
       <div class="pr-headline">
         <div class="pr-amount">${pricing.cardAmount}<span>per clinician / month</span></div>
@@ -207,8 +216,16 @@ table.pr-table td:first-child { color: var(--ink); font-weight: 600; white-space
       <h2>Practices with three or more clinicians</h2>
       <p>The Clinic plan is priced per clinician with volume discounts, and includes shared task assignment across your team. First non-clinician seat free; additional staff $25/month each. It is quoted rather than listed, because the discount depends on headcount — <a href="/contact/">tell us your size</a> and we will send a number.</p>
 
+      <h2 id="lite">If you only want the note: Stream Lite</h2>
+      <div class="pr-lite">
+        <div class="pr-lite-amount">{litePricing.display}</div>
+        <p><strong>The scribe on its own.</strong> The same problem-oriented note as Stream Pro, with you confirming each problem and its title. {litePricing.retentionLine}</p>
+        <p>That is a real trade, in both directions. Because nothing is kept, there is no chart: no problem list that carries forward, no Huddle before the next visit, no Timeline or Recap, and no Form Filler, Inlet or Connect. Copy each note into your EHR within {litePricing.retentionHours} hours, because after that it is gone. If you want Stream to remember the patient, it has to keep the record — that is Stream Pro.</p>
+        <a href="/contact/" class="btn btn-outline">Ask about Stream Lite</a>
+      </div>
+
       <h2>How that compares</h2>
-      <p>Roughly, in this category: Doximity Scribe is free, Twofold is around $49–69, Freed and Heidi sit near $99–150, and Suki is around $299–399. Stream is priced above the cheapest scribes on purpose — it is not competing to be the cheapest way to generate a note.</p>
+      <p>Roughly, in this category: Doximity Scribe is free, Freed starts at $39 with a note cap, Twofold is around $69, Freed's and Heidi's main plans sit near $119–150, and Suki is around $299–399. Stream Pro is priced above the cheapest scribes on purpose — it is not competing to be the cheapest way to generate a note. Stream Lite, at {litePricing.display}, is a scribe at a scribe's price, and still not the cheapest one.</p>
       <p>We have written honest head-to-head pages for each, including where they are the better choice: <a href="/comparison/heidi/">Heidi</a>, <a href="/comparison/freedai/">Freed</a>, <a href="/comparison/suki/">Suki</a>, <a href="/comparison/twofold/">Twofold</a>, <a href="/comparison/doximity-scribe/">Doximity Scribe</a>.</p>
 
       <h2>Questions people actually ask</h2>
