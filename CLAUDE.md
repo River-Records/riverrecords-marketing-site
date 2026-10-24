@@ -223,10 +223,16 @@ here. Do not judge it on impressions.
 
 Kept off the page until each is true, from the product handoff (23 Oct 2026):
 - **time-saved figures** — none measured; no "minutes per form"
-- **a list of ready-made forms** — name only those live on launch day
 - **"fax it back from Stream"** — designed, not built
 - **compliance claims beyond `/security/`** — no "HIPAA certified/aligned", no SOC 2, and
   no new controls the security page does not itself claim
+
+**No list of ready-made forms, at launch or after.** The pitch is "any PDF, set up once",
+and a short catalog makes the product look small, invites "is mine on the list?", and goes
+stale with every release or government revision. The tiles name form *types* people
+search for, followed by "any of these can be set up from the PDF"; the five-forms
+onboarding offer covers the rest. If a ready-made library is ever shown, it lives in the
+app, not on this page.
 
 It is Pro-only: never show the offer on anything aimed at Stream Lite. Its "What it does
 not do yet" section is the limits section for this page — same rule as everywhere else.
