@@ -53,6 +53,22 @@ console.log('\nStructured data for pricing queries');
 const ld = await p.evaluate(() => [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent));
 check('FAQPage schema present', ld.some((x) => x.includes('FAQPage')));
 check('Offer schema carries the real price', ld.some((x) => x.includes('"price"') && x.includes(`"${monthly}"`)));
+// Stream Lite. Its figure and retention line come from the same config, and the page must
+// say what Lite gives up next to the price — a cheaper number without the trade is the
+// misleading version.
+const liteBlock = (cfg.match(/litePricing = \{([\s\S]*?)\} as const/) || [])[1] || '';
+const liteMonthly = (liteBlock.match(/monthly:\s*(\d+)/) || [])[1];
+const liteHours = (liteBlock.match(/retentionHours:\s*(\d+)/) || [])[1];
+const lite = (await p.locator('.pr-lite').textContent()) || '';
+check(`Lite price $${liteMonthly} shown`, !!liteMonthly && lite.includes(`$${liteMonthly}`));
+check(`Lite states the ${liteHours}-hour deletion`, !!liteHours && lite.includes(`${liteHours} hours`));
+check('Lite states there is no chart', /no chart/i.test(lite));
+check('Lite says to copy the note out in time', /copy each note into your EHR/i.test(lite));
+check('Lite sits below the Pro headline', await p.evaluate(() => {
+  const a = document.querySelector('.pr-headline'), l = document.querySelector('.pr-lite');
+  return !!(a && l && (a.compareDocumentPosition(l) & Node.DOCUMENT_POSITION_FOLLOWING));
+}));
+check('Offer schema still carries the Pro price, not Lite', !ld.some((x) => x.includes('"price"') && x.includes(`"${liteMonthly}"`)));
 check('FAQ entries rendered', (await p.locator('.pr-faq details').count()) >= 8, (await p.locator('.pr-faq details').count()) + ' entries');
 
 await b.close();
