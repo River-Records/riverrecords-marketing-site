@@ -253,7 +253,8 @@ just emailing ourselves.
 
 ## Form completion waitlist (`/api/forms-waitlist`)
 
-Early-access capture at the foot of the two paperwork guides. It exists to answer a
+Early-access capture at the foot of the two paperwork guides, and the main call to
+action on `/form-filler/`. It exists to answer a
 question search cannot: whether anyone wants form completion, and **which** forms. The
 `forms_wanted` field matters more than the email — if most people tick prior
 authorisation rather than school physicals, that changes what gets built first.
@@ -267,6 +268,15 @@ authorisation rather than school physicals, that changes what gets built first.
    | Email | `email` | email (built-in) |
    | Forms wanted | `forms_wanted` | multi-line text or multi-checkbox |
    | Role | `practice_role` | single-line text (optional, not yet collected) |
+   | Company name | `company` | built-in — sent from `/form-filler/` only |
+   | Forms detail | `forms_detail` | multi-line text — **create this property**; the free-text "which forms do you fill most?" from `/form-filler/` |
+
+   `forms_wanted` arrives `;`-joined when several boxes are ticked (`fmla;utility`). Until
+   October 2026 only the first ticked box was sent; earlier contacts may be missing the rest.
+
+   **Route `forms_detail` to sales**, not only to the list — a simple workflow on the form
+   that notifies an owner when the property is known. The `/form-filler/` fine print says
+   we may reply about the forms named, so someone has to.
 
 2. Copy the form GUID into the Pages project as **`HUBSPOT_WAITLIST_FORM_GUID`**
    (Settings → Variables, Production and Preview).

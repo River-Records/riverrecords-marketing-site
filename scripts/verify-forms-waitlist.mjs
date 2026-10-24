@@ -45,10 +45,47 @@ const txt = await q.locator('#fw-done').innerText();
 ck('no inbox promise in the confirmation', !/email|inbox/i.test(txt), JSON.stringify(txt.slice(0,60)));
 ck('fmla pre-ticked on the adult guide', await (await b.newPage().then(async x=>{await x.goto('http://127.0.0.1:4321/guides/fmla-disability-paperwork/');return x;})).locator('input[value="fmla"]').isChecked());
 
+// /form-filler/ — the detailed variant, and the claims the handoff keeps off the page
+// until each is true.
+const f = await b.newPage();
+await f.goto('http://127.0.0.1:4321/form-filler/', {waitUntil:'networkidle'});
+ck('/form-filler/ carries the waitlist', await f.locator('#early-access').count()===1);
+ck('/form-filler/ posts natively to the endpoint', await f.locator('form.fw-form[action="/api/forms-waitlist"][method="POST"]').count()===1);
+ck('/form-filler/ returns to itself', await f.locator('input[name="return_to"]').inputValue()==='/form-filler/');
+ck('/form-filler/ asks which forms, in free text', await f.locator('textarea[name="forms_detail"]').count()===1);
+ck('nothing pre-ticked on /form-filler/', (await f.locator('.fw-opt input:checked').count())===0);
+ck('guides stay on the short form', await p.locator('textarea[name="forms_detail"]').count()===0);
+const ff = await f.evaluate(()=>document.querySelector('main').innerText);
+ck('says coming soon', /coming soon/i.test(ff));
+ck('no time-saved figure', !/\d+\s*(minutes?|hours?)\s*(per|a|each)\b/i.test(ff) && !/hours of clinic time/i.test(ff));
+ck('no fax-back claim', !/fax(es|ed)? (it|the form)? ?back from stream/i.test(ff));
+ck('no compliance overclaim', !/HIPAA[- ]certified|HIPAA[- ]aligned|SOC ?2/i.test(ff));
+const fq = await f.evaluate(()=>{
+  const s=[...document.querySelectorAll('script[type="application/ld+json"]')].map(x=>{try{return JSON.parse(x.textContent)}catch{return null}}).find(x=>x&&x['@type']==='FAQPage');
+  return {schema: s?s.mainEntity.length:0, visible: document.querySelectorAll('.ff-faq details').length};
+});
+ck('FAQ schema matches visible questions', fq.schema>0 && fq.schema===fq.visible, `${fq.visible} visible, ${fq.schema} in schema`);
+
 // phone width
 const m = await b.newPage({viewport:{width:390,height:900}});
-await m.goto('http://127.0.0.1:4321/guides/school-sports-physicals/', {waitUntil:'networkidle'});
-ck('no horizontal overflow at 390px', !(await m.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1)));
+for (const path of ['/guides/school-sports-physicals/', '/form-filler/']) {
+  await m.goto('http://127.0.0.1:4321'+path, {waitUntil:'networkidle'});
+  ck('no horizontal overflow at 390px on '+path, !(await m.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1)));
+}
 await b.close();
+
+// The endpoint itself, with fetch stubbed — no network. Every ticked box must reach
+// HubSpot: formData.get() returns only the first, which silently dropped the rest.
+const { onRequestPost } = await import('../functions/api/forms-waitlist.js');
+let sent = null;
+globalThis.fetch = async (_u, init) => { sent = JSON.parse(init.body); return new Response('{}', {status:200}); };
+const body = new URLSearchParams([['email','a@b.co'],['forms_wanted','fmla'],['forms_wanted','utility'],['forms_detail','the MA shut-off form'],['company','Test Practice'],['return_to','/form-filler/']]);
+const res = await onRequestPost({ request: new Request('https://www.riverrecords.ai/api/forms-waitlist', {method:'POST', body}), env: { HUBSPOT_WAITLIST_FORM_GUID: 'x' } });
+const val = (n) => (sent?.fields.find((x)=>x.name===n)||{}).value;
+ck('every ticked form reaches HubSpot', val('forms_wanted')==='fmla;utility', JSON.stringify(val('forms_wanted')));
+ck('free-text answer reaches HubSpot', val('forms_detail')==='the MA shut-off form');
+ck('practice name reaches HubSpot', val('company')==='Test Practice');
+ck('redirects back to /form-filler/', res.status===303 && new URL(res.headers.get('Location')).pathname==='/form-filler/');
+ck('an unlisted return_to is refused', await (async()=>{const r=await onRequestPost({request:new Request('https://x/api/forms-waitlist',{method:'POST',body:new URLSearchParams({email:'a@b.co',return_to:'https://evil.example/'})}),env:{}});return new URL(r.headers.get('Location')).hostname==='x';})());
 console.log('\n'+(fails?fails+' FAILED':'ALL CHECKS PASSED'));
 process.exit(fails?1:0);

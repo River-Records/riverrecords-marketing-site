@@ -210,6 +210,32 @@ section: Connect is the lowest up-front option but not always cheaper once Spruc
 fee is counted, and the page says so next to the price. First-month metering, founding
 terms and the ROI table stay in the quote, same as Inlet.
 
+## `/form-filler/` — Stream Form Filler, early access
+**Coming soon until it is true.** Form Filler is built but switched on for no customer.
+At launch, in one change: swap the early-access CTA for Book a demo, drop the
+early-access wording, and update the `limits` FAQ in `faqs.ts` ("Can Stream fill out
+forms for me?" — currently not yet). The page and that FAQ must never disagree.
+
+This is a destination page, not an SEO page — the link outbound and existing customers
+get. The two paperwork guides (`/guides/fmla-disability-paperwork/`,
+`/guides/school-sports-physicals/`) remain where search delivers people, and both link
+here. Do not judge it on impressions.
+
+Kept off the page until each is true, from the product handoff (23 Oct 2026):
+- **time-saved figures** — none measured; no "minutes per form"
+- **a list of ready-made forms** — name only those live on launch day
+- **"fax it back from Stream"** — designed, not built
+- **compliance claims beyond `/security/`** — no "HIPAA certified/aligned", no SOC 2, and
+  no new controls the security page does not itself claim
+
+It is Pro-only: never show the offer on anything aimed at Stream Lite. Its "What it does
+not do yet" section is the limits section for this page — same rule as everywhere else.
+
+The waitlist is the shared `FormsWaitlist` component with `detailed` (adds free-text
+`forms_detail` and practice name) posting natively to `/api/forms-waitlist`. Its fine
+print says we may reply about the forms named, so `forms_detail` must be routed to sales —
+see `docs/HUBSPOT-SETUP.md`. Verify with `scripts/verify-forms-waitlist.mjs`.
+
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 
@@ -450,7 +476,7 @@ every post looked identical and "which pages are high value" was unanswerable.
 **Opting a page in:** pass `readable="<kind>"` to the `Page` layout — `guide`, `pricing`,
 `specialty`, `comparison`, `pillar`, `tool`. The layout puts the attribute on `<main>`, so
 scroll is measured against the content rather than the document. Currently on `/pricing/`,
-both guides, the four `/for/*` pages, all comparison pages, the calculator and the
+both guides, the four `/for/*` pages, `/form-filler/` (`product`), all comparison pages, the calculator and the
 documentation-automation page. `/comparison/freedai/` predates the `Page` layout and wires
 `Base` itself, so its `<main>` carries the attribute directly.
 

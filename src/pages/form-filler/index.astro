@@ -1,0 +1,249 @@
+---
+/*
+ * /form-filler/ — Stream Form Filler, published as early access.
+ *
+ * WHY THIS PAGE EXISTS WHEN THE GUIDES ALREADY CARRY THE WAITLIST
+ * The guides are where search delivers people, and they stay that way. This page has a
+ * different job: it is the link outbound and existing customers are sent to — the one
+ * place that says what Form Filler is, so a cold email or a call follow-up has
+ * somewhere to point. Do not judge it on impressions; the feature pages earned 30
+ * between them in a year, and this was built knowing that.
+ *
+ * IT SAYS "COMING SOON" UNTIL IT IS TRUE. Form Filler is built but switched on for no
+ * customer. At launch: swap the early-access CTA for Book a demo, remove the
+ * early-access wording, and update the `limits` FAQ in src/config/faqs.ts in the same
+ * change — that entry says "not yet", and the two must never disagree.
+ *
+ * KEEP OUT OF THE COPY UNTIL EACH IS TRUE (from the product handoff, 23 Oct 2026):
+ *   - time-saved figures. There is no measured number; "minutes per form" is a claim.
+ *   - a list of ready-made forms. Name only the ones live on launch day.
+ *   - "fax it back from Stream". Designed, not built. The signed form is saved to the
+ *     chart, to print, download or send.
+ *   - compliance claims beyond what /security/ already states. No "HIPAA certified",
+ *     no SOC 2, and no new controls the security page does not itself claim.
+ *
+ * Form Filler is Pro-only. Do not show this offer on anything aimed at Stream Lite.
+ *
+ * The early-access form is the shared FormsWaitlist component posting natively to
+ * /api/forms-waitlist. Do not convert it to fetch — HubSpot Collected Forms captures it
+ * by watching the real submission. The free-text answer is the point: it tells us which
+ * forms to set up first, and it is routed to sales, not only to a list.
+ */
+import Page from '../../layouts/Page.astro';
+import FormsWaitlist from '../../components/FormsWaitlist.astro';
+
+const faqs = [
+  {
+    q: 'Is Form Filler available now?',
+    a: 'Not yet. It is coming to Stream Pro, and until it is switched on we would rather say so than demo something you cannot use. Join the early-access list and tell us which forms you fill most; those are the ones we set up first.',
+  },
+  {
+    q: 'Will the AI make up answers?',
+    a: 'No. Most boxes are filled straight from chart fields, like name, date of birth and diagnosis codes, with no AI involved. When a question needs a written answer, the answer has to quote your chart, and you can see the quote. If the chart does not have the answer, Stream leaves the box for you rather than guessing.',
+  },
+  {
+    q: 'What kinds of forms work?',
+    a: 'Fillable PDFs, flat PDFs, and scanned or faxed forms. Fillable PDFs are the quickest to set up. Scans work too, and you confirm where the boxes are once.',
+  },
+  {
+    q: 'How long does it take to set up a new form?',
+    a: 'Stream finds the boxes and suggests where each answer comes from. You check its work, adjust anything it got wrong, and save. After that, the form fills from the chart for every patient.',
+  },
+  {
+    q: 'Who can fill and sign forms?',
+    a: 'Anyone on your team can fill a form. Only providers can sign. Staff can send a filled form to a provider, and it shows up as a signature task.',
+  },
+  {
+    q: 'What if I need to change an answer after signing?',
+    a: 'Open the form and edit the box. Stream tells you first that changing an answer removes the signature, so the form gets signed again.',
+  },
+  {
+    q: 'What happens when a government form is updated?',
+    a: 'For forms Stream sets up, we publish the new version and your library shows “Update available.” Forms you have already filled keep the version they were filled on.',
+  },
+  {
+    q: 'Does it work with my EHR?',
+    a: 'Stream works alongside any EHR, and Form Filler fills from your Stream chart: your notes, your problem list and the outside records you have filed. It does not read from your EHR, so anything that lives only there is left for you to fill. The signed form is a standard PDF you can print, download or attach anywhere.',
+  },
+  {
+    q: 'Does it cost extra?',
+    a: 'No. Form Filler is part of every Stream Pro subscription, with no per-form fees and no limit on how many forms you fill. The price itself is on the pricing page.',
+  },
+  {
+    q: 'Is patient data secure?',
+    a: 'Form Filler runs inside Stream, under the same Business Associate Agreement and the same controls: encryption at rest and in transit, audit controls and access logging. Our security overview goes into detail.',
+  },
+];
+
+const FORMS = [
+  'FMLA certification (WH-380-E, WH-380-F)',
+  'Short- and long-term disability forms',
+  'Return-to-work and work-restriction notes',
+  'School medication and health forms',
+  'Sports and camp physicals',
+  'DME and supply orders',
+  'Utility shut-off medical certificates',
+  'Any PDF your patients bring in',
+];
+---
+<Page readable="product"
+  title="Medical Form Filler for FMLA & Disability Forms | Stream"
+  description="Fill FMLA, disability, school and work forms from the patient chart, then review and sign. Coming to Stream Pro — join the early-access list.">
+
+<Fragment slot="head">
+  {/* Declares exactly the questions rendered below, from the same array. */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.ff { padding: 64px 0 88px; }
+.ff-wrap { max-width: 820px; margin: 0 auto; }
+
+.ff-status { display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark); background: var(--accent-light); border-radius: 999px; padding: 5px 12px; margin-left: 8px; vertical-align: middle; }
+.ff h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); color: var(--ink); line-height: 1.12; margin: 14px 0 18px; }
+.ff h1 em { font-style: italic; color: var(--primary); }
+.ff-lede { font-size: 1.12rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 26px; }
+.ff-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+
+.ff h2 { font-size: 1.6rem; color: var(--ink); margin: 52px 0 14px; line-height: 1.25; }
+.ff h3 { font-size: 1.05rem; color: var(--ink); margin: 0 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.ff p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.ff strong { color: var(--ink); }
+
+/* Not a bare `.ff a` — a class-plus-element selector outranks .btn-primary-lg and
+   repaints button text in the link colour. That has shipped twice. */
+.ff a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+.ff-steps { counter-reset: step; list-style: none; padding-left: 0; margin: 24px 0; }
+.ff-steps li { counter-increment: step; position: relative; padding-left: 46px; margin-bottom: 22px; font-size: 1rem; color: var(--ink-muted); line-height: 1.75; }
+.ff-steps li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 30px; height: 30px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-family: var(--font-mono); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.ff-steps li strong { display: block; margin-bottom: 3px; }
+
+.ff-note { border-left: 3px solid var(--border-strong); padding: 4px 0 4px 20px; margin: 24px 0; }
+.ff-note p { margin-bottom: 0; }
+
+.ff-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 18px; }
+.ff-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; }
+.ff-card p { font-size: 0.94rem; margin-bottom: 0; }
+
+.ff-tiles { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 22px 0 18px; }
+.ff-tiles li { background: var(--white); border: 1px solid var(--border-strong); border-radius: 999px; padding: 8px 16px; font-size: 0.92rem; color: var(--ink); }
+
+.ff-honest { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px 28px; margin: 24px 0; }
+.ff-honest ul { margin: 0; padding-left: 20px; }
+.ff-honest li { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 9px; }
+.ff-honest li:last-child { margin-bottom: 0; }
+
+.ff-offer { background: var(--dark); border-radius: var(--r-xl); padding: 28px 32px; margin: 22px 0; }
+.ff-offer p { color: rgba(250,247,240,0.88); margin-bottom: 0; font-size: 1.05rem; }
+.ff-offer strong { color: var(--white); }
+
+.ff-faq { margin-top: 12px; }
+.ff-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.ff-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.ff-faq summary::-webkit-details-marker { display: none; }
+.ff-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.ff-faq details[open] summary::after { content: '\2212'; }
+.ff-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+@media (max-width: 760px) {
+  .ff-cards { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="ff">
+  <div class="container">
+    <div class="ff-wrap">
+
+      <span class="section-label">Stream Form Filler</span><span class="ff-status">Coming soon</span>
+      <h1>The FMLA form, <em>already filled in.</em></h1>
+      <p class="ff-lede">Stream fills the forms your patients bring in — FMLA, disability, school and work notes — straight from the chart. You review, sign, and you're done. Set a form up once and it fills from the chart for every patient after that.</p>
+      <div class="ff-actions">
+        <a href="#early-access" class="btn btn-primary-lg">Join the early-access list</a>
+        <a href="#how-it-works">See how it works ↓</a>
+      </div>
+
+      <h2>Every form asks for things your chart already knows.</h2>
+      <p>A patient hands you an FMLA certification. A school faxes over a medication form. An employer wants a return-to-work note by Friday. Each one asks for the same things: name, date of birth, diagnosis, onset date, treatment plan, how long they'll be out.</p>
+      <p>All of it is already in the chart. So someone retypes it — copying from the last note, hunting for the ICD-10 code, checking the onset date, filling boxes on a PDF that wasn't made to be filled. Then the form waits in a pile for a signature. Multiply that by every form, every week, and it is clinic time nobody bills for.</p>
+
+      <h2 id="how-it-works">From blank form to signed in three steps.</h2>
+      <ol class="ff-steps">
+        <li><strong>Pick the form, or drop in the PDF.</strong>Choose it from your practice's form library, or upload the one the patient brought in. Fillable PDFs, flat PDFs and scans all work. If Stream already has that form set up, it says so and skips setup.</li>
+        <li><strong>Stream fills it from the chart.</strong>Name, date of birth, diagnosis codes, the assessment and plan, provider details and today's date land in the right boxes. Each answer shows where it came from, and anything the chart can't answer is flagged for you.</li>
+        <li><strong>Review, sign, done.</strong>Fix any answer in place, then sign with one click. Front-desk staff can fill the form and send it to the right provider for signature. The signed form is saved to the patient's chart, ready to print, download or send.</li>
+      </ol>
+      <div class="ff-note">
+        <p><strong>Set up a form once, and it fills from the chart for every patient after that.</strong> Nobody moves a box twice.</p>
+      </div>
+
+      <h2>Not another AI that guesses.</h2>
+      <div class="ff-cards">
+        <div class="ff-card">
+          <h3>Set up once, filled every time</h3>
+          <p>Teach Stream a form once and that setup is saved to your practice's library. Every patient after that is a few clicks, not a fresh start.</p>
+        </div>
+        <div class="ff-card">
+          <h3>Every answer shows its source</h3>
+          <p>Each filled box tells you where the answer came from: the chart field, the problem, or the line in the note it quotes. If the chart doesn't say, the box is flagged for you instead of guessed.</p>
+        </div>
+        <div class="ff-card">
+          <h3>Built for the whole team</h3>
+          <p>Staff fill forms and send them for signature. Only the provider signs. A signed form stays editable, and changing an answer asks for a fresh signature.</p>
+        </div>
+      </div>
+      <p>You review every form before it's signed. Stream does the typing; the clinical judgment stays yours.</p>
+
+      <h2>The forms that pile up on your desk.</h2>
+      <ul class="ff-tiles">
+        {FORMS.map((f) => <li>{f}</li>)}
+      </ul>
+      <p>Any of these can be set up from the PDF. Built for primary care, pediatrics and small group practices, and for the front-desk and MA staff who do the paperwork alongside them. For the slow part of the two most common ones, we wrote guides: <a href="/guides/fmla-disability-paperwork/">FMLA and disability paperwork</a> and <a href="/guides/school-sports-physicals/">school and sports physicals</a>.</p>
+
+      <h2>What it does not do yet.</h2>
+      <div class="ff-honest">
+        <ul>
+          <li><strong>It is not switched on yet.</strong> Form Filler is built and coming to Stream Pro. Until it is live, this page takes early-access names rather than demos.</li>
+          <li><strong>It fills from Stream, not from your EHR.</strong> Anything that lives only in your EHR is left for you to fill. The more of the record is in Stream — your notes, the problem list, filed outside records — the more of the form it answers.</li>
+          <li><strong>It does not fax the form back.</strong> The signed form is saved to the chart, ready to print, download or send however you send forms today.</li>
+          <li><strong>We have no time-saved figure.</strong> Nobody has measured one yet, so we are not quoting one.</li>
+        </ul>
+      </div>
+
+      <h2>Included with Stream Pro.</h2>
+      <p>Form Filler is part of every Stream Pro subscription. No per-form fees and no limit on how many forms you fill. The price is on the <a href="/pricing/">pricing page</a>.</p>
+      <div class="ff-offer">
+        <p><strong>Send us your five most-used forms, and we'll have them ready on your first day.</strong></p>
+      </div>
+
+      <h2>Common questions</h2>
+      <div class="ff-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <FormsWaitlist
+        returnTo="/form-filler/"
+        detailed
+        heading="Tell us which forms take up your week."
+        intro="Form Filler is coming to Stream Pro. Join the early-access list and tell us which forms you fill most. We'll set those up first."
+        button="Join early access"
+      />
+
+    </div>
+  </div>
+</section>
+
+</Page>
