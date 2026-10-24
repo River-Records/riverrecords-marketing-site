@@ -119,7 +119,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: 'Can Stream fill out forms for me?',
-        a: 'Not yet. Stream can generate documents — referral summaries, patient instructions, supporting documentation — but filling in structured forms such as school physicals, FMLA or prior authorization paperwork is in development and not available today.',
+        a: 'Not yet. Form Filler — which fills structured forms such as FMLA certifications, disability and school forms from the chart — is coming to Stream Pro but is not available today. There is an early-access list at /form-filler/. Stream can already generate documents such as referral summaries, patient instructions and supporting documentation.',
       },
       {
         q: 'Does Stream Lite keep my notes?',

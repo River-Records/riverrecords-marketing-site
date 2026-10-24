@@ -1,11 +1,13 @@
 ---
 /*
  * Early-access capture for form completion, used at the foot of the two paperwork
- * guides.
+ * guides and, in its `detailed` form, as the main call to action on /form-filler/.
  *
- * WHY IT LIVES ON THE GUIDES AND NOT ON A "COMING SOON" PAGE
+ * WHY IT LIVES ON THE GUIDES, NOT ONLY ON A "COMING SOON" PAGE
  * All eighteen feature pages together earned 30 non-brand impressions in twelve months.
- * A dedicated page would be a page nobody finds. The guides reach the right person at
+ * A dedicated page is a page search will not find. /form-filler/ exists anyway, for a
+ * different job — it is where outbound and existing customers are sent — and the guides
+ * remain where search delivers people. The guides reach the right person at
  * the moment the problem is in front of them, and both already say — in their own voice
  * — that Stream does not do this yet. Following an honest limitation with "want to know
  * when we do?" is the one place the offer is obviously welcome.
@@ -25,27 +27,41 @@
  * off silently with nothing appearing broken. Same rule as the calculator.
  */
 interface Props {
-  /** Which guide this sits on — sent back so the redirect returns here. */
+  /** Which page this sits on — sent back so the redirect returns here. */
   returnTo: string;
-  /** Pre-ticked option matching the page's subject. */
-  preselect: 'school' | 'fmla';
+  /** Pre-ticked option matching the page's subject. Omit on a page with no one subject. */
+  preselect?: 'school' | 'fmla';
+  /**
+   * The /form-filler/ variant: adds practice name and a free-text "which forms" field,
+   * and its fine print says we may reply about them — because sales follows up on those
+   * answers, and "one message and nothing else" would then be untrue. The guides stay on
+   * the short version; see IT MUST STAY QUIET above.
+   */
+  detailed?: boolean;
+  heading?: string;
+  intro?: string;
+  button?: string;
 }
-const { returnTo, preselect } = Astro.props;
+const {
+  returnTo,
+  preselect,
+  detailed = false,
+  heading = 'Want to know when it ships?',
+  intro = 'Form completion is in development. If you tell us which paperwork actually costs you the most time, it changes what we build first — that is the useful part, more than the email address.',
+  button = 'Tell me when it ships',
+} = Astro.props;
 
 const OPTIONS = [
   { value: 'school', label: 'School and sports physicals' },
   { value: 'fmla', label: 'FMLA and disability' },
+  { value: 'utility', label: 'Utility shut-off certificates' },
   { value: 'prior-auth', label: 'Prior authorisation' },
   { value: 'other', label: 'Something else' },
 ];
 ---
 <section class="fw" id="early-access">
-  <h2>Want to know when it ships?</h2>
-  <p>
-    Form completion is in development. If you tell us which paperwork actually costs you
-    the most time, it changes what we build first — that is the useful part, more than
-    the email address.
-  </p>
+  <h2>{heading}</h2>
+  <p>{intro}</p>
 
   <form class="fw-form" action="/api/forms-waitlist" method="POST">
     <input type="hidden" name="return_to" value={returnTo} />
@@ -62,14 +78,29 @@ const OPTIONS = [
       </div>
     </fieldset>
 
+    {detailed && (
+      <div class="fw-fields">
+        <label class="fw-field">
+          <span>Which forms do you fill most?</span>
+          <textarea name="forms_detail" rows="3" maxlength="1000" placeholder="e.g. the state's utility certificate, our two disability carriers, camp forms every May"></textarea>
+        </label>
+        <label class="fw-field">
+          <span>Practice name <em>(optional)</em></span>
+          <input type="text" name="company" maxlength="200" autocomplete="organization" />
+        </label>
+      </div>
+    )}
+
     <div class="fw-row">
       <label for="fw-email" class="fw-sr">Email address</label>
       <input type="email" id="fw-email" name="email" placeholder="you@practice.com" required />
-      <button type="submit" class="btn btn-primary-lg">Tell me when it ships</button>
+      <button type="submit" class="btn btn-primary-lg">{button}</button>
     </div>
 
     <p class="fw-fine">
-      One message when it ships, and nothing else. We will not add you to a mailing list.
+      {detailed
+        ? 'One message when it ships. If you name forms, we may reply to ask about them — that is how they get set up first. We will not add you to a mailing list.'
+        : 'One message when it ships, and nothing else. We will not add you to a mailing list.'}
     </p>
   </form>
 
@@ -79,7 +110,9 @@ const OPTIONS = [
     because FormSubmit disables its autoresponse when _captcha is false.
   -->
   <div class="fw-done" id="fw-done" hidden>
-    <p><strong>Noted — thank you.</strong> We will send one message when form completion ships, and nothing in between.</p>
+    {detailed
+      ? <p><strong>Noted — thank you.</strong> We will send one message when Form Filler ships. If you named forms, we may reply to ask about them first.</p>
+      : <p><strong>Noted — thank you.</strong> We will send one message when form completion ships, and nothing in between.</p>}
   </div>
 </section>
 
@@ -93,6 +126,13 @@ const OPTIONS = [
   .fw-opts { display: flex; flex-wrap: wrap; gap: 10px 20px; }
   .fw-opt { display: flex; align-items: center; gap: 7px; font-size: 0.92rem; color: var(--ink-muted); cursor: pointer; }
   .fw-opt input { accent-color: var(--primary); width: 16px; height: 16px; }
+
+  .fw-fields { display: grid; gap: 14px; margin: 0 0 16px; }
+  .fw-field { display: grid; gap: 6px; }
+  .fw-field span { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .fw-field em { font-weight: 400; font-style: normal; color: var(--ink-faint); }
+  .fw-field textarea, .fw-field input { width: 100%; padding: 11px 14px; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--white); border: 1px solid var(--border-strong); border-radius: var(--r-sm); }
+  .fw-field textarea:focus-visible, .fw-field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   .fw-row { display: flex; gap: 10px; flex-wrap: wrap; }
   .fw-row input[type="email"] { flex: 1 1 240px; min-width: 0; padding: 11px 14px; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--white); border: 1px solid var(--border-strong); border-radius: var(--r-sm); }

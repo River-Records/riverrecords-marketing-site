@@ -1,5 +1,6 @@
 /**
- * POST /api/forms-waitlist — early-access signups for form completion.
+ * POST /api/forms-waitlist — early-access signups for form completion, from the foot
+ * of the two paperwork guides and from /form-filler/.
  *
  * WHY THIS EXISTS AT ALL
  * Form filling is in development, and search cannot tell us whether anyone wants it:
@@ -30,7 +31,20 @@ const FIELD_MAP = {
   email: 'email',
   forms_wanted: 'forms_wanted',
   practice_role: 'practice_role',
+  company: 'company',
+  forms_detail: 'forms_detail',
 };
+
+/**
+ * Checkbox groups send one entry per ticked box, and `formData.get` returns only the
+ * first — which for `forms_wanted` silently threw away every choice after the first.
+ * Joined with `;`, the separator HubSpot's multi-checkbox properties expect.
+ */
+const MULTI = new Set(['forms_wanted']);
+const valueOf = (form, name) =>
+  MULTI.has(name)
+    ? form.getAll(name).map((v) => clip(v, 60)).filter(Boolean).join(';')
+    : clip(form.get(name), name === 'forms_detail' ? 1000 : 300).trim();
 
 const clip = (v, n = 300) => (typeof v === 'string' ? v.slice(0, n) : '');
 
@@ -43,6 +57,7 @@ export async function onRequestPost(context) {
   const ALLOWED = new Set([
     '/guides/school-sports-physicals/',
     '/guides/fmla-disability-paperwork/',
+    '/form-filler/',
   ]);
   let back = '/guides/school-sports-physicals/';
 
@@ -63,7 +78,7 @@ export async function onRequestPost(context) {
       const portal = (env && env.HUBSPOT_PORTAL_ID) || PORTAL_ID_DEFAULT;
       const fields = [];
       for (const [name, hsName] of Object.entries(FIELD_MAP)) {
-        const value = clip(form.get(name));
+        const value = valueOf(form, name);
         if (value) fields.push({ name: hsName, value });
       }
 
