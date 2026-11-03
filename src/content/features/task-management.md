@@ -23,7 +23,7 @@ faq:
   - question: "Do tasks appear in future visits?"
     answer: "Yes. Tasks persist until you manually resolve them, so they will reappear at the next encounter to ensure important follow-ups aren’t lost."
   - question: "Are tasks problem-based?"
-    answer: "Not yet. Current tasks are general encounter- or patient-level items. Problem-level task tracking will come later as part of Stream’s evolving longitudinal system."
+    answer: "Yes. Each task is linked to one of the patient's problems, so it comes back up when you next open that problem. Turning each plan item into a tracked task when you sign the note is in early access."
 ---
 
 In clinical care, the hard part isn’t always deciding what to do — it’s making sure it actually gets done. Between follow-up steps, administrative tasks, care coordination, and the realities of visit-to-visit documentation, important clinical details can easily slip through the cracks.
@@ -55,5 +55,7 @@ It also prevents important gaps in follow-up care.
 Tasks are manually resolved with a single action. No automatic clearing, no hidden logic — you maintain full control.
 
 ### Designed for Stream Pro
+
+Want referrals, labs and imaging tracked straight from your plan, with no extra clicks? See [referral and order tracking](/referral-tracking/), now in early access.
 
 Tasks depend on Stream’s longitudinal memory, context loading, and continuity model. Because of this, Task Management is available exclusively in **Stream Pro**.

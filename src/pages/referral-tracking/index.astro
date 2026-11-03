@@ -1,0 +1,251 @@
+---
+/*
+ * /referral-tracking/ — plan item tracking: the visit plan becomes the clinic's task list.
+ *
+ * THE ARGUMENT, IN ONE LINE: your scribe writes the plan; Stream makes sure it happens.
+ * Every other scribe stops at the note. This page is the one place that says what Stream
+ * does with the plan after the note is signed, so it leads with the plan, not the scribe.
+ *
+ * EARLY ACCESS UNTIL IT IS TRUE. Plan item tracking shipped in ai-scribe v2.16.0 behind
+ * the `plan_item_tracking` flag and is switched on for no customer yet (only the owner's
+ * practice). At launch, in one change: make the trial the primary CTA, drop the
+ * "Early access" badge and the early-access wording in the hero, the limits list and the
+ * first FAQ.
+ *
+ * EVERY PRODUCT CLAIM HERE TRACES TO THE APP. The defaults, overdue thresholds and
+ * "waiting on" evidence come from the task-type registry
+ * (ai-scribe api/src/services/clinical-tasks/taskTypes.ts), and the interaction from
+ * docs/features/plan-task-unification.md. The demo widget mirrors the same registry.
+ * If the registry changes, change both.
+ *
+ * KEEP OUT OF THE COPY UNTIL EACH IS TRUE:
+ *   - automatic loop closure. Matching a returned report to its open task is built but
+ *     dark (`document_loop_closure`). Until it is on, closing a task is a click and the
+ *     page says so.
+ *   - placing orders or sending referrals. Stream tracks them; it does not transmit them.
+ *   - time-saved figures. None measured.
+ *
+ * Pro-only: never show this on anything aimed at Stream Lite.
+ */
+import Page from '../../layouts/Page.astro';
+import CtaDark from '../../components/CtaDark.astro';
+import PlanTrackingDemo from '../../components/demos/PlanTrackingDemo.vue';
+
+const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_content=referral-tracking';
+
+const faqs = [
+  {
+    q: 'Is referral tracking available now?',
+    a: 'It is in early access. It is built into Stream Pro and we are switching it on practice by practice, so we can set your defaults with you. Book a demo and ask for it, or start a trial and tell us you want it on.',
+  },
+  {
+    q: 'Does it add clicks to my visit?',
+    a: 'No. You record and sign the visit the way you already do. When you sign, each plan item of a type your practice tracks becomes a task. There is no review queue and nothing to accept. If you do not want one tracked, uncheck it.',
+  },
+  {
+    q: 'What gets tracked?',
+    a: 'Out of the box: referrals, labs, imaging, follow-up visits, and visits with outside clinicians. Those are the items someone will send back to you, a consult note, a result or a report, so each one has a natural end. Medication changes and procedures are available but off by default. Your practice sets the defaults and each clinician can change their own.',
+  },
+  {
+    q: 'Will it turn "continue metformin" into a task?',
+    a: 'No. Continuing a medication is not a follow-up, and Stream does not offer to track it. Starting or changing one can be tracked if your practice turns medications on.',
+  },
+  {
+    q: 'Can my staff see and work the list?',
+    a: 'Yes. The task list is shared across your practice and can be filtered by provider. Medical assistants and front-desk staff can track items, work them and close them. Each task shows the problem it belongs to and when it becomes overdue.',
+  },
+  {
+    q: 'Does it place the order or send the referral?',
+    a: 'No. You still send referrals and place orders the way you do today. Stream keeps track of what was planned until it comes back.',
+  },
+  {
+    q: 'Does it work with my EHR?',
+    a: 'Stream works alongside any EHR. Tracking runs from the plan in your Stream note, so it does not depend on an EHR integration. Stream does not read your EHR, so if a result arrives only there, someone marks the task done in Stream.',
+  },
+  {
+    q: 'Does it cost extra?',
+    a: 'No. It is part of Stream Pro, with no per-task fees. It is not part of Stream Lite, which keeps nothing past 48 hours and so has no list to track against. The price is on the pricing page.',
+  },
+];
+---
+<Page readable="product"
+  title="Referral Tracking From Your Visit Note | Stream"
+  description="Every referral, lab, imaging study and follow-up in your plan becomes a task your whole clinic shares, created when you sign the note, with no extra clicks. Early access in Stream Pro.">
+
+<Fragment slot="head">
+  {/* Declares exactly the questions rendered below, from the same array. */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.rt { padding: 64px 0 40px; }
+.rt-wrap { max-width: 820px; margin: 0 auto; }
+.rt-wide { max-width: 1040px; margin: 0 auto; }
+
+.rt-status { display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark); background: var(--accent-light); border-radius: 999px; padding: 5px 12px; margin-left: 8px; vertical-align: middle; }
+.rt h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); color: var(--ink); line-height: 1.12; margin: 14px 0 18px; }
+.rt h1 em { font-style: italic; color: var(--primary); }
+.rt-lede { font-size: 1.14rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 26px; }
+.rt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-bottom: 14px; }
+.rt-fine { font-size: 0.9rem; color: var(--ink-faint); margin-bottom: 44px; }
+
+.rt-demo { margin: 0 0 14px; }
+.rt-demo-caption { text-align: center; font-size: 0.9rem; color: var(--ink-faint); margin: 14px 0 0; }
+
+.rt h2 { font-size: 1.6rem; color: var(--ink); margin: 56px 0 14px; line-height: 1.25; }
+.rt h3 { font-size: 1.05rem; color: var(--ink); margin: 0 0 8px; font-family: var(--font-sans); font-weight: 600; }
+.rt p { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.rt strong { color: var(--ink); }
+
+/* Not a bare `.rt a` — a class-plus-element selector outranks .btn-primary-lg and
+   repaints button text in the link colour. That has shipped twice. */
+.rt a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+.rt-steps { counter-reset: step; list-style: none; padding-left: 0; margin: 24px 0; }
+.rt-steps li { counter-increment: step; position: relative; padding-left: 46px; margin-bottom: 22px; font-size: 1rem; color: var(--ink-muted); line-height: 1.75; }
+.rt-steps li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 30px; height: 30px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-family: var(--font-mono); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.rt-steps li strong { display: block; margin-bottom: 3px; }
+
+.rt-table { width: 100%; border-collapse: collapse; margin: 22px 0 18px; font-size: 0.95rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.rt-table th, .rt-table td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--ink-muted); vertical-align: top; }
+.rt-table th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); font-weight: 600; background: var(--surface); }
+.rt-table tr:last-child td { border-bottom: none; }
+.rt-table td:first-child { color: var(--ink); font-weight: 600; }
+.rt-on { color: var(--primary); font-weight: 600; }
+
+.rt-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 18px; }
+.rt-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; }
+.rt-card p { font-size: 0.94rem; margin-bottom: 0; }
+
+.rt-honest { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px 28px; margin: 24px 0; }
+.rt-honest ul { margin: 0; padding-left: 20px; }
+.rt-honest li { font-size: 0.98rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 9px; }
+.rt-honest li:last-child { margin-bottom: 0; }
+
+.rt-faq { margin-top: 12px; }
+.rt-faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.rt-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.rt-faq summary::-webkit-details-marker { display: none; }
+.rt-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.rt-faq details[open] summary::after { content: '\2212'; }
+.rt-faq details p { margin: 12px 0 0; font-size: 0.96rem; }
+
+.rt-cta { padding: 0 0 72px; }
+
+@media (max-width: 760px) {
+  .rt-cards { grid-template-columns: 1fr; }
+  .rt-table th, .rt-table td { padding: 10px 12px; }
+}
+</style>
+
+<section class="rt">
+  <div class="container">
+    <div class="rt-wrap">
+      <span class="section-label">Stream Pro · Referral &amp; order tracking</span><span class="rt-status">Early access</span>
+      <h1>Your scribe writes the plan. <em>Stream makes sure it happens.</em></h1>
+      <p class="rt-lede">Every referral, lab, imaging study and follow-up in your plan becomes a task on a list your whole clinic shares, created the moment you sign the note. There are no extra clicks. You record the visit the way you already do, and the tracking comes with it.</p>
+      <div class="rt-actions">
+        <a href="/book-demo/" class="btn btn-primary-lg">See it on a real visit</a>
+        <a href={onboardUrl}>Or start free for 30 days →</a>
+      </div>
+      <p class="rt-fine">Early access: we switch tracking on practice by practice and set your defaults with you.</p>
+    </div>
+
+    <div class="rt-wide rt-demo">
+      <PlanTrackingDemo client:visible />
+      <p class="rt-demo-caption">Try it: sign the note, then change what your practice tracks, or uncheck a line. Sample patient data.</p>
+    </div>
+
+    <div class="rt-wrap">
+      <h2>The plan is already a to-do list. Nobody files it as one.</h2>
+      <p>You write "refer to ophthalmology" and "X-ray right knee" into the plan. Then the plan gets filed with the note, and the follow-through happens somewhere else: a sticky note, a spreadsheet the MA keeps, an EHR inbox, someone's memory.</p>
+      <p>The failures are quiet. A referral that was never scheduled sends no alert. Neither does an imaging study the patient never went for, or a consult note that never came back. You find out months later, at the next visit, if you find out at all. Copying the plan into a tracking system is exactly the kind of extra work that does not get done on a full day.</p>
+      <p><strong>Stream skips the copying.</strong> The plan you dictate is the task list.</p>
+
+      <h2>How it works</h2>
+      <ol class="rt-steps">
+        <li><strong>Record the visit the way you already do.</strong>Talk to your patient, or dictate afterwards. Stream writes a problem-oriented note, with each plan item on its own line under the problem it belongs to.</li>
+        <li><strong>Sign the note.</strong>Each plan item of a type your practice tracks becomes a task, filed under its problem. It is checked in the note so you can see what will be tracked, and you uncheck anything you don't want. There is no queue to review and nothing to accept.</li>
+        <li><strong>Your team works one list.</strong>The task list is shared across the practice and can be filtered by provider. Each task shows what it is waiting on and is flagged when it runs overdue. It comes back up the next time you open that problem.</li>
+      </ol>
+
+      <h2>You decide what is worth tracking.</h2>
+      <p>Some practices want every lab tracked. Others only care about referrals, or would rather see none of this. Your practice sets the defaults and each clinician can change their own, so tracking can cover everything or nothing.</p>
+      <table class="rt-table">
+        <thead>
+          <tr><th>Type</th><th>Out of the box</th><th>Waiting on</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Referrals</td><td class="rt-on">Tracked</td><td>The consult note</td></tr>
+          <tr><td>Labs</td><td class="rt-on">Tracked</td><td>The results</td></tr>
+          <tr><td>Imaging</td><td class="rt-on">Tracked</td><td>The report</td></tr>
+          <tr><td>Follow-up visits</td><td class="rt-on">Tracked</td><td>The patient coming back</td></tr>
+          <tr><td>Outside visits</td><td class="rt-on">Tracked</td><td>The other clinician's note</td></tr>
+          <tr><td>Medication changes</td><td>Available</td><td>Your own follow-up</td></tr>
+          <tr><td>Procedures</td><td>Available</td><td>The procedure note</td></tr>
+        </tbody>
+      </table>
+      <p>The defaults follow one rule: <strong>track what someone will send back.</strong> A referral ends when the consult note arrives, and a lab ends when the result does, so those tasks have a natural finish. "Continue lisinopril" never becomes a task, because nobody faxes you a continuation.</p>
+
+      <h2>Why it only works if the note is organized by problem.</h2>
+      <div class="rt-cards">
+        <div class="rt-card">
+          <h3>Every task knows its problem</h3>
+          <p>The knee X-ray sits under knee pain and the eye exam under diabetes. The task list reads like the chart, not like an inbox.</p>
+        </div>
+        <div class="rt-card">
+          <h3>Open loops resurface</h3>
+          <p>When you next open diabetes, its unfinished items are there with it, including in the <a href="/features/huddle/">pre-visit huddle</a>, before the patient sits down.</p>
+        </div>
+        <div class="rt-card">
+          <h3>Fits the way each specialty works</h3>
+          <p>A pediatric practice tracking well-visit referrals and a geriatric practice tracking imaging use the same list, set differently. The note itself does not change.</p>
+        </div>
+      </div>
+      <p>A scribe that writes one block of prose per visit cannot do this. It has no way to tell which line of the plan belongs to which problem. Stream's note is <a href="/features/problem-based-organization/">organized by problem</a> from the start, so tracking is a by-product of the note rather than a second job.</p>
+
+      <h2>What it does not do yet.</h2>
+      <div class="rt-honest">
+        <ul>
+          <li><strong>It is in early access.</strong> It is built into Stream Pro and we are switching it on practice by practice, so we can set it up with you.</li>
+          <li><strong>It does not place orders or send referrals.</strong> They still go out the way they do today. Stream tracks them until they come back.</li>
+          <li><strong>Closing a task is still one click.</strong> When the report comes back, someone on your team marks the task done. Matching returned reports to open tasks automatically is being tested now.</li>
+          <li><strong>It does not read your EHR.</strong> Tracking runs from the plan in your Stream note. If a result arrives only in your EHR, Stream will not see it.</li>
+          <li><strong>We have no time-saved figure.</strong> Nobody has measured one yet, so we are not quoting one.</li>
+        </ul>
+      </div>
+
+      <h2>Included with Stream Pro.</h2>
+      <p>Tracking is part of every Stream Pro subscription, with no per-task fees. The price is on the <a href="/pricing/">pricing page</a>. It is not part of Stream Lite, which keeps nothing past 48 hours and so has no list to track against.</p>
+
+      <h2>Common questions</h2>
+      <div class="rt-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rt-cta">
+  <div class="container">
+    <CtaDark primaryHref="/book-demo/" primaryLabel="See it on a real visit" secondaryHref={onboardUrl} secondaryLabel="Start free for 30 days">
+      Stop copying the plan into a second system.
+      <Fragment slot="body">Record the visit. Sign the note. The referrals, labs and follow-ups are already on your team's list.</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+</Page>

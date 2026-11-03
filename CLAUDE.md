@@ -242,6 +242,27 @@ The waitlist is the shared `FormsWaitlist` component with `detailed` (adds free-
 print says we may reply about the forms named, so `forms_detail` must be routed to sales —
 see `docs/HUBSPOT-SETUP.md`. Verify with `scripts/verify-forms-waitlist.mjs`.
 
+## `/referral-tracking/` — plan item tracking, early access
+The argument: *your scribe writes the plan; Stream makes sure it happens.* When the note
+is signed, each plan item of a type the practice tracks becomes a task on the clinic's
+shared list. No review queue, no extra clicks. It is the most concrete thing Stream
+does that a note-only scribe cannot. The page leads with the plan, not the scribe.
+
+**Early access until it is true.** The product shipped in ai-scribe v2.16.0 behind
+`plan_item_tracking` and is on for no customer yet. Primary CTA is Book a demo, and the
+trial is secondary, because a trial without the flag on would not show the feature.
+At launch, in one change: make the trial primary, drop the badge, and remove the
+early-access wording in the hero, the limits list and the first FAQ.
+
+**Every claim traces to the app's task-type registry**
+(`ai-scribe/api/src/services/clinical-tasks/taskTypes.ts`): which types are tracked by
+default (referral, lab, imaging, follow-up, outside visit), overdue thresholds, and
+what each type waits on. `PlanTrackingDemo.vue` mirrors that registry, so change both together.
+Kept off the page until true: **automatic loop closure** (built, dark behind
+`document_loop_closure`, so the page says closing is one click), **placing orders or
+sending referrals**, and **time-saved figures**. Pro-only, so keep it off anything aimed at Lite.
+Not in the nav yet. Linked from `/features/task-management/`.
+
 ## Changing nav/footer/offer banner
 Edit the component in `src/components/`. Change once — updates every page.
 
