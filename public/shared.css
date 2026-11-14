@@ -86,7 +86,13 @@ body  {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3 { font-family: var(--font-serif); }
+/* Headings set their own leading. Without this they inherit the body's 1.6, which is
+   right for paragraphs and wrong for display type: a two-line h2 at 42px opened a
+   ~25px gap between its lines and read as two unrelated headlines. Page-level rules
+   that set line-height explicitly still win (class beats element). `balance` stops
+   one-word last lines ("forget.", "works.") on wrapped headings. */
+h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; letter-spacing: -0.012em; text-wrap: balance; }
+p, li, blockquote { text-wrap: pretty; }
 img { display: block; max-width: 100%; }
 a   { color: inherit; }
 
@@ -124,6 +130,13 @@ a   { color: inherit; }
 
 .btn-outline { color: var(--ink-muted); border: 1.5px solid var(--border-strong); background: var(--white); padding: 12px 22px; font-size: 0.95rem; }
 .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+
+/* Pill-shaped partner to .btn-primary-lg. Used by /pricing/ and every comparison page,
+   which referenced it for months before it existed — the secondary CTA rendered as
+   bare text beside the primary button.
+   Inherits its colour so it reads on the light /pricing/ box and the dark comparison box. */
+.btn-secondary-lg { color: inherit; border: 1.5px solid color-mix(in srgb, currentColor 35%, transparent); background: transparent; padding: 12.5px 26px; font-size: 1rem; border-radius: 100px; }
+.btn-secondary-lg:hover { border-color: currentColor; }
 
 .btn-white  { background: var(--white); color: var(--dark); padding: 14px 28px; font-size: 1rem; font-weight: 700; }
 .btn-white:hover { background: var(--primary-light); }
@@ -181,7 +194,7 @@ a   { color: inherit; }
 .proof-check::after { content: ''; width: 7px; height: 5px; border-left: 1.5px solid var(--primary); border-bottom: 1.5px solid var(--primary); transform: rotate(-45deg) translate(1px,-1px); margin-top: 1px; }
 
 /* STAT BLOCK */
-.stat-block { padding: 72px 0; background: var(--dark); color: var(--white); }
+.stat-block { padding: clamp(64px, 8vw, 96px) 0; background: var(--dark); color: var(--white); }
 .stat-block-inner { max-width: 720px; margin: 0 auto; text-align: center; }
 .stat-block h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--white); line-height: 1.25; margin-bottom: 24px; }
 .stat-pullquote { font-size: 1.05rem; color: rgba(255,255,255,0.7); line-height: 1.72; margin-bottom: 16px; font-style: italic; }
@@ -193,11 +206,11 @@ a   { color: inherit; }
 .stat-closer { font-size: 1.15rem; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
 
 /* FEATURES SECTION */
-.features { padding: 80px 0 72px; }
+.features { padding: clamp(64px, 8vw, 104px) 0; }
 .features-header { text-align: center; max-width: 560px; margin: 0 auto 48px; }
 .features-header h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 10px; }
 .features-header p { font-size: 1rem; color: var(--ink-muted); line-height: 1.65; }
-.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .features-grid { grid-template-columns: 1fr; } }
 
@@ -205,7 +218,7 @@ a   { color: inherit; }
 .tcard { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow-xs); transition: box-shadow 0.2s, transform 0.2s; display: flex; flex-direction: column; }
 .tcard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .tcard-stars { display: flex; gap: 2px; margin-bottom: 12px; color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
-.tcard blockquote { font-size: 0.935rem; color: var(--ink); line-height: 1.65; margin-bottom: 18px; font-style: italic; flex: 1; }
+.tcard blockquote { font-size: 1rem; color: var(--ink); line-height: 1.65; margin-bottom: 18px; font-style: italic; flex: 1; }
 .tcard-author { display: flex; align-items: center; gap: 11px; margin-top: auto; }
 .tcard-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--primary-light); border: 1px solid var(--primary-border); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 0.9rem; color: var(--primary); flex-shrink: 0; }
 .tcard-name  { font-size: 0.875rem; font-weight: 600; color: var(--ink); }
