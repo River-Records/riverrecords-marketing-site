@@ -775,7 +775,7 @@ const trustPoints = [
   <div class="ic">
     <div class="hero-eyebrow">{avail.eyebrow}</div>
     <h1>Your fax line, finally connected to the chart.</h1>
-    <p class="hero-sub">{PRODUCT} reads every record that arrives at Stream — by fax or by upload — files it to the right patient, and lays its clinical content out under the problems it belongs to, as excerpts, medications, and proposed follow-ups. Every one of them is a single click from the sentence on the page it came from. Nothing is filed, written, or actioned without a human decision.</p>
+    <p class="hero-sub">{PRODUCT} reads every fax and upload, files it to the right patient, and lays its clinical content out under the problems it belongs to — each fact one click from the sentence it came from. Nothing is filed, written, or actioned without a human decision.</p>
     <div class="hero-actions">
       <a href={demoUrl} class="ib-primary" data-intake-cta="hero">Book a demo →</a>
       <a href="#s4" class="ib-secondary" data-intake-cta="hero-how">See how it works</a>
@@ -801,7 +801,7 @@ const trustPoints = [
       <p class="problem-beat">Someone else scans it.</p>
       <p class="problem-beat problem-beat-last">At the end of the day a clinician skims it and retypes the parts that matter — or doesn’t, and the A1c from the cardiology consult never reaches the diabetes plan.</p>
       <p class="problem-turn">The document gets filed. Everyone did their job. The information is still gone.</p>
-      <p class="problem-because">Because the failure was never storage. A stored document is a flat object in a list, and that’s not the shape of the question a clinician is asking. The question is problem-shaped: <em>what do I know about this patient’s heart failure, from every source, in order?</em></p>
+      <p class="problem-because">The failure was never storage. A clinician’s question is problem-shaped: <em>what do I know about this patient’s heart failure, from every source, in order?</em></p>
     </div>
   </div>
 </section>
@@ -813,9 +813,8 @@ const trustPoints = [
       <div>
         <div class="il">THE REFRAME</div>
         <h2>Documents are sources, not containers.</h2>
-        <p>Most systems attach a document to a chart. Some go further and turn it into a visit — which is worse, because an outside consult note is not a visit that happened in your clinic, and putting it on your visit timeline misrepresents your own record.</p>
-        <p>Stream projects a document onto the patient’s <strong>problems</strong>. A discharge summary touching diabetes, hypertension, and CKD produces three excerpts — one filed under each problem, each labeled with who wrote it and where it came from.</p>
-        <p>The problem view becomes a single merged view: your notes and everything the outside world has said about that condition, in chronological order, visually distinguished by source.</p>
+        <p>Most systems attach a document to a chart, or worse, turn it into a visit that never happened in your clinic.</p>
+        <p>Stream projects a document onto the patient’s <strong>problems</strong>. A discharge summary touching diabetes, hypertension, and CKD produces three excerpts, one under each problem, each labeled with who wrote it. Each problem then reads as one view: your notes and the outside world’s, in order, marked by source.</p>
       </div>
       <figure class="reframe-figure">
         <svg viewBox="0 0 420 300" role="img" aria-labelledby="reframe-svg-title">
@@ -870,8 +869,7 @@ const trustPoints = [
     <div class="provenance-head">
       <div class="il">PROVENANCE</div>
       <h2>Every fact, one click from the page it came from.</h2>
-      <p>Before Stream reads a word, it records where the words are — page number and position for every sentence on every page. Unglamorous, and it’s the foundation of the whole product.</p>
-      <p>So when a clinician sees a fact on the Huddle, it isn’t a citation number or a footnote. Click it, and the source PDF opens scrolled to that sentence, highlighted.</p>
+      <p>Before Stream reads a word, it records where every sentence sits on every page. So a fact on the Huddle isn’t a footnote: click it, and the source PDF opens scrolled to that sentence, highlighted.</p>
       <p class="provenance-kicker">No fact on this screen has to be taken on faith.</p>
     </div>
 
@@ -910,8 +908,7 @@ const trustPoints = [
       <div class="how-step">
         <div class="how-step-num">01</div>
         <h3>It arrives.</h3>
-        <p>Stream provisions a fax number for your practice on Sinch — whitelisted and managed by River Records — or connects to your clinic’s own Spruce Health account if you already run one. A fax comes in with no human involvement at all: Stream verifies it genuinely came from the carrier, routes it to your practice by the number dialed, pulls down the file, and starts. If the carrier retries the same fax, you don’t get a second copy.</p>
-        <p>Not a fax? Upload PDFs — up to 10 at a time — or text files, or paste text straight in, from the Documents page. Same pipeline from there on.</p>
+        <p>On a fax number we provision on Sinch, or your own Spruce Health account. Stream verifies the fax came from the carrier, routes it to your practice and never files a retry twice. Uploads (up to 10 PDFs at a time) and pasted text take the same pipeline.</p>
       </div>
 
       <div class="how-step">
@@ -923,15 +920,14 @@ const trustPoints = [
       <div class="how-step">
         <div class="how-step-num">03</div>
         <h3>It’s understood.</h3>
-        <p>One pass gives the document a name and a date (“Rheumatology Consult with Dr. Chen, 3/15/24”), a short clinical summary, and a type. Stream searches your patient roster and proposes a match — an existing patient, a new patient it can create from the name and DOB on the page, or not a patient document at all.</p>
-        <p>It also flags what kind of content is in there, and only the relevant extractors run. A signed insurance letter doesn’t get sent through a clinical extractor.</p>
+        <p>Each document gets a name, date, type and short summary (“Rheumatology Consult with Dr. Chen, 3/15/24”), and a proposed patient match: existing, new from the name and DOB on the page, or not a patient document. Only the relevant extractors run — an insurance letter never meets a clinical one.</p>
       </div>
 
       <div class="how-step how-step-safety">
         <div class="how-step-num">04</div>
         <h3>It’s checked for the thing that goes badly wrong.</h3>
-        <p>Fax batches contain more than one document. Sometimes more than one patient. A hospital records department sends 40 pages covering three people, and a system that assumes one file equals one patient will silently file one patient’s data into another patient’s chart.</p>
-        <p>Stream watches for the seams — fresh letterhead, a new patient header, a jump in dates. When a file looks like several documents or several patients, it <strong>stops and asks a human</strong> instead of guessing.</p>
+        <p>A hospital records department sends 40 pages covering three people. A system that assumes one file is one patient silently files one patient’s data into another’s chart.</p>
+        <p>Stream watches for the seams — fresh letterhead, a new patient header, a jump in dates — and when a file looks like several patients, it <strong>stops and asks a human</strong> instead of guessing.</p>
         <div class="how-hold">
           <span class="how-hold-tag">HELD</span>
           <span>40-page fax · seams detected on p.14 and p.27 · looks like 3 patients · awaiting human review</span>
@@ -941,7 +937,7 @@ const trustPoints = [
       <div class="how-step">
         <div class="how-step-num">05</div>
         <h3>A person confirms the patient.</h3>
-        <p>The document lands in the Documents worklist as awaiting confirmation. Front-desk staff see it next to Stream’s proposed match, confirm it or create the new patient, and assign the reviewing clinician. Their view is deliberately trimmed to what’s needed to route it — and nothing clinical they’d never act on.</p>
+        <p>Front-desk staff see each document beside Stream’s proposed match, confirm it or create the patient, and assign the reviewing clinician. Their view shows only what routing needs.</p>
         <div class="worklist">
           <div class="worklist-head">Documents · sample data</div>
           <div class="worklist-row">
@@ -972,7 +968,7 @@ const trustPoints = [
   <div class="ic">
     <div class="il">WATCH IT</div>
     <h2>A chest CT, start to filed.</h2>
-    <p class="s-watch-lede">Jake uploads a real radiology report and follows it all the way through — extraction, the excerpt landing under a pulmonary nodule, and the link back to the highlighted source text.</p>
+    <p class="s-watch-lede">Jake uploads a real radiology report and follows it through to an excerpt under a pulmonary nodule, linked back to the highlighted source.</p>
     <LoomEmbed video={videoByKey('intake')} variant="wide" caption={false} context="intake" />
   </div>
 </section>
@@ -984,11 +980,11 @@ const trustPoints = [
       <div>
         <div class="il">OUTPUT 1 — EXCERPTS</div>
         <h2>Excerpts land on the problem they’re about.</h2>
-        <p>One excerpt per document, per problem. Each carries a status line and three groups — <strong>what the data says</strong>, <strong>what was done</strong>, <strong>what happens next</strong> — plus ICD codes where the document gives them.</p>
-        <p><strong>They’re extracted, not written.</strong> Stream pulls facts and classifies them; it doesn’t compose prose about your patient. Every fact is then checked against a verbatim span of the source. Facts that can’t be grounded in the actual text are dropped, not shown.</p>
-        <p><strong>They merge with the problem you already have.</strong> “Attention deficit” from an outside note snaps onto your chart’s existing “Attention deficit hyperactivity disorder” instead of spawning a near-duplicate. If the document raises a problem the patient has no note for, that problem shows up anyway, as a row of its own.</p>
-        <p><strong>They say where they came from.</strong> Stream reads the letterhead and signature block and stamps author, institution, and date on every excerpt from that document — <em>“from Discharge Summary — Dr. A. Chen, Riverside Medical Center, 3/15/24.”</em> Correct a field once and the fix propagates to every excerpt from that document.</p>
-        <p class="output-actions"><strong>What a clinician can do with one:</strong> Accept · No action · Re-tag to a different problem · Dismiss from my view · View source · Include in note.</p>
+        <p>One per document, per problem: <strong>what the data says</strong>, <strong>what was done</strong>, <strong>what happens next</strong>, plus ICD codes where the document gives them.</p>
+        <p><strong>Extracted, not written.</strong> Every fact is checked against a verbatim span of the source. Anything that can’t be grounded is dropped.</p>
+        <p><strong>Merged with your problems.</strong> “Attention deficit” snaps onto your existing “Attention deficit hyperactivity disorder” instead of spawning a near-duplicate. A problem you have no note for gets its own row.</p>
+        <p><strong>Labeled with their source.</strong> Author, institution and date come from the letterhead — <em>“from Discharge Summary — Dr. A. Chen, Riverside Medical Center, 3/15/24.”</em> Correct it once and every excerpt follows.</p>
+        <p><strong>Out of the way when done.</strong> Content past a freshness window, or older than your last signed encounter, leaves the at-a-glance view. Anything pending never goes stale.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1040,13 +1036,6 @@ const trustPoints = [
   </div>
 </section>
 
-<!-- S6c — FRESHNESS -->
-<section class="s-freshness ir">
-  <div class="ic">
-    <p class="freshness-note">And they get out of the way on their own. Content past a freshness window, or predating your own last signed encounter, drops off the at-a-glance view — it’s already been accounted for. Anything still pending never goes stale.</p>
-  </div>
-</section>
-
 <!-- S7 — MEDICATIONS -->
 <section class="s-output s-output-alt ir" id="s7">
   <div class="ic">
@@ -1054,14 +1043,13 @@ const trustPoints = [
       <div>
         <div class="il">OUTPUT 2 — MEDICATIONS</div>
         <h2>What the document says about medications. Not a reconciled list — and we say so.</h2>
-        <p>Stream surfaces the medications a document mentions, each verified against the source, each with its own location on the page. Click a drug, land on that line of the PDF.</p>
-        <p>Then it deliberately does less than you’d expect. That list appears only in the <strong>Review Required</strong> view — never on the day-to-day problem view. Because a list of drugs sitting under a problem list reads as <em>the patient’s current regimen</em>, and it isn’t. It’s one document’s snapshot, possibly months stale, possibly contradicted by a later record. The honest place for it is the screen whose framing is already “here’s what came in.”</p>
-        <p>Clear a document’s medications with one Dismiss for the whole group. It’s per-user, it’s reversible, and the list stays in the document drawer afterward — which is what makes the word “dismiss” literally true.</p>
-        <p>There’s no Accept button here, and that’s on purpose. Accept would imply we wrote to a reconciled medication list. We don’t offer a button that implies a chart write that doesn’t happen.</p>
+        <p>Every medication a document mentions, verified against the source. Click a drug, land on that line of the PDF.</p>
+        <p>The list appears only in <strong>Review Required</strong>, never on the problem view — under a problem list it would read as <em>the current regimen</em>, and it’s one document’s snapshot, possibly months stale. One Dismiss clears the group, per user and reversibly.</p>
+        <p>There’s no Accept button, on purpose: it would imply a write to a reconciled medication list that doesn’t happen.</p>
         {/* NEW COPY, not from the v1 deck — added on Jacob's correction that medications
             have an Include in note path. Needs sign-off, and the attribution label below
             should be checked against the app's actual UI string. */}
-        <p><strong>What you can do is use them.</strong> <em>Include in note</em> puts the document’s medication list into your documentation, attributed to where it came from — <em>from external records</em>. It’s the same explicit click that governs every other outside fact on this page, and it writes to your note, not to a list Stream doesn’t keep.</p>
+        <p><strong>What you can do is use them.</strong> <em>Include in note</em> puts the list into your note, attributed <em>from external records</em> — the same explicit click as every other outside fact.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1094,13 +1082,6 @@ const trustPoints = [
   </div>
 </section>
 
-<!-- S7b — PULL QUOTE -->
-<section class="s-pull ir">
-  <div class="ic">
-    <blockquote>We’d rather tell you what one document says than pretend we’ve reconciled your med list.</blockquote>
-  </div>
-</section>
-
 <!-- S8 — PROPOSED TASKS -->
 <section class="s-output ir" id="s8">
   <div class="ic">
@@ -1108,13 +1089,10 @@ const trustPoints = [
       <div>
         <div class="il">OUTPUT 3 — PROPOSED TASKS</div>
         <h2>Three real follow-ups, not thirty plausible ones.</h2>
-        <p>Stream proposes the actions a document is actually asking for. Each one carries an imperative action — <em>“Repeat BMP in 1–2 weeks”</em>, <em>“Refer to cardiology for stress echo”</em> — a type, the problem it belongs to, and <strong>the exact quote from the document that justifies it</strong>.</p>
-        <p>Timeframes come verbatim from the source. When the source doesn’t give one, the field stays empty. We don’t invent urgency.</p>
-        <p><strong>The quality bar is the feature.</strong> No verbatim quote, no task. The extractor is told to leave out continuation of medications the patient is already on, safety-net boilerplate, plan-of-care summaries, narrative rephrased as an action, and the same action twice in different words. For many documents the correct answer is an empty list, and it returns one.</p>
-        <p>Ten plausible tasks per document is how a task queue becomes wallpaper.</p>
-        <p><strong>Nothing is created behind your back.</strong> Proposals stay proposals. Accept, edit the wording, or delete — and the whole session commits on one Save, with a conflict check so two people reviewing the same document can’t overwrite each other.</p>
-        <p><strong>And accepted tasks go to a person.</strong> Each row has an assignee that defaults to the reviewing clinician and takes one click to change. There’s an add-your-own row for what the model missed.</p>
-        <p><strong>The document itself is somebody’s job.</strong> Every confirmed document generates a document review task assigned to a named clinician — so a fax that arrives at 4pm isn’t an item in a queue nobody owns. Wrong person? Reassign, with a reason, recorded on the document.</p>
+        <p>Only what the document actually asks for — <em>“Repeat BMP in 1–2 weeks”</em>, <em>“Refer to cardiology for stress echo”</em> — each with its problem and <strong>the exact quote that justifies it</strong>. Timeframes come verbatim, or stay empty. We don’t invent urgency.</p>
+        <p><strong>The quality bar is the feature.</strong> No quote, no task. Ongoing medications, boilerplate, plan summaries and duplicates are left out, and for many documents the right answer is an empty list.</p>
+        <p><strong>Nothing is created behind your back.</strong> Accept, edit or delete, then one Save commits it, with a conflict check between reviewers. Accepted tasks go to a named assignee.</p>
+        <p><strong>The document itself is somebody’s job.</strong> Every confirmed document creates a review task for a named clinician, so a 4pm fax isn’t in a queue nobody owns.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1155,10 +1133,8 @@ const trustPoints = [
       <div>
         <div class="il">OUTPUT 4 — THE SUMMARY</div>
         <h2>Sometimes you want the document, not the facts.</h2>
-        <p>Stream gives every document a name, a date, and a short clinical summary — enough to know what arrived without opening twelve pages of it.</p>
-        <p>The summary sits in the review panel next to the excerpts, medications and proposed tasks, everywhere that panel is mounted.</p>
-        <p>When you want it in a note, <strong>Include in note</strong> puts it there as an attributed quote — the same explicit click as any other outside content. The entire document can go in the same way.</p>
-        <p>Like everything else on this page, nothing about it happens on its own.</p>
+        <p>Every document gets a short clinical summary — enough to know what arrived without opening twelve pages — beside its excerpts, medications and tasks.</p>
+        <p><strong>Include in note</strong> adds it, or the whole document, as an attributed quote. Like everything on this page, nothing happens on its own.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1285,9 +1261,8 @@ const trustPoints = [
       <div>
         <div class="il">GETTING STARTED</div>
         <h2>Ten phone calls, and we make them.</h2>
-        <p>You don’t port a number and you don’t switch anything off. You get a Stream fax number, your old line keeps working, and there’s no moment where a fax could fall between two systems.</p>
-        <p>Then we make the calls. Most practices find that ten senders — the hospital records department, the specialty groups they refer to most, the imaging center — account for the majority of what comes in. We contact them with your new number as part of setup, so most of your inbound volume is running through Stream the same week without anyone at your front desk picking up the phone.</p>
-        <p>Everything else moves at its own pace. And whatever still arrives the old way, or on paper, gets dragged into Stream from the Documents page and goes down the same pipeline.</p>
+        <p>Nothing is ported and nothing switched off: your old line keeps working beside the new one.</p>
+        <p>Most practices find ten senders account for most of what comes in. We call them with your new number as part of setup, so most of your volume runs through Stream the same week without your front desk picking up the phone.</p>
       </div>
       <div class="start-steps">
         <div class="start-step">

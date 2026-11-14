@@ -109,13 +109,13 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
 
 <style>
 /* Pain section */
-.pain { padding: 72px 0 60px; }
+.pain { padding: clamp(72px, 9vw, 112px) 0 clamp(56px, 7vw, 88px); }
 .pain h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); color: var(--ink); margin-bottom: 14px; }
 .pain-lead { font-size: 1rem; color: var(--ink-muted); max-width: 620px; line-height: 1.65; margin-bottom: 36px; }
-.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.pain-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
 /* How it works */
-.how { padding: 88px 0 72px; }
+.how { padding: clamp(72px, 9vw, 112px) 0 clamp(56px, 7vw, 88px); }
 .how-header { max-width: 700px; margin-bottom: 20px; }
 .how-header h2 { font-size: clamp(2rem, 3.8vw, 2.8rem); color: var(--ink); margin-bottom: 8px; }
 .how-header h2 em { font-style: italic; color: var(--primary); }
@@ -225,7 +225,7 @@ const annualSlots = Array.from({ length: 16 }, (_, i) => `${i + 3} yr`);
 .also-mocks { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
 
 /* Testimonials (2-up) */
-.testimonials { padding: 64px 0 52px; }
+.testimonials { padding: clamp(64px, 8vw, 96px) 0 clamp(56px, 6vw, 72px); }
 .testimonials-header { margin-bottom: 40px; }
 .testimonials-header h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); color: var(--ink); margin-bottom: 8px; }
 .testimonials-header p { font-size: 1rem; color: var(--ink-muted); }
