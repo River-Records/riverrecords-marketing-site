@@ -142,6 +142,23 @@ const metricItems = [
 .home-thesis-card h3 em { font-style: italic; color: var(--stream); }
 .home-thesis-card p { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; }
 .home-thesis-card strong { color: var(--ink); }
+.home-thesis-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.home-thesis-list li { font-size: 1rem; color: var(--ink-soft); line-height: 1.6; }
+.home-thesis-card p + p { margin-top: 14px; }
+.home-thesis-card .home-thesis-fine { font-size: 0.92rem; color: var(--ink-mute); }
+
+/* Workflow questions — asked of the visitor's own routine, not of their EHR */
+.home-test { margin-top: 72px; }
+.home-test-title { font-size: 1.5rem; color: var(--ink); text-align: center; margin-bottom: 32px; }
+.home-test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.home-test-item { border-top: 2px solid var(--ink); padding-top: 20px; }
+.home-test-q { font-family: 'Fraunces', Georgia, serif; font-size: 1.2rem; line-height: 1.35; color: var(--ink); margin-bottom: 16px; }
+.home-test-row { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.55; display: grid; grid-template-columns: 64px 1fr; gap: 12px; margin-bottom: 6px; }
+.home-test-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); padding-top: 4px; }
+.home-test-row--stream { color: var(--ink); font-weight: 500; }
+.home-test-row--stream span { color: var(--stream); }
+.home-test-more { display: block; width: fit-content; margin: 40px auto 0; color: var(--stream); font-weight: 600; text-decoration: none; font-size: 0.98rem; }
+.home-test-more:hover { text-decoration: underline; }
 
 /* === CLINIC LOGOS (label + specialties always; logo row appears when assets land) === */
 .home-logos { padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
@@ -298,6 +315,8 @@ const metricItems = [
 @media (max-width: 900px) {
   .home-hero-grid { grid-template-columns: 1fr; }
   .home-thesis-grid { grid-template-columns: 1fr; }
+  .home-test-grid { grid-template-columns: 1fr; }
+  .home-test { margin-top: 56px; }
   .home-tour-pair { grid-template-columns: 1fr; }
   .home-video-grid { grid-template-columns: 1fr; max-width: 560px; }
   .home-metrics-grid { gap: 40px; }
@@ -387,22 +406,56 @@ const metricItems = [
   </div>
 </div>
 
-<!-- THESIS -->
+<!-- THESIS — record vs. project. Stream is compared to the system a clinician keeps by
+     hand in their notes, never to the EHR: we ride alongside it and don't integrate or
+     replace it. Source: gtm/problem-first-messaging.md. -->
 <section class="home-thesis hr" id="thesis">
   <div class="hc">
-    <h2>The scribe is table stakes. <em>The chart is the product.</em></h2>
-    <p class="home-thesis-lede">Every AI scribe records a visit and writes a note. That's solved. The problem that isn't solved — and what Stream was built for — is what happens to that note over the next five years. A chart that organizes itself around your patient, not around the calendar.</p>
+    <h2>Your EHR keeps the record. <em>Stream keeps the project.</em></h2>
+    <p class="home-thesis-lede">Every patient is a project: problems that evolve, plans that change, follow-ups that have to happen. Good clinicians keep that project by hand, in their notes. Stream keeps it for you, alongside whatever EHR you already use.</p>
     <div class="home-thesis-grid">
       <div class="home-thesis-card home-thesis-card--muted">
-        <div class="home-thesis-tag">MOST AI SCRIBES</div>
-        <h3>A note. Then another note. <em>Then 400 more.</em></h3>
-        <p>After a year of visits, you've generated a stack of disconnected documents — to find when you last adjusted a patient's thyroid medication, you open six notes and scroll. The scribe helped with the visit; it didn't help with the chart.</p>
+        <div class="home-thesis-tag">The system you keep by hand</div>
+        <h3>It works. <em>Until it doesn't.</em></h3>
+        <ul class="home-thesis-list">
+          <li><strong>It doesn't scale.</strong> It holds for the patients you remember, not a full panel.</li>
+          <li><strong>It doesn't transfer.</strong> It lives in your shorthand, so a partner or covering clinician starts from scratch.</li>
+          <li><strong>It takes upkeep.</strong> The running summary gets re-typed and carried forward, and it's the first thing to slip on a hard week.</li>
+        </ul>
       </div>
       <div class="home-thesis-card home-thesis-card--stream">
-        <div class="home-thesis-tag">STREAM</div>
-        <h3>Every visit builds <em>one organized chart.</em></h3>
-        <p>Stream's scribe produces a structured note — Subjective, Objective, then Assessment &amp; Plan <strong>per medical problem</strong> — so every visit updates a problem-oriented, longitudinal record. One click shows every A&amp;P you've written for diabetes; one glance shows what's falling off your attention.</p>
+        <div class="home-thesis-tag">Stream</div>
+        <h3>The same system, <em>built as you document.</em></h3>
+        <p>Every visit's Assessment &amp; Plan is filed under its problem, so each patient's project assembles itself — and any clinician in your practice can open it.</p>
+        <p class="home-thesis-fine">Stream doesn't replace your EHR or integrate with it. The note pastes in, and your EHR stays the record.</p>
       </div>
+    </div>
+
+    <div class="home-test">
+      <h3 class="home-test-title">Ask it of your own workflow</h3>
+      <div class="home-test-grid">
+        <div class="home-test-item">
+          <p class="home-test-q">When did you last change her levothyroxine, and why?</p>
+          <p class="home-test-row"><span>Today</span>Open notes until you find it.</p>
+          <p class="home-test-row home-test-row--stream"><span>Stream</span>Open the problem: every plan for it, in order.</p>
+        </div>
+        <div class="home-test-item">
+          <p class="home-test-q">Which of today's patients has a problem nobody has touched in a year?</p>
+          <p class="home-test-row"><span>Today</span>Re-read each chart before clinic.</p>
+          <p class="home-test-row home-test-row--stream"><span>Stream</span>Huddle shows what's falling off, before the visit.</p>
+        </div>
+        <div class="home-test-item">
+          <p class="home-test-q">The A1c in Tuesday's cardiology fax: is it in her diabetes plan?</p>
+          <p class="home-test-row"><span>Today</span>Someone reads it and retypes what matters.</p>
+          <p class="home-test-row home-test-row--stream"><span>Stream</span>Filed under diabetes, linked to the page it came from.</p>
+        </div>
+        <div class="home-test-item">
+          <p class="home-test-q">You're covering for a partner. What was the plan for this patient's CKD?</p>
+          <p class="home-test-row"><span>Today</span>Decode your partner's notes.</p>
+          <p class="home-test-row home-test-row--stream"><span>Stream</span>The same problem view your partner sees.</p>
+        </div>
+      </div>
+      <a href="/longitudinal-patient-tracking/" class="home-test-more">How Stream keeps the project →</a>
     </div>
   </div>
 </section>

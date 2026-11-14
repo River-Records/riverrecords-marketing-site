@@ -1,0 +1,202 @@
+---
+/*
+ * /longitudinal-patient-tracking/ — the problem-first page.
+ *
+ * WHY THIS PAGE EXISTS
+ * Outbound led with features ("a problem-oriented scribe", "problem-oriented fax triage")
+ * and the most common reply was "my EHR already does that." At the feature level that is
+ * true: every EHR has a problem list and a fax inbox. So this page never compares Stream
+ * to the EHR. It compares Stream to the system a good clinician keeps by hand in their
+ * notes — which works, and doesn't scale, doesn't transfer, and takes upkeep. Positioning
+ * source: gtm/problem-first-messaging.md.
+ *
+ * Search: the terms are the page's second voice, not its first. Search Console (365d to
+ * 2026-11-09) shows "ai in longitudinal patient management" at position 12.5 with no page
+ * written for it, plus "problem-based charting" and "chart prep". The title and FAQ carry
+ * those words; the headline carries the problem.
+ *
+ * CLAIM RULES: we ride alongside the EHR — no integration, no write-back, no replacement.
+ * Every product claim here is already made on a product page (listed in the messaging
+ * doc). Plan item tracking is early access and is labelled as such. No time-saved figures.
+ */
+import Page from '../../layouts/Page.astro';
+import CtaDark from '../../components/CtaDark.astro';
+import { pricing } from '../../config/pricing';
+
+const jamaUrl = 'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2796664';
+
+// One array feeds both the rendered FAQ and the FAQPage schema, so they cannot drift.
+const faqs = [
+  {
+    q: 'What is longitudinal patient tracking?',
+    a: 'Following each of a patient’s problems across visits and sources: how it has changed, what has been tried and why it stopped, what the current plan is, and what still has to happen. In most charts that history sits in notes filed by date, so it is reconstructed by reading them.',
+  },
+  {
+    q: 'Doesn’t my EHR already have a problem list?',
+    a: 'Yes, and it is useful as a list. What it usually does not hold is the history behind each entry — every plan, why it changed, what is outstanding — without opening notes in date order. Stream files each visit’s Assessment & Plan under its problem so that history is one view. Some EHRs do more of this than others, so the fairest test is the questions on this page, asked of your own workflow.',
+  },
+  {
+    q: 'What is problem-based charting?',
+    a: 'Organizing documentation by medical problem rather than by visit date: each visit’s assessment and plan is written per problem, so the chart can be read one condition at a time. It is the idea behind Lawrence Weed’s problem-oriented medical record. Stream applies it to the note it drafts, so the structure does not depend on anyone maintaining it.',
+  },
+  {
+    q: 'Does Stream integrate with or replace my EHR?',
+    a: 'Neither. Stream works alongside any EHR. The finished note pastes in with one click and your EHR remains the record of care. There is no write-back, which means the note lives in two places — the trade for working with whatever system you have, without an integration project.',
+  },
+  {
+    q: 'Can another clinician in my practice pick up my patients from it?',
+    a: 'Yes. Clinicians in the practice open the same problem view, with each entry showing who wrote it. A covering clinician or a new partner reads the plan for a problem where it is filed, rather than decoding another clinician’s notes.',
+  },
+];
+---
+<Page readable="pillar"
+  title="Longitudinal Patient Tracking for Primary Care, Alongside Your EHR | Stream"
+  description="Keep every patient's problems moving between visits without maintaining a summary by hand. Problem-based tracking that works alongside any EHR — what it does, what it doesn't, and how it compares to keeping it in your notes.">
+
+<Fragment slot="head">
+  {/* Declares exactly the questions rendered below. */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+</Fragment>
+
+<style>
+.lpt { padding: clamp(56px, 7vw, 88px) 0 clamp(48px, 6vw, 72px); }
+.final-cta { padding-bottom: clamp(64px, 8vw, 104px); }
+.lpt-wrap { max-width: 760px; margin: 0 auto; }
+.lpt h1 { font-size: clamp(2.2rem, 4.6vw, 3.2rem); color: var(--ink); line-height: 1.08; margin-bottom: 22px; }
+.lpt h1 em { font-style: italic; color: var(--primary); }
+.lpt-lede { font-size: 1.15rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 16px; }
+.lpt .lpt-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 28px 0 0; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.lpt h2 { font-size: clamp(1.5rem, 2.6vw, 1.85rem); color: var(--ink); margin: 64px 0 16px; }
+.lpt p { font-size: 1.02rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 16px; }
+.lpt strong { color: var(--ink); }
+/* Never a bare `.lpt a` — it would outrank the button classes and repaint them. */
+.lpt a:not(.btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+.lpt-costs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 28px 0 8px; }
+.lpt-cost { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; }
+.lpt-cost h3 { font-family: var(--font-sans); font-size: 1.02rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.lpt .lpt-cost p { font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+.lpt-steps { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+.lpt-steps li { display: grid; grid-template-columns: 132px 1fr; gap: 20px; font-size: 1.02rem; color: var(--ink-muted); line-height: 1.7; }
+.lpt-steps li > span { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); padding-top: 5px; }
+
+table.lpt-table { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 0.95rem; }
+table.lpt-table th { text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); padding: 0 14px 10px 0; border-bottom: 1px solid var(--border-strong); font-weight: 500; }
+table.lpt-table td { padding: 14px 14px 14px 0; border-bottom: 1px solid var(--border); color: var(--ink-muted); line-height: 1.55; vertical-align: top; }
+table.lpt-table td:first-child { color: var(--ink); font-family: var(--font-serif); font-size: 1.05rem; width: 40%; }
+.lpt .lpt-footnote { font-size: 0.88rem; color: var(--ink-faint); }
+
+.lpt-honest { background: var(--surface-warm); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 32px; margin: 64px 0 0; }
+.lpt-honest h2 { margin-top: 0; font-size: 1.35rem; }
+.lpt .lpt-honest p:last-child { margin-bottom: 0; }
+
+.lpt-faq details { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.lpt-faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1.02rem; line-height: 1.5; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.lpt-faq summary::-webkit-details-marker { display: none; }
+.lpt-faq summary::after { content: '+'; color: var(--primary); font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.lpt-faq details[open] summary::after { content: '\2212'; }
+.lpt-faq details p { margin: 12px 0 0; font-size: 0.98rem; }
+
+@media (max-width: 760px) {
+  .lpt-costs { grid-template-columns: 1fr; }
+  .lpt-steps li { grid-template-columns: 1fr; gap: 4px; }
+  table.lpt-table thead { display: none; }
+  table.lpt-table tr { display: block; border-bottom: 1px solid var(--border); padding: 14px 0; }
+  table.lpt-table td { display: block; border: none; padding: 2px 0; width: auto !important; }
+}
+</style>
+
+<section class="lpt">
+  <div class="container">
+    <div class="lpt-wrap">
+
+      <span class="section-label">Longitudinal care</span>
+      <h1>Keep the project, <em>not just the record.</em></h1>
+      <p class="lpt-lede">Every patient you carry for years is a project: a set of problems, each with a history, a current plan and things that still have to happen. Your EHR stores the notes. Keeping the project current has always been left to you.</p>
+      <p class="lpt-meta">Written for primary care and independent practices · Physician-authored</p>
+
+      <h2>You probably already have a system</h2>
+      <p>Most good clinicians do. A running problem list at the top of the note, carried forward and edited. Smart phrases. A private shorthand for <em>tried this, stopped it, here’s why</em>. For the patients you know well, it works.</p>
+      <p>It has three costs, and they grow with your panel.</p>
+      <div class="lpt-costs">
+        <div class="lpt-cost">
+          <h3>It doesn’t scale</h3>
+          <p>It holds for the patients you remember. The one you haven’t seen in eight months is exactly the one whose summary is stale.</p>
+        </div>
+        <div class="lpt-cost">
+          <h3>It doesn’t transfer</h3>
+          <p>It lives in your shorthand. A covering clinician or a new partner starts from your notes, not your system.</p>
+        </div>
+        <div class="lpt-cost">
+          <h3>It takes upkeep</h3>
+          <p>The summary is re-typed and carried forward every visit, and it’s the first thing to slip on a hard week.</p>
+        </div>
+      </div>
+      <p>Copy-forward is how most people keep that summary alive, and it is a large part of why <a href={jamaUrl} target="_blank" rel="noopener">half the text in the average chart is duplicated</a>.</p>
+
+      <h2>What Stream does instead</h2>
+      <p>Stream builds the same system as a side effect of documenting. Each visit’s note carries an Assessment &amp; Plan for every problem, and each one is filed under its problem. There is no summary to maintain, because the structure is the summary.</p>
+      <ul class="lpt-steps">
+        <li><span>Before the visit</span><div><a href="/features/huddle/">Huddle</a> shows active problems, problems that have fallen off your attention for ten months or more, and compliance flags.</div></li>
+        <li><span>During it</span><div>Record ambiently or dictate. Anything you jot in the Scratchpad lands in the right section of the note.</div></li>
+        <li><span>Across visits</span><div>Open a problem and read every plan written for it, in order — your chart, not AI output. Recap adds an AI-generated summary when you want one.</div></li>
+        <li><span>After it</span><div>Follow-up tasks come out of the signed note, so the plan doesn’t depend on anyone remembering it. <a href="/features/task-management/">Task management</a></div></li>
+        <li><span>From outside</span><div>Faxes and uploads are filed as excerpts under the problems they’re about, each linked to the page it came from. <a href="/intake/">Outside records</a></div></li>
+      </ul>
+
+      <h2>The handoff is where it shows</h2>
+      <p>The covering clinician, the new partner, the clinician who sees your patient between your visits: they open the same problem view you do. The plan for the CKD isn’t in your head or your shorthand. It’s filed under CKD, in order, with who wrote each entry.</p>
+
+      <h2>Five questions to ask of your own workflow</h2>
+      <p>Not of your EHR — of how you work today.</p>
+      <table class="lpt-table">
+        <thead><tr><th>Question</th><th>What it takes today</th><th>With Stream</th></tr></thead>
+        <tbody>
+          <tr><td>When did you last change her levothyroxine, and why?</td><td>Open notes until you find it, or trust your summary.</td><td>Open the problem: every plan for it, in order.</td></tr>
+          <tr><td>Which of today’s patients has a problem nobody has touched in a year?</td><td>Re-read each chart before clinic.</td><td>Huddle’s falling-off view, before the visit.</td></tr>
+          <tr><td>The A1c in Tuesday’s cardiology fax: is it in her diabetes plan?</td><td>Someone reads it and retypes what matters.</td><td>An excerpt under diabetes, linked to its page.</td></tr>
+          <tr><td>You’re covering for a partner. What was the plan for this patient’s CKD?</td><td>Decode your partner’s notes.</td><td>The same problem view your partner sees.</td></tr>
+          <tr><td>The follow-ups you planned last month: which happened?</td><td>Memory, or a list you keep yourself.</td><td>Tasks generated from the signed note.*</td></tr>
+        </tbody>
+      </table>
+      <p class="lpt-footnote">* Tracking each plan item through to completion is in <a href="/referral-tracking/">early access</a>.</p>
+
+      <div class="lpt-honest">
+        <h2>What Stream is not</h2>
+        <p>It isn’t an EHR, and it doesn’t replace one. It doesn’t integrate or write back: the finished note pastes into any EHR in one click, and your EHR remains the record of care.</p>
+        <p>That is a real cost — the note lives in two places — and it’s the trade for working alongside whatever system you already have, with no integration project. If write-back is a requirement, Stream is the wrong choice today.</p>
+      </div>
+
+      <h2>Questions</h2>
+      <div class="lpt-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <CtaDark secondaryHref="/book-demo/" secondaryLabel="Talk to a clinician first">
+      Your EHR keeps the record.<br><em>Stream keeps the project.</em>
+      <Fragment slot="body">Try it on your next visit. {pricing.trialDays}-day free trial, no credit card. Works alongside any EHR.</Fragment>
+    </CtaDark>
+  </div>
+</section>
+
+</Page>

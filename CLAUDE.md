@@ -201,6 +201,28 @@ ICD-10 is republished every October, so re-check on the annual update rather tha
 inheriting the line — Q79.62 (hEDS) and G90.A (POTS) are recent additions and the most
 likely to move. A wrong code costs more credibility than the widget earns.
 
+## Positioning: the record and the project (`gtm/problem-first-messaging.md`)
+Outbound led with features ("problem-oriented scribe", "problem-oriented fax triage") and
+the standard reply was *"my EHR already does that."* At the feature level it is true —
+every EHR has a problem list and a fax inbox. So the site now leads with problems, and
+**never positions Stream against the EHR.** We ride alongside it: no integration, no
+write-back, no replacement, and we say so. The comparison is to the system good clinicians
+keep by hand in their notes, which works and **doesn't scale, doesn't transfer, and takes
+upkeep.** One line: *your EHR keeps the record; Stream keeps the project.*
+
+- Homepage `#thesis` and `/longitudinal-patient-tracking/` carry it. The workflow questions
+  are asked of the visitor's *routine*, never of their EHR — "your EHR can't…" is
+  falsifiable by one good EHR demo and makes us the rival.
+- Feature names (problem-oriented, Inlet, Huddle) are the second line, not the headline,
+  but stay in titles, meta and FAQs — that is where search reads them.
+- Every claim must already be made on a product page; the messaging doc lists them. Plan
+  item tracking is early access and is labelled wherever it appears.
+
+`/longitudinal-patient-tracking/` targets "ai in longitudinal patient management"
+(position 12.5, no page written for it), "problem-based charting" and "chart prep". Judge
+it first on whether outbound clicks convert, not on rank. Its "What Stream is not" box is
+its limits section — same rule as everywhere else.
+
 ## `/connect/` — Stream Connect (fax on the practice's own Spruce number)
 Short on purpose: the reader already faxes on Spruce and needs what changes, what it
 costs, and what they do themselves. Product depth lives on `/intake/` (Stream Inlet, the
@@ -519,7 +541,7 @@ every post looked identical and "which pages are high value" was unanswerable.
 **Opting a page in:** pass `readable="<kind>"` to the `Page` layout — `guide`, `pricing`,
 `specialty`, `comparison`, `pillar`, `tool`. The layout puts the attribute on `<main>`, so
 scroll is measured against the content rather than the document. Currently on `/pricing/`,
-both guides, the four `/for/*` pages, `/form-filler/` (`product`), all comparison pages, the calculator and the
+both guides, the four `/for/*` pages, `/form-filler/` (`product`), all comparison pages, the calculator, `/longitudinal-patient-tracking/` and the
 documentation-automation page. `/comparison/freedai/` predates the `Page` layout and wires
 `Base` itself, so its `<main>` carries the attribute directly.
 
