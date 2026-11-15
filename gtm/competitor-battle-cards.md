@@ -61,7 +61,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Heidi
 
-**Price:** Free tier ($0, unlimited basic consults and dictation, 10 "Pro Actions"/mo) · Clinician ~$150/user/mo billed annually · Practice and Enterprise custom.
+**Price:** Free tier ($0, unlimited transcription; dictation and other features on a weekly allowance) · Clinician $150/user/mo month-to-month or $110/mo billed annually · Teams by quote. *(Re-checked on heidihealth.com, US prices, 2026-11-15.)*
 **Wins with:** price-sensitive clinicians globally, and anyone who wants to try a scribe at zero risk.
 **Their pitch:** genuinely free to start, strong templating, big international footprint.
 
@@ -84,14 +84,14 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Twofold
 
-**Price:** $49/user/mo billed annually, $69 month-to-month. Unlimited notes — no per-note, per-minute, or per-action metering.
+**Price:** $49/user/mo billed annually, $69 month-to-month, $19 first month on monthly *(re-checked on trytwofold.com 2026-11-15)*. Unlimited notes — no per-note, per-minute, or per-action metering.
 **Wins with:** independent practices and outpatient clinics — **explicitly our ICP, at a third of our price.** Also sells into therapy.
-**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning, EHR integration.
+**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning.
 
 **Where they genuinely beat us**
 - **Price, badly.** $49 against $149. They also bundle coding, which we charge Pro pricing for.
 - No audio stored — a clean privacy answer that plays well with cautious buyers.
-- They claim EHR integration; we don't have any.
+- EHR is level: as of 2026-11-15 their pricing page describes copy-paste into any EHR, same as us. Don't concede integration they no longer claim.
 
 **Where we win**
 - Same category argument as everywhere else: it is a very good, very cheap note generator. No problem-oriented chart, no inbound document pipeline, no care-gap or HCC surfaces, no patient chart to speak of.

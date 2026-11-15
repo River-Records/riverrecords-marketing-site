@@ -93,7 +93,7 @@ export const competitors: Competitor[] = [
     lede: 'Heidi has a genuinely free tier. If all you need is a note, that is a real answer and we would rather say so than pretend otherwise.',
     pricing: {
       them: 'Free · around $150/month',
-      themNote: 'Heidi raised its Clinician plan from roughly $99 to around $150 in February 2026.',
+      themNote: 'Clinician is $150 month-to-month or $110/month billed annually. Heidi raised it from roughly $99 in February 2026.',
       source: 'https://www.heidihealth.com/pricing',
       freeTier: 'Yes — a real one',
       ehr: 'Not on the Free or Clinician plans',
@@ -101,7 +101,7 @@ export const competitors: Competitor[] = [
     noteStructure:
       'Template-driven notes, customisable, with a genuinely free tier and broad language support.',
     betterAtIt: [
-      'A real free tier, with unlimited basic consults and dictation. Not a trial that expires.',
+      'A real free tier, with unlimited transcription. Other features run on a weekly allowance, but it is not a trial that expires.',
       'Template flexibility, and a more polished product surface than ours.',
       'A large international footprint, with support for practice patterns outside the US.',
     ],
@@ -192,20 +192,19 @@ export const competitors: Competitor[] = [
     seoTitle: 'Stream vs. Twofold — Cheapest Scribe, or a Chart?',
     seoDescription:
       'Twofold is $69/month with coding bundled. Stream Pro is priced like a chart because that is what it is. An honest comparison for independent practices.',
-    lede: 'Twofold targets exactly the practices we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding and EHR integration included, it is probably them.',
+    lede: 'Twofold targets exactly the practices we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding included, it is probably them.',
     pricing: {
-      them: '$69/month billed annually',
-      themNote: 'Introductory $19 for the first month. The $49 figure we previously quoted is no longer on their pricing page.',
+      them: '$69/month, or $49/month billed annually',
+      themNote: 'Introductory $19 for the first month on the monthly plan. Group practices are priced on request.',
       source: 'https://www.trytwofold.com/pricing',
       freeTier: 'A $0 plan giving 7 days of full access, no card',
-      ehr: 'Claims integration available',
+      ehr: 'Copy and paste into any EHR',
     },
     noteStructure:
       'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',
     betterAtIt: [
       'Price, against Stream Pro. $69 against $149, and CPT/ICD-10 coding is included.',
       'No audio retained, which is a clean answer for privacy-cautious buyers.',
-      'They claim EHR integration. We have none.',
     ],
     whereStreamDiffers: [
       'Twofold is a very good, very cheap note generator. That is the whole product.',
@@ -250,7 +249,7 @@ const EXTRA_ROWS: ReferenceRow[] = [
     href: '/comparison/freedai/',
     price: '$39 – $119',
     freeTier: '7-day trial, no card',
-    ehr: 'Copy and paste',
+    ehr: 'Copy and paste; Premier pushes to browser-based EHRs',
     structure: 'One note per visit. Starter is capped at 40 notes a month.',
   },
   {
