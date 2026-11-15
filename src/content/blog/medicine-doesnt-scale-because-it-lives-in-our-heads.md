@@ -72,7 +72,7 @@ The instinct is to say: document more. Write better notes. Put the reasoning in.
 
 That instinct is a trap, and it's why so many documentation initiatives make physicians miserable. More documentation is more burden, and burden is the thing we're trying to eliminate. Externalizing your system is not the same as narrating it.
 
-What it means instead is building infrastructure that holds the work of care, so it doesn't have to be held in a person. Four properties matter:
+What it means instead is building [infrastructure that holds the work of care](/longitudinal-patient-tracking/), so it doesn't have to be held in a person. Four properties matter:
 
 **Reproducible.** The same clinical situation produces the same structure every time — not because you typed it the same way, but because the system organizes it that way. Anyone can walk into it and know where things are.
 

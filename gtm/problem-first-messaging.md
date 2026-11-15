@@ -28,9 +28,12 @@ notes, which works, and which:
 2. **doesn't transfer** — it lives in your shorthand, so a partner, covering clinician or
    new hire can't pick it up;
 3. **takes upkeep** — the running summary has to be re-typed, pruned and carried forward,
-   and it is the first thing to slip on a hard week. Copy-forward is how most people keep
-   it alive, which is a large part of why half the text in the average chart is
-   duplicated (Steinkamp, Kantrowitz et al., *JAMA Netw Open* 2022).
+   and it is the first thing to slip on a hard week. Copy-forward and templates are how
+   clinicians keep a patient's story in front of them, because notes give it nowhere else
+   to persist — nothing stays pinned, nothing is quick to review. That adaptation, not
+   carelessness, is a large part of why half the text in the average chart is duplicated
+   (Steinkamp, Kantrowitz et al., *JAMA Netw Open* 2022). Frame it as sensible, never as
+   a failing of the clinician.
 
 Stream builds that system as a by-product of documenting: every visit's Assessment & Plan
 is filed under its problem, so the project file assembles itself, and any clinician in the

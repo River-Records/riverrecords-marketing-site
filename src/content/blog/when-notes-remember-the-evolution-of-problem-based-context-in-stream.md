@@ -16,7 +16,7 @@ draft: false
 
 In medicine, we don’t think in pages — we think in *problems.*
 
-That’s why Stream has always been built around the problem list: each note organized by hypertension, diabetes, asthma, or fatigue, rather than by SOAP headers alone.
+That’s why Stream has always been built around the [problem list](/longitudinal-patient-tracking/): each note organized by hypertension, diabetes, asthma, or fatigue, rather than by SOAP headers alone.
 
 Until now, those problems were intelligently grouped and structured, but their memory was static. Stream could separate, tag, and link hypertension notes from past visits — but it couldn’t yet *think* in continuity.
 

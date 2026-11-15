@@ -367,8 +367,10 @@ const metricItems = [
     <div class="home-hero-grid">
       <div>
         <div class="home-eyebrow">Built by practicing physicians</div>
-        <h1>Your AI scribe stops at the note.<br><em>Stream keeps going.</em></h1>
-        <p class="home-hero-sub">Faster notes today. A smarter chart tomorrow. Stream organizes every visit by medical problem — so the record you've spent years building finally works the way you think.</p>
+        <!-- Problem first, no rival named: see gtm/problem-first-messaging.md. "AI scribe" stays
+             in the first line of the sub so visitors (and search) know what it is at once. -->
+        <h1>Stop carrying every patient <em>in your head.</em></h1>
+        <p class="home-hero-sub">Stream is an AI scribe that files each visit under the problems it touches, so the plan, the history and what's still outstanding are there when you open the chart. It works alongside your EHR.</p>
         <div class="home-cta-row">
           <a href={`${onboardUrl}&utm_content=hero`} class="hb-primary">Start free for 30 days →</a>
           <a href="/book-demo/" class="hb-secondary">Talk to a clinician first</a>

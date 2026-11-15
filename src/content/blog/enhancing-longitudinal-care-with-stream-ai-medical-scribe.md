@@ -32,7 +32,7 @@ Traditional medical AI scribes often overlook the need for structured data that 
 
 ## How Stream Improves Information Management in Longitudinal Care
 
-Longitudinal care requires more than just notes stuck in time; it demands a system built to optimize how data is stored, used, and updated across a patient’s health journey. Here’s how Stream enhances information management to support comprehensive care:
+[Longitudinal care](/longitudinal-patient-tracking/) requires more than just notes stuck in time; it demands a system built to optimize how data is stored, used, and updated across a patient’s health journey. Here’s how Stream enhances information management to support comprehensive care:
 
 ### 1. Maintaining a Continuously Updated Health Narrative
 
