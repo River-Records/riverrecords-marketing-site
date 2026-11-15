@@ -11,7 +11,7 @@ tags: ["ai-scribe", "longitudinal-care"]
 draft: false
 ---
 
-Longitudinal care is the foundation of patient-centered healthcare, ensuring that every visit builds on past medical history for better decision-making. However, maintaining structured, consistent patient records is increasingly challenging due to administrative burdens on healthcare providers.
+[Longitudinal care](/longitudinal-patient-tracking/) is the foundation of patient-centered healthcare, ensuring that every visit builds on past medical history for better decision-making. However, maintaining structured, consistent patient records is increasingly challenging due to administrative burdens on healthcare providers.
 
 AI-powered medical scribes are transforming how clinical notes are documented. By leveraging advanced AI for clinical notes, these solutions automate documentation, enhance accuracy, and allow healthcare providers to focus more on patient care instead of paperwork.
 

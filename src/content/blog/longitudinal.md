@@ -17,7 +17,7 @@ draft: false
 
  “By aligning documentation with how clinicians think—by clinical problems, not by encounters—Stream makes it easier to capture patient complexity. ” 
 
-Medical documentation isn’t just about keeping records—it’s about understanding and managing patient complexity over time. As we transition more into value-based care, in which reimbursement is linked to the documented quality of care provided, capturing patient complexity becomes crucial. We believe documentation should tell a clear, comprehensive story of your patient’s journey—and that’s why we’ve built Stream, the first medical AI scribe for longitudinal care.
+Medical documentation isn’t just about keeping records—it’s about understanding and managing patient complexity over time. As we transition more into value-based care, in which reimbursement is linked to the documented quality of care provided, capturing patient complexity becomes crucial. We believe documentation should tell a clear, comprehensive story of your patient’s journey—and that’s why we’ve built Stream, the first medical AI scribe for [longitudinal care](/longitudinal-patient-tracking/).
 
 ### Value-Based Care & The Challenge of Capturing Complexity
 

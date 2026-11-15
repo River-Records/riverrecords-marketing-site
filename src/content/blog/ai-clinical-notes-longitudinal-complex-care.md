@@ -17,7 +17,7 @@ Managing longitudinal and complex patient care has always required precise, acce
 
 ## The Need for Better Documentation in Longitudinal and Complex Care
 
-Longitudinal care, particularly for patients with chronic or complex conditions, demands consistent, accessible data across multiple touchpoints. When data is scattered or difficult to retrieve, providers may struggle to develop or adjust comprehensive care plans. Inconsistent access to information can compromise the quality of care, lead to redundant tests, or delay treatments.
+[Longitudinal care](/longitudinal-patient-tracking/), particularly for patients with chronic or complex conditions, demands consistent, accessible data across multiple touchpoints. When data is scattered or difficult to retrieve, providers may struggle to develop or adjust comprehensive care plans. Inconsistent access to information can compromise the quality of care, lead to redundant tests, or delay treatments.
 
 Traditional documentation methods rely heavily on manual entry, which can result in information being fragmented across systems or becoming buried under newer records. In contrast, AI-powered clinical notes bring order to these records, offering a single source of organized, accessible data that can be quickly retrieved when needed.
 

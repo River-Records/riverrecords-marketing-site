@@ -19,7 +19,7 @@ In complex, long-term healthcare, clinical notes form a critical bridge between 
 
  
 
-Longitudinal care, especially for patients with chronic or complex health issues, is unlike episodic care. It requires a deeper connection to a patient’s medical history and an ongoing understanding of their condition. Unfortunately, traditional note-keeping doesn’t support this approach well, often leaving vital insights buried within a bulk of data. AI charting software addresses these gaps by restructuring how clinical notes are organized, stored, and accessed over time.
+[Longitudinal care](/longitudinal-patient-tracking/), especially for patients with chronic or complex health issues, is unlike episodic care. It requires a deeper connection to a patient’s medical history and an ongoing understanding of their condition. Unfortunately, traditional note-keeping doesn’t support this approach well, often leaving vital insights buried within a bulk of data. AI charting software addresses these gaps by restructuring how clinical notes are organized, stored, and accessed over time.
 
  
 
