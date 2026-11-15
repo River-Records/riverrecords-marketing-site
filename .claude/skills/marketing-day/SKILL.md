@@ -13,13 +13,16 @@ you never merge. Owen never sends an email, and nobody posts to LinkedIn or anyw
 
 ## Phase 0 — Start the day
 
-1. **Repos.** This session has the site repo. Attach ai-scribe read-only for Vera and Penn:
-   `add_repo` River-Records/ai-scribe with `access: "push"` (needed for the GitHub issue tools;
-   you never push to it). Clone it to `../ai-scribe` as the tool says. If that's refused, carry on:
+1. **Repos.** This session has the site repo. Attach ai-scribe for Vera, Penn and research:
+   `add_repo` River-Records/ai-scribe with `access: "push"` (needed for the GitHub issue tools and
+   for research PRs; you push nothing else there). This repo's `.claude/settings.json` allows the
+   call. Clone it to `../ai-scribe` as the tool says. If it's refused anyway, carry on:
    every product claim is then "unverified", so the day is limited to pieces that make no product
    claims, and the end-of-day comment says so.
 2. **The week's plan** is the open issue titled `Marketing week YYYY-Www` in this repo.
-   - **Monday, or no plan issue for this week:** write it (below) before anything else.
+   - **No plan issue for this ISO week:** write it (below) before anything else, **even when an
+     assignment was given.** The assignment becomes the plan's first item. (The first run, on
+     2026-11-15, skipped this because it had an assignment.)
    - Otherwise read it. The argument, if one was given, wins over the plan.
 3. **Post the day's plan** in three lines: the piece, its audience, and what Owen's sweep will
    cover.
@@ -41,7 +44,8 @@ Five items at most, ordered. Inputs, read narrowly:
 
 ## Phase 1 — Owen's sweep
 
-Dispatch `owen`. When it returns:
+**Every day, whatever the assignment.** A research or writing day still starts with the sweep,
+because support mail waits on it. Dispatch `owen`. When it returns:
 
 - File each proposed ai-scribe issue with `issue_write` on River-Records/ai-scribe: labels `bug`
   or `gtm-signal` (GitHub creates a label the first time it's used). Search for an existing issue
@@ -57,9 +61,17 @@ Dispatch `owen`. When it returns:
    not Penn's or yours to make: it's an owner question, with your recommendation.
 2. Dispatch `penn`.
 3. Dispatch `vera` on what Penn wrote. On FAIL, give Penn Vera's list and re-run both, twice at
-   most. Something still unverified after that is cut or marked for the owner. It never ships on
-   your say-so.
-4. **Build and check** anything that touches `src/`: `npm ci` (first time), `npm run build`, and
+   most. **Don't commit after a FAIL until Vera has seen the fixes.** A fix you made yourself is
+   still unverified. Something still unverified after two rounds is cut or marked for the owner.
+   It never ships on your say-so.
+4. **A research piece** (a competitor refresh, a market scan): Quinn's rules apply
+   (`../ai-scribe/.claude/agents/researcher.md`: a source and date for every claim, evidence
+   graded, `curl` when WebFetch can't resolve an allowed host, and a site's own bot block
+   respected). The findings go in `../ai-scribe/docs/research/<slug>.md`, in that folder's README
+   format, as a docs-only PR on a `claude/research-<slug>` branch. That PR merges itself once
+   green. The site PR then cites that file. If ai-scribe couldn't be attached, put the findings
+   in the end-of-day comment so they aren't lost.
+5. **Build and check** anything that touches `src/`: `npm ci` (first time), `npm run build`, and
    `node scripts/verify-internal-links.mjs`. A build that fails is not a draft PR; fix it or
    say why not.
 
