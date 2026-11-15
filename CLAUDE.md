@@ -1026,6 +1026,15 @@ Build command: `npm run build`
 Output directory: `dist`
 Node version: 22
 
+## The marketing team (`/marketing-day`)
+Morgan, the dispatcher in ai-scribe, starts one `/marketing-day` session here each weekday.
+**Mara** (the session) plans the week and runs the day. **Penn** (`.claude/agents/penn.md`) writes,
+**Vera** (`vera.md`) checks every public claim against ai-scribe's code and shipped briefs, and
+**Owen** (`owen.md`) sweeps support mail and writes outreach as Gmail drafts only, to the lists in
+`marketing/outreach/approved-lists.md`. The roster and decisions are in ai-scribe's
+`docs/features/agent-team.md`. The team opens draft PRs and never merges, sends or posts.
+Customer names and contact details stay in Gmail and HubSpot, never in this repo.
+
 ## DO NOTs
 - Do not use inline styles — use shared.css classes or scoped component styles
 - Do not duplicate CSS between pages — use components
