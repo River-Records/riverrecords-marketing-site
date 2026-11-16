@@ -19,7 +19,7 @@
 //                          looked up from /v2/userinfo with the token (needs
 //                          the openid + profile scopes), so the token is the
 //                          only secret that has to be renewed.
-//   SITE_URL     canonical site origin (default https://riverrecords.ai)
+//   SITE_URL     canonical site origin (default https://www.riverrecords.ai)
 //   BEFORE_SHA   github.event.before (push range start)
 //   AFTER_SHA    github.sha          (push range end; defaults to HEAD)
 //   POST_SLUG    workflow_dispatch override — post exactly this slug
@@ -35,7 +35,7 @@ import { basename } from 'node:path';
 import yaml from 'js-yaml';
 
 const BLOG_DIR = 'src/content/blog';
-const SITE_URL = (process.env.SITE_URL || 'https://riverrecords.ai').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://www.riverrecords.ai').replace(/\/+$/, '');
 const TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
 let AUTHOR_URN = process.env.LINKEDIN_AUTHOR_URN;
 const DRY_RUN = /^(1|true)$/i.test(process.env.DRY_RUN || '');
