@@ -24,6 +24,15 @@
 //   AFTER_SHA    github.sha          (push range end; defaults to HEAD)
 //   POST_SLUG    workflow_dispatch override — post exactly this slug
 //   DRY_RUN      "true"/"1" → log the payload, don't call LinkedIn
+//   LIVE_WAIT_SECONDS  how long to wait for the post's page to go live before
+//                      giving up (default 600). 0 skips the check.
+//
+// Why the wait: this runs the moment the push lands on main, while Cloudflare
+// Pages is still building. LinkedIn scrapes the URL for its link card at post
+// time and caches what it gets, so posting before the page exists bakes a
+// blank/404 card into the share. We therefore poll the URL until it answers
+// 200 and only then post; if it never does, the post is skipped and the job
+// goes red rather than shipping a broken card.
 //
 // Token note: member access tokens last 60 days. When it expires the POST
 // returns 401 and this job goes red — that's the signal to mint a fresh token
@@ -39,6 +48,8 @@ const SITE_URL = (process.env.SITE_URL || 'https://www.riverrecords.ai').replace
 const TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
 let AUTHOR_URN = process.env.LINKEDIN_AUTHOR_URN;
 const DRY_RUN = /^(1|true)$/i.test(process.env.DRY_RUN || '');
+const LIVE_WAIT_SECONDS = Number(process.env.LIVE_WAIT_SECONDS ?? 600);
+const LIVE_POLL_SECONDS = 15;
 
 function sh(cmd) {
   return execSync(cmd, { encoding: 'utf8' }).trim();
@@ -172,6 +183,38 @@ async function lookupAuthorUrn() {
   return `urn:li:person:${sub}`;
 }
 
+// Poll until the page answers 200 (redirects followed). Read-only, so it runs
+// on dry runs too. Throws if the page is not live within LIVE_WAIT_SECONDS.
+async function waitUntilLive(url) {
+  if (!(LIVE_WAIT_SECONDS > 0)) return;
+  const deadline = Date.now() + LIVE_WAIT_SECONDS * 1000;
+  let last = 'no response';
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetch(url, {
+        redirect: 'follow',
+        headers: { 'Cache-Control': 'no-cache', 'User-Agent': 'riverrecords-linkedin-poster' },
+        signal: AbortSignal.timeout(15000),
+      });
+      if (res.ok) {
+        if (attempt > 1) console.log(`Page is live (after ${attempt} checks).`);
+        return;
+      }
+      last = `HTTP ${res.status}`;
+    } catch (err) {
+      last = err.cause?.code || err.name || err.message;
+    }
+    if (Date.now() + LIVE_POLL_SECONDS * 1000 > deadline) {
+      throw new Error(
+        `page not live after ${LIVE_WAIT_SECONDS}s (last: ${last}) — not posting, so LinkedIn ` +
+          `doesn't cache a broken link card. Re-run with this slug once the deploy is up.`
+      );
+    }
+    if (attempt === 1) console.log(`Waiting for ${url} to go live (${last})…`);
+    await new Promise((r) => setTimeout(r, LIVE_POLL_SECONDS * 1000));
+  }
+}
+
 async function main() {
   if (!TOKEN) {
     console.log(
@@ -212,6 +255,7 @@ async function main() {
     const caption = fm.linkedinCaption || fm.description || fm.title;
     const url = `${SITE_URL}/blog/${slug}/`;
     try {
+      await waitUntilLive(url);
       console.log(`Sharing "${fm.title}" (${url})`);
       await postToLinkedIn({ caption, url });
     } catch (err) {
