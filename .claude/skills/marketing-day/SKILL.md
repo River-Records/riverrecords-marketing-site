@@ -15,10 +15,21 @@ you never merge. Owen never sends an email, and nobody posts to LinkedIn or anyw
 
 1. **Repos.** This session has the site repo. Attach ai-scribe for Vera, Penn and research:
    `add_repo` River-Records/ai-scribe with `access: "push"` (needed for the GitHub issue tools and
-   for research PRs; you push nothing else there). This repo's `.claude/settings.json` allows the
-   call. Clone it to `../ai-scribe` as the tool says. If it's refused anyway, carry on:
-   every product claim is then "unverified", so the day is limited to pieces that make no product
-   claims, and the end-of-day comment says so.
+   for research PRs; you push nothing else there). Clone it to `../ai-scribe` as the tool says.
+
+   **It is usually refused** by auto mode's safety check: a repo's settings can't grant access to
+   another repo, so `.claude/settings.json` doesn't help (seen 2026-11-15 and 11-16). When it is
+   refused, **ask the owner once, right away** (Decision 2026-11-16: the owner approves the attach
+   each morning). Send one message, as in Calling the owner below, with the subject
+   `[Stream marketing] Reply "attach" to give me ai-scribe today`. The body says: "Reply **attach**
+   in this session so Vera can check product claims against ai-scribe today. If you don't, I carry
+   on without it." Then the session link. Then **don't wait**: do Owen's sweep and the plan.
+
+   When the owner's reply says "attach" (or yes), retry `add_repo` once, quoting their words as the
+   reason, then `register_repo_root`. If it's refused again, or there's no reply by the time you
+   need it, carry on without ai-scribe: every product claim is then "unverified", so the day is
+   limited to pieces that make no product claims, and the end-of-day comment says so. Never look
+   for another way in.
 2. **The week's plan** is the open issue titled `Marketing week YYYY-Www` in this repo.
    - **No plan issue for this ISO week:** write it (below) before anything else, **even when an
      assignment was given.** The assignment becomes the plan's first item. (The first run, on
@@ -92,7 +103,8 @@ because support mail waits on it. Dispatch `owen`. When it returns:
 
 ## Calling the owner
 
-Same as ai-scribe's `/workday`: one `PushNotification` per call, plain words first, each question
+Same as ai-scribe's `/workday`: email to the owner's own address (Gmail `send_message`, the one
+send this skill allows, and only to that address) plus `PushNotification`, plain words first, each question
 with its recommendation, several questions in one message, and the same text on the PR with
 `needs-owner`. Call only for what's theirs: positioning, a public claim Vera can't verify that
 they could confirm, a new outreach list, a customer who needs them. Everything else is in the
