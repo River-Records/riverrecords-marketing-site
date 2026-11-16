@@ -24,6 +24,8 @@
 //   AFTER_SHA    github.sha          (push range end; defaults to HEAD)
 //   POST_SLUG    workflow_dispatch override — post exactly this slug
 //   DRY_RUN      "true"/"1" → log the payload, don't call LinkedIn
+//   LINKEDIN_API_VERSION  pin the LinkedIn-Version header (YYYYMM). When unset
+//                      it is the month two months before today, UTC. See below.
 //   LIVE_WAIT_SECONDS  how long to wait for the post's page to go live before
 //                      giving up (default 600). 0 skips the check.
 //
@@ -123,6 +125,18 @@ function detectNewlyPublished() {
   return out;
 }
 
+// LinkedIn's versioned REST API retires each monthly version about a year after
+// release and then answers 426 NONEXISTENT_VERSION. A hard-coded '202405' did
+// exactly that on 16 Nov 2026 and silently stopped every share. So the version
+// follows the calendar: two months back is old enough to be released and young
+// enough to be active for another ~10 months. Set LINKEDIN_API_VERSION to pin one.
+function linkedInVersion(now = new Date()) {
+  const pinned = (process.env.LINKEDIN_API_VERSION || '').trim();
+  if (pinned) return pinned;
+  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 2, 1));
+  return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
 async function postToLinkedIn({ caption, url }) {
   const commentary = `${caption}\n\n${url}`;
   const payload = {
@@ -139,6 +153,7 @@ async function postToLinkedIn({ caption, url }) {
   };
 
   if (DRY_RUN) {
+    console.log(`[dry-run] LinkedIn-Version: ${linkedInVersion()}`);
     console.log('[dry-run] would POST to LinkedIn:\n' + JSON.stringify(payload, null, 2));
     return;
   }
@@ -149,14 +164,18 @@ async function postToLinkedIn({ caption, url }) {
       Authorization: `Bearer ${TOKEN}`,
       'Content-Type': 'application/json',
       'X-Restli-Protocol-Version': '2.0.0',
-      'LinkedIn-Version': '202405',
+      'LinkedIn-Version': linkedInVersion(),
     },
     body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`LinkedIn API ${res.status}: ${body}`);
+    const hint =
+      res.status === 426
+        ? ` — LinkedIn-Version ${linkedInVersion()} is not active; set LINKEDIN_API_VERSION to a current YYYYMM`
+        : '';
+    throw new Error(`LinkedIn API ${res.status}${hint}: ${body}`);
   }
   // Posted-share URN is returned in the x-restli-id header.
   console.log(`Posted → ${res.headers.get('x-restli-id') || '(no id header)'}`);
