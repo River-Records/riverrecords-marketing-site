@@ -137,35 +137,96 @@ function linkedInVersion(now = new Date()) {
   return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
 }
 
-async function postToLinkedIn({ caption, url }) {
-  const commentary = `${caption}\n\n${url}`;
+const API_HEADERS = () => ({
+  Authorization: `Bearer ${TOKEN}`,
+  'Content-Type': 'application/json',
+  'X-Restli-Protocol-Version': '2.0.0',
+  'LinkedIn-Version': linkedInVersion(),
+});
+
+// LinkedIn's commentary field is "little text format": these characters are
+// markup, and an unescaped one (a bracket, a parenthesis, an @ or #) can
+// truncate the post or turn text into a broken mention. Escape them all.
+// https://learn.microsoft.com/linkedin/marketing/community-management/shares/little-text-format
+function escapeLittleText(text) {
+  return text.replace(/[\\|{}@\[\]()<>#*_~]/g, (c) => `\\${c}`);
+}
+
+// The API never scrapes the page. Pasting a URL into LinkedIn by hand builds a
+// link card from the og: tags, but a post made through /rest/posts shows the URL
+// as plain text unless the post carries the card itself. That shipped once
+// (16 Nov 2026: no image, no card). So the card is built here: an "article"
+// with the page's own og:image uploaded through the Images API.
+async function ogImageUrl(pageUrl) {
+  try {
+    const html = await (await fetch(pageUrl, { signal: AbortSignal.timeout(15000) })).text();
+    const m = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i);
+    if (m) return new URL(m[1], pageUrl).href;
+  } catch {}
+  return `${SITE_URL}/og-default.png`;
+}
+
+async function uploadThumbnail(pageUrl) {
+  const imgUrl = await ogImageUrl(pageUrl);
+  const img = await fetch(imgUrl, { signal: AbortSignal.timeout(30000) });
+  if (!img.ok) throw new Error(`og:image ${imgUrl} answered ${img.status}`);
+  const bytes = Buffer.from(await img.arrayBuffer());
+
+  const init = await fetch('https://api.linkedin.com/rest/images?action=initializeUpload', {
+    method: 'POST',
+    headers: API_HEADERS(),
+    body: JSON.stringify({ initializeUploadRequest: { owner: AUTHOR_URN } }),
+  });
+  if (!init.ok) throw new Error(`image initializeUpload ${init.status}: ${await init.text()}`);
+  const { value } = await init.json();
+
+  const put = await fetch(value.uploadUrl, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': img.headers.get('content-type') || 'image/png' },
+    body: bytes,
+  });
+  if (!put.ok) throw new Error(`image upload ${put.status}: ${await put.text()}`);
+  console.log(`Card image uploaded from ${imgUrl} → ${value.image}`);
+  return value.image;
+}
+
+async function postToLinkedIn({ caption, url, title, description }) {
+  const article = { source: url, title };
+  if (description) article.description = description;
+
   const payload = {
     author: AUTHOR_URN,
-    commentary,
+    // The card carries the link, so the URL is not repeated in the text.
+    commentary: escapeLittleText(caption),
     visibility: 'PUBLIC',
     distribution: {
       feedDistribution: 'MAIN_FEED',
       targetEntities: [],
       thirdPartyDistributionChannels: [],
     },
+    content: { article },
     lifecycleState: 'PUBLISHED',
     isReshareDisabledByAuthor: false,
   };
 
   if (DRY_RUN) {
     console.log(`[dry-run] LinkedIn-Version: ${linkedInVersion()}`);
+    console.log(`[dry-run] card image would come from ${await ogImageUrl(url)}`);
     console.log('[dry-run] would POST to LinkedIn:\n' + JSON.stringify(payload, null, 2));
     return;
   }
 
+  // A missing image is worth a warning, not a missing post: the card still
+  // renders with its title and link.
+  try {
+    article.thumbnail = await uploadThumbnail(url);
+  } catch (err) {
+    console.warn(`::warning::Posting without a card image: ${err.message}`);
+  }
+
   const res = await fetch('https://api.linkedin.com/rest/posts', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      'Content-Type': 'application/json',
-      'X-Restli-Protocol-Version': '2.0.0',
-      'LinkedIn-Version': linkedInVersion(),
-    },
+    headers: API_HEADERS(),
     body: JSON.stringify(payload),
   });
 
@@ -276,7 +337,7 @@ async function main() {
     try {
       await waitUntilLive(url);
       console.log(`Sharing "${fm.title}" (${url})`);
-      await postToLinkedIn({ caption, url });
+      await postToLinkedIn({ caption, url, title: fm.title, description: fm.description });
     } catch (err) {
       failures++;
       console.error(`Failed to post ${slug}: ${err.message}`);

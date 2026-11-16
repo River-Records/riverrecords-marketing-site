@@ -138,6 +138,12 @@ custom XML element. This only affects the feed — the site reads `description`
 straight from the content collection, so on-page copy and SEO are unaffected.
 To make auto-posted LinkedIn updates read natively, set a `linkedinCaption` in
 the post's frontmatter (a hook written for LinkedIn, not the SEO description).
+**Write it as short paragraphs in a YAML block scalar (`linkedinCaption: |-`)**: a quoted
+one-line string posts as a single block of text. Don't end it with the URL either: the
+LinkedIn API never scrapes the page, so `scripts/post-to-linkedin.mjs` builds the link card
+itself (title, description and the page's `og:image` uploaded to LinkedIn). That and the
+dated `LinkedIn-Version` header are why the first auto-post (16 Nov 2026) failed and then
+went out with no image; see `scripts/README-linkedin.md`.
 Comparison/SEO posts tagged `comparisons` are excluded from the feed entirely,
 so they never auto-post to LinkedIn.
 

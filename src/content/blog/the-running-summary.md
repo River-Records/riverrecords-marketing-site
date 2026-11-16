@@ -6,7 +6,16 @@ publishDate: 2026-11-16
 tags: [note-bloat, longitudinal-care]
 readTime: "5"
 draft: false
-linkedinCaption: "Open last month's note. Copy the block at the top. Update the A1c, add the line from the cardiology letter, delete the knee pain that resolved in the spring. Sign. If you keep a running summary like that, you built it yourself, because a note gives a patient's story nowhere to persist. Once it's signed, nothing in it stays pinned and nothing in it is quick to review. So you carry it. That's not carelessness. It's one of the better habits in primary care. But it takes upkeep. It has to be re-typed, pruned and carried forward, and pruning is the part that slips on a hard week. Half the text in the medical record is duplicated. I helped measure that, and I've come to read it less as a failing than as the visible cost of clinicians doing this work by hand:"
+linkedinCaption: |-
+  Open last month's note. Copy the block at the top. Update the A1c, add the line from the cardiology letter, delete the knee pain that resolved in the spring. Sign.
+
+  If you keep a running summary like that, you built it yourself, because a note gives a patient's story nowhere to persist. Once it's signed, nothing in it stays pinned and nothing in it is quick to review. So you carry it.
+
+  That's not carelessness. It's one of the better habits in primary care.
+
+  But it takes upkeep. It has to be re-typed, pruned and carried forward, and pruning is the part that slips on a hard week.
+
+  Half the text in the medical record is duplicated. I helped measure that, and I've come to read it less as a failing than as the visible cost of clinicians doing this work by hand:
 ---
 
 Open last month's note. Copy the block at the top. Update the A1c, add the line from the cardiology letter, delete the knee pain that resolved in the spring. Sign.
