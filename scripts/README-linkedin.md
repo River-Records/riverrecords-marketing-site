@@ -95,3 +95,18 @@ expected flow.)
   false`. Later edits don't re-post.
 - Re-running the *same* workflow run will re-post; only re-run on failure after
   fixing the token.
+
+## Why the script builds the link card itself
+
+Pasting a link into LinkedIn by hand gives you a card with the page's image. Posting
+through the API does not: `/rest/posts` never scrapes the page. A URL in the text stays
+plain text. So each post carries `content.article` (source, title, description), and its
+`thumbnail` is the page's own `og:image`, uploaded through `/rest/images?action=initializeUpload`
+with the same `w_member_social` token. If the image upload fails, the post still goes out,
+with a warning in the run log and a card without an image.
+
+The caption goes in LinkedIn's "little text" format, so `( ) [ ] { } < > @ # * _ ~ | \` are
+escaped before sending. An unescaped one can cut the post short.
+
+`LinkedIn-Version` follows the calendar (two months back) because LinkedIn retires each
+version after about a year. A hard-coded `202405` stopped every share on 16 Nov 2026.
