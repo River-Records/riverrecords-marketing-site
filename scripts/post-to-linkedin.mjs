@@ -14,9 +14,12 @@
 //
 // Required environment (set as GitHub Secrets, wired in the workflow):
 //   LINKEDIN_ACCESS_TOKEN  member token with w_member_social scope
-//   LINKEDIN_AUTHOR_URN    e.g. "urn:li:person:xxxxxxxx"
 // Optional:
-//   SITE_URL     canonical site origin (default https://riverrecords.ai)
+//   LINKEDIN_AUTHOR_URN    e.g. "urn:li:person:xxxxxxxx". When unset it is
+//                          looked up from /v2/userinfo with the token (needs
+//                          the openid + profile scopes), so the token is the
+//                          only secret that has to be renewed.
+//   SITE_URL     canonical site origin (default https://www.riverrecords.ai)
 //   BEFORE_SHA   github.event.before (push range start)
 //   AFTER_SHA    github.sha          (push range end; defaults to HEAD)
 //   POST_SLUG    workflow_dispatch override — post exactly this slug
@@ -32,9 +35,9 @@ import { basename } from 'node:path';
 import yaml from 'js-yaml';
 
 const BLOG_DIR = 'src/content/blog';
-const SITE_URL = (process.env.SITE_URL || 'https://riverrecords.ai').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://www.riverrecords.ai').replace(/\/+$/, '');
 const TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
-const AUTHOR_URN = process.env.LINKEDIN_AUTHOR_URN;
+let AUTHOR_URN = process.env.LINKEDIN_AUTHOR_URN;
 const DRY_RUN = /^(1|true)$/i.test(process.env.DRY_RUN || '');
 
 function sh(cmd) {
@@ -148,11 +151,32 @@ async function postToLinkedIn({ caption, url }) {
   console.log(`Posted → ${res.headers.get('x-restli-id') || '(no id header)'}`);
 }
 
+// Resolve the member URN from the token itself. Read-only, so it also runs on
+// a dry run, which makes the dry run a check that the token works.
+async function lookupAuthorUrn() {
+  const res = await fetch('https://api.linkedin.com/v2/userinfo', {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    const hint =
+      res.status === 401
+        ? ' — the token is invalid or expired; mint a new one (scripts/README-linkedin.md)'
+        : res.status === 403
+          ? ' — the token lacks the openid/profile scopes; re-mint it with openid, profile and w_member_social'
+          : '';
+    throw new Error(`LinkedIn userinfo ${res.status}${hint}: ${body}`);
+  }
+  const { sub } = await res.json();
+  if (!sub) throw new Error('LinkedIn userinfo returned no "sub"; cannot build the author URN.');
+  return `urn:li:person:${sub}`;
+}
+
 async function main() {
-  if (!TOKEN || !AUTHOR_URN) {
+  if (!TOKEN) {
     console.log(
-      'LINKEDIN_ACCESS_TOKEN / LINKEDIN_AUTHOR_URN not set — skipping LinkedIn posting.\n' +
-        'Add both as GitHub Secrets to enable auto-posting.'
+      'LINKEDIN_ACCESS_TOKEN not set — skipping LinkedIn posting.\n' +
+        'Add it as a GitHub Secret to enable auto-posting.'
     );
     return;
   }
@@ -174,6 +198,11 @@ async function main() {
   if (paths.length === 0) {
     console.log('No newly published posts in this push.');
     return;
+  }
+
+  if (!AUTHOR_URN) {
+    AUTHOR_URN = await lookupAuthorUrn();
+    console.log(`Author resolved from token: ${AUTHOR_URN}`);
   }
 
   let failures = 0;

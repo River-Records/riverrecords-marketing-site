@@ -40,7 +40,7 @@ jobs:
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
-          SITE_URL: https://riverrecords.ai
+          SITE_URL: https://www.riverrecords.ai
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
           POST_SLUG: ${{ github.event.inputs.slug }}
