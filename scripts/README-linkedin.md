@@ -85,6 +85,11 @@ to review-approved apps; for self-serve member posting, periodic re-auth is the
 expected flow.)
 
 ## Notes
+- The job waits (up to 10 min) for the post's page to answer 200 before
+  posting, because it runs while Cloudflare is still deploying and LinkedIn
+  caches whatever link card it scrapes at post time. If the page never comes
+  up, nothing is posted and the run goes red — re-run with the slug once the
+  deploy is live. `LIVE_WAIT_SECONDS` tunes the wait (0 disables it).
 - Posts tagged `comparisons` are skipped (same exclusion as the RSS feed).
 - A post is shared when it's added as non-draft **or** flipped `draft: true →
   false`. Later edits don't re-post.

@@ -28,6 +28,8 @@ concurrency:
 jobs:
   linkedin:
     runs-on: ubuntu-latest
+    # The script waits up to 10 minutes for Cloudflare to deploy the post.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
