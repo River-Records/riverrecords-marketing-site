@@ -7,7 +7,11 @@ tags: [care-coordination, longitudinal-care]
 readTime: "5"
 draft: false
 linkedinCaption: |-
-  Refer to GI for colonoscopy. Repeat BMP in two weeks. Echo. Records from the ED visit. Return in three months.
+  Hypertension: lisinopril increased, repeat BMP in two weeks.
+  New murmur: echo.
+  Palpitations, ED visit in March: request the ED records.
+  Colorectal cancer screening: refer to GI for colonoscopy.
+  Return in three months.
 
   That's the plan from a signed note, and it's also the to-do list for everything that has to happen after the patient leaves. It was written down once, by the person who decided it.
 
@@ -20,9 +24,13 @@ linkedinCaption: |-
   The question I'd ask of any of them is where their list comes from. If it starts from the plan you signed, it works on what was decided. If it starts from a copy kept somewhere else, it works on the copy, faster, and the drift comes with it.
 ---
 
-Refer to GI for colonoscopy. Repeat BMP in two weeks after the lisinopril increase. Echo for the new murmur. Request records from the ED visit in March. Return in three months.
+- **Hypertension.** Lisinopril increased. Repeat BMP in two weeks.
+- **New murmur.** Echo.
+- **Palpitations, seen in the ED in March.** Request the ED records.
+- **Colorectal cancer screening.** Refer to GI for colonoscopy.
+- Return in three months.
 
-That is the plan from a note I could have signed any afternoon this year. It is a clinical document, and it is also, line by line, a list of things somebody now has to do. Each line is a commitment with a natural end. A consult note comes back, a result comes back, a report comes back, or the patient does.
+That is the plan, problem by problem, from a note I could have signed any afternoon this year. It is a clinical document, and it is also, line by line, a list of things somebody now has to do. Each line is a commitment with a natural end. A consult note comes back, a result comes back, a report comes back, or the patient does.
 
 The list already exists. It was written once, at the moment of decision, by the person who made the decision. Then, in most practices, it gets written again.
 
