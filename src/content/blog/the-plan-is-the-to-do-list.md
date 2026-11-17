@@ -2,7 +2,7 @@
 title: "The Plan Is the To-Do List"
 description: "The work after a visit is already written down, in the plan you signed. Whatever chases it, a person, a task tool or an agent, should start from that plan, not from a second list rebuilt somewhere else."
 author: Jacob Kantrowitz MD, PhD
-publishDate: 2026-11-20
+publishDate: 2026-11-17
 tags: [care-coordination, longitudinal-care]
 readTime: "5"
 draft: false
