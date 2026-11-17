@@ -198,7 +198,8 @@ export const competitors: Competitor[] = [
       themNote: 'Introductory $19 for the first month on the monthly plan. Group practices are priced on request.',
       source: 'https://www.trytwofold.com/pricing',
       freeTier: 'A $0 plan giving 7 days of full access, no card',
-      ehr: 'Copy and paste into any EHR',
+      // trytwofold.com/integrations, re-checked 2026-11-17 (page dated 12 Nov 2026).
+      ehr: 'Copy and paste; native API delivery with partner platforms',
     },
     noteStructure:
       'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',

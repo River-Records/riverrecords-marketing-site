@@ -91,7 +91,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 **Where they genuinely beat us**
 - **Price, badly.** $49 against $149. They also bundle coding, which we charge Pro pricing for.
 - No audio stored — a clean privacy answer that plays well with cautious buyers.
-- EHR is level: as of 2026-11-15 their pricing page describes copy-paste into any EHR, same as us. Don't concede integration they no longer claim.
+- **A native integration.** Their Partner API files the finished note into the chart, they say, and it is live in production with a practice-management platform they do not name. Every other EHR is one-click copy and paste, and their own list of those includes athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono. They also ship paste formats built for SimplePractice, TherapyNotes, Headway, Grow Therapy and Practice Fusion *(re-checked on trytwofold.com/integrations 2026-11-17)*. Don't call it broad EHR integration and don't call it copy-paste only. Ask which EHR the prospect uses: for every primary-care EHR on their paste list (including athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono), it is still paste, which is where we are too. Never answer it by implying Stream writes back; we don't.
 
 **Where we win**
 - Same category argument as everywhere else: it is a very good, very cheap note generator. No problem-oriented chart, no inbound document pipeline, no care-gap or HCC surfaces, no patient chart to speak of.
