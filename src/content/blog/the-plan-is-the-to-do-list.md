@@ -1,6 +1,6 @@
 ---
 title: "The Plan Is the To-Do List"
-description: "The work after a visit is already written down, in the plan you signed. Whatever chases it, a person, a task tool or an agent, should start from that plan, not from a second list someone re-typed."
+description: "The work after a visit is already written down, in the plan you signed. Whatever chases it, a person, a task tool or an agent, should start from that plan, not from a second list rebuilt somewhere else."
 author: Jacob Kantrowitz MD, PhD
 publishDate: 2026-11-20
 tags: [care-coordination, longitudinal-care]
@@ -9,7 +9,7 @@ draft: false
 linkedinCaption: |-
   Refer to GI for colonoscopy. Repeat BMP in two weeks. Echo. Records from the ED visit. Return in three months.
 
-  That's the bottom of a signed note, and it's also the to-do list for everything that has to happen after the patient leaves. It was written down once, by the person who decided it.
+  That's the plan from a signed note, and it's also the to-do list for everything that has to happen after the patient leaves. It was written down once, by the person who decided it.
 
   Then most of us write it again. On a routing slip, in an inbox message to the MA, on a sticky note, in a spreadsheet someone keeps, or in our heads.
 
@@ -17,12 +17,12 @@ linkedinCaption: |-
 
   Tools and agents to chase this work are arriving, and I'm glad. Chasing is real labor, and when it fails, nobody is told.
 
-  The question I'd ask of any of them is where their list comes from. If it starts from the plan you signed, it works on what was decided. If it starts from a copy, it works on the copy, faster, and the drift comes with it.
+  The question I'd ask of any of them is where their list comes from. If it starts from the plan you signed, it works on what was decided. If it starts from a copy kept somewhere else, it works on the copy, faster, and the drift comes with it.
 ---
 
 Refer to GI for colonoscopy. Repeat BMP in two weeks after the lisinopril increase. Echo for the new murmur. Request records from the ED visit in March. Return in three months.
 
-That is the bottom of a note I could have signed any afternoon this year. It is a clinical document, and it is also, line by line, a list of things somebody now has to do. Each line is a commitment with a natural end. A consult note comes back, a result comes back, a report comes back, or the patient does.
+That is the plan from a note I could have signed any afternoon this year. It is a clinical document, and it is also, line by line, a list of things somebody now has to do. Each line is a commitment with a natural end. A consult note comes back, a result comes back, a report comes back, or the patient does.
 
 The list already exists. It was written once, at the moment of decision, by the person who made the decision. Then, in most practices, it gets written again.
 
@@ -30,9 +30,13 @@ The list already exists. It was written once, at the moment of decision, by the 
 
 You know the forms it takes. A routing slip handed to the MA on the way out of the room. An inbox message: "please schedule echo, refer GI." A sticky note on the monitor. A spreadsheet someone at the front desk has kept for years, because they are the person who actually makes sure referrals go out. And for a lot of us, the most fragile copy of all: our own memory of what we meant to chase.
 
-None of this is carelessness. It is a sensible response to a real gap. The note is where the decision is recorded, and the work happens somewhere else, so someone carries the decision across. I wrote a few months ago about [keeping the plan at the top of my own notes](/blog/clinical-note-best-task-manager/) for exactly this reason. One source of truth, nothing to sync. That habit is my way of refusing to keep two lists.
+None of this is carelessness. It is a sensible response to a real gap. The note is where the decision is recorded, and the work happens somewhere else, so someone carries the decision across.
 
-Most practices can't run that way, because the people doing the follow-through aren't the ones reading the note. So the plan gets transcribed, and once it has been transcribed there are two of them.
+I keep my own list, and I [wrote about it a few months ago](/blog/clinical-note-best-task-manager/). At the top of my notes sits a one-line summary of who the patient is, their active problems, and then the open items: things to keep track of, recent medication changes, and the referrals and labs still outstanding. The assessment and plan for each problem sits further down the same note, and I carry the list forward at every visit.
+
+It works because of where it lives. It sits in the same document as the plans it comes from. I read it first every visit, it travels with the record, and the person who made the decisions is the one who keeps it. That is what I meant by one source of truth, nothing to sync: there is no separate module for it to fall out of step with. Its limits are the honest ones. It is upkeep, it is carried forward by hand, and it reaches only the people who read my notes.
+
+That last limit is the one most practices live with. The people doing the follow-through aren't the ones reading the note, so the plan gets transcribed onto a slip, a message or a sheet, and that copy lives somewhere else. So the distinction that matters isn't whether the open items are written out at all. It is whether the to-do list is derived from the signed plan and kept with it, or rebuilt somewhere the plan can't see.
 
 ## How the two lists drift
 
@@ -56,7 +60,7 @@ So my argument isn't that these tools shouldn't exist, or that any particular on
 
 ## The question is where the list comes from
 
-A tool that chases work needs a list of work to chase. There are only a few places that list can come from. It can come from the plan the clinician signed. Or it can come from somewhere next to the plan: a second capture of the conversation, a set of tasks someone entered by hand, items pulled from a draft before anyone committed to it.
+A tool that chases work needs a list of work to chase. There are only a few places that list can come from. It can come from the plan the clinician signed. Or it can come from somewhere other than the plan: a second capture of the conversation, a set of tasks someone entered by hand in another system, items pulled from a draft before anyone committed to it.
 
 If the list starts from the signed plan, the chasing and the decision are the same object. Change the plan and you have changed what gets chased. Look at a task and you can see the line of the plan it came from, under the problem it belongs to, in the clinician's own words.
 
@@ -66,7 +70,7 @@ That is why the signature matters here. Signing is the moment a clinician says: 
 
 There are a few questions I'd now ask of any follow-up system, including whatever my own practice uses:
 
-- **Does each task trace to a line in the signed plan?** Not to the transcript, and not to something a person re-typed.
+- **Does each task trace to a line in the signed plan?** Not to the transcript, and not to a copy someone re-typed somewhere else.
 - **When the plan is amended, does the list follow?** A cancelled echo should stop being chased because the plan changed, not because someone remembered to cross it off.
 - **When the work is done, does it come back to the problem?** The result belongs with the decision that asked for it, so the next person who opens that problem sees the loop is closed.
 - **Can someone who wasn't in the room tell what was decided?** That person is the covering partner, the new MA, or you in eight months.
