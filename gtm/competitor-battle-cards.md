@@ -61,7 +61,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Heidi
 
-**Price:** Free tier ($0, unlimited basic consults and dictation, 10 "Pro Actions"/mo) · Clinician ~$150/user/mo billed annually · Practice and Enterprise custom.
+**Price:** Free tier ($0, unlimited transcription; dictation and other features on a weekly allowance) · Clinician $150/user/mo month-to-month or $110/mo billed annually · Teams by quote. *(Re-checked on heidihealth.com, US prices, 2026-11-15.)*
 **Wins with:** price-sensitive clinicians globally, and anyone who wants to try a scribe at zero risk.
 **Their pitch:** genuinely free to start, strong templating, big international footprint.
 
@@ -84,14 +84,14 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Twofold
 
-**Price:** $49/user/mo billed annually, $69 month-to-month. Unlimited notes — no per-note, per-minute, or per-action metering.
+**Price:** $49/user/mo billed annually, $69 month-to-month, $19 first month on monthly *(re-checked on trytwofold.com 2026-11-15)*. Unlimited notes — no per-note, per-minute, or per-action metering.
 **Wins with:** independent practices and outpatient clinics — **explicitly our ICP, at a third of our price.** Also sells into therapy.
-**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning, EHR integration.
+**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning.
 
 **Where they genuinely beat us**
 - **Price, badly.** $49 against $149. They also bundle coding, which we charge Pro pricing for.
 - No audio stored — a clean privacy answer that plays well with cautious buyers.
-- They claim EHR integration; we don't have any.
+- **A native integration.** Their Partner API files the finished note into the chart, they say, and it is live in production with a practice-management platform they do not name. Every other EHR is one-click copy and paste, and their own list of those includes athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono. They also ship paste formats built for SimplePractice, TherapyNotes, Headway, Grow Therapy and Practice Fusion *(re-checked on trytwofold.com/integrations 2026-11-17)*. Don't call it broad EHR integration and don't call it copy-paste only. Ask which EHR the prospect uses: for every primary-care EHR on their paste list (including athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono), it is still paste, which is where we are too. Never answer it by implying Stream writes back; we don't.
 
 **Where we win**
 - Same category argument as everywhere else: it is a very good, very cheap note generator. No problem-oriented chart, no inbound document pipeline, no care-gap or HCC surfaces, no patient chart to speak of.
