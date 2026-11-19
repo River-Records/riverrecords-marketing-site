@@ -2,7 +2,7 @@
 title: "The Question That Matters Is About This Patient"
 description: "Some AI scribes now describe answering questions beside the note, including about a patient's prior visits. Useful. But retrieval can only read a decision's reason if someone kept it."
 author: Jacob Kantrowitz MD, PhD
-publishDate: 2026-11-19
+publishDate: 2026-11-20
 tags: [clinical-context, medical-decision-making]
 draft: false
 linkedinCaption: |-
