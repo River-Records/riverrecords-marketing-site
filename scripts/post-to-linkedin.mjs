@@ -80,8 +80,13 @@ function frontmatterAt(path, rev) {
   return frontmatter(text);
 }
 
+// `linkedin: false` in frontmatter keeps one post off LinkedIn (and out of the
+// RSS feed) while it publishes on the site as normal.
 const isPublishable = (fm) =>
-  fm && fm.draft !== true && !(Array.isArray(fm.tags) && fm.tags.includes('comparisons'));
+  fm &&
+  fm.draft !== true &&
+  fm.linkedin !== false &&
+  !(Array.isArray(fm.tags) && fm.tags.includes('comparisons'));
 
 // Build the list of blog markdown paths that became published in this push.
 function detectNewlyPublished() {

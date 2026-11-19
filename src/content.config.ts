@@ -18,6 +18,9 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     // LinkedIn-native caption for auto-syndication (surfaced in /rss.xml).
     linkedinCaption: z.string().optional(),
+    // `false` keeps this post off LinkedIn and out of /rss.xml. It still
+    // publishes on the site. Omit it for the normal behaviour.
+    linkedin: z.boolean().optional(),
     // Series grouping: shared `series` name + 1-based `seriesPart` order.
     series: z.string().optional(),
     seriesPart: z.number().optional(),

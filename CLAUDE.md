@@ -147,6 +147,11 @@ went out with no image; see `scripts/README-linkedin.md`.
 Comparison/SEO posts tagged `comparisons` are excluded from the feed entirely,
 so they never auto-post to LinkedIn.
 
+**To keep any one post off LinkedIn, add `linkedin: false` to its frontmatter.** It publishes
+on the site as normal, is skipped by `scripts/post-to-linkedin.mjs` and is left out of the
+feed. The owner doesn't want billing and coding topics on his LinkedIn (19 Nov 2026), so new
+"Revenue & Coding" posts carry it.
+
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:
 Hero → Pain cards → Philosophy → How it works (with widgets) → Features → Testimonials → Pricing callout → CTA.

@@ -10,6 +10,7 @@ series: "Revenue & Coding"
 seriesPart: 4
 readTime: "7"
 draft: false
+linkedin: false
 linkedinCaption: |-
   Diabetes: stable, continue metformin.
   Hypertension: stable, continue lisinopril.
