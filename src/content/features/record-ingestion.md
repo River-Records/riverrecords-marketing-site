@@ -59,7 +59,7 @@ A **summary** — every document gets a name, a date, and a short clinical summa
 
 **Nothing is auto-filed.** You approve excerpts and proposed tasks, and you decide whether an extracted medication list goes into your documentation.
 
-And outside records inform the clinician — they never write the clinician’s note. The only way outside content enters a note is one explicit click, **Include in note**, which inserts it as an attributed quote. The summary, the full document, and a document’s medication list can go in the same way, by the same click — the medication list attributed as *from external records*.
+And outside records inform the clinician — they never write the clinician’s note. The only way outside content enters a note is one explicit click, **Include in note**, which adds it to the visit’s Scratchpad marked with its source — the document, its author, facility and date — so the note Stream drafts can say where it came from. The summary, the full document, and a document’s medication list go in the same way, by the same click. From there it is the clinician’s text to keep, edit or remove.
 
 The next time you see the patient, you’re not digging through attachments — you’re continuing from where someone else left off.
 
