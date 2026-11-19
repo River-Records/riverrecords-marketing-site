@@ -117,7 +117,7 @@ seriesPart: 2                # 1-based order within the series
   automatically; X counts published (non-draft) parts, so it grows as parts ship
 - The blog index groups series parts and orders them by `seriesPart`,
   independent of `publishDate`
-- Existing series: "The Work Before the Work" (6 parts), "Revenue & Coding" (3 parts)
+- Existing series: "The Work Before the Work" (6 parts), "Revenue & Coding" (4 parts)
 
 ### When opening a blog PR (e.g. via the @claude Action)
 Always include the Cloudflare preview link at the TOP of the PR description so it
@@ -146,6 +146,11 @@ dated `LinkedIn-Version` header are why the first auto-post (16 Nov 2026) failed
 went out with no image; see `scripts/README-linkedin.md`.
 Comparison/SEO posts tagged `comparisons` are excluded from the feed entirely,
 so they never auto-post to LinkedIn.
+
+**To keep any one post off LinkedIn, add `linkedin: false` to its frontmatter.** It publishes
+on the site as normal, is skipped by `scripts/post-to-linkedin.mjs` and is left out of the
+feed. The owner doesn't want billing and coding topics on his LinkedIn (19 Nov 2026), so new
+"Revenue & Coding" posts carry it.
 
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:
