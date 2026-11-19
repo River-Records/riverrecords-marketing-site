@@ -91,6 +91,9 @@ expected flow.)
   up, nothing is posted and the run goes red — re-run with the slug once the
   deploy is live. `LIVE_WAIT_SECONDS` tunes the wait (0 disables it).
 - Posts tagged `comparisons` are skipped (same exclusion as the RSS feed).
+- A post with `linkedin: false` in its frontmatter is skipped too, and left out of the RSS feed.
+  It still publishes on the site. Changing it to `true` (or removing the line) in a later push
+  posts it then.
 - A post is shared when it's added as non-draft **or** flipped `draft: true →
   false`. Later edits don't re-post.
 - Re-running the *same* workflow run will re-post; only re-run on failure after

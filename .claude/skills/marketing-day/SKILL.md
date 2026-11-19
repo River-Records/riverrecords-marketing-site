@@ -105,7 +105,9 @@ because support mail waits on it. Dispatch `owen`. When it returns:
 
 Same as ai-scribe's `/workday`: email to the owner's own address (Gmail `send_message`, the one
 send this skill allows, and only to that address) plus `PushNotification`, plain words first, each question
-with its recommendation, several questions in one message, and the same text on the PR with
+with its recommendation, several questions in one message, " — needs you" added to this
+session's title (`get_session`, then `set_session_title`; remove it once they answer; Morgan fixes it
+if you can't), and the same text on the PR with
 `needs-owner`. Call only for what's theirs: positioning, a public claim Vera can't verify that
 they could confirm, a new outreach list, a customer who needs them. Everything else is in the
 end-of-day comment.
