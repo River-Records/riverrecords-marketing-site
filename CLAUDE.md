@@ -122,10 +122,21 @@ seriesPart: 2                # 1-based order within the series
 ### When opening a blog PR (e.g. via the @claude Action)
 Always include the Cloudflare preview link at the TOP of the PR description so it
 can be reviewed on mobile without logging into the Cloudflare dashboard. Build it
-from the branch name (replace every `/` with `-`) and the post slug:
-`https://<branch-with-slashes-as-dashes>.riverrecords-marketing-site.pages.dev/blog/<slug>/`
-Example: branch `claude/issue-7-...`, slug `my-post` →
-`https://claude-issue-7-....riverrecords-marketing-site.pages.dev/blog/my-post/`
+from the branch name and the post slug:
+`https://<branch-alias>.riverrecords-marketing-site.pages.dev/blog/<slug>/`
+
+The branch alias is **not** just the branch name with dashes. Cloudflare replaces every
+`/` (and any other non-alphanumeric) with `-`, **cuts the result to 28 characters, then
+drops a trailing `-`**. Long branch names therefore lose their ends, and a link built
+from the full name 404s. Both of these are from real deploys:
+- `claude/relaxed-davinci-ko44ys` → `claude-relaxed-davinci-ko44y` (the final `s` is gone)
+- `claude/form-filler-no-forms-list` → `claude-form-filler-no-forms` (cut to
+  `claude-form-filler-no-forms-`, then the trailing dash dropped)
+
+For a branch name of 28 characters or fewer, the dashed name is the alias unchanged. If
+the Cloudflare bot has already commented on the PR, copy the "Branch Preview URL" from
+that comment instead of computing it. The preview links in PRs #101–#104 and #122
+were built from the full name and pointed nowhere.
 
 ## RSS feed & syndication
 The blog feed is generated at `/rss.xml` by `src/pages/rss.xml.js` from the
