@@ -67,13 +67,13 @@ Stream builds that summary as you document. It is an AI scribe: record the visit
 
 Your EHR keeps the record; Stream keeps the project. Stream works alongside any EHR and does not integrate with it: the note copies in one click and pastes into any field. There is no EHR write-back, no SOC 2 certification and no clinical decision support. It is built for independent practices, typically one to twenty clinicians, not health systems.
 
-$149/month per clinician. 30-day free trial, no credit card.
+$149/month per clinician, or $99/month billed annually. 30-day free trial, no credit card.
 
 <!-- Sources
 Para 1. The two questions and "open notes until you find it": homepage #thesis workflow questions 1 and 4. "running summary by hand", "holds for the patients you remember", "lives in your shorthand", "first thing to slip on a hard week": homepage #thesis muted card; gtm/problem-first-messaging.md points 1-3. "That system works": messaging doc "Concede first".
 Para 2. "builds that system as a by-product of documenting ... any clinician in the practice can open it": messaging doc; homepage #thesis Stream card. "Record ambiently or dictate", "A/P split per problem": homepage tour 03. Huddle (active; ten months or more without attention; HCCs not captured this calendar year): src/pages/features/huddle.astro hero and three tabs. Checked by Vera against ai-scribe main at dbb7039, 20 Nov 2026. ai-scribe: active = last three visits: api/src/services/patientContext/views/huddleView.ts:292, frontend/src/help-guides/06-clinical-readiness.md:15; ten months: frontend/src/help-guides/06-clinical-readiness.md:17, huddleView.ts:173,470-482,726; HCC this year: huddleView.ts:296,492. The Inlet review sentence is reworded from the site's "nothing auto-filed without review"; ai-scribe: person confirms patient: frontend/src/CHANGELOG.md:61,71; excerpts pending until reviewed: frontend/src/help-guides/21-outside-records.md:21,29; links to page: 21-outside-records.md:37, CHANGELOG.md:196; Inlet flag: docs/features/document_excerpts.md:3. Inlet (faxes and uploaded records, filed under problems, every fact links to its page, nothing auto-filed without review): faqs.ts how-it-works "What happens to documents that arrive by fax?"; src/pages/intake.astro hero. "metered add-on": src/config/pricing.ts inletPricing.addOnNote. Inlet filing under problems is behind a per-practice flag; owner to confirm it is on for every practice that buys it.
 Para 3. One line: homepage #thesis h2. "does not integrate": homepage #thesis fine print. "copies ... in one click and pastes into any field", "no EHR write-back": faqs.ts limits; ai-scribe docs/internal/marketing-handoff.md:142-144. "not SOC 2 certified": faqs.ts limits. "no clinical decision support": faqs.ts limits; ai-scribe docs/features/ask-the-chart.md:3. "one to twenty clinicians", not health systems: faqs.ts limits "Is Stream right for a large health system?".
-Para 4. src/config/pricing.ts pricing.monthly and trialDays (owner, 20 Nov 2026: "Stream is $149/month"; the $99 annual price is withheld until he confirms it); ai-scribe: $149 docs/internal/marketing-handoff.md:186; trial api/src/functions/auth/onboard.ts:113; "per clinician": src/pages/pricing/index.astro.
+Para 4. src/config/pricing.ts pricing.monthly and trialDays (owner, 20 Nov 2026: "Stream is $149/month"); ai-scribe: $149 docs/internal/marketing-handoff.md:186; trial api/src/functions/auth/onboard.ts:113; "per clinician": src/pages/pricing/index.astro. Annual price: src/config/pricing.ts (annual 99, annualTotal 1188), confirmed by the owner, 20 Nov 2026.
 -->
 
 ## Feature bullets
@@ -100,7 +100,7 @@ Para 4. src/config/pricing.ts pricing.monthly and trialDays (owner, 20 Nov 2026:
 
 ## Pricing
 
-**Stream Pro:** $149/month per clinician.
+**Stream Pro:** $149/month per clinician, or $99/month per clinician billed annually ($1,188/year).
 
 **Free trial:** 30 days, no credit card required. If you do nothing at the end of it, nothing is charged.
 
@@ -117,11 +117,12 @@ Directory fields, if asked:
 | Field | Value |
 |---|---|
 | Starting price | Stream Pro: $149 per clinician per month |
+| Annual price | Stream Pro: $99 per clinician per month, billed annually ($1,188/year) |
 | Pricing model | Flat subscription per clinician |
 | Free trial | Yes, 30 days, no credit card |
 
 <!-- Sources
-Pro price, trial days: src/config/pricing.ts (monthly 149, trialDays 30). Owner, 20 Nov 2026: "Stream is $149/month". ai-scribe: $149 docs/internal/marketing-handoff.md:186; trial api/src/functions/auth/onboard.ts:113. The annual price in pricing.ts is left out until the owner confirms it; "per clinician": src/pages/pricing/index.astro h1 and FAQ.
+Pro price, trial days: src/config/pricing.ts (monthly 149, trialDays 30). Owner, 20 Nov 2026: "Stream is $149/month". ai-scribe: $149 docs/internal/marketing-handoff.md:186; trial api/src/functions/auth/onboard.ts:113; "per clinician": src/pages/pricing/index.astro h1 and FAQ. Annual price: src/config/pricing.ts (annual 99, annualTotal 1188), confirmed by the owner, 20 Nov 2026.
 "nothing is charged": faqs.ts getting-started; pricing page FAQ.
 Included / not charged for: src/pages/pricing/index.astro "What you are not charged for" and FAQs ("Can I cancel at any time?", "Is a BAA included?").
 Staff seats: pricing.ts faqAnswer; pricing page FAQ.
