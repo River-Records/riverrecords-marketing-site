@@ -60,7 +60,7 @@ This is the part I care most about, so I'll be plain about it.
 
 The code that reads excerpts is structurally separate from the code that drafts your notes. Not by policy, not by convention — an automated test fails our build if the note-generating path so much as imports the excerpt reader. Outside content cannot reach your note by accident, because there is no path it can travel on its own.
 
-There is exactly one path, and you have to take it on purpose: **Include in note**, one click, which inserts the content as an attributed quote.
+There is exactly one path, and you have to take it on purpose: **Include in note**, one click, which adds the content to the visit's Scratchpad with its source, so the note is drafted to say where it came from.
 
 I've talked to enough physicians about ambient AI to know that the fear isn't that the tool will be useless. It's that something will end up in your note, over your signature, that you didn't write and didn't check. Stream Inlet is built so that can't happen quietly.
 
