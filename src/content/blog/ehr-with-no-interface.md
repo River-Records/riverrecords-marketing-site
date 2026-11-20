@@ -2,7 +2,7 @@
 title: "An EHR With No Interface Answers the Question and Misses the Patient"
 description: "Asking the chart a question gets retrieval right. But a question only returns what you thought to ask, and an answer given to one person is not a place a care team shares. The chart needs better primary views, not fewer."
 author: Jacob Kantrowitz MD, PhD
-publishDate: 2026-11-20
+publishDate: 2026-11-23
 tags: [ehr-design, clinical-context]
 readTime: "6"
 draft: false
