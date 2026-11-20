@@ -4,7 +4,7 @@
 Advice) and for AI-scribe roundups that ask vendors for a blurb. One idea throughout:
 *your EHR keeps the record; Stream keeps the project.*
 
-**Written:** 20 November 2026. **Status:** draft, not yet checked by Vera.
+**Written:** 20 November 2026. **Status:** draft. Checked by Vera on 20 November 2026 against this site repo only (ai-scribe was not attached).
 
 **Before pasting anything, re-check it against the live site.** Every claim here was taken
 from the site as it stood on the date above, and a directory listing does not update when
@@ -26,13 +26,13 @@ should not be pasted.
 
 Your EHR keeps the record. Stream keeps the project.
 
-**Alternate 1:** The AI scribe that files every visit under its problem.
+**Alternate 1:** An AI scribe that files each visit under its problems.
 
 **Alternate 2:** An AI scribe organized by problem. Alongside any EHR.
 
 <!-- Sources
 Primary (52 chars): homepage #thesis h2, src/pages/index.astro; gtm/problem-first-messaging.md "The position, in one line".
-Alt 1 (55 chars): homepage hero sub, "an AI scribe that files each visit under the problems it touches".
+Alt 1 (54 chars): homepage hero sub, "an AI scribe that files each visit under the problems it touches".
 Alt 2 (53 chars): CLAUDE.md Tone & copy rules ("organized by medical PROBLEM", "works alongside any EHR"); faqs.ts "Do I need to change my EHR?".
 -->
 
@@ -65,7 +65,7 @@ Before a visit, the hard part is often finding what you already decided. When di
 
 Stream builds that summary as you document. It is an AI scribe: record the visit or dictate, and the note comes back with the Assessment & Plan split per problem. Each plan is filed under its problem, so any clinician in your practice can open a problem and read every plan written for it, in order. Huddle, the pre-visit view, shows what is active, what you have not addressed in ten months or more, and which HCC-relevant problems are not yet captured this year. Stream Inlet, a metered add-on, reads inbound faxes and uploaded records and files their content under the problems it concerns, each fact linked to the page it came from. Nothing is filed without review.
 
-Your EHR keeps the record; Stream keeps the project. Stream works alongside any EHR and does not integrate with it: the note copies in one click and pastes into any field. There is no EHR write-back, no SOC 2 certification and no clinical decision support. It is built for independent practices of one to twenty clinicians, not health systems.
+Your EHR keeps the record; Stream keeps the project. Stream works alongside any EHR and does not integrate with it: the note copies in one click and pastes into any field. There is no EHR write-back, no SOC 2 certification and no clinical decision support. It is built for independent practices, typically one to twenty clinicians, not health systems.
 
 $149/month per clinician, or $99/month billed annually. 30-day free trial, no credit card.
 
@@ -81,9 +81,9 @@ Para 4. src/config/pricing.ts pricing.priceLine; "per clinician": src/pages/pric
 - **Problem-organized notes.** Record the visit or dictate. The note comes back with the Assessment & Plan split per problem, as classic SOAP or problem-based, ready to paste. Capture in 22 languages; templates are customizable.
 - **Timeline and Recap.** Open any problem and see every Assessment & Plan you have written for it, in order, in your own words. Recap adds an AI-generated summary, medication trajectory and key metrics when you want them.
 - **Huddle, the pre-visit view.** What you addressed in the last three visits, what you have not addressed in ten months or more, and which HCC-relevant problems are not yet captured this year, each with your last signed Assessment & Plan.
-- **Tasks attached to problems.** Stream suggests tasks from each visit, checks them against the tasks already open, and shows them under the problem they belong to.
+- **Tasks attached to problems.** Stream suggests tasks from each visit and shows every task under the problem it belongs to.
 - **Stream Inlet for faxes and outside records (metered add-on).** Inbound faxes and uploads are read, matched to a patient for a person to confirm, and their clinical content filed under the problems it concerns. Every extracted fact links back to the page it came from.
-- **Coding support.** ICD, CPT and HCC support is included in the subscription.
+- **Coding support.** ICD, CPT and HCC support is included in Stream Pro.
 - **Works alongside any EHR.** No integration to configure and no software to install. The finished note copies in one click and pastes into any field. Stream does not write back to the EHR.
 - **HIPAA compliant, BAA with every subscriber.** A Business Associate Agreement on every plan, including trials, at no extra charge. Data is encrypted at rest and in transit, with audit controls and access logging. Patient data is never used to train models. Stream is not SOC 2 certified.
 
@@ -91,9 +91,9 @@ Para 4. src/config/pricing.ts pricing.priceLine; "per clinician": src/pages/pric
 1. "Record ambiently or dictate", "A/P split per problem", "Classic SOAP or Problem-Based — paste-ready either way": homepage tour 03. 22 languages: faqs.ts how-it-works. Customizable templates: faqs.ts how-it-works.
 2. homepage tour 04 ("every A&P you've written for a problem — your chart, not AI output. Recap adds an AI-generated summary, medication trajectory and key metrics when you want them").
 3. src/pages/features/huddle.astro hero sub and three tabs.
-4. src/pages/features/huddle.astro Tasks section ("auto-generates task recommendations from each visit and dedupes against existing tasks", "attached to the medical problems they belong to"). Deliberately says "suggests", and makes no claim about tracking plan items to completion (early access, CLAUDE.md /referral-tracking/).
+4. src/pages/features/huddle.astro:304, Tasks section: "auto-generates task recommendations from each visit" (suggests tasks from each visit) and "attached to the medical problems they belong to, showing up under the relevant problem in every view" (shown under its problem). Deliberately says "suggests", and makes no claim about tracking plan items to completion (early access, CLAUDE.md /referral-tracking/).
 5. faqs.ts how-it-works; src/pages/intake.astro hero and How it works step 05 ("A person confirms the patient"); "metered" and "on top of Stream Pro": pricing.ts inletPricing.addOnNote.
-6. src/pages/pricing/index.astro included list ("ICD, CPT and HCC coding support"); homepage features strip.
+6. src/pages/pricing/index.astro included list ("ICD, CPT and HCC coding support").
 7. faqs.ts getting-started ("no integration to configure, no software to install"); faqs.ts limits (one-click copy, no write-back).
 8. src/pages/security/index.astro (all four sections); faqs.ts security group; faqs.ts limits (SOC 2). Nothing here goes beyond /security/.
 -->
@@ -116,7 +116,7 @@ Directory fields, if asked:
 
 | Field | Value |
 |---|---|
-| Starting price | $99 per clinician per month, billed annually |
+| Starting price | Stream Pro: $99 per clinician per month, billed annually |
 | Monthly price | $149 per clinician per month |
 | Pricing model | Flat subscription per clinician |
 | Free trial | Yes, 30 days, no credit card |
@@ -154,7 +154,7 @@ Left out on purpose: Stream Lite ($59) and Stream Connect. See "Held back" below
 - **Not SOC 2 certified.** Stream is HIPAA compliant and signs a BAA. If your organization requires SOC 2 to sign, Stream cannot meet that today.
 - **No clinical decision support.** No literature search you can query, no differential suggestions, no guidance on an individual patient. Journal Club sends weekly reading based on the conditions you documented; it comments on no case.
 - **Not built for health systems.** Stream is sold and supported for independent practices. Health systems generally need EHR-integrated enterprise products.
-- **Does not fill out forms yet.** Form Filler (FMLA, disability and school forms) is in early access and is not available today.
+- **Does not fill out forms yet.** Form Filler (FMLA, disability and school forms) is not available yet; there is an early-access list.
 - **Not the cheapest way to generate a note.** Stream Pro is priced above the cheapest scribes on purpose. If you want a note and nothing kept behind it, a lower-priced scribe may suit you better.
 
 <!-- Sources
