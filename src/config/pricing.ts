@@ -10,9 +10,6 @@ export const pricing = {
   annualTotal: 1188,
   trialDays: 30,
 
-  // Competitor
-  freedMonthly: 99,
-
   // Display strings — used directly in templates
   introPrice: '$149/month',
   annualPrice: '$99/month',
@@ -39,10 +36,6 @@ export const pricing = {
   // FAQ
   faqQuestion: 'What does Stream cost?',
   faqAnswer: '$149/month, or $99/month billed annually. 30-day free trial, no credit card. Staff seats: your first non-clinician team member is free; additional staff are $25/month each.',
-
-  // Freed comparison
-  freedSavings: 'Same price as Freed with annual billing',
-  freedComparison: 'Same price as Freed, more features',
 
   // CTA body lines
   ctaBody: '$149/month after trial. Works alongside any EHR.',
