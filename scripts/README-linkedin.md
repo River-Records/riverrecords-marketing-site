@@ -5,7 +5,7 @@ runs `scripts/post-to-linkedin.mjs`, which shares it to a LinkedIn **personal
 profile** via the member share API. Everything lives in this repo + GitHub
 Actions — no Buffer/Zapier/Make.
 
-The workflow is **inert until the two secrets below exist**, so merging it
+The workflow is **inert until the `LINKEDIN_ACCESS_TOKEN` secret exists**, so merging it
 changes nothing on LinkedIn until you finish this setup.
 
 ## One-time setup
@@ -43,7 +43,15 @@ curl -s -X POST https://www.linkedin.com/oauth/v2/accessToken \
 # → { "access_token": "...", "expires_in": 5184000, ... }   (60 days)
 ```
 
-### 3. Get your author URN
+Easier: the portal's token generator
+(<https://www.linkedin.com/developers/tools/oauth/token-generator>) does steps 2's
+code exchange in the browser. Register
+`https://www.linkedin.com/developers/tools/oauth/redirect` as a redirect URL on the
+app first, then pick the app and tick `openid`, `profile` and `w_member_social`.
+
+### 3. Author URN (optional)
+The script looks this up itself from `/v2/userinfo` using the token, so you can
+skip this step. Only set `LINKEDIN_AUTHOR_URN` if you want to pin it:
 ```bash
 curl -s https://api.linkedin.com/v2/userinfo \
   -H "Authorization: Bearer ACCESS_TOKEN"
@@ -56,12 +64,13 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | Secret                  | Value                          |
 | ----------------------- | ------------------------------ |
 | `LINKEDIN_ACCESS_TOKEN` | the `access_token` from step 2 |
-| `LINKEDIN_AUTHOR_URN`   | `urn:li:person:abc123`         |
+| `LINKEDIN_AUTHOR_URN`   | optional — `urn:li:person:abc123` |
 
 ### 5. Test
 Repo → **Actions → "Post new blog posts to LinkedIn" → Run workflow**:
 - Set **slug** to an existing post (e.g. `the-note-was-never-the-point`) and
-  **dry_run = true** → confirm the logged payload looks right.
+  **dry_run = true** → confirm the log shows `Author resolved from token: …`
+  (proves the token works) and the logged payload looks right.
 - Re-run with **dry_run = false** to post it for real once.
 
 After that it's automatic: every new published post on `main` is shared, using
@@ -76,8 +85,31 @@ to review-approved apps; for self-serve member posting, periodic re-auth is the
 expected flow.)
 
 ## Notes
+- The job waits (up to 10 min) for the post's page to answer 200 before
+  posting, because it runs while Cloudflare is still deploying and LinkedIn
+  caches whatever link card it scrapes at post time. If the page never comes
+  up, nothing is posted and the run goes red — re-run with the slug once the
+  deploy is live. `LIVE_WAIT_SECONDS` tunes the wait (0 disables it).
 - Posts tagged `comparisons` are skipped (same exclusion as the RSS feed).
+- A post with `linkedin: false` in its frontmatter is skipped too, and left out of the RSS feed.
+  It still publishes on the site. Changing it to `true` (or removing the line) in a later push
+  posts it then.
 - A post is shared when it's added as non-draft **or** flipped `draft: true →
   false`. Later edits don't re-post.
 - Re-running the *same* workflow run will re-post; only re-run on failure after
   fixing the token.
+
+## Why the script builds the link card itself
+
+Pasting a link into LinkedIn by hand gives you a card with the page's image. Posting
+through the API does not: `/rest/posts` never scrapes the page. A URL in the text stays
+plain text. So each post carries `content.article` (source, title, description), and its
+`thumbnail` is the page's own `og:image`, uploaded through `/rest/images?action=initializeUpload`
+with the same `w_member_social` token. If the image upload fails, the post still goes out,
+with a warning in the run log and a card without an image.
+
+The caption goes in LinkedIn's "little text" format, so `( ) [ ] { } < > @ # * _ ~ | \` are
+escaped before sending. An unescaped one can cut the post short.
+
+`LinkedIn-Version` follows the calendar (two months back) because LinkedIn retires each
+version after about a year. A hard-coded `202405` stopped every share on 16 Nov 2026.

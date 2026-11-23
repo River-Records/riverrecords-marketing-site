@@ -11,9 +11,10 @@ import { getCollection } from 'astro:content';
 export async function GET(context) {
   // Exclude posts tagged "comparisons" — these are SEO buying-guide/comparison
   // pages that live in the blog collection (and stay fully web-indexable) but
-  // should NOT auto-syndicate to LinkedIn via this feed.
+  // should NOT auto-syndicate to LinkedIn via this feed. A post with
+  // `linkedin: false` in frontmatter is left out for the same reason.
   const posts = (await getCollection('blog', ({ data }) =>
-    !data.draft && !data.tags.includes('comparisons')))
+    !data.draft && data.linkedin !== false && !data.tags.includes('comparisons')))
     .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
   return rss({

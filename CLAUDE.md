@@ -117,15 +117,26 @@ seriesPart: 2                # 1-based order within the series
   automatically; X counts published (non-draft) parts, so it grows as parts ship
 - The blog index groups series parts and orders them by `seriesPart`,
   independent of `publishDate`
-- Existing series: "The Work Before the Work" (6 parts), "Revenue & Coding" (3 parts)
+- Existing series: "The Work Before the Work" (6 parts), "Revenue & Coding" (4 parts)
 
 ### When opening a blog PR (e.g. via the @claude Action)
 Always include the Cloudflare preview link at the TOP of the PR description so it
 can be reviewed on mobile without logging into the Cloudflare dashboard. Build it
-from the branch name (replace every `/` with `-`) and the post slug:
-`https://<branch-with-slashes-as-dashes>.riverrecords-marketing-site.pages.dev/blog/<slug>/`
-Example: branch `claude/issue-7-...`, slug `my-post` →
-`https://claude-issue-7-....riverrecords-marketing-site.pages.dev/blog/my-post/`
+from the branch name and the post slug:
+`https://<branch-alias>.riverrecords-marketing-site.pages.dev/blog/<slug>/`
+
+The branch alias is **not** just the branch name with dashes. Cloudflare replaces every
+`/` (and any other non-alphanumeric) with `-`, **cuts the result to 28 characters, then
+drops a trailing `-`**. Long branch names therefore lose their ends, and a link built
+from the full name 404s. Both of these are from real deploys:
+- `claude/relaxed-davinci-ko44ys` → `claude-relaxed-davinci-ko44y` (the final `s` is gone)
+- `claude/form-filler-no-forms-list` → `claude-form-filler-no-forms` (cut to
+  `claude-form-filler-no-forms-`, then the trailing dash dropped)
+
+For a branch name of 28 characters or fewer, the dashed name is the alias unchanged. If
+the Cloudflare bot has already commented on the PR, copy the "Branch Preview URL" from
+that comment instead of computing it. The preview links in PRs #101–#104 and #122
+were built from the full name and pointed nowhere.
 
 ## RSS feed & syndication
 The blog feed is generated at `/rss.xml` by `src/pages/rss.xml.js` from the
@@ -138,8 +149,19 @@ custom XML element. This only affects the feed — the site reads `description`
 straight from the content collection, so on-page copy and SEO are unaffected.
 To make auto-posted LinkedIn updates read natively, set a `linkedinCaption` in
 the post's frontmatter (a hook written for LinkedIn, not the SEO description).
+**Write it as short paragraphs in a YAML block scalar (`linkedinCaption: |-`)**: a quoted
+one-line string posts as a single block of text. Don't end it with the URL either: the
+LinkedIn API never scrapes the page, so `scripts/post-to-linkedin.mjs` builds the link card
+itself (title, description and the page's `og:image` uploaded to LinkedIn). That and the
+dated `LinkedIn-Version` header are why the first auto-post (16 Nov 2026) failed and then
+went out with no image; see `scripts/README-linkedin.md`.
 Comparison/SEO posts tagged `comparisons` are excluded from the feed entirely,
 so they never auto-post to LinkedIn.
+
+**To keep any one post off LinkedIn, add `linkedin: false` to its frontmatter.** It publishes
+on the site as normal, is skipped by `scripts/post-to-linkedin.mjs` and is left out of the
+feed. The owner doesn't want billing and coding topics on his LinkedIn (19 Nov 2026), so new
+"Revenue & Coding" posts carry it.
 
 ## Specialty pages
 Live at `/for/[specialty]`. Follow the template in `/for/primary-care/index.astro`:

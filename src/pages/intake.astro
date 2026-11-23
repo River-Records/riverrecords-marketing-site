@@ -550,16 +550,6 @@ const trustPoints = [
 .s-guarantee p { font-size: 1.05rem; line-height: 1.75; color: rgba(255,255,255,0.72); margin-bottom: 20px; }
 .s-guarantee p:last-child { margin-bottom: 0; }
 .s-guarantee strong { color: var(--white); font-weight: 600; }
-.guarantee-quote {
-  font-family: var(--font-mono);
-  font-size: 0.85rem !important;
-  line-height: 1.7 !important;
-  color: rgba(255,255,255,0.85) !important;
-  background: rgba(255,255,255,0.06);
-  border-left: 2px solid var(--accent-light);
-  border-radius: 0 8px 8px 0;
-  padding: 14px 16px;
-}
 .guarantee-close { font-size: 1.15rem !important; color: var(--white) !important; font-weight: 600; }
 
 /* S10 — trust list */
@@ -1047,9 +1037,13 @@ const trustPoints = [
         <p>The list appears only in <strong>Review Required</strong>, never on the problem view — under a problem list it would read as <em>the current regimen</em>, and it’s one document’s snapshot, possibly months stale. One Dismiss clears the group, per user and reversibly.</p>
         <p>There’s no Accept button, on purpose: it would imply a write to a reconciled medication list that doesn’t happen.</p>
         {/* Added on Jacob's correction that medications have an Include in note path, not
-            from the v1 deck. Copy signed off by Jake Kantrowitz, 15 Nov 2026. Still open:
-            check the "from external records" label against the app's actual UI string. */}
-        <p><strong>What you can do is use them.</strong> <em>Include in note</em> puts the list into your note, attributed <em>from external records</em> — the same explicit click as every other outside fact.</p>
+            from the v1 deck. There is no Accept because there is no medication list to put
+            them on. Include in note adds outside content to the visit's Scratchpad (free text)
+            behind a preamble giving source, date, provider and facility, and the model is told
+            to attribute it in the note. Nothing locks that text, so never say it is
+            "inserted as an attributed quote" or carries a fixed label. Pathway described by
+            Jake Kantrowitz, 19 Nov 2026. */}
+        <p><strong>What you can do is use them.</strong> <em>Include in note</em> adds the list to the visit’s Scratchpad, marked as coming from external records with the document’s date, author and facility, so the note Stream drafts can say where it came from.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1075,7 +1069,7 @@ const trustPoints = [
             <span class="mock-chip mock-chip-on">Include in note</span>
             <span class="mock-chip">Dismiss all from this document</span>
           </div>
-          <p class="mock-note">No Accept button — Include in note writes to your note as <em>from external records</em>, never to a reconciled medication list.</p>
+          <p class="mock-note">No Accept button — Include in note adds them to your Scratchpad, marked as <em>from external records</em>, never to a reconciled medication list.</p>
         </div>
       </div>
     </div>
@@ -1124,9 +1118,10 @@ const trustPoints = [
 </section>
 
 <!-- S8b — OUTPUT 4: DOCUMENT SUMMARY -->
-<!-- NEW COPY, not from the v1 deck — added on Jacob's correction that document
-     summaries are a real output and can be included as note context. Needs sign-off.
-     Numbered S8b so the deck's S6/S7/S8 section IDs stay stable. -->
+<!-- Added on Jacob's correction that document summaries are a real output and can be
+     included as note context; not from the v1 deck. Copy signed off by Jake Kantrowitz,
+     19 Nov 2026. Numbered S8b so the deck's S6/S7/S8 section IDs stay stable.
+     Include in note: see the pathway comment in the medications section above. -->
 <section class="s-output s-output-alt ir" id="s8b">
   <div class="ic">
     <div class="output-grid">
@@ -1134,7 +1129,7 @@ const trustPoints = [
         <div class="il">OUTPUT 4 — THE SUMMARY</div>
         <h2>Sometimes you want the document, not the facts.</h2>
         <p>Every document gets a short clinical summary — enough to know what arrived without opening twelve pages — beside its excerpts, medications and tasks.</p>
-        <p><strong>Include in note</strong> adds it, or the whole document, as an attributed quote. Like everything on this page, nothing happens on its own.</p>
+        <p><strong>Include in note</strong> adds it, or the whole document, to your Scratchpad, marked with its source. Like everything on this page, nothing happens on its own.</p>
       </div>
       <div class="mock">
         <div class="mock-marker">Demo — fake patient data — not a real chart</div>
@@ -1164,9 +1159,8 @@ const trustPoints = [
       <div class="il">THE GUARANTEE</div>
       <h2>Outside records inform the clinician. They never write the clinician’s note.</h2>
       <p>This isn’t a policy, it’s an architecture. The code that reads excerpts is physically separate from the code that drafts notes, and an automated test fails the build if the note-generating path so much as imports the excerpt reader.</p>
-      <p>The only way outside content enters a note is one explicit click — <strong>Include in note</strong> — which inserts it as an attributed quote:</p>
-      <p class="guarantee-quote">Per Discharge Summary, Dr. A. Chen, 3/15/24: “…”</p>
-      <p class="guarantee-close">Your record stays your record. And where it isn’t, it says so on the page.</p>
+      <p>The only way outside content enters a note is one explicit click — <strong>Include in note</strong> — which adds it to the visit’s Scratchpad with its source, and Stream drafts the note to say where it came from. From there it’s your text to keep, edit or remove.</p>
+      <p class="guarantee-close">Your record stays your record. Outside content arrives labeled as outside content.</p>
     </div>
   </div>
 </section>

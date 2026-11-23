@@ -13,13 +13,27 @@ you never merge. Owen never sends an email, and nobody posts to LinkedIn or anyw
 
 ## Phase 0 — Start the day
 
-1. **Repos.** This session has the site repo. Attach ai-scribe read-only for Vera and Penn:
-   `add_repo` River-Records/ai-scribe with `access: "push"` (needed for the GitHub issue tools;
-   you never push to it). Clone it to `../ai-scribe` as the tool says. If that's refused, carry on:
-   every product claim is then "unverified", so the day is limited to pieces that make no product
-   claims, and the end-of-day comment says so.
+1. **Repos.** This session has the site repo. Attach ai-scribe for Vera, Penn and research:
+   `add_repo` River-Records/ai-scribe with `access: "push"` (needed for the GitHub issue tools and
+   for research PRs; you push nothing else there). Clone it to `../ai-scribe` as the tool says.
+
+   **It is usually refused** by auto mode's safety check: a repo's settings can't grant access to
+   another repo, so `.claude/settings.json` doesn't help (seen 2026-11-15 and 11-16). When it is
+   refused, **ask the owner once, right away** (Decision 2026-11-16: the owner approves the attach
+   each morning). Send one message, as in Calling the owner below, with the subject
+   `[Stream marketing] Reply "attach" to give me ai-scribe today`. The body says: "Reply **attach**
+   in this session so Vera can check product claims against ai-scribe today. If you don't, I carry
+   on without it." Then the session link. Then **don't wait**: do Owen's sweep and the plan.
+
+   When the owner's reply says "attach" (or yes), retry `add_repo` once, quoting their words as the
+   reason, then `register_repo_root`. If it's refused again, or there's no reply by the time you
+   need it, carry on without ai-scribe: every product claim is then "unverified", so the day is
+   limited to pieces that make no product claims, and the end-of-day comment says so. Never look
+   for another way in.
 2. **The week's plan** is the open issue titled `Marketing week YYYY-Www` in this repo.
-   - **Monday, or no plan issue for this week:** write it (below) before anything else.
+   - **No plan issue for this ISO week:** write it (below) before anything else, **even when an
+     assignment was given.** The assignment becomes the plan's first item. (The first run, on
+     2026-11-15, skipped this because it had an assignment.)
    - Otherwise read it. The argument, if one was given, wins over the plan.
 3. **Post the day's plan** in three lines: the piece, its audience, and what Owen's sweep will
    cover.
@@ -41,7 +55,8 @@ Five items at most, ordered. Inputs, read narrowly:
 
 ## Phase 1 — Owen's sweep
 
-Dispatch `owen`. When it returns:
+**Every day, whatever the assignment.** A research or writing day still starts with the sweep,
+because support mail waits on it. Dispatch `owen`. When it returns:
 
 - File each proposed ai-scribe issue with `issue_write` on River-Records/ai-scribe: labels `bug`
   or `gtm-signal` (GitHub creates a label the first time it's used). Search for an existing issue
@@ -57,9 +72,17 @@ Dispatch `owen`. When it returns:
    not Penn's or yours to make: it's an owner question, with your recommendation.
 2. Dispatch `penn`.
 3. Dispatch `vera` on what Penn wrote. On FAIL, give Penn Vera's list and re-run both, twice at
-   most. Something still unverified after that is cut or marked for the owner. It never ships on
-   your say-so.
-4. **Build and check** anything that touches `src/`: `npm ci` (first time), `npm run build`, and
+   most. **Don't commit after a FAIL until Vera has seen the fixes.** A fix you made yourself is
+   still unverified. Something still unverified after two rounds is cut or marked for the owner.
+   It never ships on your say-so.
+4. **A research piece** (a competitor refresh, a market scan): Quinn's rules apply
+   (`../ai-scribe/.claude/agents/researcher.md`: a source and date for every claim, evidence
+   graded, `curl` when WebFetch can't resolve an allowed host, and a site's own bot block
+   respected). The findings go in `../ai-scribe/docs/research/<slug>.md`, in that folder's README
+   format, as a docs-only PR on a `claude/research-<slug>` branch. That PR merges itself once
+   green. The site PR then cites that file. If ai-scribe couldn't be attached, put the findings
+   in the end-of-day comment so they aren't lost.
+5. **Build and check** anything that touches `src/`: `npm ci` (first time), `npm run build`, and
    `node scripts/verify-internal-links.mjs`. A build that fails is not a draft PR; fix it or
    say why not.
 
@@ -80,8 +103,11 @@ Dispatch `owen`. When it returns:
 
 ## Calling the owner
 
-Same as ai-scribe's `/workday`: one `PushNotification` per call, plain words first, each question
-with its recommendation, several questions in one message, and the same text on the PR with
+Same as ai-scribe's `/workday`: email to the owner's own address (Gmail `send_message`, the one
+send this skill allows, and only to that address) plus `PushNotification`, plain words first, each question
+with its recommendation, several questions in one message, " — needs you" added to this
+session's title (`get_session`, then `set_session_title`; remove it once they answer; Morgan fixes it
+if you can't), and the same text on the PR with
 `needs-owner`. Call only for what's theirs: positioning, a public claim Vera can't verify that
 they could confirm, a new outreach list, a customer who needs them. Everything else is in the
 end-of-day comment.
