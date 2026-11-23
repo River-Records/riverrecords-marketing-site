@@ -71,7 +71,11 @@ table.vs-table td:first-child { color: var(--ink); font-weight: 600; white-space
       <span class="section-label">Comparison</span>
       <h1>{c.title}</h1>
       <p class="vs-lede">{c.lede}</p>
-      <p class="vs-stamp">Competitor pricing verified {PRICING_VERIFIED} · check theirs before deciding</p>
+      {c.pricing.source ? (
+        <p class="vs-stamp">Competitor pricing verified {PRICING_VERIFIED} · check theirs before deciding</p>
+      ) : (
+        <p class="vs-stamp">No published price · checked {PRICING_VERIFIED} · the range below is a third-party estimate</p>
+      )}
 
       <h2>At a glance</h2>
       <table class="vs-table">

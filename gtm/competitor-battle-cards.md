@@ -4,7 +4,7 @@
 
 **Companion doc:** [`content-objection-map.md`](./content-objection-map.md). These cards handle the competitor *in the call*; the objection map tells you which post to send *after* it. Category 1 ("we already have a scribe") is the follow-up bucket for almost every card here.
 
-**Pricing verified:** 2026-08-19, from public pricing pages and third-party reviews (sources at the bottom). **Re-check quarterly** — Heidi moved its clinician plan from ~$99 to $150 in February 2026 and Nabla went from public pricing to contract-only in the same window. Quoting a stale competitor price on a call costs you the room.
+**Pricing verified:** 2026-08-19, from public pricing pages and third-party reviews (sources at the bottom). Freed, Heidi and Twofold were re-checked on their own pages on 2026-11-23, and so was Doximity's price; the other cards still stand on the August check. **Re-check quarterly** — Heidi moved its clinician plan from ~$99 to $150 in February 2026 and Nabla went from public pricing to contract-only in the same window. Quoting a stale competitor price on a call costs you the room.
 
 ---
 
@@ -36,7 +36,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Freed
 
-**Price:** $39 Starter (40 notes/mo) · $79 Core (unlimited) · $119 Premier (adds EHR push + ICD-10). Per clinician, no team tier.
+**Price:** $39 Starter (40 notes/mo) · $79 Core (unlimited) · $119 Premier (adds EHR push + ICD-10). Per clinician; Groups plan by quote. *(Whether $39 and $79 are monthly or annual rates is unclear from their page's markup; Premier is $119 monthly, $104 annual.)*
 **Wins with:** solo clinicians and 1–3 provider practices who want a scribe and nothing else. Enormous installed base among independent docs.
 **Their pitch:** fast, cheap, dead simple, sign up in five minutes.
 
@@ -61,7 +61,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Heidi
 
-**Price:** Free tier ($0, unlimited basic consults and dictation, 10 "Pro Actions"/mo) · Clinician ~$150/user/mo billed annually · Practice and Enterprise custom.
+**Price:** Free tier ($0, unlimited transcription; dictation and other features on a weekly allowance) · Clinician $150/user/mo month-to-month or $110/mo billed annually · Teams by quote. *(Re-checked on heidihealth.com, US prices, 2026-11-23.)*
 **Wins with:** price-sensitive clinicians globally, and anyone who wants to try a scribe at zero risk.
 **Their pitch:** genuinely free to start, strong templating, big international footprint.
 
@@ -84,20 +84,20 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Twofold
 
-**Price:** $49/user/mo billed annually, $69 month-to-month. Unlimited notes — no per-note, per-minute, or per-action metering.
-**Wins with:** independent practices and outpatient clinics — **explicitly our ICP, at a third of our price.** Also sells into therapy.
-**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning, EHR integration.
+**Price:** $49/user/mo billed annually, $69 month-to-month, $19 first month on monthly *(re-checked on trytwofold.com 2026-11-23)*. Unlimited notes — no per-note, per-minute, or per-action metering.
+**Wins with:** independent practices and outpatient clinics — **they also sell to independent primary care, at under half our price.** Also sells into therapy.
+**Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning.
 
 **Where they genuinely beat us**
-- **Price, badly.** $49 against $149. They also bundle coding, which we charge Pro pricing for.
+- **Price, badly.** $69 against $149 month to month; $49 against $99 on annual billing. They also bundle coding, which we charge Pro pricing for.
 - No audio stored — a clean privacy answer that plays well with cautious buyers.
-- They claim EHR integration; we don't have any.
+- **A native integration.** Their Partner API files the finished note into the chart, they say, and it is live in production with a practice-management platform they do not name. Every other EHR is one-click copy and paste, and their own list of those includes athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono. They also ship paste formats built for SimplePractice, TherapyNotes, Headway, Grow Therapy and Practice Fusion *(re-checked on trytwofold.com/integrations 2026-11-17)*. Don't call it broad EHR integration and don't call it copy-paste only. Ask which EHR the prospect uses: for every primary-care EHR on their paste list (including athenahealth, Epic, eClinicalWorks, NextGen, AdvancedMD and DrChrono), it is still paste, which is where we are too. Never answer it by implying Stream writes back; we don't.
 
 **Where we win**
 - Same category argument as everywhere else: it is a very good, very cheap note generator. No problem-oriented chart, no inbound document pipeline, no care-gap or HCC surfaces, no patient chart to speak of.
-- At $49 they are competing on price in a market where price is collapsing. That's a race we shouldn't enter and they can't exit.
+- At $69 they are competing on price in a market where price is collapsing. That's a race we shouldn't enter and they can't exit.
 
-**The question:** *"At $49 unlimited, what happens to the notes after they're written?"*
+**The question:** *"At $69 unlimited, what happens to the notes after they're written?"*
 
 **Handle the price gap head-on.** Don't defend $149 as a scribe price — it isn't one, and the prospect can do arithmetic. *"If you want the cheapest good scribe, it's probably them. We're priced like a chart because that's what we are."*
 
@@ -116,10 +116,10 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 - Brand trust. Doximity is not a startup to them.
 
 **Where we win**
-- No EHR integration either (they copy-paste, same as us — so that objection is neutral here, not a loss).
-- English only.
+- No EHR integration that we have found (copy-paste, same as us — so that objection is neutral here, not a loss). *Unverified: their page now says notes go "directly to the patient's chart". Ask the prospect what that does in their EHR.*
+- English only. *Unverified since September: no longer on their public page. Don't say it on a call unless you've checked.*
 - It is a note generator and nothing more: no chart, no patients, no documents, no tasks, no coding.
-- The recording is discarded after the summary — nothing accumulates, ever.
+- Each visit is its own note — their page describes no chart that builds from one visit to the next. *("The recording is discarded after the summary" is unverified since September; it is no longer on their public page.)*
 
 **The question:** *"When you use Doximity Scribe, where does the note go?"*
 

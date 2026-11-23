@@ -79,8 +79,18 @@ export type Competitor = {
   chooseStreamIf: string;
 };
 
-/** Verified from public pricing pages on this date. Re-check before editing any price. */
-export const PRICING_VERIFIED = '22 September 2026';
+/**
+ * Verified from public pricing pages on this date. Re-check before editing any price.
+ *
+ * 23 Nov 2026: Heidi, Twofold, Freed and Doximity re-fetched from their own pages; Suki's
+ * /pricing/ still 404s. openevidence.com refuses automated readers (403), so its "free"
+ * rests on the owner's confirmation on 19 Nov 2026 (PR #106). Doximity's public page
+ * no longer says the recording is discarded or that it is English only, so both lines came
+ * off the page that day rather than sit under a new date. Its EHR cell stays "copy and
+ * paste" on the owner's call (19 Nov), unverified: their page says notes go "directly to
+ * the patient's chart". Suki's range is a third-party estimate and was not re-checked.
+ */
+export const PRICING_VERIFIED = '23 November 2026';
 
 export const competitors: Competitor[] = [
   {
@@ -93,7 +103,7 @@ export const competitors: Competitor[] = [
     lede: 'Heidi has a genuinely free tier. If all you need is a note, that is a real answer and we would rather say so than pretend otherwise.',
     pricing: {
       them: 'Free · around $150/month',
-      themNote: 'Heidi raised its Clinician plan from roughly $99 to around $150 in February 2026.',
+      themNote: 'Clinician is $150 month-to-month or $110/month billed annually. Heidi raised it from roughly $99 in February 2026.',
       source: 'https://www.heidihealth.com/pricing',
       freeTier: 'Yes — a real one',
       ehr: 'Not on the Free or Clinician plans',
@@ -101,7 +111,7 @@ export const competitors: Competitor[] = [
     noteStructure:
       'Template-driven notes, customisable, with a genuinely free tier and broad language support.',
     betterAtIt: [
-      'A real free tier, with unlimited basic consults and dictation. Not a trial that expires.',
+      'A real free tier, with unlimited transcription. Other features run on a weekly allowance, but it is not a trial that expires.',
       'Template flexibility, and a more polished product surface than ours.',
       'A large international footprint, with support for practice patterns outside the US.',
     ],
@@ -129,7 +139,7 @@ export const competitors: Competitor[] = [
       them: 'Around $299–$399+/month, not published',
       themNote: 'Suki publishes no pricing; their /pricing/ URL now 404s and access runs through a sales conversation. This range comes from third-party reports, not from Suki, and is a planning benchmark rather than a quote.',
       source: null,
-      freeTier: 'No',
+      freeTier: 'None published',
       ehr: 'Yes — integrations available',
     },
     noteStructure:
@@ -162,22 +172,21 @@ export const competitors: Competitor[] = [
     pricing: {
       them: 'Free',
       themNote: 'Free to verified US clinicians.',
-      source: 'https://www.doximity.com/scribe',
+      // /scribe redirects to a sign-in page; this is the public page that states the price.
+      source: 'https://www.doximity.com/clinicians/scribe',
       freeTier: 'Entirely free',
       ehr: 'None — copy and paste',
     },
-    noteStructure:
-      'One note per visit. The recording is discarded once the summary is produced. English only.',
+    noteStructure: 'One note per visit, from templates you can customise.',
     betterAtIt: [
       'Free, with no procurement, no new vendor and no card. The friction is close to zero.',
       'A brand you already trust and an account you already have.',
     ],
     whereStreamDiffers: [
       'Doximity copies and pastes into your EHR too, so on the EHR question the two are level — this is not a point against Stream.',
-      'The recording is discarded once the summary is produced. Nothing accumulates between visits.',
+      'Each visit produces its own note. Their page describes no chart that builds from one visit to the next.',
       'Stream keeps what it heard as a problem-based chart, so the third visit is easier than the first.',
       'Inbound faxes and outside records are read and filed under the problems they concern.',
-      'Doximity Scribe is English only.',
     ],
     question: 'When you use Doximity Scribe, where does the note go afterwards?',
     chooseThemIf:
@@ -192,20 +201,20 @@ export const competitors: Competitor[] = [
     seoTitle: 'Stream vs. Twofold — Cheapest Scribe, or a Chart?',
     seoDescription:
       'Twofold is $69/month with coding bundled. Stream Pro is priced like a chart because that is what it is. An honest comparison for independent practices.',
-    lede: 'Twofold targets exactly the practices we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding and EHR integration included, it is probably them.',
+    lede: 'Twofold sells to independent clinicians, as we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding included, it is probably them.',
     pricing: {
-      them: '$69/month billed annually',
-      themNote: 'Introductory $19 for the first month. The $49 figure we previously quoted is no longer on their pricing page.',
+      them: '$69/month, or $49/month billed annually',
+      themNote: 'Introductory $19 for the first month on the monthly plan. Group practices are priced on request.',
       source: 'https://www.trytwofold.com/pricing',
       freeTier: 'A $0 plan giving 7 days of full access, no card',
-      ehr: 'Claims integration available',
+      // trytwofold.com/integrations, re-checked 2026-11-17 (page dated 12 Nov 2026).
+      ehr: 'Copy and paste; native API delivery with partner platforms',
     },
     noteStructure:
       'Notes across many note types with CPT/ICD-10 coding included. No audio retained.',
     betterAtIt: [
       'Price, against Stream Pro. $69 against $149, and CPT/ICD-10 coding is included.',
       'No audio retained, which is a clean answer for privacy-cautious buyers.',
-      'They claim EHR integration. We have none.',
     ],
     whereStreamDiffers: [
       'Twofold is a very good, very cheap note generator. That is the whole product.',
@@ -250,7 +259,7 @@ const EXTRA_ROWS: ReferenceRow[] = [
     href: '/comparison/freedai/',
     price: '$39 – $119',
     freeTier: '7-day trial, no card',
-    ehr: 'Copy and paste',
+    ehr: 'Copy and paste; Premier pushes to browser-based EHRs',
     structure: 'One note per visit. Starter is capped at 40 notes a month.',
   },
   {
