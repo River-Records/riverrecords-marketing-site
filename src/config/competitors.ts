@@ -79,8 +79,16 @@ export type Competitor = {
   chooseStreamIf: string;
 };
 
-/** Verified from public pricing pages on this date. Re-check before editing any price. */
-export const PRICING_VERIFIED = '22 September 2026';
+/**
+ * Verified from public pricing pages on this date. Re-check before editing any price.
+ *
+ * 23 Nov 2026: Heidi, Twofold, Freed and Doximity re-fetched from their own pages; Suki's
+ * /pricing/ still 404s. openevidence.com refuses automated readers (403), so its "free"
+ * rests on the owner checking it in a browser on 19 Nov 2026. Not on Doximity's public
+ * page that day, and so not re-verified: "recording discarded", "English only", and
+ * whether "send it directly to the patient's chart" means anything beyond copy and paste.
+ */
+export const PRICING_VERIFIED = '23 November 2026';
 
 export const competitors: Competitor[] = [
   {
@@ -162,7 +170,8 @@ export const competitors: Competitor[] = [
     pricing: {
       them: 'Free',
       themNote: 'Free to verified US clinicians.',
-      source: 'https://www.doximity.com/scribe',
+      // /scribe redirects to a sign-in page; this is the public page that states the price.
+      source: 'https://www.doximity.com/clinicians/scribe',
       freeTier: 'Entirely free',
       ehr: 'None — copy and paste',
     },

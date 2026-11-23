@@ -28,7 +28,9 @@ const VERIFIED = '2 September 2026';
 /* Their scribe is free, ours is not. Checked separately and more recently than the rest
    of the page, because it is the single fact most likely to move and the one a reader
    will discover in thirty seconds whether we mention it or not. */
-const PRICING_VERIFIED = '14 September 2026';
+// openevidence.com returns 403 to automated readers. Confirmed by the owner in a browser
+// on this date: still free to verified US clinicians.
+const PRICING_VERIFIED = '19 November 2026';
 const onboardUrl = 'https://stream.riverrecords.ai/onboard/stream-pro?utm_source=comparison&utm_medium=landing&utm_campaign=vs-openevidence-scribe';
 ---
 <Page
