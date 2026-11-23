@@ -84,9 +84,11 @@ export type Competitor = {
  *
  * 23 Nov 2026: Heidi, Twofold, Freed and Doximity re-fetched from their own pages; Suki's
  * /pricing/ still 404s. openevidence.com refuses automated readers (403), so its "free"
- * rests on the owner checking it in a browser on 19 Nov 2026. Not on Doximity's public
- * page that day, and so not re-verified: "recording discarded", "English only", and
- * whether "send it directly to the patient's chart" means anything beyond copy and paste.
+ * rests on the owner's confirmation on 19 Nov 2026 (PR #106). Doximity's public page
+ * no longer says the recording is discarded or that it is English only, so both lines came
+ * off the page that day rather than sit under a new date. Its EHR cell stays "copy and
+ * paste" on the owner's call (19 Nov), unverified: their page says notes go "directly to
+ * the patient's chart". Suki's range is a third-party estimate and was not re-checked.
  */
 export const PRICING_VERIFIED = '23 November 2026';
 
@@ -137,7 +139,7 @@ export const competitors: Competitor[] = [
       them: 'Around $299–$399+/month, not published',
       themNote: 'Suki publishes no pricing; their /pricing/ URL now 404s and access runs through a sales conversation. This range comes from third-party reports, not from Suki, and is a planning benchmark rather than a quote.',
       source: null,
-      freeTier: 'No',
+      freeTier: 'None published',
       ehr: 'Yes — integrations available',
     },
     noteStructure:
@@ -175,18 +177,16 @@ export const competitors: Competitor[] = [
       freeTier: 'Entirely free',
       ehr: 'None — copy and paste',
     },
-    noteStructure:
-      'One note per visit. The recording is discarded once the summary is produced. English only.',
+    noteStructure: 'One note per visit, from templates you can customise.',
     betterAtIt: [
       'Free, with no procurement, no new vendor and no card. The friction is close to zero.',
       'A brand you already trust and an account you already have.',
     ],
     whereStreamDiffers: [
       'Doximity copies and pastes into your EHR too, so on the EHR question the two are level — this is not a point against Stream.',
-      'The recording is discarded once the summary is produced. Nothing accumulates between visits.',
+      'Each visit produces its own note. Their page describes no chart that builds from one visit to the next.',
       'Stream keeps what it heard as a problem-based chart, so the third visit is easier than the first.',
       'Inbound faxes and outside records are read and filed under the problems they concern.',
-      'Doximity Scribe is English only.',
     ],
     question: 'When you use Doximity Scribe, where does the note go afterwards?',
     chooseThemIf:
@@ -201,7 +201,7 @@ export const competitors: Competitor[] = [
     seoTitle: 'Stream vs. Twofold — Cheapest Scribe, or a Chart?',
     seoDescription:
       'Twofold is $69/month with coding bundled. Stream Pro is priced like a chart because that is what it is. An honest comparison for independent practices.',
-    lede: 'Twofold targets exactly the practices we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding included, it is probably them.',
+    lede: 'Twofold sells to independent clinicians, as we do, at under half the price of Stream Pro, with coding bundled. If you want a cheap scribe with coding included, it is probably them.',
     pricing: {
       them: '$69/month, or $49/month billed annually',
       themNote: 'Introductory $19 for the first month on the monthly plan. Group practices are priced on request.',

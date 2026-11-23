@@ -4,7 +4,7 @@
 
 **Companion doc:** [`content-objection-map.md`](./content-objection-map.md). These cards handle the competitor *in the call*; the objection map tells you which post to send *after* it. Category 1 ("we already have a scribe") is the follow-up bucket for almost every card here.
 
-**Pricing verified:** 2026-08-19, from public pricing pages and third-party reviews (sources at the bottom). Freed, Heidi, Twofold and Doximity were re-checked on their own pages on 2026-11-23; the other cards still stand on the August check. **Re-check quarterly** — Heidi moved its clinician plan from ~$99 to $150 in February 2026 and Nabla went from public pricing to contract-only in the same window. Quoting a stale competitor price on a call costs you the room.
+**Pricing verified:** 2026-08-19, from public pricing pages and third-party reviews (sources at the bottom). Freed, Heidi and Twofold were re-checked on their own pages on 2026-11-23, and so was Doximity's price; the other cards still stand on the August check. **Re-check quarterly** — Heidi moved its clinician plan from ~$99 to $150 in February 2026 and Nabla went from public pricing to contract-only in the same window. Quoting a stale competitor price on a call costs you the room.
 
 ---
 
@@ -36,7 +36,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 
 ## Freed
 
-**Price:** $39 Starter (40 notes/mo) · $79 Core (unlimited) · $119 Premier (adds EHR push + ICD-10). Per clinician, no team tier.
+**Price:** $39 Starter (40 notes/mo) · $79 Core (unlimited) · $119 Premier (adds EHR push + ICD-10). Per clinician; Groups plan by quote. *(Whether $39 and $79 are monthly or annual rates is unclear from their page's markup; Premier is $119 monthly, $104 annual.)*
 **Wins with:** solo clinicians and 1–3 provider practices who want a scribe and nothing else. Enormous installed base among independent docs.
 **Their pitch:** fast, cheap, dead simple, sign up in five minutes.
 
@@ -85,7 +85,7 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 ## Twofold
 
 **Price:** $49/user/mo billed annually, $69 month-to-month, $19 first month on monthly *(re-checked on trytwofold.com 2026-11-23)*. Unlimited notes — no per-note, per-minute, or per-action metering.
-**Wins with:** independent practices and outpatient clinics — **explicitly our ICP, at under half our price.** Also sells into therapy.
+**Wins with:** independent practices and outpatient clinics — **they also sell to independent primary care, at under half our price.** Also sells into therapy.
 **Their pitch:** unlimited everything, transparent pricing, CPT/ICD-10 coding, BAA, style learning.
 
 **Where they genuinely beat us**
@@ -116,10 +116,10 @@ Full list in `docs/internal/field-sheets/` (Guardrails sheet). The three that wi
 - Brand trust. Doximity is not a startup to them.
 
 **Where we win**
-- No EHR integration either (they copy-paste, same as us — so that objection is neutral here, not a loss).
-- English only.
+- No EHR integration that we have found (copy-paste, same as us — so that objection is neutral here, not a loss). *Unverified: their page now says notes go "directly to the patient's chart". Ask the prospect what that does in their EHR.*
+- English only. *Unverified since September: no longer on their public page. Don't say it on a call unless you've checked.*
 - It is a note generator and nothing more: no chart, no patients, no documents, no tasks, no coding.
-- The recording is discarded after the summary — nothing accumulates, ever.
+- Each visit is its own note — their page describes no chart that builds from one visit to the next. *("The recording is discarded after the summary" is unverified since September; it is no longer on their public page.)*
 
 **The question:** *"When you use Doximity Scribe, where does the note go?"*
 
