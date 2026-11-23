@@ -35,16 +35,16 @@ There is no single "best" AI scribe. The right pick depends on whether you want 
 |-------------------------------|------------------------------------------|-------------------------|----------------------|-----------------------------------------------------------------------------|
 |**Stream (River Records)**     |Longitudinal primary care, DPC, peds, SNF |~$149 (30-day free trial)|Pastes into any EHR   |Subjective/Objective/A&P split **per problem**, filed to a longitudinal chart|
 |**[OpenEvidence Visits](https://www.openevidence.com)**|Evidence cited inside the note|**Free** (verified US clinicians)|Pastes into any EHR|Per-visit note, assessment and plan enriched with guideline references|
-|**[Doximity Scribe](https://www.doximity.com/scribe)**|Lowest-friction free option|**Free** (verified US clinicians)|Pastes into any EHR|Single ambient note per visit|
+|**[Doximity Scribe](https://www.doximity.com/clinicians/scribe)**|Lowest-friction free option|**Free** (verified US clinicians)|Pastes into any EHR|Single ambient note per visit|
 |**[Freed](https://www.getfreed.ai/pricing)**|Simple fast ambient notes, solo clinicians|From ~$39 (tiered)       |Pastes into any EHR   |Single ambient note per visit                                                |
 |**[Heidi Health](https://www.heidihealth.com/pricing)**|Flexibility + free tier      |Free tier; ~$150 paid    |Pastes into any EHR   |Template-driven, customizable                                                |
-|**[Twofold Health](https://www.trytwofold.com/pricing)**|Budget self-serve           |$69 (annual)             |Copy/paste (clipboard)|Customizable templates, broad note types                                     |
+|**[Twofold Health](https://www.trytwofold.com/pricing)**|Budget self-serve           |$69 ($49 billed annually)|Copy/paste (clipboard)|Customizable templates, broad note types                                     |
 |**PatientNotes**               |Many specialty templates on a budget      |~$50–70                  |Clipboard / any EHR   |30+ specialty templates                                                      |
 |**Suki**|Voice-first, ambient plus dictation|~$299–399+ (not published)|Varies by integration |Voice-first, structured                                                      |
 |**Abridge**                    |Large Epic-based health systems           |Enterprise (~$200–1,200+)|Deep Epic integration |Structured, EHR-embedded                                                     |
 |**Nuance DAX / Dragon Copilot**|Enterprise, Dragon-compatible EHRs        |Enterprise               |Deep integration      |Voice-first, structured                                                      |
 
-*Competitor pricing verified 22 September 2026 from each vendor's own pricing page, linked above. Prices move — Heidi's went from roughly $99 to around $150 in February 2026 — so check the vendor's page rather than taking ours on trust.
+*Freed, Heidi, Twofold and Doximity pricing verified 23 November 2026 from each vendor's own pricing page, linked above; the others on 22 September 2026. Prices move — Heidi's went from roughly $99 to around $150 in February 2026 — so check the vendor's page rather than taking ours on trust.
 
 ## How to choose: what actually matters for independent primary care
 
@@ -78,7 +78,7 @@ It's worth knowing the provenance: Stream's founders authored a peer-reviewed JA
 Freed is the doctor-built, set-up-in-minutes pick. It does one thing well: ambient listening that produces a clean note you paste into your EHR. For a solo clinician who wants speed and minimal setup, it's one of the most recommended options for primary care.
 
 - **Best for:** Solo clinicians who want fast notes with no learning curve.
-- **Pricing:** Tiered — Starter ~$39/mo (capped at ~40 notes), Core ~$79/mo (unlimited notes), Premier ~$119/mo (adds EHR push and ICD-10 coding); 7-day free trial.
+- **Pricing:** Tiered — Starter ~$39/mo (capped at ~40 notes), Core ~$79/mo (unlimited notes), Premier ~$119/mo, or $104/mo billed annually (adds EHR push and ICD-10 coding); 7-day free trial.
 - **Watch-outs:** Simpler by design — lighter on structured multi-problem output and longitudinal chart-building. The cheapest Starter tier caps notes at ~40/mo, so a high-volume clinician needs Core or above.
 
 ### OpenEvidence Visits — best if you want evidence inside the note
@@ -100,7 +100,7 @@ Free to verified US clinicians, on an account you almost certainly already have.
 
 - **Best for:** Clinicians who want a note, want it free, and are not trying to fix the chart.
 - **Pricing:** Free to verified US clinicians.
-- **Watch-outs:** The recording is discarded once the summary is produced, so nothing accumulates between visits. English only. Copy and paste into your EHR — which, to be fair, is also true of most tools on this list.
+- **Watch-outs:** Each visit produces its own note; their page describes no chart that builds from one visit to the next. Their page says notes go "directly to the patient's chart"; we have not confirmed how, and have found no EHR integration listed.
 
 [Full comparison with Stream](/comparison/doximity-scribe/).
 
@@ -109,7 +109,7 @@ Free to verified US clinicians, on an account you almost certainly already have.
 Heidi offers a genuine free tier, broad template flexibility, an active clinician community, and an "Ask Heidi" coding chat. It has especially strong adoption in the UK, Australia, and New Zealand.
 
 - **Best for:** Clinicians who want to try before paying and value customizable templates.
-- **Pricing:** Free tier; paid plans roughly $50–100/mo.
+- **Pricing:** Free tier; the Clinician plan is $150/mo, or $110/mo billed annually.
 - **Watch-outs:** Free-tier notes may need more editing; some users report accuracy gains with an external microphone; occasional hallucinations reported on complex cases.
 
 ### Twofold Health — best budget self-serve option
@@ -117,7 +117,7 @@ Heidi offers a genuine free tier, broad template flexibility, an active clinicia
 Twofold leans on fast draft generation, customizable note structure, support for many note types (SOAP, H&P, discharge, behavioral health), and transparent flat pricing.
 
 - **Best for:** Budget-conscious solo and small practices.
-- **Pricing:** ~$49/mo.
+- **Pricing:** $69/mo, or $49/mo billed annually.
 - **Watch-outs:** Works largely via copy-paste rather than deep EHR integration; a newer player relative to the incumbents.
 
 ### PatientNotes — best value pick for specialty templates
@@ -184,7 +184,7 @@ Don't choose on marketing. Run a structured trial:
 ## Frequently asked questions
 
 **What is the best AI medical scribe for a solo primary care doctor?**
-It depends on what you optimize for. Choose Freed for the simplest, fastest ambient notes; Stream for a chart that organizes notes by problem and builds longitudinal memory; Twofold (or Freed's entry Starter tier) for the lowest price.
+It depends on what you optimize for. Choose Freed for the simplest, fastest ambient notes; Stream for a chart that organizes notes by problem and builds longitudinal memory; Twofold (or Freed's entry Starter tier) for the lowest paid price.
 
 **What is the best AI scribe for direct primary care (DPC)?**
 DPC rewards continuity and progress over time rather than per-encounter billing, which favors a problem-oriented, longitudinal tool like Stream. Confirm it fits your specific workflow during a free trial.
@@ -193,7 +193,7 @@ DPC rewards continuity and progress over time rather than per-encounter billing,
 Most independent-focused scribes (Stream, Freed, Heidi, Twofold, PatientNotes) produce a note you paste or copy into your EHR, so they work alongside essentially any system. Deep bidirectional write-back is usually an enterprise feature tied to specific EHRs.
 
 **How much does an AI medical scribe cost?**
-Two are free to verified US clinicians — OpenEvidence Visits and Doximity Scribe. Paid tools for independent practices run roughly $39–$399 per provider per month as of September 2026, with most clustering between $49 and $150. Enterprise tools for health systems range from about $200 to $1,200+ per provider per month.
+Two are free to verified US clinicians — OpenEvidence Visits and Doximity Scribe. Paid tools for independent practices run roughly $39–$399 per provider per month as of November 2026, with most clustering between $49 and $150. Enterprise tools for health systems range from about $200 to $1,200+ per provider per month.
 
 **What is the cheapest AI medical scribe?**
 Free, and not as a trial. OpenEvidence Visits and Doximity Scribe both cost nothing for verified US clinicians. If price is the only variable that matters, the honest answer is to use one of those. The paid tools are worth money only if they solve something the free ones do not — which for most practices is what happens to the record after the note is written, not the note itself.
@@ -218,10 +218,10 @@ Primary care visits are multi-problem and longitudinal. The documentation challe
 
 ## Methodology and disclosure
 
-This comparison is based on publicly available product information and the selection criteria that matter most to independent practices: self-serve access, multi-problem handling, longitudinal usefulness, EHR handoff, and data/compliance practices. Competitor pricing was verified on 22 September 2026 from each vendor's own pricing page, which is linked in the comparison table so you can check rather than trust us. Plans change frequently, and that pass found real drift: Twofold's entry tier is gone and their site had moved domain, and Suki publishes no pricing page at all, so the figure here comes from third-party reports rather than from Suki.
+This comparison is based on publicly available product information and the selection criteria that matter most to independent practices: self-serve access, multi-problem handling, longitudinal usefulness, EHR handoff, and data/compliance practices. Competitor pricing was verified on 22 September 2026 from each vendor's own pricing page, which is linked in the comparison table so you can check rather than trust us, and Freed, Heidi, Twofold and Doximity were re-checked on 23 November 2026. Plans change frequently, and the September pass found real drift: Twofold's entry tier is gone and their site had moved domain, and Suki publishes no pricing page at all, so the figure here comes from third-party reports rather than from Suki.
 
 Two things we will not tell you: which tool is most accurate, because no independent benchmark exists and accuracy varies by specialty and recording conditions; and that any tool here is bad. They are not. The differences that matter are about structure and price, not quality of transcription.
 
 *Disclosure: This guide is published by River Records, the maker of Stream. We've aimed to represent every tool fairly, including where competitors are the better fit. Where you see claims about other products, verify current details on the vendor's own site.*
 
-*Last updated: September 2026 — added OpenEvidence Visits, Doximity Scribe and Suki, and a section on multi-problem annual visits.*
+*Last updated: November 2026 — competitor prices re-checked. September 2026 — added OpenEvidence Visits, Doximity Scribe and Suki, and a section on multi-problem annual visits.*
