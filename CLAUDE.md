@@ -254,11 +254,11 @@ section: Connect is the lowest up-front option but not always cheaper once Spruc
 fee is counted, and the page says so next to the price. First-month metering, founding
 terms and the ROI table stay in the quote, same as Inlet.
 
-## `/form-filler/` — Stream Form Filler, early access
-**Coming soon until it is true.** Form Filler is built but switched on for no customer.
-At launch, in one change: swap the early-access CTA for Book a demo, drop the
-early-access wording, and update the `limits` FAQ in `faqs.ts` ("Can Stream fill out
-forms for me?" — currently not yet). The page and that FAQ must never disagree.
+## `/form-filler/` — Stream Form Filler
+**Launched; included with Stream Pro.** The CTA is Book a demo. The page, the `limits`
+FAQ in `faqs.ts` ("Can Stream fill out forms for me?" — a yes, with its limits in the
+same breath), both paperwork guides and `/product-overview/` must never disagree about
+whether it is available.
 
 This is a destination page, not an SEO page — the link outbound and existing customers
 get. The two paperwork guides (`/guides/fmla-disability-paperwork/`,
@@ -267,7 +267,9 @@ here. Do not judge it on impressions.
 
 Kept off the page until each is true, from the product handoff (23 Oct 2026):
 - **time-saved figures** — none measured; no "minutes per form"
-- **"fax it back from Stream"** — designed, not built
+- **"fax it back from Stream"** — the 23 Oct handoff said designed, not built; the app
+  now has a Fax button on form rows when outbound fax is on (24 Nov 2026 check). Until the
+  owner decides, the page neither claims it nor denies it
 - **compliance claims beyond `/security/`** — no "HIPAA certified/aligned", no SOC 2, and
   no new controls the security page does not itself claim
 
@@ -281,10 +283,10 @@ app, not on this page.
 It is Pro-only: never show the offer on anything aimed at Stream Lite. Its "What it does
 not do yet" section is the limits section for this page — same rule as everywhere else.
 
-The waitlist is the shared `FormsWaitlist` component with `detailed` (adds free-text
-`forms_detail` and practice name) posting natively to `/api/forms-waitlist`. Its fine
-print says we may reply about the forms named, so `forms_detail` must be routed to sales —
-see `docs/HUBSPOT-SETUP.md`. Verify with `scripts/verify-forms-waitlist.mjs`.
+The early-access waitlist is gone from every page. The `FormsWaitlist` component and the
+`/api/forms-waitlist` endpoint remain in the repo, unused. `scripts/verify-forms-waitlist.mjs`
+now asserts the launched state (no waitlist, no "coming soon", Book a demo) and still
+tests the endpoint.
 
 ## `/referral-tracking/` — plan item tracking, early access
 The argument: *your scribe writes the plan; Stream makes sure it happens.* When the note
@@ -398,7 +400,8 @@ Two editing rules:
 - **Cost questions link to `/pricing`, they do not restate it.** Two pages competing for
   the same query split the signal.
 - **The `limits` group answers no.** No EHR write-back, no SOC 2, no clinical decision
-  support, no form filling yet, not for health systems. Those get asked on calls anyway,
+  support, not for health systems. (The forms entry is the one yes: it stays in the group
+  for its limits — fills from Stream, not the EHR; not in Lite.) Those get asked on calls anyway,
   and this is the first place a softened answer would creep back in.
 
 Verify with `scripts/verify-faq.mjs`.

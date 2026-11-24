@@ -5,8 +5,9 @@
  * WHY THIS PAGE EXISTS
  * Same play: target the job, not the tool. "AI form filler" has no search volume because
  * the category does not exist yet; "FMLA paperwork" is what a physician actually types.
- * When form completion ships, this page is already ranking and only the closing section
- * changes. Do not pre-announce the feature here.
+ * Form completion has since shipped (Form Filler, Stream Pro), and only the closing
+ * section and the last FAQ changed: two quiet sentences and a link to /form-filler/.
+ * This guide works because it does not sell — keep it that quiet.
  *
  * THE SPINE IS THE FREQUENCY AND DURATION ESTIMATE, NOT FMLA LAW.
  * An earlier draft tried to be an FMLA reference. That was the wrong page for two
@@ -28,7 +29,6 @@
  * carrier uses its own form and a generic page about them would say nothing useful.
  */
 import Page from '../../../layouts/Page.astro';
-import FormsWaitlist from '../../../components/FormsWaitlist.astro';
 
 const faqs = [
   {
@@ -49,7 +49,7 @@ const faqs = [
   },
   {
     q: 'Can Stream complete FMLA or disability forms?',
-    a: 'Not today. Stream organises the record by medical problem, so a condition’s history is one thread rather than years of dated notes to read through — which is the part that makes these forms slow. Filling structured forms is in development and not available yet, and we would rather say so than imply otherwise.',
+    a: 'Yes, on Stream Pro. Form Filler fills the form from the Stream chart, and you review and sign it; anything that lives only in your EHR is left for you to fill. Stream also organises the record by medical problem, so a condition’s history is one thread rather than years of dated notes to read through — which is the part that makes these forms slow.',
   },
 ];
 ---
@@ -179,12 +179,10 @@ table.fm-table td:first-child { color: var(--ink); font-weight: 600; }
 
       <div class="fm-fit">
         <h2>Where Stream fits</h2>
-        <p>Stream does not complete FMLA or disability forms. That is in development and not available today, and we would rather say so here than let you find out on a call. What it will do is on the <a href="/form-filler/">Form Filler</a> page.</p>
+        <p>Stream Pro's <a href="/form-filler/">Form Filler</a> fills FMLA and disability forms from the chart. You review every answer and sign.</p>
         <p>What it changes is the retrieval. Every visit is filed by medical problem rather than by date, so a condition's history is one continuous thread — every flare, every treatment change, every time it was severe enough to matter — instead of three years of notes to read in order. That is the thread the intermittent-leave estimate should be built on.</p>
         <p>Related: <a href="/guides/the-defensible-visit/">The Defensible Visit</a> on documenting medical decision-making so it survives review, and <a href="/guides/school-sports-physicals/">school and sports physicals</a>, which is the same problem in pediatrics.</p>
       </div>
-
-      <FormsWaitlist returnTo="/guides/fmla-disability-paperwork/" preselect="fmla" />
 
       <p class="fm-disclaim">This guide is educational and reflects general Department of Labor guidance as of October 2026. It is not legal, employment or compliance advice. FMLA regulations and payer policies change — verify against the current regulation and your own contracts before relying on any of it.</p>
 
