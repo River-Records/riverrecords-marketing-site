@@ -38,12 +38,19 @@ check('schema matches visible questions', visible === schema && visible > 10, `$
 check('grouped into sections', (await p.locator('.fq-group').count()) >= 4);
 check('has jump navigation', (await p.locator('.fq-jump a').count()) >= 4);
 
-console.log('\nThe honest answers are present and still say no');
+console.log('\nThe honest answers are present and still say no (forms: yes, with its limits)');
 const text = await p.textContent('.fq-wrap');
 check('no EHR write-back', /no EHR write-back/i.test(text));
 check('not SOC 2 certified', /not SOC 2 certified/i.test(text));
 check('no clinical decision support', /no clinical decision support/i.test(text));
-check('form filling not yet available', /not available today|in development/i.test(text));
+// Form Filler launched, so this one is a yes — and must keep its limits in the same breath.
+const forms = await p.evaluate(() => {
+  const item = [...document.querySelectorAll('.fq-item')].find((x) => /fill out forms/i.test(x.textContent));
+  return item ? item.textContent : '';
+});
+check('form filling: says yes, on Stream Pro', /Yes, on Stream Pro/.test(forms) && !/not yet|not available today|in development|early[- ]access|coming/i.test(forms));
+check('form filling: still states the EHR limit', /not from your EHR/i.test(forms));
+check('form filling: no fax-back, not in Lite', /does not fax the form back/i.test(forms) && /not part of Stream Lite/i.test(forms));
 check('says who Stream is not for', /large health system/i.test(text));
 
 console.log('\nDoes not compete with /pricing for cost queries');
