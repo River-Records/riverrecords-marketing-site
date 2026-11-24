@@ -50,8 +50,11 @@ ck('does not say coming soon / early access / waitlist', !PRELAUNCH.test(ff), JS
 ck('says it is included with Stream Pro', /Included with Stream Pro/i.test(ff));
 const meta = await f.locator('meta[name="description"]').getAttribute('content');
 ck('meta description is post-launch', !PRELAUNCH.test(meta) && !/Coming to/i.test(meta) && /Included with Stream Pro/i.test(meta), JSON.stringify(meta));
-ck('limits section still there', /does not do yet/i.test(ff) && /not from your EHR/i.test(ff) && /does not fax the form back/i.test(ff) && /no time-saved figure/i.test(ff));
+ck('limits section still there', /does not do yet/i.test(ff) && /not from your EHR/i.test(ff) && /no time-saved figure/i.test(ff));
 ck('no time-saved figure', !/\d+\s*(minutes?|hours?)\s*(per|a|each)\b/i.test(ff) && !/hours of clinic time/i.test(ff));
+// Neither claimed nor denied until the owner decides: no "fax it back from Stream", and
+// no "does not fax" either (code has a Fax button on form rows when outbound fax is on).
+ck('no fax-back denial', !/does not fax/i.test(ff));
 ck('no fax-back claim', !/fax(es|ed)? (it|the form)? ?back from stream/i.test(ff));
 ck('no compliance overclaim', !/HIPAA[- ]certified|HIPAA[- ]aligned|SOC ?2/i.test(ff));
 const fq = await f.evaluate(()=>{

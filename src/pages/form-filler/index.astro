@@ -16,8 +16,10 @@
  *
  * KEEP OUT OF THE COPY UNTIL EACH IS TRUE (from the product handoff, 23 Oct 2026):
  *   - time-saved figures. There is no measured number; "minutes per form" is a claim.
- *   - "fax it back from Stream". Designed, not built. The signed form is saved to the
- *     chart, to print, download or send.
+ *   - "fax it back from Stream". Fax-back is neither claimed nor denied until the
+ *     owner decides (code has a Fax button on form rows when outbound fax is on). The
+ *     page says only that the signed form is saved to the chart, to print, download
+ *     or send.
  *   - compliance claims beyond what /security/ already states. No "HIPAA certified",
  *     no SOC 2, and no new controls the security page does not itself claim.
  *
@@ -37,7 +39,7 @@ const faqs = [
   },
   {
     q: 'Will the AI make up answers?',
-    a: 'No. Most boxes are filled straight from chart fields, like name, date of birth and diagnosis codes, with no AI involved. When a question needs a written answer, the answer has to quote your chart, and you can see the quote. If the chart does not have the answer, Stream leaves the box for you rather than guessing.',
+    a: 'No. Boxes like name, date of birth and diagnosis codes are filled straight from chart fields, with no AI involved. When a question needs a written answer, the answer has to quote your chart, and you can see the quote. If the chart does not have the answer, Stream leaves the box for you rather than guessing.',
   },
   {
     q: 'What kinds of forms work?',
@@ -213,7 +215,6 @@ const FORMS = [
       <div class="ff-honest">
         <ul>
           <li><strong>It fills from Stream, not from your EHR.</strong> Anything that lives only in your EHR is left for you to fill. The more of the record is in Stream — your notes, the problem list, filed outside records — the more of the form it answers.</li>
-          <li><strong>It does not fax the form back.</strong> The signed form is saved to the chart, ready to print, download or send however you send forms today.</li>
           <li><strong>We have no time-saved figure.</strong> Nobody has measured one yet, so we are not quoting one.</li>
         </ul>
       </div>

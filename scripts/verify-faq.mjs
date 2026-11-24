@@ -50,7 +50,8 @@ const forms = await p.evaluate(() => {
 });
 check('form filling: says yes, on Stream Pro', /Yes, on Stream Pro/.test(forms) && !/not yet|not available today|in development|early[- ]access|coming/i.test(forms));
 check('form filling: still states the EHR limit', /not from your EHR/i.test(forms));
-check('form filling: no fax-back, not in Lite', /does not fax the form back/i.test(forms) && /not part of Stream Lite/i.test(forms));
+// Fax-back is neither claimed nor denied until the owner decides.
+check('form filling: not in Lite, and no fax-back claim either way', /not part of Stream Lite/i.test(forms) && !/fax/i.test(forms));
 check('says who Stream is not for', /large health system/i.test(text));
 
 console.log('\nDoes not compete with /pricing for cost queries');

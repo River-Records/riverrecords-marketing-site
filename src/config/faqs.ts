@@ -17,9 +17,10 @@
  *    cheaper than answering them late. Never soften an entry into a maybe — PR #27
  *    had to remove EHR claims the product did not back, and this is where that would
  *    recur first. The forms entry became a yes when Form Filler launched; it stays in
- *    this group because its limits (fills from Stream, not the EHR; no fax-back; not
- *    in Lite) are the part that gets asked on calls, and it must agree with
- *    /form-filler/.
+ *    this group because its limits (fills from Stream, not the EHR; not in Lite) are
+ *    the part that gets asked on calls, and it must agree with /form-filler/. Fax-back
+ *    is neither claimed nor denied until the owner decides (code has a Fax button on
+ *    form rows when outbound fax is on).
  */
 
 /**
@@ -122,7 +123,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: 'Can Stream fill out forms for me?',
-        a: 'Yes, on Stream Pro. Form Filler fills structured forms such as FMLA certifications, disability and school forms from the chart, and you review and sign; it is described at /form-filler/. The limits: it fills from your Stream chart, not from your EHR, so anything that lives only in your EHR is left for you to fill. It does not fax the form back. And it is not part of Stream Lite, the scribe-only plan.',
+        a: 'Yes, on Stream Pro. Form Filler fills structured forms such as FMLA certifications, disability and school forms from the chart, and you review and sign; it is described at /form-filler/. The limits: it fills from your Stream chart, not from your EHR, so anything that lives only in your EHR is left for you to fill. It is also not part of Stream Lite, the scribe-only plan.',
       },
       {
         q: 'Does Stream Lite keep my notes?',

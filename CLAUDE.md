@@ -267,7 +267,9 @@ here. Do not judge it on impressions.
 
 Kept off the page until each is true, from the product handoff (23 Oct 2026):
 - **time-saved figures** — none measured; no "minutes per form"
-- **"fax it back from Stream"** — designed, not built
+- **"fax it back from Stream"** — the 23 Oct handoff said designed, not built; the app
+  now has a Fax button on form rows when outbound fax is on (24 Nov 2026 check). Until the
+  owner decides, the page neither claims it nor denies it
 - **compliance claims beyond `/security/`** — no "HIPAA certified/aligned", no SOC 2, and
   no new controls the security page does not itself claim
 
@@ -399,7 +401,7 @@ Two editing rules:
   the same query split the signal.
 - **The `limits` group answers no.** No EHR write-back, no SOC 2, no clinical decision
   support, not for health systems. (The forms entry is the one yes: it stays in the group
-  for its limits — fills from Stream, not the EHR; no fax-back; not in Lite.) Those get asked on calls anyway,
+  for its limits — fills from Stream, not the EHR; not in Lite.) Those get asked on calls anyway,
   and this is the first place a softened answer would creep back in.
 
 Verify with `scripts/verify-faq.mjs`.
