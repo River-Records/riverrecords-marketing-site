@@ -83,6 +83,13 @@ weigh that. It still protects the brand by staying locked.
 
 When those are in, tell us and we'll re-check all three domains read-only before warm-up starts.
 
+**Status, 25 Nov (re-checked read-only):** stream-riverrecords.com and chart-riverrecords.com are
+done. Each has Google MX, SPF `include:_spf.google.com ~all` (the old `-all` line is gone),
+DMARC `p=quarantine` with reports to jake@ on the same domain, and a complete 2048-bit Google
+DKIM key. Each is forwarded to riverrecords.ai and has jake@ and jacob@ mailboxes. Still to do:
+click *Start authentication* in Google Admin, fix www (doesn't resolve), then set up the sending
+tool and turn on warm-up. mail-riverrecords.com is not set up yet; it's optional for v1.
+
 Separately, **riverrecords.ai's own DMARC is `p=none`**. That's fine for now. Tightening it is a
 separate job and shouldn't be done during this setup, because it affects HubSpot and app mail.
 
