@@ -4,9 +4,11 @@
 here sends, posts or contacts anyone.
 
 **Summary (for a phone).** Yes, warming up the domains is the main blocker, and it takes about three
-weeks, so start this week. Buy nothing new yet: tell us which domains you already own. Put two
-mailboxes on each of two or three of them, turn on SPF, DKIM and DMARC, point each domain at
-riverrecords.ai, and connect them to one sending tool with warm-up built in. Smartlead Basic (about
+weeks, so start this week. Buy nothing new. Of the four domains you own, send from
+**stream-riverrecords.com** and **chart-riverrecords.com**, and add **mail-riverrecords.com** as the
+third. Keep riverrecords.online parked. All four are currently locked so they can't send mail
+(checked 25 Nov, section 1a), so each one needs about five DNS changes. Put two mailboxes on each,
+point each domain at riverrecords.ai, and connect them to one sending tool with warm-up built in. Smartlead Basic (about
 $39/month) or Instantly Growth (about $47/month), plus Google Workspace at about $8.40 per mailbox.
 If you start by Friday, cold sending can begin around **15–17 December** at 10 a day per mailbox.
 In practice the first real week is **5 January**, because nobody reads cold email over Christmas.
@@ -14,7 +16,7 @@ The first list is independent practices with three or more clinicians, in primar
 pediatrics and integrative care. The three-email sequence below passed Vera's check once two lines
 were fixed. You still send or approve every first email, and every reply lands in your own inbox.
 After 30 days, judge it on replies and booked demos. Opens don't count. **Needed from you:** the
-domain names, and the decisions in section 6.
+DNS changes in section 1a, and the decisions in section 6.
 
 ---
 
@@ -25,7 +27,7 @@ company's real mail (support, invoices, the app's notifications) has to keep lan
 
 | # | Step | Detail |
 |---|---|---|
-| 1 | **Pick 2–3 domains you already own** | Look-alikes that read as the company (e.g. `riverrecords`-plus-a-word, `.com` preferred). Nothing that looks like a typo of a real brand. **We don't know which you have. Please list them** and we'll check their public DNS read-only. |
+| 1 | **Pick 2–3 domains you already own** | Done. See section 1a: stream-, chart- and mail-riverrecords.com. |
 | 2 | **2–3 mailboxes per domain** | Use real names only: `jake@`, `jacob@`, and at most one other. No `sales@` or `info@`. Google Workspace Business Starter costs $8.40 per user/month on the flexible plan, or $7.00 on annual ([Google](https://knowledge.workspace.google.com/admin/billing/compare-flexible-and-annual-fixed-term-payment-plans)). Six mailboxes come to about $50/month. Give each a photo and the same signature. |
 | 3 | **SPF** | One TXT record per domain: `v=spf1 include:_spf.google.com ~all`. Only one SPF record per domain. |
 | 4 | **DKIM** | Generate a 2048-bit key in Workspace Admin (Gmail → Authenticate email), add the TXT record, then click *Start authentication*. |
@@ -37,6 +39,52 @@ company's real mail (support, invoices, the app's notifications) has to keep lan
 | 10 | **Verify every list** | Run each list through a verifier before upload. Send only to addresses marked "valid", never to catch-alls in week 1. MillionVerifier costs about $3.70 per 1,000. ZeroBounce and NeverBounce cost about $7–10 per 1,000 (prices unconfirmed; check before paying). Keep bounces under 2%. |
 | 11 | **Monitoring** | Google Postmaster Tools, one property per domain (v2 shows Compliance Status; [Google](https://support.google.com/mail/answer/16594218)). Spam rate must stay **below 0.1% and never reach 0.3%** ([Google](https://support.google.com/mail/answer/14229414)). Each week, run a free blocklist lookup at [check.spamhaus.org](https://check.spamhaus.org/) and MXToolbox. |
 | 12 | **CAN-SPAM** | Every email needs a real postal address and an opt-out that actually works and is honoured within 10 business days (we'll do it the same day). The opt-out has to keep working for 30 days after sending. No misleading subject lines or headers. The penalty is up to $53,088 per email ([FTC](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business)). |
+
+### 1a. Your four domains, as their public DNS stood on 25 Nov 2026
+
+Checked read-only through Google's public DNS. Nothing was changed.
+
+| Domain | DNS host | Website (root) | MX | SPF | DMARC | Google DKIM |
+|---|---|---|---|---|---|---|
+| stream-riverrecords.com | Squarespace Domains (ns-cloud-b*.googledomains.com) | Squarespace IPs | none | `v=spf1 -all` | `p=reject`, strict | none |
+| chart-riverrecords.com | Squarespace Domains (ns-cloud-d*) | Squarespace IPs | none | `v=spf1 -all` | `p=reject`, strict | none |
+| mail-riverrecords.com | Squarespace Domains (ns-cloud-c*) | Squarespace IPs | none | `v=spf1 -all` | `p=reject`, strict | none |
+| riverrecords.online | Squarespace Domains (ns-cloud-e*) | Squarespace IPs | none | `v=spf1 -all` | `p=reject`, strict | none |
+
+**What this means.** All four are set up as *parked, never sends mail*. There's no MX record, the
+SPF record says no server may send for the domain, and DMARC tells receivers to reject anything that
+claims to come from it. For a parked domain that's correct. As things stand, any mail sent from these
+domains would be rejected. Each one also carries a `google-site-verification` record, so the domains
+have probably been verified with Google already, which would speed up adding them to Workspace.
+
+**Which to use.** `stream-` and `chart-riverrecords.com` read as the company and the product. Use
+`mail-riverrecords.com` third: it works, but "mail-" reads slightly like infrastructure. **Keep
+riverrecords.online parked as it is.** `.online` domains carry more spam on average, and filters
+weigh that. It still protects the brand by staying locked.
+
+**The changes, per sending domain** (in Squarespace → Domains → DNS):
+
+1. **Workspace:** add the domain to the existing riverrecords.ai Google Workspace as a *secondary
+   domain*, so there's one admin and one bill. Create `jake@` and `jacob@` on it. Six mailboxes
+   cost about $50/month.
+2. **MX:** add `smtp.google.com`, priority 1. Replies need somewhere to land.
+3. **SPF:** *replace* `v=spf1 -all` with `v=spf1 include:_spf.google.com ~all`. Edit the existing
+   record; don't add a second one.
+4. **DKIM:** in Workspace Admin → Gmail → Authenticate email, generate a 2048-bit key for the
+   domain. Add the `google._domainkey` TXT record, then click *Start authentication*.
+5. **DMARC:** replace the current `p=reject` with
+   `v=DMARC1; p=quarantine; rua=mailto:jake@<domain>; adkim=s; aspf=s`. Google's mail still passes
+   strict alignment. Quarantine plus reports means a setup mistake shows up in a report instead of
+   mail silently disappearing. Move back to `p=reject` after four clean weeks if you like.
+6. **Root and www:** the domains currently point at Squarespace. Use Squarespace's domain
+   forwarding to send them, with a 301, to `https://www.riverrecords.ai/`. We couldn't load the
+   pages from here to see what they currently show.
+7. **Tracking:** after choosing the sending tool, add the CNAME it gives you (e.g. `go.<domain>`).
+
+When those are in, tell us and we'll re-check all three domains read-only before warm-up starts.
+
+Separately, **riverrecords.ai's own DMARC is `p=none`**. That's fine for now. Tightening it is a
+separate job and shouldn't be done during this setup, because it affects HubSpot and app mail.
 
 **Dates if you start this week.** By Fri 28 Nov: domains chosen, mailboxes created, DNS set.
 Mon 1 Dec: warm-up on. Around Mon 15 Dec: cold sending can start at 10/day/mailbox. **Recommended
@@ -224,7 +272,7 @@ this volume is the first sample that means something.
 
 | # | Decision | Recommendation |
 |---|---|---|
-| D1 | **Which domains you already own** | List them so we can check their DNS. Use two or three that read as the company, not the brand domain. |
+| D1 | Which domains to send from | **stream-riverrecords.com and chart-riverrecords.com first, mail-riverrecords.com third. Leave riverrecords.online parked.** (Answered 25 Nov; see 1a.) |
 | D2 | Sending tool | **Smartlead Basic**, monthly at first. Switch to annual once it's working. |
 | D3 | Start date for volume | Warm up from 1 Dec. **First cold sends 5 Jan.** |
 | D4 | Unsubscribe route | **Reply "unsubscribe"**, with same-day suppression. It keeps each email to one link. Switch to a one-click footer link if volume ever nears 5,000/day to Gmail. |
