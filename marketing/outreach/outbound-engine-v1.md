@@ -312,7 +312,7 @@ For pediatrics, use "a child's asthma" in place of "a patient's CKD". Vera appro
 > Jake
 
 **Footer on all three:** Jake Kantrowitz, MD, PhD · Co-Founder & CEO, River Records ·
-{postal_address} · "Don't want these? Reply 'unsubscribe' and you won't hear from us again."
+River Records Inc., 16192 Coastal Highway, Lewes, Delaware 19958, United States · "Don't want these? Reply 'unsubscribe' and you won't hear from us again."
 
 **Where the claims come from** (Vera's sources): record/project, `index.astro` and
 `/longitudinal-patient-tracking/`. Hand-kept system doesn't scale or transfer, the same two pages.
@@ -440,8 +440,8 @@ single complaint is worth reading closely.
 | D3 | Start date | Warm up from 1 Dec. **First researched emails Mon 5 Jan**, with a handful in mid-December only to test the workflow. |
 | D4 | Unsubscribe route | **Reply "unsubscribe"**, suppressed the same day on every domain and in HubSpot. Keeps each email to one link. |
 | D5 | Change one line in `clinician-intro.md` ("outstanding … the chart") | **Yes.** Vera flagged it on 24 Nov, and the same line goes to the 1:1 intros too. |
-| D6 | Postal address in the footer | A business address you're willing to publish (registered office or a PO box). Not a home address. CAN-SPAM requires one. |
-| D7 | Is Bullpen still sending? | **Find out before 5 Jan.** Their invoice is due today, so they may still be active. If they are, the two must not email the same people, and Bullpen links should go to the site's `#watch` pages with their own UTMs, not to loom.com. |
+| D6 | Postal address in the footer | **Answered 26 Nov:** River Records Inc., 16192 Coastal Highway, Lewes, Delaware 19958, United States. It's in the footer in section 4a. The phone number you gave stays out of the footer; CAN-SPAM needs only the postal address. |
+| D7 | Is Bullpen still sending? | **Answered 26 Nov: Bullpen is done.** No overlap to manage, and no second set of UTMs to keep apart. |
 | D8 | HubSpot lists | Approve the four `Outbound v1 – …` lists by name once Owen proposes them with counts. Approval lets him research from a list. Each email still needs your yes. |
 | D9 | Record four videos | **Primary care first** (T1 can start with one type), then the rest before T3. About 10 minutes each with retakes; this isn't a measured figure. |
 | D10 | Let research reach the NPI registry | **Yes:** allow `npiregistry.cms.hhs.gov` in this cloud environment's network settings. It's one public government host. Without it, cards rely on practice websites alone. |
