@@ -1,5 +1,7 @@
 # Video scripts: Jake to camera, one per clinician type
 
+**Vera, 26 Nov 2026: PASS, 22 claims, all traced to this site's published pages** (ai-scribe wasn't attached, so nothing was checked against product code). One open label: if the app's Documents view shows a Beta badge, leave it visible on screen in the pediatrics video.
+
 **Use:** four short videos Jake records himself, talking to camera with a screen-share of
 Stream. Each one sits on a page linked from a personal email from Jake
 (`clinician-intro.md`), and that page carries the booking link. The viewer already clicked

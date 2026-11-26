@@ -335,7 +335,7 @@ failure?" This is new wording, and Vera checks it with the scripts.
 
 **Scripts:** `marketing/outreach/video-scripts.md`, one per clinician type, 60–90 seconds, for you
 to record. Vera's check of each claim is noted in the file. They use the same rules as the
-emails, plus the copy rule from the 1 Dec release: never say a recording "always" stays with its
+emails, plus the copy rule Mara set on 26 Nov: never say a recording "always" stays with its
 visit, and never say every last word is kept.
 
 **Recording.** Talk to camera, with Stream on screen showing the fictional demo patient, never a
@@ -349,6 +349,14 @@ how the site's videos are hosted, and `src/config/videos.ts` holds their metadat
   link to the matching `/for/*` page for anyone who wants more;
 - `noindex`: these are destinations for email, not search pages, and four thin pages shouldn't
   compete with `/for/*`;
+- left out of the sitemap too: the sitemap filter in `astro.config` excludes only
+  `/product-overview/` today, so `/watch/` has to be added to it;
+
+**Before email traffic goes to the `/for/*` pages**, note that Vera found lines on them that the
+scripts deliberately avoid: time claims on `/for/snf/` ("in minutes", "Notes are done before you
+leave the room") and a "HIPAA Compliant" proof strip on `/for/dpc/`, `/for/pediatrics/` and
+`/for/snf/`. The `/watch/` pages link to `/for/*` only as a quiet "more" link, but someone
+clicking through from your email lands on those lines (D12).
 
 The pages aren't built today, because there's nothing to put on them until a video exists. Building
 one takes about an hour per video, once you send the Loom link.
@@ -359,8 +367,13 @@ links exist; see `CLAUDE.md`, "Deep links for outbound".)
 
 **Measurement.** Every link carries
 `utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e<n>`, e.g.
-`T1-A-e1`. `attribution.js` keeps it as first touch, and `/book-demo/` passes it into Calendly,
-so a booking carries its test version. Check with `?rr_debug=1` before the first send. Open
+`T1-A-e1`. `attribution.js` stores it as first touch if this is the visitor's first visit, and
+always as last touch. `/book-demo/` passes first-touch source, medium and campaign into Calendly
+but overwrites `utm_content` with `book-demo`, so today a booking does not carry its test arm.
+Before the first send, either change `/book-demo/` to pass the stored `utm_content`, or match
+bookings to arms through `rr_vid`, which `/book-demo/` already passes to Calendly as
+`salesforce_uuid`. *Recommendation:* the `/book-demo/` change, built with the first `/watch/`
+page. Check with `?rr_debug=1` before the first send. Open
 tracking stays off: image proxies make open rates meaningless and tracking pixels hurt placement.
 
 ---
@@ -433,6 +446,7 @@ single complaint is worth reading closely.
 | D9 | Record four videos | **Primary care first** (T1 can start with one type), then the rest before T3. About 10 minutes each with retakes; this isn't a measured figure. |
 | D10 | Let research reach the NPI registry | **Yes:** allow `npiregistry.cms.hhs.gov` in this cloud environment's network settings. It's one public government host. Without it, cards rely on practice websites alone. |
 | D11 | Create the four HubSpot contact properties (section 2) and reconnect HubSpot with notes and lists permissions | **Yes.** Without the properties, cards have nowhere to live. Without the reconnect, Owen can't read lists or past notes (he couldn't today). |
+| D12 | The time and "HIPAA Compliant" lines on `/for/snf/`, `/for/dpc/`, `/for/pediatrics/` (section 5) | **Review before 5 Jan.** Either soften them, or link the `/watch/` pages to `/longitudinal-patient-tracking/` instead of `/for/*`. That page carries none of them. |
 
 ---
 
@@ -453,7 +467,7 @@ single complaint is worth reading closely.
   It's the same "researched, personal, you approve it" idea, applied to people who came to us.
   The card format here should be the one it uses, so that HubSpot holds one kind of card.
 - **The app's dropped visitor id** (`docs/APP-RR-VID-TICKET.md`). The site already sends `rr_vid`
-  on every signup link, and the app discards it. Until that's fixed, a trial started from one of
+  on every signup link; as of 28 Sep the app dropped it. Until that's fixed, a trial started from one of
   these emails links back to the email only if the UTM survived the click. At about 50 emails a
   week, every signup matters, so this one matters more than it did at 600.
 
