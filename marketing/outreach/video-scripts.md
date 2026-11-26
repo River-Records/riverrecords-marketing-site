@@ -1,6 +1,6 @@
 # Video scripts: Jake to camera, one per clinician type
 
-**Vera, 26 Nov 2026: PASS, 22 claims, all traced to this site's published pages** (ai-scribe wasn't attached, so nothing was checked against product code). One open label: if the app's Documents view shows a Beta badge, leave it visible on screen in the pediatrics video.
+**Vera, 26 Nov 2026: PASS after re-check against ai-scribe's code (production v2.17.2 and main), not just the site's pages.** Corrected: the per-patient Huddle, the falling-off rule (the 10-month floor is removed in the next release), Recap appearing on its own in the chart view (and kept out of frame in the PC video), "signed notes", problem blocks updating only when a problem comes up, and outside-record filing (`document_excerpts`, on practice by practice) in the pediatrics and post-acute scripts. Owner question open: which practices have outside-record filing on in production.
 
 **Use:** four short videos Jake records himself, talking to camera with a screen-share of
 Stream. Each one sits on a page linked from a personal email from Jake
@@ -60,16 +60,16 @@ doesn't transfer. You start from their notes, not their system.
 Stream builds that system as a side effect of documenting. It's an AI scribe, and every visit's
 Assessment and Plan is filed under its problem.
 
-[SCREEN: click into CKD. Plans in date order, the author shown on each entry.]
+[SCREEN: click into CKD. Plans in date order, the author shown on each entry. Keep the Recap panel out of frame, or step through the entries in an encounter's problem rail, where Recap appears only when clicked.]
 
 So when you cover, you open CKD and read every plan written for it, in order, with who wrote
-each one. It's the same view your partner sees. And it's your practice's own chart, not AI
-output.
+each one. It's the same view your partner sees. Those are your practice's own signed notes, not an AI
+summary of them.
 
-[SCREEN: Huddle for the day's schedule.]
+[SCREEN: open one patient from today's schedule; their Huddle.]
 
-Before clinic, Huddle shows each patient's active problems, and the ones nobody has touched in
-ten months or more.
+Before clinic, Huddle shows each patient's active problems, and the ones that haven't come up in
+recent visits.
 
 [SCREEN: copy the finished note, paste it into a plain text field.]
 
@@ -118,10 +118,10 @@ Stream is an AI scribe that keeps that system for you. Every visit's Assessment 
 filed under its problem, so after a year you have a living problem list, not a stack of
 disconnected documents.
 
-[SCREEN: open one problem. Every A&P for it in order, then click Recap.]
+[SCREEN: open one problem. Every A&P for it in order, with the Recap alongside.]
 
-Open a problem and read every plan you've written for it, in order. Recap adds a summary of how
-it's evolved when you want one.
+Open a problem and read every plan you've written for it, in order. Recap summarizes how it's
+evolved, right alongside the plans themselves.
 
 [SCREEN: copy the note, paste into a plain text field.]
 
@@ -135,10 +135,10 @@ left off. Your EHR keeps the record. Stream keeps the project. If that's how you
 
 **Notes for recording**
 
-- Length: about 215 words, 80 to 90 seconds.
+- Length: about 215 words, 80 to 90 seconds. Little slack: read it as written, no ad-libs.
 - Show: a demo patient with a multi-year timeline. One problem with several plans over time
-  (a taper, or an A1c trend) carries the whole video. Open Recap last, and make it clear it's
-  optional.
+  (a taper, or an A1c trend) carries the whole video. Recap appears on its own when you open the problem in the patient's chart;
+  don't present it as a button you press.
 - Don't say: anything about time saved, more patients or a bigger panel. These clinicians built
   their practice around time with patients, and an offer to shorten visits reads as undoing it.
   The "isn't about shorter visits" line is there on purpose, so keep it. Don't bring up coding
@@ -169,13 +169,13 @@ doesn't transfer when the child sees your partner next.
 asthma.]
 
 Stream is an AI scribe that files each visit under the problems it touches. A feeding concern, a
-milestone question, asthma: each gets its own block that updates every visit, so you see the
-trajectory, not a stack of dated notes.
+milestone question, asthma: each gets its own block that updates at every visit where it comes up, so you
+see the trajectory, not a stack of dated notes.
 
-[SCREEN: a demo speech therapy report, summarized and filed under the milestone problem.]
+[SCREEN: a demo speech therapy report and its summary. Don't show a filed excerpt.]
 
-A school or therapy report is summarized and filed under the right problem, not left as an
-attachment.
+A school or therapy report is summarized when it comes in. Filing what it says under the right
+problem is something we're turning on practice by practice.
 
 [SCREEN: Huddle before the visit.]
 
@@ -195,7 +195,7 @@ book 20 minutes with me. The link is on this page.
 
 **Notes for recording**
 
-- Length: about 180 words, 75 to 85 seconds.
+- Length: about 195 words, 80 to 90 seconds.
 - Show: a demo child with three problem blocks that each have at least two visits behind them,
   so the trajectory shows. Use demo data only, and never a real child's name or date of birth.
 - Don't say: "in my practice". You're an internist, and the pediatrics page quote isn't yours to
@@ -223,11 +223,11 @@ several clinicians across the week, and each one starts from the last note.
 That's the part that gets lost at handoff. Good clinicians patch it with a running list in
 their notes. It works for the patients they follow. It doesn't transfer to whoever's on next.
 
-[SCREEN: Stream, upload a demo discharge summary. The extracted problems and medications appear
-on a problem-oriented chart.]
+[SCREEN: upload a demo discharge summary; show its summary.]
 
-With Stream, you upload the discharge summary or other outside records, and it extracts the
-problems, medications and history into a chart organized by problem, from the day of admission.
+With Stream, you upload the discharge summary or other outside records, and Stream summarizes
+them. With outside-record filing, which we're turning on practice by practice, it also lists the
+problems, medications and history it found under each problem, for you to accept.
 
 [SCREEN: open the heart failure problem. Plans in order, the author on each entry.]
 
@@ -248,10 +248,11 @@ on this page.
 
 **Notes for recording**
 
-- Length: about 200 words, 80 to 90 seconds.
+- Length: about 215 words, 80 to 90 seconds. Little slack: read it as written, no ad-libs.
 - Show: the demo SNF patient (heart failure, post-acute) with at least two authors on the
-  timeline. Upload the demo discharge summary before you record, and cut to the result, so
-  nothing on screen implies how long extraction takes.
+  timeline. Upload the demo discharge summary before you record, and cut to its summary, so
+  nothing on screen implies how long processing takes. Don't show extracted problems unless
+  Jake has confirmed outside-record filing is on for the practice you're demoing.
 - Don't say: "in minutes", "before you leave the room" or "reads it so you don't have to".
   Those are on the SNF page, but they're time claims, and the rule here is none. Don't say the
   chart "gets smarter". Don't mention referral or inter-facility tracking. It's marked coming
