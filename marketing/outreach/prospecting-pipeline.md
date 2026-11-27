@@ -23,7 +23,7 @@ the privacy line (PR 134). It doesn't repeat either one.
 
 **Owner's answer, 27 Nov: "Go with your recs."** So:
 - **D1:** decided on Monday's numbers, by the rule in section 5.
-- **D2, D8, D9 and D10:** as recommended. **D3** (Texas) was approved, but the search-first re-run uses Chattanooga, TN and Dallas, TX: confirm Chattanooga, or swap it for a Texas city.
+- **D2, D8, D9 and D10:** as recommended. **D3, 27 Nov:** "Chattanooga is fine." The re-run uses Chattanooga, TN (primary care) and Dallas, TX (integrative). Where to start sending is decided on its numbers.
 - **D4:** (a) is done; `data.cms.gov` and `download.cms.gov` are allowed and reachable as of 27 Nov. (b), the "Prospect research" environment, and the free Hunter and Apollo accounts are for you to create.
 - **D5:** the `do_not_contact` checkbox is yours to add in HubSpot (Settings → Properties). The session's HubSpot access can't create properties (Owen).
 - **D6:** drafted as a pull request on top of PR 134. 12 months is used unless you choose otherwise; the policy and the retention job (section 3) must match. It goes to counsel before 5 Jan.
