@@ -28,6 +28,7 @@ the privacy line (PR 134). It doesn't repeat either one.
 - **D5:** the `do_not_contact` checkbox is yours to add in HubSpot (Settings → Properties). The session's HubSpot access can't create properties (Owen).
 - **D6:** drafted as a pull request on top of PR 134. 12 months is used unless you choose otherwise; the policy and the retention job (section 3) must match. It goes to counsel before 5 Jan.
 - **D7:** the ad line is added to the footer in PR 133 (its D13).
+- **D11, 27 Nov:** include Dallas integrative in the re-run, and lift the referral-only rule for sending ("Lift the rule"); PR 133 is updated.
 - **New, 27 Nov: start from search, then match to the NPI registry** (your idea). Section 1b; it replaces the Medicare-list re-run.
 
 ---
@@ -158,7 +159,7 @@ huggingface.co, also not reachable yet (D4c).
 
 ### The re-run (Monday, one session)
 
-1. **List, search first.** 25 primary care practices in Chattanooga, from Foursquare's open places data (OpenStreetMap as a supplement), matched to the registry by phone. Plus 25 integrative practices in Dallas, for measurement only (D11); none is emailed.
+1. **List, search first.** 25 primary care practices in Chattanooga, from Foursquare's open places data (OpenStreetMap as a supplement), matched to the registry by phone. Plus 25 integrative practices in Dallas (D11). Nobody is emailed in a re-run; the qualified Dallas rows can later go on the `Outbound v1 – Integrative` list.
 2. **Website access.** The "Prospect research" environment (D4b), so the practices' own sites
    can be read. Access to the open places data (D4c).
 3. **The same research, plus the free tiers of Hunter and Apollo** on the same qualified
@@ -301,7 +302,7 @@ The full table with sources is in ai-scribe, `docs/research/prospecting-data-sou
 | D8 | **Where the finder runs** | **ai-scribe** (private), as `tools/prospecting/`, or a new private repo. Never this public repo: its Actions logs are public, and a prospect list must not end up in one. Move the September pipeline there; it holds code, no data. |
 | D9 | **When approved rows load into Smartlead automatically** | **Not before February.** It would take three things: a Smartlead API key saved as a network secret; a loader that adds only rows carrying your approval property; and a change to the team's rule from "never sends" to "loads only rows you approved by name". That is sensible after four weeks of manual sending with bounces under 2%, no spam complaints, and every opt-out suppressed the same day. Until then you upload the CSV yourself, once a day. |
 | D10 | **Postal letters to new practices** | **Optional, try 5 in January.** The three likely-new practices in the test (one confirmed) had no email, and fax is out. CAN-SPAM and the fax rules don't apply to a letter. A short signed letter to a physician who just opened their own practice is the channel that fits. Not costed. |
-| D11 | **Integrative practices in the Dallas re-run** | PR 133 (section 3) keeps integrative and complex chronic referral-only: email only people already in HubSpot, and the site's `/for/complex-chronic/` page is built to be forwarded by a peer, not sent cold. A re-run is test data, not sending, so it doesn't break that rule. **Recommendation:** include Dallas integrative in the re-run to measure it; keep its rows off every `Outbound v1` list, and keep the rule for sending until you decide otherwise. |
+| D11 | **Integrative practices in the Dallas re-run** | **Answered 27 Nov: include them, and lift the referral-only rule** ("Lift the rule"). PR 133 now lets integrative and complex chronic be emailed cold from their own list, `Outbound v1 – Integrative`. The email links to `/for/complex-chronic/`, never pitches time saved, and is written for adult and paediatric practices. Its kit is part of Monday's kits. |
 
 ---
 
