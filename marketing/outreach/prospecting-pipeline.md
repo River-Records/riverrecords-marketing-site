@@ -43,7 +43,8 @@ the privacy line (PR 134). It doesn't repeat either one.
   corporate-chain list were dropped.
 - **Size.** Estimated by counting individual NPI records at the same street address. An
   established practice had to count 3–10. A record registered in the last 12 months could
-  count 1–10.
+  count 1–10. *That count was a test-only filter. Spec #1616 now forbids it as a card's size,
+  and the finder uses the website count.*
 - **Sample.** Seeded random draw, 25 per state: 17 established and 8 registered in the last
   12 months. The second group tests whether the registration date finds new practices.
 - **Research.** Five agents, 10 practices each, one practice at a time, the way a person would
@@ -177,15 +178,33 @@ huggingface.co, also not reachable yet (D4c).
 
 **Buy:** the record (HubSpot, already paid for) and the sending (Smartlead, recommended in PR 133, D2).
 **Build:** the finder and the agent routines. **No custom CRM, sender or database.** The practice
-profile, the clinician types and the kits come from the shared spec the engineering worker is
-writing in ai-scribe. This plan uses that spec; it doesn't define a second one.
+profile, the clinician types and the kits come from the shared spec, ai-scribe #1616
+(`docs/features/practice-profile-and-kits.md`, approved by the owner on 27 Nov). This plan uses
+that spec; it doesn't define a second one.
+
+**The spec's rules this plan follows:**
+- **Six clinician types, by these exact slugs:** `post_acute`, `dpc`, `integrative`,
+  `pediatrics`, `primary_care`, `other`. The first that fits wins, in that order. They are stored
+  in a HubSpot `clinician_type` dropdown. "3–10 clinicians" is a list filter, not a type.
+- **Office address, phone, fax and practice size go on the card from the practice's own website
+  only, never from the NPI registry.** An NPI phone may be used to *match* a listing to a
+  registry record. It is never stored: not on the card, in a report, in HubSpot or in an agent's
+  transcript. Medicare's group size may narrow the list, but the card's size is the count on
+  the website's team page, written "about N".
+- **No open web search on a person's name.** Searches are by city and type ("family medicine in
+  Chattanooga"), or by practice name, and the facts come from the practice's own site. The NPI
+  registry is matched on name and state, and only one record counts as a match.
+- **US only.** Every fact carries its source URL and the date it was read. Each card is labelled
+  *matched*, *likely* or *not found*.
+- **Handoff at signup:** only the website, NPI, type and any do-not-contact flag cross into
+  Stream. Two dates come back: activated, and first note.
 
 | Step | What | Bought or built | Where it runs |
 |---|---|---|---|
 | **Find** | Foursquare's open places data (OpenStreetMap as a supplement) by city and clinician type (section 1b), matched by phone to the NPI registry's monthly file for authorized official, specialty, registration date and shared numbers. Medicare's Doctors and Clinicians file gives group size, and new registrations are a second, smaller feed. Reuses the September pipeline's Medicare reader. | Built (a script) | **A private repo** (ai-scribe or a new one), never this public repo. Writes new practices to HubSpot as companies. |
 | **Qualify** | Rules in the script (health-system names, subparts, parent organizations, clinicians who also bill under a large group), then the agent's website check. Drop customers, open deals and do-not-contact. | Built | Script, then agent |
-| **Enrich** | The practice's website, the email on it (or a vendor's, per D1), phone, fax. Verify the email (Reoon or MillionVerifier, a few dollars per thousand). | Agent, plus a verifier (bought) | Research session that can open websites |
-| **Research** | The research card from PR 133 (section 2), plus the signals: newly opened, hiring a clinician, hiring a referral or office manager, taking new patients. Each with a source link. One personal line. | Agent | Same session; card stored on the HubSpot record |
+| **Enrich** | The practice's website, the email on it (or a vendor's, per D1), and the office phone and fax from that website (never from NPI). Verify the email (Reoon or MillionVerifier, a few dollars per thousand). | Agent, plus a verifier (bought) | Research session that can open websites |
+| **Research** | The research card from PR 133 (section 2), following spec #1616 (the type slug, website-only address/phone/fax/size, no search on a person's name), plus the signals: newly opened, hiring a clinician, hiring a referral or office manager, taking new patients. Each with a source link. One personal line. | Agent | Same session; card stored on the HubSpot record |
 | **Approve** | One list a day on your phone, approve, edit or skip per row (D2) | — | Gmail draft to you only (PR 133's design) |
 | **Send** | Three-email sequence for the clinician type, from stream- or chart-riverrecords.com | Smartlead (bought) | You upload the approved rows (D9 says when that could be automatic) |
 | **Reply** | Replies land in your inbox. Opt-outs are suppressed the same day in HubSpot and Smartlead's block list. | Bought, plus Owen's sweep | — |
@@ -223,8 +242,11 @@ writing in ai-scribe. This plan uses that spec; it doesn't define a second one.
 6. **Send:** Smartlead, manual upload. Warm-up starts 1 Dec (PR 133), so the first send is 5 Jan.
 7. **Replies and suppression:** Owen's sweep reads replies; opt-outs are set the same day.
    **Retention:** a monthly job that deletes prospect records in HubSpot and Smartlead (and the daily Gmail batches) 12 months after the last message
-   (or after creation if never emailed), keeping only `do_not_contact` emails. It must exist
-   before 5 Jan, because the privacy paragraph promises it.
+   (or after creation if never emailed), keeping only `do_not_contact` emails. **For a prospect
+   who signs up** (spec #1616, D6): the card's prospect-only fields (signals, notes) are deleted
+   within 30 days of signup; the contact and the two dates are kept for the account's life plus
+   12 months; do-not-contact is kept indefinitely. It must exist before 5 Jan, because the
+   privacy paragraph promises it.
 8. **Weekly test log.**
 9. **Job signals** (SerpApi free tier), week 3.
 10. **Automatic loading of approved rows** (D9), not before February.
