@@ -20,6 +20,14 @@ the privacy line (PR 134). It doesn't repeat either one.
   practice, your daily approve/edit/skip list, Smartlead to send, and HubSpot as the record and the
   suppression list. Only where the emails come from is still open.
 
+**Owner's answer, 27 Nov: "Go with your recs."** So:
+- **D1:** decided on Monday's numbers, by the rule in section 5.
+- **D2, D3, D8, D9 and D10:** as recommended.
+- **D4:** (a) is done; `data.cms.gov` and `download.cms.gov` are allowed and reachable as of 27 Nov. (b), the "Prospect research" environment, and the free Hunter and Apollo accounts are for you to create.
+- **D5:** the `do_not_contact` checkbox is yours to add in HubSpot (Settings → Properties). The session's HubSpot access can't create properties.
+- **D6:** drafted as a pull request on top of PR 134, with 12 months as the retention period. It goes to counsel before 5 Jan.
+- **D7:** the ad line is added to the footer in PR 133.
+
 ---
 
 ## 1. The 50-practice yield test
