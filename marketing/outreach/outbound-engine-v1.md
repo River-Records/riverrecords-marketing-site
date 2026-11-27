@@ -65,7 +65,7 @@ company's real mail (support, invoices, the app's notifications) has to keep lan
 | 9 | **Ramp** | Weeks 1–3: warm-up only, starting at 1/day and ending around 10/day. From week 4: the plan's ~10 first emails a day *in total*, spread across the mailboxes, plus their follow-ups. That is far under the usual 30-per-mailbox ceiling, which is the point. Keep warm-up running the whole time. Smartlead and Instantly both advise at least 2 weeks for new inboxes and about 4 for new domains ([Instantly](https://instantly.ai/blog/30-day-warmup-hygiene-system-for-primary-inbox/), [Smartlead](https://api.smartlead.ai/guides/email-warmup)). |
 | 10 | **Verify every list** | Run each list through a verifier before upload. Send only to addresses marked "valid", never to catch-alls in week 1. MillionVerifier costs about $3.70 per 1,000. ZeroBounce and NeverBounce cost about $7–10 per 1,000 (prices unconfirmed; check before paying). Keep bounces under 2%. |
 | 11 | **Monitoring** | Google Postmaster Tools, one property per domain (v2 shows Compliance Status; [Google](https://support.google.com/mail/answer/16594218)). Spam rate must stay **below 0.1% and never reach 0.3%** ([Google](https://support.google.com/mail/answer/14229414)). Each week, run a free blocklist lookup at [check.spamhaus.org](https://check.spamhaus.org/) and MXToolbox. |
-| 12 | **CAN-SPAM** | Every email needs a real postal address and an opt-out that actually works and is honoured within 10 business days (we'll do it the same day). The opt-out has to keep working for 30 days after sending. No misleading subject lines or headers. The penalty is up to $53,088 per email ([FTC](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business)). |
+| 12 | **CAN-SPAM** | Every email needs a real postal address and an opt-out that actually works and is honoured within 10 business days (we'll do it the same day). The opt-out has to keep working for 30 days after sending. No misleading subject lines or headers. Each email must say clearly that it is an advertisement; the footer does this ("This is a sales email from River Records."). The penalty is up to $53,088 per email ([FTC](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business)). |
 
 ### 1a. Your four domains, as their public DNS stood on 25 Nov 2026
 
@@ -441,13 +441,13 @@ single complaint is worth reading closely.
 | D4 | Unsubscribe route | **Reply "unsubscribe"**, suppressed the same day on every domain and in HubSpot. Keeps each email to one link. |
 | D5 | Change one line in `clinician-intro.md` ("outstanding … the chart") | **Yes.** Vera flagged it on 24 Nov, and the same line goes to the 1:1 intros too. |
 | D6 | Postal address in the footer | **Answered 26 Nov:** River Records Inc., 16192 Coastal Highway, Lewes, Delaware 19958, United States. It's in the footer in section 4a. The phone number you gave stays out of the footer; CAN-SPAM needs only the postal address. |
-| D7a | Ad identification in the footer (CAN-SPAM requires one) | **Answered 27 Nov:** "This is a sales email from River Records." added to the footer in section 4a. Counsel to confirm the wording (Lane; `prospecting-pipeline.md`, section 4). |
 | D7 | Is Bullpen still sending? | **Answered 26 Nov: Bullpen is done.** No overlap to manage, and no second set of UTMs to keep apart. |
 | D8 | HubSpot lists | Approve the four `Outbound v1 – …` lists by name once Owen proposes them with counts. Approval lets him research from a list. Each email still needs your yes. |
 | D9 | Record four videos | **Primary care first** (T1 can start with one type), then the rest before T3. About 10 minutes each with retakes; this isn't a measured figure. |
 | D10 | Let research reach the NPI registry | **Yes:** allow `npiregistry.cms.hhs.gov` in this cloud environment's network settings. It's one public government host. Without it, cards rely on practice websites alone. |
 | D11 | Create the four HubSpot contact properties (section 2) and reconnect HubSpot with notes and lists permissions | **Yes.** Without the properties, cards have nowhere to live. Without the reconnect, Owen can't read lists or past notes (he couldn't today). |
 | D12 | The time and "HIPAA Compliant" lines on `/for/snf/`, `/for/dpc/`, `/for/pediatrics/` (section 5) | **Review before 5 Jan.** Either soften them, or link the `/watch/` pages to `/longitudinal-patient-tracking/` instead of `/for/*`. That page carries none of them. |
+| D13 | Ad identification in the footer (CAN-SPAM requires one) | **Answered 27 Nov:** "This is a sales email from River Records." added to the footer in section 4a. Counsel to confirm the wording (Lane; `prospecting-pipeline.md`, section 4). |
 
 ---
 
