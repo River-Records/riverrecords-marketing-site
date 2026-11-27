@@ -5,8 +5,8 @@ Nothing in here sends, posts or contacts anyone.
 
 **Summary (for a phone).** Start with about **10 emails a day, each one researched and approved by
 you**. Don't start with 300–600 a week. The aim is to stop playing the email numbers game: fewer emails,
-each one obviously written to one clinician. Every prospect gets a **research card**: specialty, practice and size from the
-public NPI registry, the rest from the practice's own website. The card produces the one personal
+each one obviously written to one clinician. Every prospect gets a **research card**: specialty, credential and NPI number from the
+public NPI registry; the practice, its size, and any address, phone or fax from the practice's own website, never from the NPI listing (spec ai-scribe #1616). The card produces the one personal
 line, and it's stored in HubSpot. Record **one 60–90 second video per clinician type**: primary
 care (covering for a partner), DPC, pediatrics, post-acute. Each video goes on its own short page with a booking link.
 The email links to that page and never embeds the video. The scripts are in `video-scripts.md`, next to this file.
@@ -160,15 +160,20 @@ prospect isn't emailed today.
 | Field | Source | Notes |
 |---|---|---|
 | Name, credential | NPI registry (NPPES, public) | Match on name + state. If two records fit, stop. |
-| Specialty | NPI registry taxonomy | The primary taxonomy picks the clinician type, and therefore the video and the problem line. |
-| Practice name and address | NPI registry, then the practice website | The website wins if they disagree. NPI addresses go stale. |
-| Practice size | Count of clinicians on the website's "our team" page. NPI records at the same address as a check. | NPPES has no "works at" link, so the address count is approximate. Write "about N". Under 3 clinicians goes to the trial, not a demo ask (section 3). |
+| Practice website | The clinician's practice site | The source for most fields, and one of the three fields that cross at signup. |
+| Identity label | matched / likely / not found | Matched = the website and NPI agree on the same person. Several NPI matches = not found. Only a matched card hands anything off. |
+| Country | NPI or website | US only. Canada: no lookup and no email until counsel confirms consent. |
+| Specialty | NPI registry taxonomy | Feeds the clinician type below. |
+| Clinician type | Sorted by the spec's rule (ai-scribe #1616, section b): first fit wins, in the order post-acute setting → DPC/membership/concierge model → integrative focus → pediatric taxonomy → primary-care taxonomy → other | One of exactly six values: `post_acute`, `dpc`, `integrative`, `pediatrics`, `primary_care`, `other`. Picks the video page, the problem line and the list. `other` gets no outbound email. |
+| Practice name | Practice website, NPI registry as a check | The website wins if they disagree. |
+| Office address, phone, fax | **Practice website only, never the NPI registry** | Spec D2 (ai-scribe #1616, approved 27 Nov). The account privacy policy (PR 134) says we keep no address, phone or fax from an NPI listing, and this card stays in HubSpot after a prospect signs up, so the card can't take them from NPI either. An NPI organization phone may be used to *match* a listing to its registry entry, and is never stored: not on the card, in a report, in HubSpot or in a transcript. The card needs only the city and state for the email; the rest is optional. |
+| Practice size | Count of clinicians on the website's team page | Write "about N". No team page: leave it blank. Never from NPI records. Under 3 clinicians goes to the trial, not a demo ask (section 3). |
 | Practice model | Website | Insurance-based, DPC/membership, concierge, hybrid. |
 | Who they see | Website | Adults, children or both; any stated focus (complex chronic, geriatrics, newborns, nursing-home rounds). |
 | EHR, if the site names one | Website (patient portal links often show it) | For our context only, never mentioned in the email. We don't pitch against the EHR. |
 | Something they did or said | Website: a clinician bio, a post, a talk, a newsletter | This is where the personal line usually comes from. |
 | **Personal line** | Written from the fields above | One sentence. Quote nothing you can't link to. |
-| Source links | — | A URL for every fact on the card. |
+| Source links | — | A URL and the date read for every fact on the card. |
 | Test version, video page | Assigned before research (section 6) | e.g. `T1-A`, `/watch/primary-care/` |
 | Outcome | Filled in later | No reply / reply: positive, not now, no, unsubscribe / demo booked / bounced |
 
@@ -178,7 +183,7 @@ personal social media, reviews by patients, or anything about a patient. Don't f
 your practice's page on why you went membership-only" beats "I'm impressed by your work". If it
 would feel odd said across a table at a conference, it's out.
 
-**Where it lives.** HubSpot, on the contact. Four contact properties, which you create once
+**Where it lives.** HubSpot, on the contact. Five contact properties, which you create once
 (Settings → Properties). The names must match exactly:
 
 | Internal name | Type | Holds |
@@ -186,6 +191,7 @@ would feel odd said across a table at a conference, it's out.
 | `outreach_research_card` | Multi-line text | The card, as plain text, with its source links |
 | `outreach_personal_line` | Single-line text | The line that was sent |
 | `outreach_test_arm` | Single-line text | e.g. `T1-A` |
+| `clinician_type` | Dropdown | Internal values exactly `post_acute`, `dpc`, `integrative`, `pediatrics`, `primary_care`, `other` (spec #1616). Stream will use the same six, so don't rename or add one here first. |
 | `outreach_outcome` | Dropdown | The outcome values above |
 
 Nothing from a card goes in this repo, a PR or an issue. The test log (section 6) holds counts
@@ -194,8 +200,7 @@ only.
 **One access gap.** This session couldn't reach the NPI registry's public API
 (`npiregistry.cms.hhs.gov`, refused 26 Nov). For Owen or the session to look prospects up, that one
 host has to be allowed in this cloud environment's network settings (section 7, D10). Until then,
-cards are built from the practice website alone. That works, but the specialty and size fields
-are less reliable.
+cards are built from the practice website alone. That works, but the specialty, credential and NPI number are missing or less reliable, and no card can be labelled *matched*, so none hands anything off at signup.
 
 ---
 
@@ -206,16 +211,15 @@ Follow-ups (emails 2 and 3) go only to people who haven't replied, in the same t
 10 a day for the first month. Raise it only if you're approving faster than prospects get
 researched, and never past what you can read yourself.
 
-**Clinician types, one video each.** These come from `gtm/problem-first-messaging.md` and the
-`/for/*` pages:
+**Clinician types, one video each.** The six types and the sorting rule are defined in ai-scribe #1616, section (b); marketing never adds one. Five have a list here; `other` gets none. The lead problems below come from `gtm/problem-first-messaging.md` and the `/for/*` pages:
 
 | Type | Lead problem | Video page | Note |
 |---|---|---|---|
-| Independent primary care / IM, 3–10 clinicians | Covering for a partner: finding their plan for a patient | `/watch/primary-care/` | The core of the field sheets |
-| DPC / membership | A long relationship carried in your head, which doesn't transfer | `/watch/dpc/` | Never pitch time saved; they built the practice around time with patients |
-| Pediatrics | The history a family assumes you'll remember from one well visit to the next | `/watch/pediatrics/` | |
-| Post-acute (SNF / LTC) | Residents seen by several clinicians across shifts; what gets lost at handoff | `/watch/post-acute/` | Email the attending or medical director, not the facility. The SNF page's ask is a demo, and so is this one. |
-| Integrative / complex chronic (adults and children) | The intake: years of outside records from many subspecialists, each of whom saw one system | `/for/complex-chronic/` (no video yet) | Never pitch time saved. Added 27 Nov when the owner lifted the referral-only rule; kit due Monday. |
+| Primary care: FM, IM, GP and their NPs/PAs (`primary_care`); the list filters to 3–10 clinicians | Covering for a partner: finding their plan for a patient | `/watch/primary-care/` | The core of the field sheets |
+| DPC / membership (`dpc`) | A long relationship carried in your head, which doesn't transfer | `/watch/dpc/` | Never pitch time saved; they built the practice around time with patients |
+| Pediatrics (`pediatrics`) | The history a family assumes you'll remember from one well visit to the next | `/watch/pediatrics/` | |
+| Post-acute (SNF / LTC) (`post_acute`) | Residents seen by several clinicians across shifts; what gets lost at handoff | `/watch/post-acute/` | Email the attending or medical director, not the facility. The SNF page's ask is a demo, and so is this one. |
+| Integrative / complex chronic (adults and children) (`integrative`) | The intake: years of outside records from many subspecialists, each of whom saw one system | `/for/complex-chronic/` (no video yet) | Never pitch time saved. Added 27 Nov when the owner lifted the referral-only rule; kit due Monday. |
 
 The 24 Nov version left SNF out because it's a demo-led sale to a different buyer. At 10 a day,
 researched one at a time, that concern is handled by choosing the person carefully, so it's back
@@ -228,7 +232,7 @@ variant) is part of Monday's kits, and Vera checks it before anything is sent.
 
 **Don't email:** health-system-owned groups or practices with an IT department; anyone who needs
 EHR write-back or SOC 2 to sign; current customers; open deals; anyone emailed in the last 14
-days; anyone marked do-not-contact. Solo clinicians are fine to research, but the ask is the trial,
+days; anyone marked do-not-contact; anyone outside the US (Canada needs counsel first; spec #1616 rule a1). Solo clinicians are fine to research, but the ask is the trial,
 not a demo.
 
 **HubSpot lists.** You approve each by name in `approved-lists.md`. Owen proposes them with
@@ -446,10 +450,10 @@ single complaint is worth reading closely.
 | D5 | Change one line in `clinician-intro.md` ("outstanding … the chart") | **Yes.** Vera flagged it on 24 Nov, and the same line goes to the 1:1 intros too. |
 | D6 | Postal address in the footer | **Answered 26 Nov:** River Records Inc., 16192 Coastal Highway, Lewes, Delaware 19958, United States. It's in the footer in section 4a. The phone number you gave stays out of the footer; CAN-SPAM needs only the postal address. |
 | D7 | Is Bullpen still sending? | **Answered 26 Nov: Bullpen is done.** No overlap to manage, and no second set of UTMs to keep apart. |
-| D8 | HubSpot lists | Approve the four `Outbound v1 – …` lists by name once Owen proposes them with counts. Approval lets him research from a list. Each email still needs your yes. |
+| D8 | HubSpot lists | Approve the five `Outbound v1 – …` lists by name once Owen proposes them with counts. Approval lets him research from a list. Each email still needs your yes. |
 | D9 | Record four videos | **Primary care first** (T1 can start with one type), then the rest before T3. About 10 minutes each with retakes; this isn't a measured figure. |
 | D10 | Let research reach the NPI registry | **Yes:** allow `npiregistry.cms.hhs.gov` in this cloud environment's network settings. It's one public government host. Without it, cards rely on practice websites alone. |
-| D11 | Create the four HubSpot contact properties (section 2) and reconnect HubSpot with notes and lists permissions | **Yes.** Without the properties, cards have nowhere to live. Without the reconnect, Owen can't read lists or past notes (he couldn't today). |
+| D11 | Create the five HubSpot contact properties (section 2) and reconnect HubSpot with notes and lists permissions | **Yes.** Without the properties, cards have nowhere to live. Without the reconnect, Owen can't read lists or past notes (he couldn't today). |
 | D12 | The time and "HIPAA Compliant" lines on `/for/snf/`, `/for/dpc/`, `/for/pediatrics/` (section 5) | **Review before 5 Jan.** Either soften them, or link the `/watch/` pages to `/longitudinal-patient-tracking/` instead of `/for/*`. That page carries none of them. |
 | D13 | Ad identification in the footer (CAN-SPAM requires one) | **Answered 27 Nov:** "This is a sales email from River Records." added to the footer in section 4a. Counsel to confirm the wording (Lane; `prospecting-pipeline.md`, section 4). |
 
@@ -466,11 +470,8 @@ single complaint is worth reading closely.
 4. A suppression rule: anyone who opts out on any domain is marked do-not-contact in HubSpot the
    same day, and Owen checks that flag before every batch.
 
-**Two pieces going to engineering in ai-scribe (today, not built here):**
-- **New-signup research and welcome draft.** When someone signs up for the trial, a research
-  card like section 2's is built for them, along with a welcome email drafted for you to send.
-  It's the same "researched, personal, you approve it" idea, applied to people who came to us.
-  The card format here should be the one it uses, so that HubSpot holds one kind of card.
+**Two pieces with engineering in ai-scribe (not built here):**
+- **Signup research and setup: now specified in ai-scribe #1616 (approved 27 Nov).** The card and Stream share one practice profile (its section a). At the first verified login, only the website, NPI number, clinician type and any do-not-contact cross into Stream, as proposals. Only the signup date and the first-note date come back to HubSpot. The new-signup research and welcome draft (ai-scribe #1607) was merged to main on 26 Nov. It isn't released yet.
 - **The app's dropped visitor id** (`docs/APP-RR-VID-TICKET.md`). The site already sends `rr_vid`
   on every signup link; as of 28 Sep the app dropped it. Until that's fixed, a trial started from one of
   these emails links back to the email only if the UTM survived the click. At about 50 emails a
