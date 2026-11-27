@@ -215,12 +215,16 @@ researched, and never past what you can read yourself.
 | DPC / membership | A long relationship carried in your head, which doesn't transfer | `/watch/dpc/` | Never pitch time saved; they built the practice around time with patients |
 | Pediatrics | The history a family assumes you'll remember from one well visit to the next | `/watch/pediatrics/` | |
 | Post-acute (SNF / LTC) | Residents seen by several clinicians across shifts; what gets lost at handoff | `/watch/post-acute/` | Email the attending or medical director, not the facility. The SNF page's ask is a demo, and so is this one. |
+| Integrative / complex chronic (adults and children) | The intake: years of outside records from many subspecialists, each of whom saw one system | `/for/complex-chronic/` (no video yet) | Never pitch time saved. Added 27 Nov when the owner lifted the referral-only rule; kit due Monday. |
 
 The 24 Nov version left SNF out because it's a demo-led sale to a different buyer. At 10 a day,
 researched one at a time, that concern is handled by choosing the person carefully, so it's back
-in with its own video. **Integrative / complex chronic stays referral-only.** Email only people
-already in HubSpot, use the `/for/complex-chronic/` page, and don't record a video for it yet. The
-segment is small and moves physician to physician.
+in with its own video. **Integrative / complex chronic: the referral-only rule was lifted by the owner on 27 Nov**
+("Lift the rule"). It can be emailed cold like the other types, from its own approved list. Three
+things carry over from the site's rules for `/for/complex-chronic/`: the email links to that page,
+which leads with taking in outside records; it never pitches time saved; and it is written for
+adult *and* paediatric integrative practices. No video yet. Its kit (problem line, email 2
+variant) is part of Monday's kits, and Vera checks it before anything is sent.
 
 **Don't email:** health-system-owned groups or practices with an IT department; anyone who needs
 EHR write-back or SOC 2 to sign; current customers; open deals; anyone emailed in the last 14
@@ -229,7 +233,7 @@ not a demo.
 
 **HubSpot lists.** You approve each by name in `approved-lists.md`. Owen proposes them with
 counts:
-`Outbound v1 – PC/IM 3-10` · `Outbound v1 – DPC` · `Outbound v1 – Peds` · `Outbound v1 – Post-acute`.
+`Outbound v1 – PC/IM 3-10` · `Outbound v1 – DPC` · `Outbound v1 – Peds` · `Outbound v1 – Post-acute` · `Outbound v1 – Integrative`.
 Each excludes customers, open deals, unsubscribes and anyone emailed in the last 14 days. At 10 a
 day, 50–100 contacts per list covers the first month. Approving a list lets Owen *research and
 prepare* from it. Each email still needs your approval by name.
