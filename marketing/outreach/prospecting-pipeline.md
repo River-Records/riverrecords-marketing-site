@@ -13,9 +13,10 @@ the privacy line (PR 134). It doesn't repeat either one.
   health system or a corporate group, not primary care, or not operating.
 - **The test is incomplete.** This session can't open ordinary websites, so the step most
   likely to find an email, reading the practice's own site, was never tried.
-- **Next:** re-run the test on Monday with three changes: a list from Medicare's files instead
-  of the registry, practice websites reachable, and the free tiers of two email vendors run on
-  the same practices. Then decide public sources versus a vendor on real numbers.
+- **Next:** re-run the test on Monday with three changes: start from local search and match to
+  the registry by phone (your idea, section 1b), make practice websites reachable, and run the
+  free tiers of two email vendors on the same practices. Then decide public sources versus a
+  vendor on real numbers.
 - **What to build** is unchanged by the result: a finder script, an agent that researches each
   practice, your daily approve/edit/skip list, Smartlead to send, and HubSpot as the record and the
   suppression list. Only where the emails come from is still open.
@@ -24,9 +25,10 @@ the privacy line (PR 134). It doesn't repeat either one.
 - **D1:** decided on Monday's numbers, by the rule in section 5.
 - **D2, D3, D8, D9 and D10:** as recommended.
 - **D4:** (a) is done; `data.cms.gov` and `download.cms.gov` are allowed and reachable as of 27 Nov. (b), the "Prospect research" environment, and the free Hunter and Apollo accounts are for you to create.
-- **D5:** the `do_not_contact` checkbox is yours to add in HubSpot (Settings → Properties). The session's HubSpot access can't create properties.
-- **D6:** drafted as a pull request on top of PR 134, with 12 months as the retention period. It goes to counsel before 5 Jan.
-- **D7:** the ad line is added to the footer in PR 133.
+- **D5:** the `do_not_contact` checkbox is yours to add in HubSpot (Settings → Properties). The session's HubSpot access can't create properties (Owen).
+- **D6:** drafted as a pull request on top of PR 134. 12 months is used unless you choose otherwise; the policy and the retention job (section 3) must match. It goes to counsel before 5 Jan.
+- **D7:** the ad line is added to the footer in PR 133 (its D13).
+- **New, 27 Nov: start from search, then match to the NPI registry** (your idea). Section 1b; it replaces the Medicare-list re-run.
 
 ---
 
@@ -113,18 +115,49 @@ the privacy line (PR 134). It doesn't repeat either one.
   question. The cost is agent time, not your time, because you only see the rows that made it. **The
   number that decides it is the email yield on practice websites, which nobody has measured.**
 
+### 1b. Search first, then the NPI registry (owner's idea, 27 Nov)
+
+Start from what a local search finds ("family medicine in Chattanooga, TN"), then match each
+result to the NPI registry. Search finds practices that are operating and have a web presence,
+which are the ones likely to publish an email. The registry then supplies what search can't:
+owner, specialty, registration date, and whether another organization shares the number.
+
+**A probe on 27 Nov** (two searches, four registry lookups; counts only):
+- **Plain web search mostly returns directories and health-system clinics.** For "primary care
+  Chattanooga", that was Vitals and WebMD pages plus two hospital systems. For "integrative
+  medicine Dallas", one health system was near the top. **Local business listings (maps) are
+  the better source**, because each carries the practice's own website and phone.
+- **Matching by phone is what catches ownership.** The one independent-looking Chattanooga
+  practice matched its registry record by name and phone. **A second organization shares its
+  phone**: a large regional group, registered in 2024, with a provider-enrolment coordinator
+  signing. That looks like an acquisition. Search alone wouldn't have shown it.
+- **Matching by name is unreliable.** One of three Dallas practices matched by name, because
+  trade names differ from legal names. The registry's API can't search by phone, so the finder
+  loads the registry's monthly file (`download.cms.gov`, reachable since 27 Nov) and looks
+  phones up locally.
+
+**Which listings service is open.** Google's Places API is reachable from this session, but its
+terms may limit storing anything beyond Google's place ID. Quinn is checking those terms and
+prices, and the alternatives (OpenStreetMap, Foursquare's open dataset, Yelp). If storage is
+restricted, Places is used only to find the website. The stored facts then come from the
+practice's own site and the registry.
+
 ### The re-run (Monday, one session)
 
-1. **List.** About 50 Texas independent primary care practices of 3–10 clinicians, taken from
-   Medicare's Doctors and Clinicians file. That needs data.cms.gov allowed (D4).
-2. **Website access.** Practice websites reachable (D4).
+1. **List, search first.** 25 primary care practices in Chattanooga, from local listings,
+   matched to the registry by phone. Plus 25 in Dallas: integrative practices if you lift the
+   referral-only rule for that segment (D11), primary care if not.
+2. **Website access.** The "Prospect research" environment (D4b), so the practices' own sites
+   can be read. A Maps key, requested through the secure form, if Quinn's check says Places is
+   usable.
 3. **The same research, plus the free tiers of Hunter and Apollo** on the same qualified
    practices, so public-source and vendor yield are compared on one list. This costs nothing:
    both have free tiers, and you create the accounts. Use the domain search. Lane's reading, not in the
    research file: avoid name-guessing "email finder" features, which come close to what CAN-SPAM
    calls a dictionary attack.
 4. **Report** per practice: own-site email yield (named, role or form), vendor yield, verifier
-   result, and minutes with site reading. Then D1 is decided on those numbers.
+   result, how many matched the registry by phone, how many the match disqualified, and minutes
+   with site reading. Then D1 is decided on those numbers.
 
 ---
 
@@ -137,7 +170,7 @@ writing in ai-scribe. This plan uses that spec; it doesn't define a second one.
 
 | Step | What | Bought or built | Where it runs |
 |---|---|---|---|
-| **Find** | Monthly: Medicare's Doctors and Clinicians file plus the reassignment list → independent groups of 3–10 primary care clinicians in the chosen states; the NPI registry's monthly file for phone, fax, authorized official and new registrations. Reuses the September pipeline. | Built (a script) | **A private repo** (ai-scribe or a new one), never this public repo. Writes new practices to HubSpot as companies. |
+| **Find** | Local business listings by city and clinician type (section 1b), matched by phone to the NPI registry's monthly file for owner, specialty, registration date and shared numbers. Medicare's Doctors and Clinicians file gives group size, and new registrations are a second, smaller feed. Reuses the September pipeline's Medicare reader. | Built (a script) | **A private repo** (ai-scribe or a new one), never this public repo. Writes new practices to HubSpot as companies. |
 | **Qualify** | Rules in the script (health-system names, subparts, parent organizations, clinicians who also bill under a large group), then the agent's website check. Drop customers, open deals and do-not-contact. | Built | Script, then agent |
 | **Enrich** | The practice's website, the email on it (or a vendor's, per D1), phone, fax. Verify the email (Reoon or MillionVerifier, a few dollars per thousand). | Agent, plus a verifier (bought) | Research session that can open websites |
 | **Research** | The research card from PR 133 (section 2), plus the signals: newly opened, hiring a clinician, hiring a referral or office manager, taking new patients. Each with a source link. One personal line. | Agent | Same session; card stored on the HubSpot record |
@@ -169,7 +202,7 @@ writing in ai-scribe. This plan uses that spec; it doesn't define a second one.
    - The privacy paragraph for prospects (D6).
    - The ad-identification line in the sequence (D7).
 2. **Mon 30 Nov: the re-run** (section 1). It decides D1.
-3. **Finder v1** in the private repo: Texas, primary care, monthly, writing to HubSpot. Smaller than
+3. **Finder v1** in the private repo: search first (section 1b), primary care, monthly, writing to HubSpot. Smaller than
    it sounds, because it reuses the September pipeline; not estimated. Needs D4 and D8.
 4. **Research routine:** a skill that takes N practices from HubSpot, researches each one, and
    writes the card. Built on the signup researcher (`signup-researcher` in ai-scribe), so the
@@ -177,6 +210,9 @@ writing in ai-scribe. This plan uses that spec; it doesn't define a second one.
 5. **Daily list:** Owen's morning batch to you, as designed in PR 133.
 6. **Send:** Smartlead, manual upload. Warm-up starts 1 Dec (PR 133), so the first send is 5 Jan.
 7. **Replies and suppression:** Owen's sweep reads replies; opt-outs are set the same day.
+   **Retention:** a monthly job that deletes prospect records 12 months after the last message
+   (or after creation if never emailed), keeping only `do_not_contact` emails. It must exist
+   before 5 Jan, because the privacy paragraph promises it.
 8. **Weekly test log.**
 9. **Job signals** (SerpApi free tier), week 3.
 10. **Automatic loading of approved rows** (D9), not before February.
@@ -209,7 +245,7 @@ The full table with sources is in ai-scribe, `docs/research/prospecting-data-sou
   - Harvesting alone isn't a violation. It turns any other slip into treble damages.
 - **NPPES data** is public, with no marketing restriction that Quinn could find. Medicare's
   files are public-domain government data, but data.cms.gov says some datasets may carry
-  license agreements, and its terms page couldn't be opened; check it once the host is allowed.
+  license agreements, and its terms page couldn't be opened; its terms page is reachable since 27 Nov but renders only in a browser, so it is still unread. Read it before the finder ships.
 - **State privacy laws:** California is the only one that covers people at work. Its law
   applies only above thresholds River Records appears not to meet; counsel to confirm (ad pixels
   count as "sharing"). Data-broker laws need a sale, except Texas, whose revenue tests we don't meet.
@@ -230,6 +266,11 @@ The full table with sources is in ai-scribe, `docs/research/prospecting-data-sou
   > months of our last message, keeping only your email on a do-not-contact list if you opt
   > out. To opt out or ask for deletion, reply "unsubscribe" or email hello@riverrecords.ai.
 
+  The version in the pull request on top of PR 134 corrects this draft: it names the services
+  that hold the data for us instead of "we do not sell or share it", lists the research notes and
+  email outcomes it keeps, and starts the 12 months at creation for anyone never emailed. That
+  version governs.
+
   The PR 134 paragraph already opens with "When a Stream account is created for you", so each
   paragraph covers one group.
 
@@ -241,14 +282,15 @@ The full table with sources is in ai-scribe, `docs/research/prospecting-data-sou
 |---|---|---|
 | D1 | **Emails: public sources only, or a vendor** | **Decide after Monday's re-run.** If the practices' own sites give a usable email for at least about a third of qualified practices, stay public-only. If not, buy **Hunter Starter** ($49/month, monthly, 2,000 credits; price from snippets, check before paying), with Apollo's free tier as the comparison. Not Definitive Healthcare (quote-only, estimated $25k–60k a year) or IQVIA OneKey (quote-only, built for pharma). Not bought lists (not researched; registry records already go stale, as the test showed). Doximity doesn't sell its data. |
 | D2 | **The approval model** | **One list a day, approve, edit or skip per row**, as PR 133 designed: a Gmail draft to you only, with each card above its email. Up to 10 rows a day in the first month. New here: approving a row also sets a HubSpot property, which becomes the only thing that lets a row be sent. Approval by rule ("send every row that meets X") only after two months, and only if you rarely skip. |
-| D3 | **Where to start** | **Independent primary care, 3–10 clinicians, Texas.** In the test, Texas kept 11 of 25 practices through the exclusions and New Jersey kept 6, because so much of New Jersey primary care is now system-owned. The Texas sample covers names A–C only, so Monday's re-run (about 50 Texas practices from Medicare's files, not limited by name) is the first check; revisit after the first month. Add a second state after the first month, not now. |
-| D4 | **Network access for research** | **Yes, two changes.** (a) Allow `data.cms.gov` and `download.cms.gov` in this environment, so the finder can read Medicare's files and the registry's monthly file. (b) A separate personal environment, "Prospect research", whose network can open any website. Only the research routine uses it, because practice websites can't be listed in advance. You create (b) in Settings; the session tools can only add named hosts. |
+| D3 | **Where to start** | **Independent primary care, 3–10 clinicians, Texas.** In the test, Texas kept 11 of 25 practices through the exclusions and New Jersey kept 6, because so much of New Jersey primary care is now system-owned. The Texas sample covers names A–C only, and the search-first re-run (section 1b) moves the test to Chattanooga and Dallas. Treat the state as open until Monday's numbers; revisit, and add a second state, after the first month. |
+| D4 | **Network access for research** | **Yes, two changes.** **(a) Done 27 Nov.** Allow `data.cms.gov` and `download.cms.gov` in this environment, so the finder can read Medicare's files and the registry's monthly file. (b) A separate personal environment, "Prospect research", whose network can open any website. Only the research routine uses it, because practice websites can't be listed in advance. You create (b) in Settings; the session tools can only add named hosts. |
 | D5 | **A do-not-contact property in HubSpot** | **Yes.** Owen found none. Today only 8 contacts carry HubSpot's own unsubscribe flag (Owen), probably because almost nothing is sent through HubSpot marketing email. A "please stop" reply to a one-to-one email would otherwise never be recorded. One checkbox, `do_not_contact`, set the same day, and checked before every batch. |
-| D6 | **The privacy paragraph for prospects** | **Yes, before 5 Jan**, with Lane's draft in section 4. **Choose the retention period**; 12 months is a placeholder, and the policy and the practice must match. Have counsel read it with the items in section 4. |
+| D6 | **The privacy paragraph for prospects** | **Yes, before 5 Jan**, with Lane's draft in section 4. **Choose the retention period**; 12 months is in the draft, and the policy and the practice must match. Have counsel read it with the items in section 4. |
 | D7 | **An ad-identification line in the three emails** | **Yes.** CAN-SPAM requires one and the sequence has none. Suggested footer line, for counsel: "This is a sales email from River Records." It goes in the footer, so the body still reads as one person writing to another. |
 | D8 | **Where the finder runs** | **ai-scribe** (private), as `tools/prospecting/`, or a new private repo. Never this public repo: its Actions logs are public, and a prospect list must not end up in one. Move the September pipeline there; it holds code, no data. |
 | D9 | **When approved rows load into Smartlead automatically** | **Not before February.** It would take three things: a Smartlead API key saved as a network secret; a loader that adds only rows carrying your approval property; and a change to the team's rule from "never sends" to "loads only rows you approved by name". That is sensible after four weeks of manual sending with bounces under 2%, no spam complaints, and every opt-out suppressed the same day. Until then you upload the CSV yourself, once a day. |
 | D10 | **Postal letters to new practices** | **Optional, try 5 in January.** The three likely-new practices in the test (one confirmed) had no email, and fax is out. CAN-SPAM and the fax rules don't apply to a letter. A short signed letter to a physician who just opened their own practice is the channel that fits. Not costed. |
+| D11 | **Integrative practices in the Dallas re-run** | The site's standing rule keeps complex-chronic and integrative referral-only: email only people already in HubSpot. A re-run is test data, not sending, so it doesn't break the rule. **Recommendation:** include Dallas integrative in the re-run to measure it, and keep the rule for sending until you decide otherwise. |
 
 ---
 
