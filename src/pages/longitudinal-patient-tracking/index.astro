@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'Doesn’t my EHR already have a problem list?',
-    a: 'Yes, and it is useful as a list. What it usually does not hold is the history behind each entry — every plan, why it changed, what is outstanding — without opening notes in date order. Stream files each visit’s Assessment & Plan under its problem so that history is one view. Some EHRs do more of this than others, so the fairest test is the questions on this page, asked of your own workflow.',
+    a: 'Yes, and it is useful as a list. Stream files each visit’s Assessment & Plan under its problem, so the history behind each entry, every plan and why it changed, is one view. The fairest test is the questions on this page, asked of your own workflow.',
   },
   {
     q: 'What is problem-based charting?',
@@ -146,11 +146,11 @@ table.lpt-table td:first-child { color: var(--ink); font-family: var(--font-seri
       <h2>What Stream does instead</h2>
       <p>Stream builds the same system as a side effect of documenting. Each visit’s note carries an Assessment &amp; Plan for every problem, and each one is filed under its problem. There is no summary to maintain, because the structure is the summary.</p>
       <ul class="lpt-steps">
-        <li><span>Before the visit</span><div><a href="/features/huddle/">Huddle</a> shows active problems, problems that have fallen off your attention for ten months or more, and compliance flags.</div></li>
+        <li><span>Before the visit</span><div><a href="/features/huddle/">Huddle</a> shows active problems and the ones that haven’t come up in recent visits.</div></li>
         <li><span>During it</span><div>Record ambiently or dictate. Anything you jot in the Scratchpad lands in the right section of the note.</div></li>
         <li><span>Across visits</span><div>Open a problem and read every plan written for it, in order — your chart, not AI output. Recap adds an AI-generated summary when you want one.</div></li>
-        <li><span>After it</span><div>Follow-up tasks come out of the signed note, so the plan doesn’t depend on anyone remembering it. <a href="/features/task-management/">Task management</a></div></li>
-        <li><span>From outside</span><div>Faxes and uploads are filed as excerpts under the problems they’re about, each linked to the page it came from. <a href="/intake/">Outside records</a></div></li>
+        <li><span>After it</span><div>Stream suggests follow-up tasks from the visit, and you keep the ones you want. Tracking each plan item through to completion is in <a href="/referral-tracking/">early access</a>. <a href="/features/task-management/">Task management</a></div></li>
+        <li><span>From outside</span><div>Faxes and uploads are summarized when they come in. Filing what they say under the right problem, linked to the page it came from, is something we’re turning on practice by practice. <a href="/intake/">Outside records</a></div></li>
       </ul>
 
       <h2>The handoff is where it shows</h2>
@@ -163,9 +163,9 @@ table.lpt-table td:first-child { color: var(--ink); font-family: var(--font-seri
         <tbody>
           <tr><td>When did you last change her levothyroxine, and why?</td><td>Open notes until you find it, or trust your summary.</td><td>Open the problem: every plan for it, in order.</td></tr>
           <tr><td>Which of today’s patients has a problem nobody has touched in a year?</td><td>Re-read each chart before clinic.</td><td>Huddle’s falling-off view, before the visit.</td></tr>
-          <tr><td>The A1c in Tuesday’s cardiology fax: is it in her diabetes plan?</td><td>Someone reads it and retypes what matters.</td><td>An excerpt under diabetes, linked to its page.</td></tr>
+          <tr><td>The A1c in Tuesday’s cardiology fax: is it in her diabetes plan?</td><td>Someone reads it and retypes what matters.</td><td>A summary of the fax; where outside-record filing is on, an excerpt under diabetes, linked to its page.</td></tr>
           <tr><td>You’re covering for a partner. What was the plan for this patient’s CKD?</td><td>Decode your partner’s notes.</td><td>The same problem view your partner sees.</td></tr>
-          <tr><td>The follow-ups you planned last month: which happened?</td><td>Memory, or a list you keep yourself.</td><td>Tasks generated from the signed note.*</td></tr>
+          <tr><td>The follow-ups you planned last month: which happened?</td><td>Memory, or a list you keep yourself.</td><td>The follow-up tasks you kept from Stream’s suggestions after the visit.*</td></tr>
         </tbody>
       </table>
       <p class="lpt-footnote">* Tracking each plan item through to completion is in <a href="/referral-tracking/">early access</a>.</p>
