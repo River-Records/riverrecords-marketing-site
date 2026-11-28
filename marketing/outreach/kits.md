@@ -1,5 +1,7 @@
 # Outbound kits: primary care, DPC, pediatrics, post-acute
 
+**Vera, 28 Nov 2026: PASS on the second read** (round 1 failed on the `/watch/` build note, the "more" link, two DPC lines, the post-acute handoff line and "90 seconds"; all fixed in her wording).
+
 **Draft, 28 Nov 2026. Penn (copy), for Vera (claims) and the owner.** Internal working doc. Nothing
 in here sends, posts or builds anything.
 
@@ -46,15 +48,24 @@ Build once the Loom link exists, about an hour each (`outbound-engine-v1.md` sec
 
 - Add the video to `src/config/videos.ts` under the kit's key; render it with `LoomEmbed`
   (click-to-play, so `video_play` fires and nothing loads from Loom until play).
-- `Page` layout with `noindex`. Add `/watch/` to the sitemap filter in `astro.config`, which
-  today excludes only `/product-overview/`.
+- Give each `videos.ts` entry a person-facing title (the page title), never the Loom key, because
+  `LoomEmbed` renders it.
+- Say 90 seconds only once that video's duration in `videos.ts` is 1:30 or under. Until then, the
+  page and email say "a short video".
+- `Base` layout with `noindex`, as `/product-overview/` does, not `Page`. `Page` always renders the
+  offer banner (trial and price) and the nav's 'Start free trial', which would put a second ask on a
+  one-ask page. Put `data-rr-read="product"` on `<main>` by hand, as `/comparison/freedai/` does.
+- Add `/watch/` to the sitemap filter in `astro.config`, which today excludes only
+  `/product-overview/`.
 - Two sentences under the video, one button, one quiet "more" link. Nothing else.
 - Before the first send: make `/book-demo/` pass the stored `utm_content`, so a booking carries
   its test arm (section 5's recommendation). Check with `?rr_debug=1`.
 - **The "more" link and D12.** Each kit gives the matching `/for/*` page and the
-  `/longitudinal-patient-tracking/` alternative. That page carries none of the lines the scripts
-  avoid, and its "What Stream is not" box is the limits section. Until D12 is decided, I'd link all
-  four to `/longitudinal-patient-tracking/`. One snag: its title says "for Primary Care", which
+  `/longitudinal-patient-tracking/` alternative. That page is the safer click, but it isn't clean
+  yet: it states outside-record filing as done and gives Huddle's removed ten-month floor. Those
+  are fixed in a separate draft PR (`claude/marketing-lpt-filing`). Link all four kits to it once
+  that merges. Email 2 in every kit already links there, so no email 2 goes out before that merge.
+  One snag: its title says "for Primary Care", which
   reads oddly to a post-acute or pediatric reader. It's still the safer click.
 
 ---
@@ -83,7 +94,7 @@ Record first (D9). Loom key to add to `src/config/videos.ts`: `primary-care`.
 ### `/watch/primary-care/` page copy
 
 - **`<title>`:** The plan was in your partner's head | Stream
-- **Meta description:** Ninety seconds from Jake Kantrowitz, MD, on covering for a partner: every
+- **Meta description:** A short video from Jake Kantrowitz, MD, on covering for a partner: every
   Assessment and Plan filed under its problem, in order, with who wrote each one. Works alongside
   any EHR.
 - **H1:** The plan was in your partner's head.
@@ -94,9 +105,11 @@ Record first (D9). Loom key to add to `src/config/videos.ts`: `primary-care`.
 - **More link:** "More on Stream for primary care" → `/for/primary-care/`. **Not recommended
   as it stands, and D12 misses it.** That page has "2+ hours per day on documentation… unless the
   notes write themselves", "Pre-charting takes seconds, not minutes", "Faster notes" in its meta,
-  a "HIPAA Compliant" proof strip, and an "Automatic Task Tracking" cell. Alternative, and my
-  recommendation: "How the problem view works" → `/longitudinal-patient-tracking/`, which is
-  written for primary care already.
+  a "HIPAA Compliant" proof strip, and an "Automatic Task Tracking" cell. Vera also found "leave
+  the office on time", "remembers… everything", "start in minutes", "updates your chart
+  automatically", outside-record filing stated as done, and a HIPAA item in the hero.
+  **Recommended:** "How the problem view works" → `/longitudinal-patient-tracking/`, once
+  `claude/marketing-lpt-filing` merges.
 
 ### Email lines
 
@@ -104,7 +117,7 @@ Record first (D9). Loom key to add to `src/config/videos.ts`: `primary-care`.
   difference between the patients you remember and the rest.
 - **`{clinician_type_plural}`:** primary care doctors. *New, for Vera:* use "primary care
   clinicians" when the card's credential is NP or PA, since this type includes them.
-- **Video sentence (email 1, video arm):** I recorded 90 seconds on what that looks like for
+- **Video sentence (email 1, video arm):** I recorded a short video on what that looks like for
   primary care doctors:
   https://www.riverrecords.ai/watch/primary-care/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e1
   Or just reply.
@@ -152,7 +165,7 @@ Script (b), "Six years with one patient", `video-scripts.md`. **Status: not reco
 ### `/watch/dpc/` page copy
 
 - **`<title>`:** Six years with one patient | Stream
-- **Meta description:** Ninety seconds from Jake Kantrowitz, MD, for membership practices: every
+- **Meta description:** A short video from Jake Kantrowitz, MD, for membership practices: every
   plan you've written for a problem, in order, with a Recap alongside. Works alongside any EHR, or
   on its own.
 - **H1:** Six years with one patient.
@@ -162,16 +175,18 @@ Script (b), "Six years with one patient", `video-scripts.md`. **Status: not reco
 - **Button:** Book 20 minutes → `/book-demo/`
 - **More link:** "More on Stream for membership practices" → `/for/dpc/`. D12: its proof strip
   says "HIPAA Compliant", its FAQ says "fully HIPAA compliant", and it has an "Automatic Task
-  Tracking" cell ("nothing falls through between visits"). Alternative: "How the problem view
-  works" → `/longitudinal-patient-tracking/`.
+  Tracking" cell ("nothing falls through between visits"). Vera also found outside-record filing
+  stated as done, and a HIPAA item in the hero.
+  **Recommended:** "How the problem view works" → `/longitudinal-patient-tracking/`, once
+  `claude/marketing-lpt-filing` merges.
 
 ### Email lines
 
 - **`{practice_type_line}`**, *new, for Vera* (today DPC shares the primary care line): In a
-  membership practice, that history is the relationship you built the practice around, and most of
-  it lives in your head.
+  membership practice, that's the relationship you built the practice around, and most of it lives
+  in your head.
 - **`{clinician_type_plural}`:** membership practices.
-- **Video sentence:** I recorded 90 seconds on what that looks like for membership practices:
+- **Video sentence:** I recorded a short video on what that looks like for membership practices:
   https://www.riverrecords.ai/watch/dpc/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e1
   Or just reply.
 - **Email 2**, *new, for Vera.* Two versions; Owen picks from the card. Many DPC practices are one
@@ -184,7 +199,7 @@ Script (b), "Six years with one patient", `video-scripts.md`. **Status: not reco
   >
   > One question I should have led with: when a new partner joins and picks up a patient you've carried for six years, how do they find your plan for her diabetes? Usually it means reading years of notes.
   >
-  > In Stream, each visit's Assessment & Plan is filed under its problem. A new partner opens the same problem view you do, with who wrote each entry. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
+  > In Stream, each visit's Assessment & Plan is filed under its problem, from the first visit you document in it. A new partner opens the same problem view you do, with who wrote each entry. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
   >
   > If this isn't useful, tell me and I won't write again.
   >
@@ -194,9 +209,9 @@ Script (b), "Six years with one patient", `video-scripts.md`. **Status: not reco
 
   > Hi {first_name},
   >
-  > One question I should have led with: for the patient you haven't seen in eight months, where do you find your last plan for her A1c? Usually it's the summary at the top of an old note, and it's gone stale.
+  > One question I should have led with: for the patient you haven't seen in eight months, where do you find your last plan for her diabetes? Usually it's the summary at the top of an old note, and it's gone stale.
   >
-  > In Stream, each visit's Assessment & Plan is filed under its problem. Open the problem and every plan you've written for it is there, in order. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
+  > In Stream, each visit's Assessment & Plan is filed under its problem. Open the problem and every plan you've written for it in Stream is there, in order. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
   >
   > If this isn't useful, tell me and I won't write again.
   >
@@ -245,7 +260,7 @@ Loom key: `pediatrics`.
 ### `/watch/pediatrics/` page copy
 
 - **`<title>`:** "So, the speech thing we talked about" | Stream
-- **Meta description:** Ninety seconds from Jake Kantrowitz, MD, for pediatricians: each visit
+- **Meta description:** A short video from Jake Kantrowitz, MD, for pediatricians: each visit
   filed under the problems it touches, so a feeding concern or a milestone question shows its
   trajectory. Works alongside any EHR.
 - **H1:** "So, the speech thing we talked about."
@@ -257,8 +272,10 @@ Loom key: `pediatrics`.
   proof strip and FAQ. Two more for Vera: the page leads with well-visit tracking, which the
   script cut because it ships switched off on 1 Dec (the page phrases it as turned on per account,
   so this may be fine, but the video and the page would disagree on what leads); and its "Outside
-  records, filed" cell states filing as done, where the script says practice by practice.
-  Alternative: "How the problem view works" → `/longitudinal-patient-tracking/`.
+  records, filed" cell states filing as done, where the script says practice by practice. Vera
+  also found "Automatic task tracking" and "audit any row in about four seconds".
+  **Recommended:** "How the problem view works" → `/longitudinal-patient-tracking/`, once
+  `claude/marketing-lpt-filing` merges.
 
 ### Email lines
 
@@ -266,7 +283,7 @@ Loom key: `pediatrics`.
   family assumes you'll remember from one well visit to the next.
 - **`{clinician_type_plural}`:** pediatricians. *New, for Vera:* "pediatric clinicians" when the
   card's credential is NP or PA.
-- **Video sentence:** I recorded 90 seconds on what that looks like for pediatricians:
+- **Video sentence:** I recorded a short video on what that looks like for pediatricians:
   https://www.riverrecords.ai/watch/pediatrics/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e1
   Or just reply.
 - **Email 2:** section 4a's version with "a child's asthma" in place of "a patient's CKD" (Vera
@@ -313,38 +330,40 @@ recorded.** Loom key: `post-acute`.
 ### `/watch/post-acute/` page copy
 
 - **`<title>`:** Every admission started somewhere else | Stream
-- **Meta description:** Ninety seconds from Jake Kantrowitz, MD, for clinicians in post-acute
+- **Meta description:** A short video from Jake Kantrowitz, MD, for clinicians in post-acute
   care: outside records summarized on upload, and each rounding visit's plan filed under its
   problem, with who wrote each one.
 - **H1:** Every admission started somewhere else.
 - **Under the video:** Stream summarizes the discharge summary and outside records you upload, and
-  files each rounding visit's Assessment and Plan under its problem, so whoever rounds next reads
+  files each rounding visit's Assessment and Plan under its problem, so whoever in your group rounds next reads
   every plan for it, in order, with who wrote each one. Your EHR keeps the record; Stream keeps the
   project.
 - **Button:** Book 20 minutes → `/book-demo/`
 - **More link:** "More on Stream for post-acute care" → `/for/snf/`. D12, and the worst of the
   four: "in minutes" in the hero, "Not hours. Not days. Minutes.", "Notes are done before you leave
   the room", "takes hours", "HIPAA Compliant" proof strip. It also states problem extraction from a
-  discharge summary as done, where the script says practice by practice. Alternative:
-  "How the problem view works" → `/longitudinal-patient-tracking/`.
+  discharge summary as done, where the script says practice by practice. Vera also found
+  "Automatic Task Tracking", "Within a couple of minutes" and "Every open loop is captured".
+  **Recommended:** "How the problem view works" → `/longitudinal-patient-tracking/`, once
+  `claude/marketing-lpt-filing` merges.
 
 ### Email lines
 
 - **`{practice_type_line}`** (unchanged, `clinician-intro.md`): With residents seen by several
   clinicians across shifts, it's the part that gets lost at handoff.
 - **`{clinician_type_plural}`:** clinicians in post-acute care.
-- **Video sentence:** I recorded 90 seconds on what that looks like for clinicians in post-acute
+- **Video sentence:** I recorded a short video on what that looks like for clinicians in post-acute
   care:
   https://www.riverrecords.ai/watch/post-acute/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e1
   Or just reply.
 - **Email 2:** section 4a's structure with the round-on-a-colleague line. The first sentence is
-  from 4a and still awaits Vera; the second-paragraph swap is *new, for Vera*:
+  from 4a; Vera checked it 28 Nov. The second-paragraph swap is in her wording:
 
   > Hi {first_name},
   >
   > One question I should have led with: when you round on a colleague's residents, how do you find their plan for a resident's heart failure? Usually it means decoding their notes.
   >
-  > In Stream, each visit's Assessment & Plan is filed under its problem. Whoever rounds next opens the same problem view, with who wrote each entry. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
+  > In Stream, each visit's Assessment & Plan is filed under its problem. Whoever in your group rounds next opens the same problem view, with who wrote each entry. This page lays it out, including what Stream doesn't do: https://www.riverrecords.ai/longitudinal-patient-tracking/?utm_source=outreach&utm_medium=email&utm_campaign=outbound-v1&utm_content=<arm>-e2
   >
   > If this isn't useful, tell me and I won't write again.
   >
